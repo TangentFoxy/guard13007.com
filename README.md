@@ -1,4 +1,4 @@
 Guard13007.com
 ==============
 
-I am going do host done website here now do yeah.
+This repository is for my main website, go [here](http://guard13007.com/) instead of reading this.
