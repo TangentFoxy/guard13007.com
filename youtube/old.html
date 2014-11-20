@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Guard13007 - the YouTubes</title>
+	<style>
+		* {
+			margin: 0px;
+			padding:0px;
+		}
+		body {
+			background: #DDE;
+		}
+		h1 {
+			margin: 10px;
+			text-align: center;
+			color: #235;
+			font-size: 1.5em;
+			font-family: Arial;
+		}
+		.container {
+			margin: 0px auto;
+		}
+		#latestVid {
+			margin: 10px;
+			margin-left: 8.5%;
+			margin-right: 8.5%;
+			text-align: center;
+			font-size: 2em;
+		}
+		#latestVid iframe {
+			width: 100%;
+			margin:auto;
+		}
+		#thumbnails {
+			width:90%;
+			margin: 20px auto;
+		}
+		.thumb {
+			float: left;
+			margin:0.666%;
+			width:32%;
+			overflow: hidden;
+		}
+		.thumb a img {
+			width: 100%;
+			margin-top: -8%;
+			margin-bottom: -10%;
+		}
+	</style>
+	<script>
+		videoLoaded=false;
+		//get videos
+		function showVideo(response){
+			latest=document.getElementById('latestVid');
+			//if parameter (specified video) exist, load it
+			var parameter=location.href.search("\\?");
+			if (parameter!=-1){
+				var videoID=location.href.substring(parameter+1);
+				if (videoID.length>0)
+					insertVideo(videoID);
+			}
+			//process YouTube info
+			if (response.data && response.data.items){
+				videos=response.data.items;
+				if (videos.length>0){
+					var thumbs=document.getElementById('thumbnails');
+					if (!videoLoaded){
+						//if no video loaded, insert latest, load rest as thumbnails
+						insertVideo(videos[0].id);
+						for (var i=1;i<videos.length;i++)
+							insertThumbnail(thumbs,i);
+					} else {
+						//else just load thumbnails (all except last)
+						var added=0;
+						for (var i=0;i<videos.length;i++)
+							if (videos[i].id!=videoLoaded && added<48) {
+								insertThumbnail(thumbs,i);
+								added++;
+							}
+					}
+				} else {
+					latest.innerHTML="Could not load videos, please refresh. If the problem persists, email me at <a href='mailto:GuardAlmostGames@gmail.com'>GuardAlmostGames@gmail.com</a> to get it resolved.";
+				}
+			} else {
+				latest.innerHTML="Could not load videos, please refresh. If the problem persists, email me at <a href='mailto:GuardAlmostGames@gmail.com'>GuardAlmostGames@gmail.com</a> to get it resolved.";
+			}
+			//check if video is valid and error if it is not
+			var valid=httpGet("https://gdata.youtube.com/feeds/api/videos/"+videoLoaded);
+			if (valid=="Invalid id") latest.innerHTML="The video you have specified is not valid.";
+		}
+
+		//automatically resize main video as needed
+		window.onresize=function(){
+			frame.height=latest.offsetWidth/16*9;
+		}
+
+		//http GET request
+		function httpGet(url){
+			var xmlHttp=new XMLHttpRequest();
+			xmlHttp.open("GET",url,false); //blocks until response received!!
+			xmlHttp.send();
+			return xmlHttp.responseText;
+		}
+
+		//insert a video into the "latest" container
+		function insertVideo(videoID){
+			latest.innerHTML="<iframe height='"+latest.offsetWidth/16*9+
+				"' src='http://www.youtube.com/embed/"+videoID+
+				"' frameborder='0' allowfullscreen></iframe>";
+			frame=document.getElementsByTagName('iframe')[0];
+			videoLoaded=videoID;
+		}
+		//insert a thumbnail into a container
+		function insertThumbnail(container,i){
+			container.innerHTML+="<div class='thumb'><a href='"+
+				location.href.substring(0,location.href.search("\\?"))+"?"+videos[i].id+
+				"'><img src='http://img.youtube.com/vi/"+videos[i].id+"/0.jpg' /></a></div>";
+		}
+	</script>
+</head>
+<body>
+	<h1>Guard13007 - The YouTubes</h1>
+	<div class="container">
+		<div id="latestVid"></div>
+	</div>
+	<div class="container">
+		<div id="thumbnails"></div>
+	</div>
+	<script type="text/javascript" src="https://gdata.youtube.com/feeds/api/users/Guard13007/uploads?max-results=49&orderby=published&v=2&alt=jsonc&callback=showVideo"></script>
+</body>
+</html>
