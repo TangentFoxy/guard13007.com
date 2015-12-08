@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Guard13007 - the YouTubes</title>
+	<style>
+		* {margin:0px; padding:0px; font-family:Arial;}
+		body {background: #DDE;}
+		h1 {
+			text-align: center;
+			color: #235;
+			font-size: 1.5em;
+		}
+		h1 a {text-decoration: none;}
+		.container {margin: 0px auto;}
+		#latestVid {
+			margin: 10px;
+			margin-left: 12%;
+			margin-right: 12%;
+			text-align: center;
+			font-size: 2em;
+		}
+		#latestVid iframe {
+			width: 100%;
+			margin:auto;
+		}
+		#latestVid p {
+			background: white;
+			padding: 10px;
+			text-align: left;
+			font-size: 0.54em;
+		}
+		#thumbnails {
+			width:90%;
+			margin: 20px auto;
+		}
+		.thumb {
+			float: left;
+			margin:0.666%;
+			width:32%;
+			overflow: hidden;
+		}
+		.thumb a img {
+			width: 100%;
+			margin-top: -10%;
+			margin-bottom: -10%;
+		}
+	</style>
+	<script>
+		videoLoaded=false;
+		//if parameter (specified video) exists, load it
+		var parameter=location.href.search("\\?");
+		if (parameter!=-1){
+			var videoID=location.href.substring(parameter+1);
+			if (videoID.length>0) {
+				var v=document.createElement('script');
+				v.src="https://www.googleapis.com/youtube/v3/videos?part=snippet&id="+videoID+"&fields=items&key=AIzaSyAUmc7Dy-26VLK_c3e4rbnxSPMU_qI4J1w&callback=specificVideo";
+				document.getElementsByTagName('head')[0].appendChild(v);
+			}
+		}
+		function specificVideo(response){
+			latest=document.getElementById('latestVid');
+			if (response.items.length==0) {
+				latest.innerHTML="The video you have specified is not valid.";
+				videoLoaded="error:invalid";
+				return;
+			}
+			response.items[0].snippet.resourceId={};
+			response.items[0].snippet.resourceId.videoId=location.href.substring(location.href.search("\\?")+1);
+			insertVideo(response.items[0].snippet);
+		}
+		//get videos and show them
+		function showVideo(response){
+			latest=document.getElementById('latestVid');
+			//process YouTube info
+			if (response.items){
+				videos=response.items;
+				if (videos.length>0){
+					var thumbs=document.getElementById('thumbnails');
+					if (!videoLoaded){
+						//if no video loaded, insert latest, load rest as thumbnails
+						insertVideo(videos[0].snippet);
+						for (var i=1;i<videos.length;i++)
+							insertThumbnail(thumbs,i);
+					} else {
+						//else just load thumbnails (all except last)
+						var added=0;
+						for (var i=0;i<videos.length;i++)
+							if (videos[i].snippet.resourceId.videoId!=videoLoaded && added<48) {
+								insertThumbnail(thumbs,i);
+								added++;
+							}
+					}
+				} else {
+					latest.innerHTML="Could not load videos, please refresh. If the problem persists, email me at <a href='mailto:GuardAlmostGames@gmail.com'>GuardAlmostGames@gmail.com</a> to get it resolved.";
+				}
+			} else {
+				latest.innerHTML="Could not load videos, please refresh. If the problem persists, email me at <a href='mailto:GuardAlmostGames@gmail.com'>GuardAlmostGames@gmail.com</a> to get it resolved.";
+			}
+		}
+		//automatically resize main video as needed
+		window.onresize=function(){
+			frame.height=latest.offsetWidth/16*9;
+		}
+		//insert a video into the "latest" container
+		function insertVideo(snippet){
+			latest.innerHTML=/*"<h2>"+snippet.title+"</h2>"+*/
+				"<iframe height='"+latest.offsetWidth/16*9+
+				"' src='http://www.youtube.com/embed/"+snippet.resourceId.videoId+
+				"' frameborder='0' allowfullscreen></iframe>"+
+				"<p>"+processDescription(snippet.description)+"</p>";
+			frame=document.getElementsByTagName('iframe')[0];
+			videoLoaded=snippet.resourceId.videoId;
+		}
+		//insert a thumbnail into a container
+		function insertThumbnail(container,i){
+			container.innerHTML+="<div class='thumb'><a href='"+
+				location.href.substring(0,location.href.search("\\?"))+"?"+
+				videos[i].snippet.resourceId.videoId+"'><img src='http://img.youtube.com/vi/"+
+				videos[i].snippet.resourceId.videoId+"/0.jpg' /></a></div>";
+		}
+		//process description
+		function processDescription(desc){
+			desc=desc.linkify();
+			return desc.replace(/(?:\r\n|\r|\n)/g, '<br />');
+			//return desc.replace(urlRegexDetect, '');
+		}
+		//Travis' Linkify modified, dunno exact source: https://stackoverflow.com/questions/37684/how-to-replace-plain-urls-with-links
+		if(!String.linkify) {
+			String.prototype.linkify = function() {
+				// http://, https://, ftp://
+				var urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
+				// www. sans http:// or https://
+				var pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+				var emailAddressPattern = /\w+@[a-zA-Z_]+?(?:\.[a-zA-Z]{2,6})+/gim;
+				return this
+					.replace(urlPattern, '<a href="$&">$&</a>')
+					.replace(pseudoUrlPattern, '$1<a href="http://$2">$2</a>')
+					.replace(emailAddressPattern, '<a href="mailto:$&">$&</a>');
+			};
+		}
+	</script>
+</head>
+<body>
+	<h1>Guard13007 - The <a href="http://youtube.com/guard13007">YouTubes</a></h1>
+	<div class="container">
+		<div id="latestVid"></div>
+	</div>
+	<div class="container">
+		<div id="thumbnails"></div>
+	</div>
+	<script type="text/javascript" src="https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=49&playlistId=UUZZ-RBp_D-a-JIuKDykhegA&fields=items&key=AIzaSyAUmc7Dy-26VLK_c3e4rbnxSPMU_qI4J1w&callback=showVideo"></script>
+</body>
+</html>
