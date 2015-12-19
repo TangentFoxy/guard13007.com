@@ -17,7 +17,7 @@ div.poll {
 }
 iframe {
   width: 100%;
-  height: 100%;
+  height: 99%; /* 100% is more than 100% because fuck css :( */
 }
 /*iframe{width:600px; height:auto; border:0;}
 li{margin-left:20px;}*/
