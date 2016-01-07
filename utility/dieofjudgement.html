@@ -17,24 +17,29 @@
     <script>
         function roll() {
             var d6 = Math.floor(Math.random() * 6);
-            var result;
+            var result, image;
             switch(d6) {
                 case 0:
                 case 1:
                 case 2:
                     result = "Ashens - You must wait until another day.";
+					image = "ashens.png";
                     break;
                 case 3:
                 case 4:
                     result = "Chef Excellence - The item in question is worthy.";
+					image = "chef.png";
                     break;
                 case 5:
                     result = "Silver Skull - The item in question must <b><i>burn</i></b>.<br />(If the item in question is digital, you must print it out and burn it.)";
+					images = "skull.png";
                     break;
                 default:
                     result = "Amazingly, you managed to roll a six-sided die, and get a 7th result. Contact <a href='https://twitter.com/Lomeli12_'>@Lomeli12_</a> for help, as he once managed to make an array contain -1 items, and is equally likely to understand what the fuck is going on as you.";
+					image = "lomeli.png";
             }
             document.getElementById("output").innerHTML = result;
+			document.getElementById("image").src = "img/" + image;
         }
     </script>
 </head>
@@ -49,6 +54,11 @@
                     <span id="output">Click "Roll"</span>
                 </td>
             </tr>
+			<tr>
+				<td colspan=2 style="text-align: center; vertical-align: middle;">
+					<img src="img/blank.png" style="width:300px;height:300px;" id="image">
+				</td>
+			</tr>
         </tbody>
     </table>
 </body>
