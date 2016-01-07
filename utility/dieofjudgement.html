@@ -1,0 +1,52 @@
+<!--3 apathy ashens
+2 chef excellence
+1 silver skull-->
+<html>
+<head>
+    <title>Die of Judgement</title>
+
+    <link rel="stylesheet" href="../css/pure-min-0.6.0.css">
+    
+    <style>
+        .centered {
+            margin: auto;
+            max-width: 600px;
+        }
+    </style>
+    
+    <script>
+        function roll() {
+            var d6 = Math.floor(Math.random() * 6);
+            var result;
+            switch(d6) {
+                case 0:
+                case 1:
+                case 2:
+                    result = "Ashens - You must wait until another day.";
+                case 3:
+                case 4:
+                    result = "Chef Excellence - The item in question is worthy.";
+                case 5:
+                    result = "Silver Skull - The item in question must <b><i>burn</i></b>.<br />(If the item in question is digital, you must print it out and burn it.)";
+                default:
+                    result = "Amazingly, you managed to roll a six-sided die, and get a 7th result. Contact <a href='https://twitter.com/Lomeli12_'>@Lomeli12_</a> for help, as he once managed to make an array contain -1 items, and is equally likely to understand what the fuck is going on as you.";
+            }
+            document.getElementById("output").innerHTML = result;
+        }
+    </script>
+</head>
+<body>
+    <table class="pure-table pure-table-bordered centered">
+        <tbody>
+            <tr>
+                <td>
+                    <button class="pure-button" onclick="javascript:roll();" title="Roll the Die of Judgement">Roll</button>
+                </td>
+                <td>
+                    <span id="output">Click "Roll"</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
