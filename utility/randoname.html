@@ -14,9 +14,13 @@
     <script>
         function generate() {
             var numCharacters = Math.floor(Math.random() * 6) + 2;
+
             var result = "";
+
             for (i = 0; i < numCharacters; i++) {
+
                 var character = Math.floor(Math.random() * 37);
+
                 switch(character) {
                     case 0:
                     case 1:
@@ -111,6 +115,7 @@
                         result += "ERROR";
                 }
             }
+
             document.getElementById("output").innerHTML = result;
         }
     </script>

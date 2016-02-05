@@ -1,23 +1,26 @@
-<!--3 apathy ashens
-2 chef excellence
-1 silver skull-->
-<html style="background:black;color:white;">
+<html>
 <head>
     <title>Die of Judgement</title>
 
     <link rel="stylesheet" href="../css/pure-min-0.6.0.css">
-    
+
     <style>
+        html {
+            background: black;
+            color: white;
+        }
         .centered {
             margin: auto;
             width: 600px;
         }
     </style>
-    
+
     <script>
         function roll() {
             var d6 = Math.floor(Math.random() * 6);
+
             var result, image;
+
             switch(d6) {
                 case 0:
                 case 1:
@@ -25,17 +28,20 @@
                     result = "Ashens - You must wait until another day.";
 					image = "ashens.png";
                     break;
+
                 case 3:
                 case 4:
                     result = "Chef Excellence - The item in question is worthy.";
 					image = "chef.png";
                     break;
+
                 case 5:
-                    result = "Silver Skull - The item in question must <b><i>burn</i></b>.<br />(If the item in question is digital, you must print it out and burn it.)";
+                    result = "Silver Skull - The item in question must <b><i>burn<\/i><\/b>.<br \/>(If the item in question is digital, you must print it out and burn it.)";
 					image = "skull.png";
                     break;
+
                 default:
-                    result = "Amazingly, you managed to roll a six-sided die, and get a 7th result. Contact <a href='https://twitter.com/Lomeli12_'>@Lomeli12_</a> for help, as he once managed to make an array contain -1 items, and is equally likely to understand what the fuck is going on as you.";
+                    result = "Amazingly, you managed to roll a six-sided die, and get a 7th result. Contact <a href='https://twitter.com/Lomeli12_'>@Lomeli12_<\/a> for help, as he once managed to make an array contain -1 items, and is equally likely to understand what the fuck is going on as you.";
 					image = "lomeli.png";
             }
             document.getElementById("output").innerHTML = result;
@@ -55,6 +61,8 @@
                 </td>
             </tr>
 			<tr>
+                <!-- I am far too lazy to move the styling information into CSS,
+                  but not too lazy to complain about being too lazy to do it. -->
 				<td colspan=2 style="text-align: center; vertical-align: middle;">
 					<img src="img/blank.png" style="width:300px;height:300px;" id="image">
 				</td>
