@@ -6,10 +6,12 @@
 }
 body {
   background: #323232;
+  overflow: hidden;
 }
 div.return {
-  float: left;
-  margin: 10px;
+  position: absolute;
+  background: rgba(50,50,50,0.8);
+  padding: 10px;
 }
 div.poll {
   margin: auto;
@@ -25,5 +27,5 @@ a {
   color: white;
 }
 a:hover {
-  color: white;
+  color: #7777FF;
 }
