@@ -1,0 +1,11 @@
+/* My name is Paul*/
+
+
+* {
+    vertical-align: baseline;
+}
+
+// this will work, but NEVER HAVE A COMMENT LIKE THIS
+// I used to do this because someone taught me wrong. :(
+
+/* this is a correct comment */
