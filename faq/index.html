@@ -1,0 +1,77 @@
+<html>
+<head>
+    <title>Frequently Asked Questions</title>
+
+    <link rel="stylesheet" href="../css/pure-min-0.6.0.css"/>
+
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #EEE;
+        }
+
+        #container {
+            margin: auto;
+            margin-top: 0.8em;
+            width: 80%;
+            min-width: 620px;
+            max-width: 1000px;
+            padding: 0.5em;
+            background: #FFF;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        dl {
+            counter-reset: item1;
+            display: block;
+            width: 90%;
+        }
+        dt:before {
+            counter-increment: item1;
+            content: counter(item1) ". ";
+        }
+        dt {
+            font-weight: bold;
+            margin-top: 0.5em;
+            font-size: 1.1em;
+        }
+        dd {
+            margin-bottom: 0.6em;
+            font-size: 1.05em;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Frequently Asked Questions</h1>
+
+        <p>I get asked some questions a lot more often than others...so here are those answers:</p>
+
+        <hr/>
+
+        <h2>YouTube</h2>
+
+        <dl>
+            <dt>What are your computer's specs?</dt>
+            <dd>
+                <ul>
+                    <li><b>CPU</b>: FX-6300 (6-core 3.5 GHz AMD)</li>
+                    <li><b>GPU</b>: HD-7850 (1 GB VRAM, AMD)</li>
+                    <li><b>RAM</b>: 16 GB DDR3 (1600 MHz or whatever)</li>
+                    <li><b>SSD</b>: Samsung Evo 840 something (250 GB)</li>
+                    <li><b>HDD</b>: WD Blue 1 TB 7200rpm 64 MB cache (x2)</li>
+                </ul>
+            </dd>
+
+            <dt>Why do you say "Kerbal Space-gram" instead of "Kerbal Space Program"?</dt>
+            <dd>I say "pro" very quiet and fast. In combination with the bassy sound of "pro" and my post-processing to remove background noise (which is also bassy), this makes the "pro" usually inaudible. If you <a href="images/exhibit-a.png" target="_blank">look at the waveforms</a> though, you can see it's there.</dd>
+        </dl>
+    </div>
+</body>
+</html>
