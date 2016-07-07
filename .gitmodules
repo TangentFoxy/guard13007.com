@@ -1,3 +1,0 @@
-[submodule "experiments/submodule-test"]
-	path = experiments/submodule-test
-	url = git@github.com:Guard13007/submodule-test.git
