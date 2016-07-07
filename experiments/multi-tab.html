@@ -28,6 +28,7 @@
   <script>
     function set(id) {
       var input = document.getElementById("t" + id).elements[0].value;
+      input = input.substring(input.lastIndexOf("/") + 1);
       document.getElementById("f" + id).src = "http://www.youtube.com/embed/" + input;
       return false;
     }
@@ -51,9 +52,9 @@
   </script>
 </head>
 <body>
-  <div><iframe id="f1" src="http://www.youtube.com/embed/DNnvoBkh1_8"></iframe><span><form id="t1"><input type="text"><button onclick="return set(1)">S</button></form></span></div>
-  <div><iframe id="f2" src="http://www.youtube.com/embed/0gSStqheYhQ"></iframe><span><form id="t2"><input type="text"><button onclick="return set(2)">S</button></form></span></div>
-  <div><iframe id="f3" src="http://www.youtube.com/embed/Ak52pzPRfuo"></iframe><span><form id="t3"><input type="text"><button onclick="return set(3)">S</button></form></span></div>
-  <div><iframe id="f4" src="http://www.youtube.com/embed/ZZ6O4BkwFcM"></iframe><span><form id="t4"><input type="text"><button onclick="return set(4)">S</button></form></span></div>
+  <div><iframe id="f0" src="http://www.youtube.com/embed/DNnvoBkh1_8"></iframe><span><form id="t0"><input type="text"><button onclick="return set(0)">S</button></form></span></div>
+  <div><iframe id="f1" src="http://www.youtube.com/embed/0gSStqheYhQ"></iframe><span><form id="t1"><input type="text"><button onclick="return set(1)">S</button></form></span></div>
+  <div><iframe id="f2" src="http://www.youtube.com/embed/Ak52pzPRfuo"></iframe><span><form id="t2"><input type="text"><button onclick="return set(2)">S</button></form></span></div>
+  <div><iframe id="f3" src="http://www.youtube.com/embed/ZZ6O4BkwFcM"></iframe><span><form id="t3"><input type="text"><button onclick="return set(3)">S</button></form></span></div>
 </body>
 </html>
