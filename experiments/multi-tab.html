@@ -48,6 +48,7 @@
         data[i] = tmp.substring(tmp.lastIndexOf("/") + 1);
       }
       localStorage.setItem("video_ids", JSON.stringify(data));
+      return false; // ?!?
     }
   </script>
 </head>
