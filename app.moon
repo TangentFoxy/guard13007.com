@@ -5,11 +5,12 @@ import respond_to from require "lapis.application"
 class extends lapis.Application
     [update: "/update"]: respond_to {
         GET: =>
-            -- do fuck all
+            return 404
         POST: =>
-            print "all the shit!"
-            --and then actually run commands
-            os.execute("pwd > /root/file")
+            os.execute("git pull origin")
+            os.execute("moonc .")
+            os.execute("lapis migrate production")
+            os.execute("lapis build production")
     }
 
     "/": =>
