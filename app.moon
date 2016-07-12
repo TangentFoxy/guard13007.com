@@ -11,6 +11,7 @@ class extends lapis.Application
             os.execute("moonc .")
             os.execute("lapis migrate production")
             os.execute("lapis build production")
+            return 200
     }
 
     "/": =>
