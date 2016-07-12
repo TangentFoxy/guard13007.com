@@ -5,13 +5,13 @@ import respond_to from require "lapis.application"
 class extends lapis.Application
     [update: "/update"]: respond_to {
         GET: =>
-            return 404
+            return status: 404
         POST: =>
             os.execute("git pull origin")
             os.execute("moonc .")
             os.execute("lapis migrate production")
             os.execute("lapis build production")
-            return 200
+            return status: 200
     }
 
     "/": =>
