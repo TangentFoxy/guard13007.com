@@ -1,0 +1,12 @@
+[Unit]
+Description=guard13007.com Lapis server
+
+[Service]
+Type=forking
+WorkingDirectory=/root/Servers/guard13007.com
+ExecStart=/usr/local/bin/lapis server production
+ExecReload=/usr/local/bin/lapis build production
+ExecStop=/usr/local/bin/lapis term
+
+[Install]
+WantedBy=multi-user.target
