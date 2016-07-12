@@ -2,7 +2,7 @@ This file is essentially notes and commands to run to set this server up.
 
 1. Create an Ubuntu server, latest LTS version.
 
-2. Point DNS at the correct IP (it should be an A Record with an `@` symbol).
+2. Point DNS at the correct IP (there should be an A Record with an `@` symbol and another for `www`).
 
 2. Install basics:
    ```bash
@@ -22,9 +22,10 @@ This file is essentially notes and commands to run to set this server up.
    #chmod a+x ./certbot-auto
    #./certbot-auto
    # continue as above, but with ./certbot-auto
+   # Note: I have but certbot-auto in /bin for easy access
    ```
 
-5. Setup NGINX as a proxy. (todo: ref modified version somewhere)
+5. Setup NGINX as a proxy. See [my example config](https://gist.github.com/Guard13007/6367954d09af931c9f3314ed1f6adf4f) on this.
 
 6. Install OpenResty/LuaRocks/Lapis/etc:
    ```bash
@@ -47,6 +48,9 @@ This file is essentially notes and commands to run to set this server up.
    cd ..
    ```
 
+7. Make database(s) for PostgeSQL.
+   ToDo: Write this bit (use https://github.com/Guard13007/KSS/blob/dev2/README.md for ref)
+
 7. Clone the repo, set the server to automatically start when the server goes online:
    ```
    git clone https://github.com/Guard13007/guard13007.com.git
@@ -56,6 +60,6 @@ This file is essentially notes and commands to run to set this server up.
    moonc .
    lapis migrate production
    lapis server production
-   # DO THE AUTO SHIT HERE
-   # TODO FIGURE OUT HOW DO REST
+   crontab -e
+   # add this: @reboot cd /path/to/install && lapis server production
    ```
