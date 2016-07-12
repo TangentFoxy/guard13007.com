@@ -14,10 +14,6 @@ class extends lapis.Application
             return status: 200
     }
 
-    "/test": =>
-        @html ->
-            h1 "I am fully functional ;)"
-
     "/": =>
         @html ->
             p ->
