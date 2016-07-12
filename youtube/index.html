@@ -105,7 +105,7 @@
 		function insertVideo(snippet){
 			latest.innerHTML=/*"<h2>"+snippet.title+"</h2>"+*/
 				"<iframe height='"+latest.offsetWidth/16*9+
-				"' src='http://www.youtube.com/embed/"+snippet.resourceId.videoId+
+				"' src='https://www.youtube.com/embed/"+snippet.resourceId.videoId+
 				"' frameborder='0' allowfullscreen></iframe>"+
 				"<p>"+processDescription(snippet.description)+"</p>";
 			frame=document.getElementsByTagName('iframe')[0];
@@ -115,7 +115,7 @@
 		function insertThumbnail(container,i){
 			container.innerHTML+="<div class='thumb'><a href='"+
 				location.href.substring(0,location.href.search("\\?"))+"?"+
-				videos[i].snippet.resourceId.videoId+"'><img src='http://img.youtube.com/vi/"+
+				videos[i].snippet.resourceId.videoId+"'><img src='https://img.youtube.com/vi/"+
 				videos[i].snippet.resourceId.videoId+"/0.jpg' /></a></div>";
 		}
 		//process description
@@ -134,14 +134,14 @@
 				var emailAddressPattern = /\w+@[a-zA-Z_]+?(?:\.[a-zA-Z]{2,6})+/gim;
 				return this
 					.replace(urlPattern, '<a href="$&">$&</a>')
-					.replace(pseudoUrlPattern, '$1<a href="http://$2">$2</a>')
+					.replace(pseudoUrlPattern, '$1<a href="https://$2">$2</a>')
 					.replace(emailAddressPattern, '<a href="mailto:$&">$&</a>');
 			};
 		}
 	</script>
 </head>
 <body>
-	<h1>Guard13007 - The <a href="http://youtube.com/guard13007">YouTubes</a></h1>
+	<h1>Guard13007 - The <a href="https://youtube.com/guard13007">YouTubes</a></h1>
 	<div class="container">
 		<div id="latestVid"></div>
 	</div>
