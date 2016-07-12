@@ -7,10 +7,10 @@ class extends lapis.Application
         GET: =>
             return status: 404
         POST: =>
-            os.execute("git pull origin")
-            os.execute("moonc .")
-            os.execute("lapis migrate production")
-            os.execute("lapis build production")
+            os.execute("git pull origin >> TESTOUT")
+            os.execute("moonc . >> TESTOUT")
+            os.execute("lapis migrate production >> TESTOUT")
+            os.execute("lapis build production >> TESTOUT")
             return status: 200
     }
 
