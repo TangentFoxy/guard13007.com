@@ -9,7 +9,7 @@ This file is essentially notes and commands to run to set this server up.
    apt-get update
    apt-get install screen
    screen
-   apt-get install nginx tree
+   apt-get install nginx tree htop
    apt-get install letsencrypt      # might not work?
    apt-get install wget curl nano   # these should already be installed
    ```
@@ -59,7 +59,9 @@ This file is essentially notes and commands to run to set this server up.
    nano ./secret.moon                       # fix the secrets!
    moonc .
    lapis migrate production
-   lapis server production
-   crontab -e
-   # add this: @reboot cd /path/to/install && lapis server production
+   # NOTE: Assumes this repo was cloned into /root/Servers/guard13007.com, modify the .service file if this is not true!
+   cp ./guard13007com.service /etc/systemd/system/guard13007com.service
+   systemctl daemon-reload
+   systemctl enable guard13007com.service
+   service guard13007com start
    ```
