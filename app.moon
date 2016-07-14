@@ -4,6 +4,7 @@ import respond_to, json_params from require "lapis.application"
 
 class extends lapis.Application
     @include "redirects"
+    @include "misc"
 
     [update: "/update"]: respond_to {
         GET: =>

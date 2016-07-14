@@ -22,7 +22,7 @@ This file is essentially notes and commands to run to set this server up.
    #chmod a+x ./certbot-auto
    #./certbot-auto
    # continue as above, but with ./certbot-auto
-   # Note: I have but certbot-auto in /bin for easy access
+   # Note: I have put certbot-auto in /bin for easy access
    ```
 
 5. Setup NGINX as a proxy. See [my example config](https://gist.github.com/Guard13007/6367954d09af931c9f3314ed1f6adf4f) on this.
