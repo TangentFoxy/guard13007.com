@@ -3,6 +3,8 @@ lapis = require "lapis"
 import respond_to, json_params from require "lapis.application"
 
 class extends lapis.Application
+    @include "redirects"
+
     [update: "/update"]: respond_to {
         GET: =>
             return status: 404
