@@ -2,7 +2,7 @@ lapis = require "lapis"
 
 class extends lapis.Application
     "/chat": =>
-        @title = Chat on Discord
+        @title = "Chat on Discord"
         @html ->
             h2 "My Discord Server"
             div ->
