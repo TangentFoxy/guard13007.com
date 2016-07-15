@@ -48,21 +48,14 @@ This file is essentially notes and commands to run to set this server up.
    cd ..
    ```
 
-7. Clone the repo, set the server to automatically start when the server goes online:
+7. Clone the repository, copy the example secrets:
    ```
    git clone https://github.com/Guard13007/guard13007.com.git
    cd guard13007.com
    cp ./secret.moon.example ./secret.moon
-   moonc .
-   lapis migrate production
-   # NOTE: Assumes this repo was cloned into /root/Servers/guard13007.com, modify the .service file if this is not true!
-   cp ./guard13007com.service /etc/systemd/system/guard13007com.service
-   systemctl daemon-reload
-   systemctl enable guard13007com.service
-   service guard13007com start
    ```
 
-7. Make database(s) for PostgeSQL, and get passwords for `secret.moon`:
+7. Make database(s) for PostgeSQL, get passwords for `secret.moon`:
    ```
    sudo -i -u postgres
    psql
@@ -71,4 +64,15 @@ This file is essentially notes and commands to run to set this server up.
    createdb guard13007com
    exit
    nano ./secret.moon                       # fix the secrets!
+   ```
+
+8. Compile MoonScript, set up database, make the service, start the server:
+   ```
+   moonc .
+   lapis migrate production
+   # NOTE: Assumes this repo was cloned into /root/Servers/guard13007.com, modify the .service file if this is not true!
+   cp ./guard13007com.service /etc/systemd/system/guard13007com.service
+   systemctl daemon-reload
+   systemctl enable guard13007com.service
+   service guard13007com start
    ```
