@@ -6,7 +6,7 @@ class extends lapis.Application
     @include "redirects"
     @include "misc"
 
-    [update: "/update"]: respond_to {
+    [githook: "/githook"]: respond_to {
         GET: =>
             return status: 404
         POST: json_params =>
