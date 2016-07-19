@@ -47,6 +47,8 @@ class extends lapis.Application
                     p ->
                         text "Picture? (URL to an image online!)"
                         input type: "text", name: "picture"
+                    p ->
+                        input type: "submit"
 
         POST: =>
             craft, errMsg = Crafts\create {
