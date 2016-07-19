@@ -85,18 +85,20 @@ class extends lapis.Application
         unless @params.page
             @params.page = 1
 
-        Paginator = Crafts\paginated "ORDEER BY id ASC", per_page: 2 --NOTE temporary super low page number for testing!
+        Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 2 --NOTE temporary super low page number for testing!
         crafts = Paginator\get_page @params.page
-        ul ->
-            for craft in crafts
+        @html ->
+            ul ->
+                for craft in crafts
+                    li ->
+                        a href: @url_for "ksp_craft", craft.id -- am I doing this bit right? Oo
                 li ->
-                    a href: @url_for "ksp_craft", craft.id -- am I doing this bit right? Oo
-            li ->
-                if @params.page > 1
-                    a href: @url_for "ksp_craft_list", @params.page - 1
-                    text " | "
-                if @params.page < Paginator\num_pages!
-                    a href: @url_for "ksp_craft_list", @params.page + 1
+                    if @params.page > 1
+                        a href: @url_for "ksp_craft_list", @params.page - 1
+                        text " | "
+                    if @params.page < Paginator\num_pages!
+                        a href: @url_for "ksp_craft_list", @params.page + 1
 
     [craft: "/craft/:id[%d]"]: =>
-        p "This page temporarily unavailable. :)"
+        @html ->
+            p "This page temporarily unavailable. :)"
