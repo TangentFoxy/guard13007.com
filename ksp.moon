@@ -26,7 +26,7 @@ class extends lapis.Application
                     h2 "Submit a craft to be reviewed!"
                     p ->
                         text "(If your craft is on "
-                        a href: "", "KerbalX"
+                        a href: "https://kerbalx.com/", "KerbalX"
                         text ", you only need to enter the craft name and a download link!)"
                     p ->
                         text "Craft Name: "
