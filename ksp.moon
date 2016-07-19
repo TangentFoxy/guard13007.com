@@ -36,9 +36,9 @@ class extends lapis.Application
                         text " Creator Name: "
                         input type: "text", name: "creator_name"
                     p "Description:"
-                    textarea rows: 4 cols: 60, name: "description"
+                    textarea rows: 4, cols: 60, name: "description"
                     p "Action Groups:"
-                    textarea rows: 2 cols: 60, name: "action_groups"
+                    textarea rows: 2, cols: 60, name: "action_groups"
                     p ->
                         text "KSP Version: "
                         input type: "text", name: "ksp_version"
