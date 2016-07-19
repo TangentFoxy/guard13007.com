@@ -9,7 +9,7 @@ class extends lapis.Application
         GET: =>
             @html ->
                 form {
-                    action: @url_for "submit_planes" --this might break!
+                    action: @url_for "ksp_submit_planes" --this might break!
                     method: "POST"
                     enctype: "multipart/form-data"
                 }, ->
