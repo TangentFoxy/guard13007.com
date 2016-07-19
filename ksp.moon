@@ -89,7 +89,7 @@ class extends lapis.Application
         crafts = Paginator\get_page @params.page
         @html ->
             ul ->
-                for craft in crafts
+                for craft in *crafts
                     li ->
                         a href: @url_for "ksp_craft", craft.id -- am I doing this bit right? Oo
                 li ->
