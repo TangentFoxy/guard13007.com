@@ -1,6 +1,6 @@
 import Model, enum from require "lapis.db.model"
 
-class Planes extends Model
+class Crafts extends Model
     @timestamp: true
 
     @status: enum {
@@ -17,7 +17,10 @@ class Planes extends Model
         download_link: (value) =>
             unless value
                 return "You must enter a download link!"
+            if Crafts\find download_link: value
+                return "That craft has already been submitted!"
             --TODO validate URL here!
+
         --description: (value) =>
         --    unless value
         --        return "You must enter a description of the craft!"
