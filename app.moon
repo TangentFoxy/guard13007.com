@@ -22,5 +22,5 @@ class extends lapis.Application
                 return { json: { status: "ignored non-master push" } }
     }
 
-    "/": =>
+    [index: "/"]: =>
         render: true
