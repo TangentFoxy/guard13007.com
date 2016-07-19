@@ -17,7 +17,6 @@ import create_table, types, drop_table from require "lapis.db.schema"
             {"episode", types.varchar}             -- video ID, internal use
             {"rejection_reason", types.text default: "not rejected"}
             {"picture", types.text}                -- URL to image or imgur album
-            --NOTE this is how imgur embeds work (I think) <blockquote class="imgur-embed-pub" lang="en" data-id="gw22T2m"><a href="//imgur.com/gw22T2m">Some of us black people are fighting for our community from within.</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 
             {"created_at", types.time}
             {"updated_at", types.time}
@@ -28,7 +27,7 @@ import create_table, types, drop_table from require "lapis.db.schema"
             {"id", types.serial primary_key: true}
             {"craft_name", types.text}
             {"download_link", types.text unique: true}
-            {"description", types.text default: "No description provided."}
+            {"description", types.text default: "No description provided."} -- NOTE this should not be here
             {"mods_used", types.text}
             {"creator_name", types.varchar}
             {"ksp_version", types.varchar}
