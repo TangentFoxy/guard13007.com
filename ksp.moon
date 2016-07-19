@@ -51,18 +51,18 @@ class extends lapis.Application
                         input type: "submit"
 
         POST: =>
-            unless @params.creator_name
-                @params.creator_name = ""
-            unless @params.description
-                @params.description = "No description provided."
-            unless @params.action_groups
-                @params.action_groups = ""
-            unless @params.ksp_version
-                @params.ksp_version = ""
-            unless @params.mods_used
-                @params.mods_used = ""
-            unless @params.picture
-                @params.picture = @build_url "/static/img/ksp_craft_no_picture.gif"
+            --unless @params.creator_name
+            --    @params.creator_name = ""
+            --unless @params.description
+            --    @params.description = "No description provided."
+            --unless @params.action_groups
+            --    @params.action_groups = ""
+            --unless @params.ksp_version
+            --    @params.ksp_version = ""
+            --unless @params.mods_used
+            --    @params.mods_used = ""
+            --unless @params.picture
+            --    @params.picture = @build_url "/static/img/ksp_craft_no_picture.gif"
 
             craft, errMsg = Crafts\create {
                 craft_name: @params.craft_name
