@@ -91,7 +91,7 @@ class extends lapis.Application
             ul ->
                 for craft in *crafts
                     li ->
-                        a href: @url_for "ksp_craft", craft.id -- am I doing this bit right? Oo
+                        --a href: @url_for "ksp_craft", craft.id -- am I doing this bit right? Oo
                 li ->
                     if @params.page > 1
                         a href: @url_for "ksp_craft_list", @params.page - 1
