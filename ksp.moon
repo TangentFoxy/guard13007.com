@@ -98,6 +98,6 @@ class extends lapis.Application
                     if page < Paginator\num_pages!
                         a href: @url_for("ksp_craft_list", page + 1), ">>"
 
-    [craft: "/craft/:id[%d]"]: =>
+    [craft: "/craft/:id[%d]/"]: =>
         @html ->
             p "This page temporarily unavailable. :)"
