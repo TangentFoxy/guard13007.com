@@ -92,6 +92,7 @@ class extends lapis.Application
                     li ->
                         a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
                 li ->
+                    --TODO better links, better formatting, different paginators for different statuses
                     if page > 1
                         a href: @url_for("ksp_craft_list", page - 1), "<<"
                         text " | "
@@ -100,26 +101,17 @@ class extends lapis.Application
 
     [craft: "/craft/:id[%d]"]: =>
         @html ->
+            --TODO we need a "back" button or something similar
             if craft = Crafts\find id: @params.id
                 h1 craft.craft_name
-                h3 "by " .. craft.creator_name
-                p craft.description
-                p ->
-                    text "Download: "
-                    pre craft.download_link
+                h3 "By " .. craft.creator_name
+                p craft.description --TODO put a fancy box around this
+                img src: craft.picture --TODO make this a reasonable size
+                p -> a href: craft.download_link, "Download"
                 p "Action Groups:"
                 pre craft.action_groups
                 p "KSP Version: " .. craft.ksp_version
                 p "Mods Used:"
                 pre craft.mods_used
-                hr!
-                p "Links are not clickable and pictures are not shown until I can find a way to securely allow these things. For now, here is the provided picture URL:"
-                pre craft.picture
             else
                 return status: 404
-
-    [craft2: "/craft/:id[%d]/xss"]: =>
-        @html ->
-            if craft = Crafts\find id: @params.id
-                img src: craft.picture
-                a href: craft.download_link, "download"

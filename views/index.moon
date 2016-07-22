@@ -9,5 +9,4 @@ class extends Widget
             text " to my old site map."
         p ->
             text "Want to submit a craft? "
-            --a href: @url_for("ksp_submit_crafts"), "Click here!"
-            text "Then just wait a little longer, because that system isn't ready for use yet! Sorry for the confusion!"
+            a href: @url_for("ksp_submit_crafts"), "Click here!"
