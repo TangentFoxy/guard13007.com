@@ -82,7 +82,7 @@ class extends lapis.Application
     }
 
     [craft_list: "/crafts(/:page[%d])"]: =>
-        page = @params.page or 1
+        page = @params or 1
 
         Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 2 --NOTE temporary super low page number for testing!
         crafts = Paginator\get_page page
