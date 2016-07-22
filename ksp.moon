@@ -76,7 +76,7 @@ class extends lapis.Application
             }
 
             if craft
-                return redirect_to: @url_for "ksp_craft", craft.id
+                return redirect_to: @url_for "ksp_craft", id: craft.id
             else
                 return errMsg
     }
@@ -100,4 +100,16 @@ class extends lapis.Application
 
     [craft: "/craft/:id[%d]"]: =>
         @html ->
-            p "This page temporarily unavailable. :)"
+            if craft = Crafts\find id: @params.id
+                h1 craft.craft_name
+                h3 craft.creator_name
+                p craft.description
+                pre craft.download_link
+                pre craft.action_groups
+                p craft.ksp_version
+                pre craft.mods_used
+                hr!
+                p "Links are not clickable and pictures are not shown until I can find a way to securely allow these things. For now, here is the provided picture URL:"
+                pre craft.picture
+            else
+                return status: 404
