@@ -82,7 +82,7 @@ class extends lapis.Application
     }
 
     [craft_list: "/crafts(/:page[%d])"]: =>
-        page = @params or 1
+        page = @params.page or 1
 
         Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 2 --NOTE temporary super low page number for testing!
         crafts = Paginator\get_page page
@@ -90,13 +90,13 @@ class extends lapis.Application
             ul ->
                 for craft in *crafts
                     li ->
-                        a href: @url_for "ksp_craft", craft.id -- am I doing this bit right? Oo
+                        a href: @url_for("ksp_craft", craft.id), craft.craft_name
                 li ->
                     if page > 1
-                        a href: @url_for "ksp_craft_list", page - 1
+                        a href: @url_for("ksp_craft_list", page - 1), "<<"
                         text " | "
                     if page < Paginator\num_pages!
-                        a href: @url_for "ksp_craft_list", page + 1
+                        a href: @url_for("ksp_craft_list", page + 1), ">>"
 
     [craft: "/craft/:id[%d]"]: =>
         @html ->
