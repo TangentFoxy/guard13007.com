@@ -100,9 +100,9 @@ class extends lapis.Application
                         a href: @url_for("ksp_craft_list", page + 1), ">>"
 
     [craft: "/craft/:id[%d]"]: =>
-        @html ->
-            --TODO we need a "back" button or something similar
-            if craft = Crafts\find id: @params.id
+        --TODO we need a "back" button or something similar
+        if craft = Crafts\find id: @params.id
+            @html ->
                 h1 craft.craft_name
                 h3 "By " .. craft.creator_name
                 p craft.description --TODO put a fancy box around this
@@ -113,5 +113,5 @@ class extends lapis.Application
                 p "KSP Version: " .. craft.ksp_version
                 p "Mods Used:"
                 pre craft.mods_used
-            else
-                return status: 404
+        else
+            return status: 404
