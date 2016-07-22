@@ -90,7 +90,8 @@ class extends lapis.Application
             ul ->
                 for craft in *crafts
                     li ->
-                        a href: @url_for("ksp_craft", craft.id), craft.craft_name
+                        --a href: @url_for("ksp_craft", craft.id), craft.craft_name
+                        a href: @url_for("ksp_craft", 2), "testing"
                 li ->
                     if page > 1
                         a href: @url_for("ksp_craft_list", page - 1), "<<"
