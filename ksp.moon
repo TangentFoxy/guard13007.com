@@ -102,14 +102,24 @@ class extends lapis.Application
         @html ->
             if craft = Crafts\find id: @params.id
                 h1 craft.craft_name
-                h3 craft.creator_name
+                h3 "by " .. craft.creator_name
                 p craft.description
-                pre craft.download_link
+                p ->
+                    text "Download: "
+                    pre craft.download_link
+                p "Action Groups:"
                 pre craft.action_groups
-                p craft.ksp_version
+                p "KSP Version: " .. craft.ksp_version
+                p "Mods Used:"
                 pre craft.mods_used
                 hr!
                 p "Links are not clickable and pictures are not shown until I can find a way to securely allow these things. For now, here is the provided picture URL:"
                 pre craft.picture
             else
                 return status: 404
+
+    [craft2: "/craft/:id[%d]/xss"]: =>
+        @html ->
+            if craft = Crafts\find id: @params.id
+                img src: craft.picture
+                a href: craft.download_link, "download"
