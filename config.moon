@@ -12,3 +12,4 @@ config "production", ->
     port 8150
     num_workers 4
     code_cache "on"
+    githook true
