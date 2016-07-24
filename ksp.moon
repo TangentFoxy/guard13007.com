@@ -91,11 +91,11 @@ class extends lapis.Application
                 for craft in *crafts
                     li ->
                         a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
-                li ->
+                li style: "list-style:none;", ->
                     --TODO better links, better formatting, different paginators for different statuses
                     if page > 1
                         a href: @url_for("ksp_craft_list", page: page - 1), "<<"
-                        text " | "
+                    text " | "
                     if page < Paginator\num_pages!
                         a href: @url_for("ksp_craft_list", page: page + 1), ">>"
 
