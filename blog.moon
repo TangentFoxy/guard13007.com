@@ -8,3 +8,4 @@ class extends lapis.Application
         @title = "Guard's Microblog"
         @html ->
             -- the difference in meaning between wat and what
+            -- what I know about security of sites...
