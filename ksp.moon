@@ -82,11 +82,10 @@ class extends lapis.Application
     }
 
     [craft_list: "/crafts(/:page[%d])"]: =>
-        unless @params.page
-            @params.page = 1
+        page = tonumber(@params.page) or 1
 
         Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 13
-        crafts = Paginator\get_page @params.page
+        crafts = Paginator\get_page page
         @html ->
             ul ->
                 for craft in *crafts
@@ -94,11 +93,11 @@ class extends lapis.Application
                         a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
                 li ->
                     --TODO better links, better formatting, different paginators for different statuses
-                    if @params.page > 1
-                        a href: @url_for("ksp_craft_list", page: @params.page - 1), "<<"
+                    if page > 1
+                        a href: @url_for("ksp_craft_list", page: page - 1), "<<"
                         text " | "
-                    if @params.page < Paginator\num_pages!
-                        a href: @url_for("ksp_craft_list", page: @params.page + 1), ">>"
+                    if page < Paginator\num_pages!
+                        a href: @url_for("ksp_craft_list", page: page + 1), ">>"
 
     [craft: "/craft/:id[%d]"]: =>
         --TODO we need a "back" button or something similar
