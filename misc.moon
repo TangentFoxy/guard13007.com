@@ -135,3 +135,9 @@ class extends lapis.Application
                     dd ->
                         a href: "https://twitter.com/craigperko/status/591228538633621504", target: "_blank", "See this Twitter conversation"
                         text "."
+
+    [date: "/date"]: =>
+        Crafts = require "models.Crafts"
+        out = Crafts\find(id: 1).created_at
+        @html ->
+            p out
