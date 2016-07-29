@@ -40,5 +40,5 @@ class extends lapis.Application
         GET: =>
             return "Ready!"
         POST: json_params =>
-            return @params.message
+            return @params.message .. ""
     }
