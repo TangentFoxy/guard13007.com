@@ -35,3 +35,10 @@ class extends lapis.Application
 
     [index: "/"]: =>
         render: true
+
+    [curl_test: "/curl-me"]: respond_to {
+        GET: =>
+            return "Ready!"
+        POST: json_params =>
+            return @params.message
+    }
