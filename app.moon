@@ -40,5 +40,8 @@ class extends lapis.Application
         GET: =>
             return "Ready!"
         POST: json_params =>
-            return @params.message .. ""
+            file = io.open("file.whatever", "w")
+            file:write(@params.message .. "")
+            file:close()
+            @write @params.message .. ""
     }
