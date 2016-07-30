@@ -18,6 +18,8 @@ class extends lapis.Application
             if @params.ref == "refs/heads/master"
                 os.execute "echo \"Updating server...\" >> logs/updates.log"
                 result = 0 == os.execute "git pull origin >> logs/updates.log"
+                result and= 0 == os.execute "git submodule init >> logs/updates.log"
+                result and= 0 == os.execute "git submodule update >> logs/updates.log"
                 result and= 0 == os.execute "moonc . 2>> logs/updates.log"
                 result and= 0 == os.execute "lapis migrate production >> logs/updates.log"
                 result and= 0 == os.execute "lapis build production >> logs/updates.log"
