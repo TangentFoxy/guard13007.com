@@ -1,3 +1,8 @@
+## Installation
+
+From application root: `git submodule add https://github.com/lazuscripts/githook githook`<br>
+Inside your application class: `@include "githook/githook"`
+
 ## Config
 
 `githook = true` must be set for the hook to do anything.
