@@ -12,13 +12,13 @@ class extends lapis.Application
         @html ->
             ul ->
                 li ->
-                    a href: @url_for "polls_yt_videos", "What type of videos should I make?"
+                    a href: @url_for("polls_yt_videos"), "What type of videos should I make?"
                     ul ->
                         li ->
-                            a href: @url_for "polls_yt_games", "What type of gaming videos should I make?"
+                            a href: @url_for("polls_yt_games"), "What type of gaming videos should I make?"
                             ul ->
                                 li ->
-                                    a href: @url_for "polls_yt_ksp", "What kind of KSP videos should I make?"
+                                    a href: @url_for("polls_yt_ksp"), "What kind of KSP videos should I make?"
 
     [yt_videos: "/youtube-videos.html"]: =>
         @title = "What type of YouTube videos should I make?"
