@@ -6,6 +6,7 @@ import respond_to, json_params from require "lapis.application"
 class extends lapis.Application
     @include "githook/githook"
     @include "ksp"
+    @include "polls"
     @include "redirects"
     @include "misc"
 
