@@ -60,4 +60,12 @@ import create_table, types, drop_table from require "lapis.db.schema"
             {"created_at", types.time}
             {"updated_at", types.time}
         }
+    [5]: =>
+        create_table "users", {
+            {"id", types.serial primary_key: true}
+            {"name", types.varchar unique: true}
+            {"salt", types.text}
+            {"digest", types.text}
+            {"admin", types.boolean default: false}
+        }
 }
