@@ -2,7 +2,7 @@ lapis = require "lapis"
 config = require("lapis.config").get!
 
 import respond_to, json_params from require "lapis.application"
-import hmac_sha1 from require "lapis.util"
+import hmac_sha1 from require "lapis.util.encoding"
 
 const_compare = (string1, string2) ->
     local fail, dummy
