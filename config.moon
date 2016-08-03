@@ -13,4 +13,3 @@ config "production", ->
     num_workers 4
     code_cache "on"
     githook true
-    digest_rounds 9
