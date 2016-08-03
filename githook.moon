@@ -29,7 +29,11 @@ class extends lapis.Application
             else
                 branch = "master"
 
-            unless const_compare hmac_sha1(config.githook_secret, @req.read_body!), @req.headers["X-Hub-Signature"]
+            if config.githook_secret
+                unless const_compare hmac_sha1(config.githook_secret, ngx.req.read_body!), @req.headers["X-Hub-Signature"]
+                    return { json: { status: "invalid request" } }, status: 400 --Bad Request
+
+            elseif @params.ref == nil -- fallback to old version for apps that aren't updated to proper verification!
                 return { json: { status: "invalid request" } }, status: 400 --Bad Request
 
             if @params.ref == "refs/heads/#{branch}"
