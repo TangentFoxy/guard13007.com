@@ -13,4 +13,5 @@ config "production", ->
     num_workers 4
     code_cache "on"
     githook true
+    githook_secret "WAE(&*Hh93278)"
     digest_rounds 9
