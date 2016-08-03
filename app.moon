@@ -9,6 +9,7 @@ class extends lapis.Application
     @include "ksp"
     @include "polls"
     @include "redirects"
+    @include "testing"
     @include "misc"
 
     [index: "/"]: =>
