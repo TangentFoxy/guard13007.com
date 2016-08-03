@@ -12,6 +12,6 @@ config "production", ->
     port 8150
     num_workers 4
     code_cache "on"
-    githook true
+    githook "gh-pages"
     githook_secret "WAE(&*Hh93278)"
     digest_rounds 9
