@@ -22,12 +22,12 @@ class extends lapis.Application
 
     [yt_videos: "/youtube-videos.html"]: =>
         @title = "What type of YouTube videos should I make?"
-        @poll = "https://strawpoll.me/embed_1/6279645"
+        @poll = "https://www.strawpoll.me/embed_1/6279645"
         render: "poll"
 
     [yt_games: "/youtube-games.html"]: =>
         @title = "What kind of gaming videos should I make?"
-        @poll = "https://strawpoll.me/embed_1/6279645"
+        @poll = "https://www.strawpoll.me/embed_1/6279645"
         render: "poll"
 
         --<div>
@@ -47,5 +47,5 @@ class extends lapis.Application
 
     [yt_ksp: "/ksp-stuff.html"]: =>
         @title = "What kind of KSP videos should I make?"
-        @poll = "https://strawpoll.me/embed_1/3301812"
+        @poll = "https://www.strawpoll.me/embed_1/3301812"
         render: "poll"
