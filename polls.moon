@@ -7,7 +7,7 @@ class extends lapis.Application
     @path: "/polls"
     @name: "polls_"
 
-    [index: "/"]: =>
+    [index: ""]: =>
         @title = "Guard's Polls"
         @html ->
             ul ->
