@@ -24,6 +24,7 @@ class extends lapis.Application
             unless config.githook
                 return status: 401, "Unauthorized"
 
+            local branch
             if type(config.githook) == "string"
                 branch = config.githook
             else
