@@ -31,3 +31,5 @@ class extends lapis.Application
         @html ->
             pre body
             p data
+    [lynx_test: "/delorie.htm"]: =>
+        return status: 200
