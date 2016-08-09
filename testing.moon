@@ -1,5 +1,6 @@
 lapis = require "lapis"
 http = require "lapis.nginx.http"
+config = require("lapis.config").get!
 
 import respond_to, json_params from require "lapis.application"
 import hmac_sha1 from require "lapis.util.encoding"
@@ -31,3 +32,5 @@ class extends lapis.Application
         @html ->
             pre body
             p data
+    [githook_wat: "/hookme"]: =>
+        return config.githook
