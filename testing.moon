@@ -32,5 +32,3 @@ class extends lapis.Application
         @html ->
             pre body
             p data
-    [githook_wat: "/hookme"]: =>
-        return config.githook
