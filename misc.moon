@@ -19,6 +19,29 @@ class extends lapis.Application
             div ->
                 iframe src: "https://discordapp.com/widget?id=115597534726062086&amp;theme=dark", width: 350, height: 500, allowtransparency: true, frameborder: 0
 
+    [chat_rules: "/chat/rules"]: =>
+        @title = "Guard's Discord - Rules"
+        @html ->
+            ol ->
+                li "Do not post links to pirated software. You can discuss piracy, but do not link to illegal downloads."
+                li "No constant advertising. It's fine to tell people you have a YouTube channel or are working on something, but do not mention it constantly."
+                li "By default, no one can post links except in the #shitpost channel. If you build up trust, you will be allowed to post in other channels."
+                li ->
+                    text "The channels:"
+                    ul ->
+                        li "#general is for general conversation and where we most often chat."
+                        li "#computers-n-code is for programming, hacking, code, other technological items or discussions."
+                        li "#trusted is a private channel for people I trust."
+                        li "#music is for sharing music! :D"
+                        li "#concept-art is for sharing concept art."
+                        li "#shitpost is for random crap..since some people want that for some reason. >.>"
+                        li "#roleplay .. some of our users like to roleplay .. I made this so they'd get out of #general .."
+                        li "#bot-abuse is for playing with BoomBot, developed by Lomeli. :P"
+                        li "#boomtest is a testing channel for Lomeli's use on BoomBot development."
+                hr! --no idea if this will be valid syntax lol
+                li "More rules may be added as needed, obviously."
+                li "And finally, if you are causing significant annoyance to several members, especially if they are friends of mine, I may ban you."
+
     [contact: "/contact"]: =>
         @title = "Contact Info"
         @html ->
@@ -76,6 +99,13 @@ class extends lapis.Application
                         li ->
                             b "HDD"
                             text ": WD Blue 1 TB 7200rpm 64 MB cache (x2)"
+                        li ->
+                            b "Other"
+                            text ": "
+                            a href: "https://www.amazon.com/Cables-Go-4PORT-AUTHORITY2-35555/dp/B0006U6GGQ", target: "_blank", "This"
+                            text " KVM (not actually connected to main PC right now), "
+                            a href: "https://www.amazon.com/Logitech-G510s-Gaming-Keyboard-Screen/dp/B00BCEK2LU", target: "_blank", "this"
+                            text " keyboard, and other shit that don't matter."
 
                     dt -> a name: "ksp-next-plane-reviews", "When is the next Plane Reviews episode?"
                     dd "When I have the time to make it. It takes several hours to make each one, and I don't have a solid chunk of time for that as often as I used to."

@@ -13,4 +13,5 @@ class extends lapis.Application
     @include "misc"
 
     [index: "/"]: =>
+        layout: "default"
         render: true
