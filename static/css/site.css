@@ -6,15 +6,23 @@ body {
     background: #EEE;
 }
 
-#container {
+#container, #footer {
+    border: #235 solid 2px;
     margin: auto;
-    margin-top: 0.8em;
-    margin-bottom: 0.8em;
     width: 80%;
     min-width: 620px;
     max-width: 1000px;
     padding: 0.5em;
     background: #FFF;
+}
+
+#container {
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
+}
+
+#footer {
+    border-bottom: none;
 }
 
 h1, h2 {
