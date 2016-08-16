@@ -4,6 +4,9 @@
   font-family: Arial, sans-serif;
   color: #EEE;
 }
+html, body, div {
+  height: 100%;
+}
 body {
   background: #323232;
   overflow: hidden;
