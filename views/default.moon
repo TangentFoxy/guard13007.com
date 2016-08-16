@@ -17,5 +17,5 @@ class extends html.Widget
             body ->
                 div id: "container", ->
                     if @title
-                        h2 @title
+                        h1 @title
                     @content_for "inner"
