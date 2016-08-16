@@ -9,6 +9,7 @@ body {
 #container {
     margin: auto;
     margin-top: 0.8em;
+    margin-bottom: 0.8em;
     width: 80%;
     min-width: 620px;
     max-width: 1000px;
