@@ -73,7 +73,6 @@ class extends lapis.Application
         @html ->
             link rel: "stylesheet", href: @build_url "static/css/faq.css"
 
-            h1 "Frequently Asked Questions"
             p "I get asked some questions a lot more often than others...so here are those answers:"
             hr!
 

@@ -19,7 +19,7 @@ class extends html.Widget
                     if @title
                         h1 @title
                     @content_for "inner"
-                div style: "position: absolute; bottom: 0;", ->
+                div style: "position: absolute; bottom: 0; width: 100%", ->
                     div id: "footer", ->
                         text "This website is open-source... "
                         a href: "https://github.com/Guard13007/guard13007.com", "Help me fix shit?"
