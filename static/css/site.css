@@ -1,0 +1,25 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #EEE;
+}
+
+#container {
+    margin: auto;
+    margin-top: 0.8em;
+    width: 80%;
+    min-width: 620px;
+    max-width: 1000px;
+    padding: 0.5em;
+    background: #FFF;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+p {
+    margin-top: 0;
+}

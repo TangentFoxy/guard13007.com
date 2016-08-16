@@ -12,5 +12,8 @@ class extends html.Widget
                     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
                     ga('create', 'UA-82645104-1', 'auto'); ga('send', 'pageview');"
+                link rel: "stylesheet", href: @build_url "static/css/pure-min.css"
+                link rel: "stylesheet", href: @build_url "static/css/site.css"
             body ->
-                @content_for "inner"
+                div id: "container" ->
+                    @content_for "inner"
