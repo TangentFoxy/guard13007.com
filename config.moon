@@ -1,7 +1,7 @@
 config = require "lapis.config"
 import sql_password, session_secret from require "secret"
 
-config {"production", "development"} ->
+config {"production", "development"}, ->
     session_name "guard13007com"
     secret session_secret
     postgres ->
