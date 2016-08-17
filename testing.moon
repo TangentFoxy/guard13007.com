@@ -35,4 +35,5 @@ class extends lapis.Application
     [markdown_test: "/markdown"]: =>
         discount = require "discount"
         result = discount("# This is a header\n\n[and this is a link](https://guard13007.com) to my **homepage**.\n\n", "nohtml")
-        @html -> raw -> result
+        --@html -> raw -> result
+        return result, layout: false
