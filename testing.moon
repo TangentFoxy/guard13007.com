@@ -41,5 +41,5 @@ class extends lapis.Application
         [and this is a link](https://guard13007.com) to my **homepage**.
 
         ]], "nohtml")
-        @html -> raw -> result
+        return @html -> raw -> result
         --return result
