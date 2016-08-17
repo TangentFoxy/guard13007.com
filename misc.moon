@@ -40,7 +40,7 @@ class extends lapis.Application
                         li "#boomtest is a testing channel for Lomeli's use on BoomBot development."
                 hr! --no idea if this will be valid syntax lol
                 li "More rules may be added as needed, obviously."
-                li "And finally, if you are causing significant annoyance to several members, especially if they are friends of mine, I may ban you."
+                li alt: "If you don't like it, see http://xkcd.com/1357/", "And finally, if you are causing significant annoyance to several members, especially if they are friends of mine, I may ban you."
 
     [contact: "/contact"]: =>
         @title = "Contact Info"
