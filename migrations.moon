@@ -69,7 +69,9 @@ import create_table, types, drop_table from require "lapis.db.schema"
             {"admin", types.boolean default: false}
         }
     [6]: =>
-        drop_table "user"
+        return true --drop_table "user" --fuck, I messed up
+    [7]: =>
+        drop_table "users"
         create_table "users", {
             {"id", types.serial primary_key: true}
             {"name", types.varchar unique: true}
