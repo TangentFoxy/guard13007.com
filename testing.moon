@@ -32,3 +32,10 @@ class extends lapis.Application
         @html ->
             pre body
             p data
+    [markdown_test: "/markdown"]: =>
+        discount = require "discount"
+        result = discount([[
+        # This is a header
+        [and this is a link](https://guard13007.com) to my **homepage**.
+        ]], "nohtml")
+        @html -> raw -> result
