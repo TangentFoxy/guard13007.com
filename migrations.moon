@@ -68,4 +68,12 @@ import create_table, types, drop_table from require "lapis.db.schema"
             {"digest", types.text}
             {"admin", types.boolean default: false}
         }
+    [6]: =>
+        drop_table "user"
+        create_table "users", {
+            {"id", types.serial primary_key: true}
+            {"name", types.varchar unique: true}
+            {"digest", types.text}
+            {"admin", types.boolean default: false}
+        }
 }
