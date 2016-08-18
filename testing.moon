@@ -13,9 +13,11 @@ class extends lapis.Application
         ngx.req.read_body!
         body = ngx.req.get_body_data!
         digest = hmac_sha1("secret", body)
-        hex_digest = ""
-        for b in digest\gfind "."
-            hex_digest ..= string.format("%02X", string.byte(b))
+        --hex_digest = ""
+        --for b in digest\gfind "."
+        --    hex_digest ..= string.format("%02X", string.byte(b))
+        hex_dump = require "hex_dump"
+        hex_digest = hex_dump digest
         @html ->
             pre "secret"
             hr!
