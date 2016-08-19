@@ -1,5 +1,5 @@
 config = require "lapis.config"
-import sql_password, session_secret, githook_secret from require "secret"
+import sql_password, session_secret, github_secret from require "secret"
 
 config {"production", "development"}, ->
     session_name "guard13007com"
@@ -8,7 +8,7 @@ config {"production", "development"}, ->
         host "127.0.0.1"
         user "postgres"
         password sql_password
-    githook_secret githook_secret --haha fixed! >:D
+    githook_secret github_secret
     digest_rounds 9
 
 config "production", ->
