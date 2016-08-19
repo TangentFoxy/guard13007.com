@@ -1,7 +1,7 @@
 -- this was copied from https://gist.githubusercontent.com/Elemecca/6361899/raw/3c0e08285f452eb65268946f1695b8eb1117ed5b/hex_dump.lua
 -- this is temporary at the moment for testing if it even works for my use case (githook)
 
-return function hex_dump(str)
+return function(str)
     local len = string.len( str )
     local dump = ""
     local hex = ""
