@@ -6,8 +6,8 @@ return function(str)
     local hex = ""
 
     for i = 1, len do
-        hex = hex .. string.format( "%02x ", string.byte( str, i ) )
+        hex = hex .. string.format( "%02x", string.byte( str, i ) )
     end
 
-    return hex
+    return "sha1=" .. hex -- the sha1 bullshit is for me to be happy and excited
 end
