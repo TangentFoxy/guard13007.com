@@ -15,6 +15,15 @@ const_compare = (string1, string2) ->
 
     return not fail
 
+hex_dump = (str) ->
+    len = string.len str
+    hex = ""
+
+    for i = 1, len
+        hex ..= string.format( "%02x", string.bye( str, i ) )
+
+    return hex
+
 class extends lapis.Application
     [githook: "/githook"]: respond_to {
         GET: =>
@@ -30,13 +39,12 @@ class extends lapis.Application
             else
                 branch = "master"
 
-            --if config.githook_secret
-            --    ngx.req.read_body!
-            --    unless const_compare hmac_sha1(config.githook_secret, ngx.req.get_body_data!), @req.headers["X-Hub-Signature"]
-            --        return { json: { status: "invalid request" } }, status: 400 --Bad Request
+            if config.githook_secret
+                ngx.req.read_body!
+                unless const_compare ("sha1=" .. hex_dump hmac_sha1(config.githook_secret, ngx.req.get_body_data!)), @req.headers["X-Hub-Signature"]
+                    return { json: { status: "invalid request" } }, status: 400 --Bad Request
 
-            --else
-            if @params.ref == nil -- fallback to old version for apps that aren't updated to proper verification!
+            elseif @params.ref == nil -- fallback to old version for apps that aren't updated to proper verification!
                 return { json: { status: "invalid request" } }, status: 400 --Bad Request
 
             if @params.ref == "refs/heads/#{branch}"
