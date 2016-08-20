@@ -115,12 +115,12 @@ class extends lapis.Application
                                 text "Reason: #{craft.rejection_reason}"
 
             if page > 1
-                a class: "pure-button" href: @url_for("ksp_craft_list", page: page - 1), "Previous"
+                a class: "pure-button", href: @url_for("ksp_craft_list", page: page - 1), "Previous"
             else
                 a class: "pure-button pure-button-disabled", "Previous"
             --text " | "
             if page < Paginator\num_pages!
-                a class: "pure-button" href: @url_for("ksp_craft_list", page: page + 1), "Next"
+                a class: "pure-button", href: @url_for("ksp_craft_list", page: page + 1), "Next"
             else
                 a class: "pure-button pure-button-disabled", "Next"
 
