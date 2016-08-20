@@ -9,6 +9,14 @@ class extends lapis.Application
     @path: "/ksp"
     @name: "ksp_"
 
+    [index: "/"]: =>
+        p ->
+            a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
+            a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
+
+    "/craft": =>
+        redirect_to: @url_for "ksp_craft_list"
+
     [submit_crafts: "/submit"]: respond_to {
         GET: =>
             @html ->
@@ -50,6 +58,7 @@ class extends lapis.Application
                         input type: "text", name: "picture"
                     p ->
                         input type: "submit"
+                a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
 
         POST: =>
             --unless @params.creator_name
@@ -108,6 +117,7 @@ class extends lapis.Application
                     a class: "pure-button", href: @url_for("ksp_craft_list", page: page + 1), "Next"
                 else
                     a class: "pure-button pure-button-disabled", "Next"
+                a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit"
 
             element "table", class: "pure-table", ->
                 tr ->
@@ -146,6 +156,9 @@ class extends lapis.Application
                     p "KSP Version: " .. craft.ksp_version
                     p "Mods Used:"
                     pre craft.mods_used
+                    p ->
+                        a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
+                        a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
 
                     if @session.id and (Users\find id: @session.id).admin
                         hr!
@@ -216,7 +229,7 @@ class extends lapis.Application
                             br!
                             input type: "submit"
             else
-                return status: 404
+                return redirect_to: @url_for "ksp_craft_list"
 
         POST: =>
             if @session.id and (Users\find id: @session.id).admin
