@@ -46,7 +46,7 @@ class extends lapis.Application
                         text " Mods Used: "
                         input type: "text", name: "mods_used"
                     p ->
-                        text "Picture? (URL to an image online!)"
+                        text "Picture? (URL to an image online!) "
                         input type: "text", name: "picture"
                     p ->
                         input type: "submit"
@@ -106,7 +106,7 @@ class extends lapis.Application
                         td style: "width:20%; word-wrap: break-word;", ->
                             a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
                         td style: "width:20%; word-wrap: break-word;", craft.creator_name
-                        td class: Crafts.statuses\to_name(craft.status), ->
+                        td style: "width:10%;", class: Crafts.statuses\to_name(craft.status), ->
                             text Crafts.statuses\to_name craft.status
                         td ->
                             if Crafts.statuses.reviewed == craft.status
@@ -128,10 +128,14 @@ class extends lapis.Application
         GET: =>
             --TODO we need a "back" button or something similar
             if craft = Crafts\find id: @params.id
-                @title = "#{craft.craft_name} by #{craft.creator_name}"
+                if craft.creator_name\len! > 0
+                    @title = "#{craft.craft_name} by #{craft.creator_name}"
+                else
+                    @title = "#{craft.craft_name}"
+
                 @html ->
-                    p craft.description --TODO put a fancy box around this
-                    img src: craft.picture --TODO make this a reasonable size
+                    p craft.description --TODO put a fancy box around this (or hr's) ((AND MARKDOWN IT! :D))
+                    img src: craft.picture, style: "max-width: inherit;"
                     p -> a href: craft.download_link, "Download" --TODO replace this with something to protect against XSS...
                     p "Action Groups:"
                     pre craft.action_groups
@@ -160,6 +164,42 @@ class extends lapis.Application
                             input type: "text", name: "rejection_reason", placeholder: craft.rejection_reason
                             br!
                             input type: "submit"
+
+                        hr!
+                        form {
+                            action: @url_for "ksp_craft", id: craft.id
+                            method: "POST"
+                            enctype: "multipart/form-data"
+                        }, ->
+                            text "Craft name: "
+                            input type: "text", name: "craft_name", placeholder: craft.craft_name
+                            br!
+                            text "Creator name: "
+                            input type: "text", name: "creator_name", placeholder: craft.creator_name
+                            br!
+                            p "Description:"
+                            textarea cols: 60, rows: 4, name: "description", placeholder: craft.description
+                            br!
+                            text "Download link: "
+                            input type: "text", name: "download_link", placeholder: craft.download_link
+                            br!
+                            text "Picture: "
+                            input type: "text", name: "picture", placeholder: craft.picture
+                            br!
+                            p "Action groups:"
+                            textarea cols: 60, rows: 2, name: "action_groups", placeholder: craft.action_groups
+                            br!
+                            text "KSP version: "
+                            input type: "text", name: "ksp_version", placeholder: craft.ksp_version
+                            br!
+                            text "Mods used: "
+                            input type: "text", name: "mods_used", placeholder: craft.mods_used
+                            br!
+                            text "User ID: "
+                            input type: "number", name: "user_id", placeholder: craft.user_id
+                            br!
+                            input type: "submit"
+
                         hr!
                         form {
                             action: @url_for "ksp_craft", id: craft.id
@@ -197,6 +237,29 @@ class extends lapis.Application
                         return "Craft deleted." --shitty prompt whatever
                     else
                         return status: 500, "Error deleting craft!"
+
+                -- now for the boring stuff
+                --TODO I could actually combine this with the above stuff...
+                fields = {}
+                if @params.craft_name\len! > 0
+                    fields.craft_name = @params.craft_name
+                if @params.creator_name\len! > 0
+                    fields.creator_name = @params.creator_name
+                if @params.description\len! > 0
+                    fields.description = @params.description
+                if @params.download_link\len! > 0
+                    fields.download_link = @params.download_link
+                if @params.picture\len! > 0
+                    fields.picture = @params.picture
+                if @params.action_groups\len! > 0
+                    fields.action_groups = @params.action_groups
+                if @params.ksp_version\len! > 0
+                    fields.ksp_version = @params.ksp_version
+                if @params.mods_used\len! > 0
+                    fields.mods_used = @params.mods_used
+                if @params.user_id\len! > 0
+                    fields.user_id = tonumber @params.user_id
+                craft\update fields
 
             return redirect_to: @url_for("ksp_craft", id: @params.id)
     }
