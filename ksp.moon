@@ -94,12 +94,13 @@ class extends lapis.Application
         Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 13
         crafts = Paginator\get_page page
         @html ->
-            element "table", ->
+            link ref: "stylesheet", href: @build_url "static/css/ksp.css"
+            element "table", class: "pure-table", ->
                 for craft in *crafts
                     tr ->
                         td ->
                             a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
-                        td ->
+                        td, class: Crafts.statuses\to_name craft.status, ->
                             text Crafts.statuses\to_name craft.status
                         td ->
                             if Crafts.statuses.reviewed == craft.status
@@ -140,6 +141,7 @@ class extends lapis.Application
                         }, ->
                             text "Status: "
                             element "select", name: "status", ->
+                                option value: 0, "unseen" -- shoddy work-around on my part...
                                 for status in *Crafts.statuses
                                     if status == Crafts.statuses[craft.status]
                                         option value: Crafts.statuses[status], selected: true, status

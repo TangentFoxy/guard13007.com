@@ -1,0 +1,12 @@
+.unseen {
+    backgorund: white;
+}
+.pending {
+    background: lightblue;
+}
+.reviewed {
+    background: lightgreen;
+}
+.rejected {
+    background: #FAA;
+}
