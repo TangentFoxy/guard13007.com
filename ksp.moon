@@ -3,6 +3,7 @@ lapis = require "lapis"
 import respond_to, json_params from require "lapis.application"
 
 Crafts = require "models.Crafts"
+Users = require "users.models.Users"
 
 class extends lapis.Application
     @path: "/ksp"
@@ -64,6 +65,11 @@ class extends lapis.Application
             --unless @params.picture
             --    @params.picture = @build_url "/static/img/ksp_craft_no_picture.gif"
 
+            if @session.id
+                user_id = @session.id
+            else
+                user_id = 1
+
             craft, errMsg = Crafts\create {
                 craft_name: @params.craft_name
                 download_link: @params.download_link
@@ -73,6 +79,7 @@ class extends lapis.Application
                 ksp_version: @params.ksp_version
                 mods_used: @params.mods_used
                 picture: @params.picture
+                user_id: user_id
             }
 
             if craft
@@ -91,6 +98,14 @@ class extends lapis.Application
                 for craft in *crafts
                     li ->
                         a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
+                    li ->
+                        Crafts.status\to_name craft.status
+                    li ->
+                        if Crafts.status.reviewed == craft.status
+                            a href: "https://youtube.com/watch?v=#{craft.episode}", "Watch on YouTube"
+                        elseif Crafts.status.rejected == craft.status
+                            text "Reason: #{craft.rejection_reason}"
+
                 li style: "list-style:none;", ->
                     --TODO better links, better formatting, different paginators for different statuses
                     if page > 1
@@ -99,19 +114,42 @@ class extends lapis.Application
                     if page < Paginator\num_pages!
                         a href: @url_for("ksp_craft_list", page: page + 1), ">>"
 
-    [craft: "/craft/:id[%d]"]: =>
-        --TODO we need a "back" button or something similar
-        if craft = Crafts\find id: @params.id
-            @html ->
-                h1 craft.craft_name
-                h3 "By " .. craft.creator_name
-                p craft.description --TODO put a fancy box around this
-                img src: craft.picture --TODO make this a reasonable size
-                p -> a href: craft.download_link, "Download"
-                p "Action Groups:"
-                pre craft.action_groups
-                p "KSP Version: " .. craft.ksp_version
-                p "Mods Used:"
-                pre craft.mods_used
-        else
-            return status: 404
+    [craft: "/craft/:id[%d]"]: respond_to {
+        GET: =>
+            --TODO we need a "back" button or something similar
+            if craft = Crafts\find id: @params.id
+                @html ->
+                    h1 craft.craft_name
+                    h3 "By " .. craft.creator_name
+                    p craft.description --TODO put a fancy box around this
+                    img src: craft.picture --TODO make this a reasonable size
+                    p -> a href: craft.download_link, "Download" --TODO replace this with something to protect against XSS...
+                    p "Action Groups:"
+                    pre craft.action_groups
+                    p "KSP Version: " .. craft.ksp_version
+                    p "Mods Used:"
+                    pre craft.mods_used
+
+                    if @session.id and (Users\find id: @session.id).admin
+                        hr!
+                        form {
+                            action: @url_for "ksp_craft", id: craft.id
+                            method: "POST"
+                            enctype: "multipart/form-data"
+                            onsubmit: "return confirm('Are you sure you want to do this?');"
+                        }, ->
+                            text "Delete craft? "
+                            input type: "checkbox", name: "delete"
+                            br!
+                            input type: "submit"
+            else
+                return status: 404
+
+        POST: =>
+            if @session.id and (Users\find id: @session.id).admin and @params.delete
+                if (Crafts\find id: @params.id)\delete!
+                    return "Craft deleted." --shitty prompt whatever
+                else
+                    return status: 500, "Error deleting craft!"
+            return redirect_to: @url_for "ksp_craft", id: @params.id
+    }
