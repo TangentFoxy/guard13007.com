@@ -21,5 +21,13 @@ class extends html.Widget
                     @content_for "inner"
                 div style: "position: fixed; bottom: 0; width: 100%", ->
                     div id: "footer", ->
-                        text "This website is open-source... "
-                        a href: "https://github.com/Guard13007/guard13007.com", "Help me fix shit?"
+                        if @session.id
+                            a href: @url_for("user_me"), "You"
+                            text " | "
+                            a href: @url_for("user_logout"), "Log Out"
+                        else
+                            a href: @url_for("user_login"), "Log In"
+                            text " | "
+                            a href: @url_for("user_new"), "New User"
+                        text " | This website is open-source... "
+                        a href: "https://github.com/Guard13007/guard13007.com", "Help me with it?"
