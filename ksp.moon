@@ -100,7 +100,7 @@ class extends lapis.Application
                     tr ->
                         td ->
                             a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
-                        td, class: Crafts.statuses\to_name craft.status, ->
+                        td class: Crafts.statuses\to_name craft.status, ->
                             text Crafts.statuses\to_name craft.status
                         td ->
                             if Crafts.statuses.reviewed == craft.status
