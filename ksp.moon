@@ -1,6 +1,7 @@
 lapis = require "lapis"
 
 import respond_to, json_params from require "lapis.application"
+import unescape from require "lapis.util"
 
 Crafts = require "models.Crafts"
 Users = require "users.models.Users"
@@ -105,7 +106,7 @@ class extends lapis.Application
                     tr ->
                         td style: "width:20%; word-wrap: break-word;", ->
                             a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
-                        td style: "width:20%; word-wrap: break-word;", craft.creator_name
+                        td style: "width:20%; word-wrap: break-word;", unescape craft.creator_name
                         td style: "width:10%;", class: Crafts.statuses\to_name(craft.status), ->
                             text Crafts.statuses\to_name craft.status
                         td ->
@@ -129,7 +130,7 @@ class extends lapis.Application
             --TODO we need a "back" button or something similar
             if craft = Crafts\find id: @params.id
                 if craft.creator_name\len! > 0
-                    @title = "#{craft.craft_name} by #{craft.creator_name}"
+                    @title = "#{craft.craft_name} by #{unescape craft.creator_name}"
                 else
                     @title = "#{craft.craft_name}"
 
