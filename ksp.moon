@@ -170,7 +170,7 @@ class extends lapis.Application
                 craft = Crafts\find id: @params.id
                 if @params.status
                     craft\update {
-                        status: Crafts.statuses\for_db @params.status
+                        status: Crafts.statuses\for_db tonumber @params.status
                     }
                     --todo info popup
                 if @params.episode
