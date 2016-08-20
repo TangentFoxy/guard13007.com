@@ -100,11 +100,11 @@ class extends lapis.Application
                         td ->
                             a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
                         td ->
-                            Crafts.status\to_name craft.status
+                            Crafts.statuses\to_name craft.status
                         td ->
-                            if Crafts.status.reviewed == craft.status
+                            if Crafts.statuses.reviewed == craft.status
                                 a href: "https://youtube.com/watch?v=#{craft.episode}", "Watch on YouTube"
-                            elseif Crafts.status.rejected == craft.status
+                            elseif Crafts.statuses.rejected == craft.status
                                 text "Reason: #{craft.rejection_reason}"
 
             ul ->
