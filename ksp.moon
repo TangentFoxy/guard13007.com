@@ -142,9 +142,9 @@ class extends lapis.Application
                             element "select", name: "status", ->
                                 for status in *Crafts.statuses
                                     if status == Crafts.statuses[craft.status]
-                                        option value: "#{Crafts.statuses.status}", selected: true, status
+                                        option value: Crafts.statuses[status], selected: true, status
                                     else
-                                        option value: "#{Crafts.statuses.status}", status
+                                        option value: Crafts.statuses[status], status
                             text " Episode: "
                             input type: "text", name: "episode", placeholder: craft.episode
                             text " Rejection Reason: "
