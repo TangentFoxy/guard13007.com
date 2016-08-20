@@ -49,7 +49,8 @@ class extends lapis.Application
 
             if @params.ref == "refs/heads/#{branch}"
                 os.execute "echo \"Updating server...\" >> logs/updates.log"
-                result = 0 == os.execute "git pull origin >> logs/updates.log"
+                result = 0 == os.execute "git checkout #{branch} >> logs/updates.log"
+                result and= 0 == os.execute "git pull origin >> logs/updates.log"
                 result and= 0 == os.execute "git submodule init >> logs/updates.log"
                 result and= 0 == os.execute "git submodule update >> logs/updates.log"
                 result and= 0 == os.execute "moonc . 2>> logs/updates.log"
