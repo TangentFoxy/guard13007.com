@@ -94,18 +94,21 @@ class extends lapis.Application
         Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 13
         crafts = Paginator\get_page page
         @html ->
-            ul ->
+            link rel: "stylesheet", href: @build_url "static/css/ksp.css"
+            element "table", class: "pure-table", ->
                 for craft in *crafts
-                    li ->
-                        a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
-                    li ->
-                        Crafts.status\to_name craft.status
-                    li ->
-                        if Crafts.status.reviewed == craft.status
-                            a href: "https://youtube.com/watch?v=#{craft.episode}", "Watch on YouTube"
-                        elseif Crafts.status.rejected == craft.status
-                            text "Reason: #{craft.rejection_reason}"
+                    tr ->
+                        td ->
+                            a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
+                        td class: Crafts.statuses\to_name(craft.status), ->
+                            text Crafts.statuses\to_name craft.status
+                        td ->
+                            if Crafts.statuses.reviewed == craft.status
+                                a href: "https://youtube.com/watch?v=#{craft.episode}", "Watch on YouTube"
+                            elseif Crafts.statuses.rejected == craft.status
+                                text "Reason: #{craft.rejection_reason}"
 
+            ul ->
                 li style: "list-style:none;", ->
                     --TODO better links, better formatting, different paginators for different statuses
                     if page > 1
@@ -118,9 +121,8 @@ class extends lapis.Application
         GET: =>
             --TODO we need a "back" button or something similar
             if craft = Crafts\find id: @params.id
+                @title = "#{craft.craft_name} by #{craft.creator_name}"
                 @html ->
-                    h1 craft.craft_name
-                    h3 "By " .. craft.creator_name
                     p craft.description --TODO put a fancy box around this
                     img src: craft.picture --TODO make this a reasonable size
                     p -> a href: craft.download_link, "Download" --TODO replace this with something to protect against XSS...
@@ -136,6 +138,26 @@ class extends lapis.Application
                             action: @url_for "ksp_craft", id: craft.id
                             method: "POST"
                             enctype: "multipart/form-data"
+                        }, ->
+                            text "Status: "
+                            element "select", name: "status", ->
+                                option value: 0, "unseen" -- shoddy work-around on my part...
+                                for status in *Crafts.statuses
+                                    if status == Crafts.statuses[craft.status]
+                                        option value: Crafts.statuses[status], selected: true, status
+                                    else
+                                        option value: Crafts.statuses[status], status
+                            text " Episode: "
+                            input type: "text", name: "episode", placeholder: craft.episode
+                            text " Rejection Reason: "
+                            input type: "text", name: "rejection_reason", placeholder: craft.rejection_reason
+                            br!
+                            input type: "submit"
+                        hr!
+                        form {
+                            action: @url_for "ksp_craft", id: craft.id
+                            method: "POST"
+                            enctype: "multipart/form-data"
                             onsubmit: "return confirm('Are you sure you want to do this?');"
                         }, ->
                             text "Delete craft? "
@@ -146,10 +168,28 @@ class extends lapis.Application
                 return status: 404
 
         POST: =>
-            if @session.id and (Users\find id: @session.id).admin and @params.delete
-                if (Crafts\find id: @params.id)\delete!
-                    return "Craft deleted." --shitty prompt whatever
-                else
-                    return status: 500, "Error deleting craft!"
-            return redirect_to: @url_for "ksp_craft", id: @params.id
+            if @session.id and (Users\find id: @session.id).admin
+                craft = Crafts\find id: @params.id
+                if @params.status
+                    craft\update {
+                        status: Crafts.statuses\for_db tonumber @params.status
+                    }
+                    --todo info popup
+                if @params.episode
+                    craft\update {
+                        episode: @params.episode
+                    }
+                    --todo info popup
+                elseif @params.rejection_reason
+                    craft\update {
+                        rejection_reason: @params.rejection_reason
+                    }
+                    --todo info popup
+                elseif @params.delete
+                    if craft\delete!
+                        return "Craft deleted." --shitty prompt whatever
+                    else
+                        return status: 500, "Error deleting craft!"
+
+            return redirect_to: @url_for("ksp_craft", id: @params.id)
     }

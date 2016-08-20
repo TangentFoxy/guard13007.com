@@ -1,0 +1,12 @@
+td.unseen {
+    background: white;
+}
+td.pending {
+    background: lightblue;
+}
+td.reviewed {
+    background: lightgreen;
+}
+td.rejected {
+    background: #FAA;
+}

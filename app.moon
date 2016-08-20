@@ -16,3 +16,5 @@ class extends lapis.Application
 
     [index: "/"]: =>
         render: true
+
+    "/submit": => redirect_to: @url_for "ksp_submit_crafts"

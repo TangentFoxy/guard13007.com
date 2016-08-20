@@ -3,7 +3,7 @@ import Model, enum from require "lapis.db.model"
 class Crafts extends Model
     @timestamp: true
 
-    @status: enum {
+    @statuses: enum {
         unseen: 0
         pending: 1
         reviewed: 2
