@@ -95,12 +95,23 @@ class extends lapis.Application
         crafts = Paginator\get_page page
         @html ->
             link rel: "stylesheet", href: @build_url "static/css/ksp.css"
+            p ->
+                if page > 1
+                    a class: "pure-button", href: @url_for("ksp_craft_list", page: page - 1), "Previous"
+                else
+                    a class: "pure-button pure-button-disabled", "Previous"
+                --text " | "
+                if page < Paginator\num_pages!
+                    a class: "pure-button", href: @url_for("ksp_craft_list", page: page + 1), "Next"
+                else
+                    a class: "pure-button pure-button-disabled", "Next"
+
             element "table", class: "pure-table", ->
                 tr ->
                     th style: "width:20%; word-wrap: break-word;", "Craft"
                     th style: "width:20%; word-wrap: break-word;", "Creator"
                     th "Status"
-                    th ""
+                    th "Misc"
                 for craft in *crafts
                     tr ->
                         td style: "width:20%; word-wrap: break-word;", ->
@@ -110,19 +121,9 @@ class extends lapis.Application
                             text Crafts.statuses\to_name craft.status
                         td ->
                             if Crafts.statuses.reviewed == craft.status
-                                a href: "https://youtube.com/watch?v=#{craft.episode}", "Watch on YouTube"
+                                a href: "https://youtube.com/watch?v=#{craft.episode}", target: "_blank", "Watch on YouTube"
                             elseif Crafts.statuses.rejected == craft.status
                                 text "#{craft.rejection_reason}"
-
-            if page > 1
-                a class: "pure-button", href: @url_for("ksp_craft_list", page: page - 1), "Previous"
-            else
-                a class: "pure-button pure-button-disabled", "Previous"
-            --text " | "
-            if page < Paginator\num_pages!
-                a class: "pure-button", href: @url_for("ksp_craft_list", page: page + 1), "Next"
-            else
-                a class: "pure-button pure-button-disabled", "Next"
 
     [craft: "/craft/:id[%d]"]: respond_to {
         GET: =>
