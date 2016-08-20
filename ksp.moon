@@ -190,5 +190,5 @@ class extends lapis.Application
                     else
                         return status: 500, "Error deleting craft!"
 
-            return redirect_to: @url_for "ksp_craft", id: @params.id
+            return redirect_to: @url_for("ksp_craft", id: @params.id)
     }
