@@ -112,7 +112,7 @@ class extends lapis.Application
                             if Crafts.statuses.reviewed == craft.status
                                 a href: "https://youtube.com/watch?v=#{craft.episode}", "Watch on YouTube"
                             elseif Crafts.statuses.rejected == craft.status
-                                text "Reason: #{craft.rejection_reason}"
+                                text "#{craft.rejection_reason}"
 
             if page > 1
                 a class: "pure-button", href: @url_for("ksp_craft_list", page: page - 1), "Previous"
@@ -182,12 +182,12 @@ class extends lapis.Application
                         status: Crafts.statuses\for_db tonumber @params.status
                     }
                     --todo info popup
-                if @params.episode
+                if @params.episode\len! > 0
                     craft\update {
                         episode: @params.episode
                     }
                     --todo info popup
-                elseif @params.rejection_reason
+                elseif @params.rejection_reason\len! > 0
                     craft\update {
                         rejection_reason: @params.rejection_reason
                     }
