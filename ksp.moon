@@ -222,12 +222,12 @@ class extends lapis.Application
                         status: Crafts.statuses\for_db tonumber @params.status
                     }
                     --todo info popup
-                if @params.episode\len! > 0
+                if @params.episode and @params.episode\len! > 0
                     craft\update {
                         episode: @params.episode
                     }
                     --todo info popup
-                elseif @params.rejection_reason\len! > 0
+                elseif @params.rejection_reason and @params.rejection_reason\len! > 0
                     craft\update {
                         rejection_reason: @params.rejection_reason
                     }
@@ -241,23 +241,23 @@ class extends lapis.Application
                 -- now for the boring stuff
                 --TODO I could actually combine this with the above stuff...
                 fields = {}
-                if @params.craft_name\len! > 0
+                if @params.craft_name and @params.craft_name\len! > 0
                     fields.craft_name = @params.craft_name
-                if @params.creator_name\len! > 0
+                if @params.creator_name and @params.creator_name\len! > 0
                     fields.creator_name = @params.creator_name
-                if @params.description\len! > 0
+                if @params.description and @params.description\len! > 0
                     fields.description = @params.description
-                if @params.download_link\len! > 0
+                if @params.download_link and @params.download_link\len! > 0
                     fields.download_link = @params.download_link
-                if @params.picture\len! > 0
+                if @params.picture and @params.picture\len! > 0
                     fields.picture = @params.picture
-                if @params.action_groups\len! > 0
+                if @params.action_groups and @params.action_groups\len! > 0
                     fields.action_groups = @params.action_groups
-                if @params.ksp_version\len! > 0
+                if @params.ksp_version and @params.ksp_version\len! > 0
                     fields.ksp_version = @params.ksp_version
-                if @params.mods_used\len! > 0
+                if @params.mods_used and @params.mods_used\len! > 0
                     fields.mods_used = @params.mods_used
-                if @params.user_id\len! > 0
+                if @params.user_id and @params.user_id\len! > 0
                     fields.user_id = tonumber @params.user_id
                 craft\update fields
 
