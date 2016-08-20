@@ -96,10 +96,16 @@ class extends lapis.Application
         @html ->
             link rel: "stylesheet", href: @build_url "static/css/ksp.css"
             element "table", class: "pure-table", ->
+                tr ->
+                    th "Craft"
+                    th "Creator"
+                    th "Status"
+                    th ""
                 for craft in *crafts
                     tr ->
                         td ->
                             a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
+                        td craft.creator_name
                         td class: Crafts.statuses\to_name(craft.status), ->
                             text Crafts.statuses\to_name craft.status
                         td ->
@@ -108,14 +114,15 @@ class extends lapis.Application
                             elseif Crafts.statuses.rejected == craft.status
                                 text "Reason: #{craft.rejection_reason}"
 
-            ul ->
-                li style: "list-style:none;", ->
-                    --TODO better links, better formatting, different paginators for different statuses
-                    if page > 1
-                        a href: @url_for("ksp_craft_list", page: page - 1), "<<"
-                    text " | "
-                    if page < Paginator\num_pages!
-                        a href: @url_for("ksp_craft_list", page: page + 1), ">>"
+            if page > 1
+                a class: "pure-button" href: @url_for("ksp_craft_list", page: page - 1), "Previous"
+            else
+                a class: "pure-button pure-button-disabled", "Previous"
+            --text " | "
+            if page < Paginator\num_pages!
+                a class: "pure-button" href: @url_for("ksp_craft_list", page: page + 1), "Next"
+            else
+                a class: "pure-button pure-button-disabled", "Next"
 
     [craft: "/craft/:id[%d]"]: respond_to {
         GET: =>
