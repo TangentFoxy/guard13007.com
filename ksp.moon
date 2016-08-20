@@ -97,15 +97,15 @@ class extends lapis.Application
             link rel: "stylesheet", href: @build_url "static/css/ksp.css"
             element "table", class: "pure-table", ->
                 tr ->
-                    th style: "width:20%;", "Craft"
-                    th style: "width:20%;", "Creator"
+                    th style: "width:20%; word-wrap: break-word;", "Craft"
+                    th style: "width:20%; word-wrap: break-word;", "Creator"
                     th "Status"
                     th ""
                 for craft in *crafts
                     tr ->
-                        td style: "width:20%;", ->
+                        td style: "width:20%; word-wrap: break-word;", ->
                             a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
-                        td style: "width:20%;", craft.creator_name
+                        td style: "width:20%; word-wrap: break-word;", craft.creator_name
                         td class: Crafts.statuses\to_name(craft.status), ->
                             text Crafts.statuses\to_name craft.status
                         td ->
