@@ -20,7 +20,7 @@ hex_dump = (str) ->
     hex = ""
 
     for i = 1, len
-        hex ..= string.format( "%02x", string.bye( str, i ) )
+        hex ..= string.format( "%02x", string.byte( str, i ) )
 
     return hex
 
