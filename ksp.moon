@@ -168,7 +168,8 @@ class extends lapis.Application
                 return status: 404
 
         POST: =>
-            if @session.id and (Users\find id: @session.id).admin and craft = Crafts\find id: @params.id
+            if @session.id and (Users\find id: @session.id).admin
+                craft = Crafts\find id: @params.id
                 if @params.status
                     craft\update {
                         status: @params.status
