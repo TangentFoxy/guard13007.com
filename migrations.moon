@@ -1,4 +1,4 @@
-import create_table, types, drop_table from require "lapis.db.schema"
+import create_table, types, drop_table, add_column from require "lapis.db.schema"
 
 {
     [1]: =>
@@ -78,4 +78,6 @@ import create_table, types, drop_table from require "lapis.db.schema"
             {"digest", types.text}
             {"admin", types.boolean default: false}
         }
+    [8]: =>
+        add_column "crafts", "user_id", types.foreign_key default: 1
 }
