@@ -122,8 +122,6 @@ class extends lapis.Application
             if craft = Crafts\find id: @params.id
                 @title = "#{craft.craft_name} by #{craft.creator_name}"
                 @html ->
-                    h1 craft.craft_name
-                    h3 "By " .. craft.creator_name
                     p craft.description --TODO put a fancy box around this
                     img src: craft.picture --TODO make this a reasonable size
                     p -> a href: craft.download_link, "Download" --TODO replace this with something to protect against XSS...
@@ -144,9 +142,9 @@ class extends lapis.Application
                             element "select", name: "status", ->
                                 for status in *Crafts.statuses
                                     if status == Crafts.statuses[craft.status]
-                                        option value: Crafts.statuses.status, selected: true, status
+                                        option value: "#{Crafts.statuses.status}", selected: true, status
                                     else
-                                        option value: Crafts.statuses.status, status
+                                        option value: "#{Crafts.statuses.status}", status
                             text " Episode: "
                             input type: "text", name: "episode", placeholder: craft.episode
                             text " Rejection Reason: "
@@ -172,7 +170,7 @@ class extends lapis.Application
                 craft = Crafts\find id: @params.id
                 if @params.status
                     craft\update {
-                        status: @params.status
+                        status: Crafts.statuses\for_db @params.status
                     }
                     --todo info popup
                 if @params.episode
