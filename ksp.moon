@@ -120,6 +120,7 @@ class extends lapis.Application
         GET: =>
             --TODO we need a "back" button or something similar
             if craft = Crafts\find id: @params.id
+                @title = "#{craft.craft_name} by #{craft.creator_name}"
                 @html ->
                     h1 craft.craft_name
                     h3 "By " .. craft.creator_name
@@ -138,6 +139,25 @@ class extends lapis.Application
                             action: @url_for "ksp_craft", id: craft.id
                             method: "POST"
                             enctype: "multipart/form-data"
+                        }, ->
+                            text "Status: "
+                            element "select", name: "status", ->
+                                for status in *Crafts.statuses
+                                    if status == Crafts.statuses[craft.status]
+                                        option value: Crafts.statuses.status, selected: true, status
+                                    else
+                                        option value: Crafts.statuses.status, status
+                            text " Episode: "
+                            input type: "text", name: "episode", placeholder: craft.episode
+                            text " Rejection Reason: "
+                            input type: "text", name: "rejection_reason", placeholder: craft.rejection_reason
+                            br!
+                            input type: "submit"
+                        hr!
+                        form {
+                            action: @url_for "ksp_craft", id: craft.id
+                            method: "POST"
+                            enctype: "multipart/form-data"
                             onsubmit: "return confirm('Are you sure you want to do this?');"
                         }, ->
                             text "Delete craft? "
@@ -148,10 +168,27 @@ class extends lapis.Application
                 return status: 404
 
         POST: =>
-            if @session.id and (Users\find id: @session.id).admin and @params.delete
-                if (Crafts\find id: @params.id)\delete!
-                    return "Craft deleted." --shitty prompt whatever
-                else
-                    return status: 500, "Error deleting craft!"
+            if @session.id and (Users\find id: @session.id).admin and craft = Crafts\find id: @params.id
+                if @params.status
+                    craft\update {
+                        status: @params.status
+                    }
+                    --todo info popup
+                if @params.episode
+                    craft\update {
+                        episode: @params.episode
+                    }
+                    --todo info popup
+                elseif @params.rejection_reason
+                    craft\update {
+                        rejection_reason: @params.rejection_reason
+                    }
+                    --todo info popup
+                elseif @params.delete
+                    if craft\delete!
+                        return "Craft deleted." --shitty prompt whatever
+                    else
+                        return status: 500, "Error deleting craft!"
+
             return redirect_to: @url_for "ksp_craft", id: @params.id
     }
