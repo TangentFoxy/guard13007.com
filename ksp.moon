@@ -94,18 +94,20 @@ class extends lapis.Application
         Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 13
         crafts = Paginator\get_page page
         @html ->
-            ul ->
+            element "table", ->
                 for craft in *crafts
-                    li ->
-                        a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
-                    li ->
-                        Crafts.status\to_name craft.status
-                    li ->
-                        if Crafts.status.reviewed == craft.status
-                            a href: "https://youtube.com/watch?v=#{craft.episode}", "Watch on YouTube"
-                        elseif Crafts.status.rejected == craft.status
-                            text "Reason: #{craft.rejection_reason}"
+                    tr ->
+                        td ->
+                            a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
+                        td ->
+                            Crafts.status\to_name craft.status
+                        td ->
+                            if Crafts.status.reviewed == craft.status
+                                a href: "https://youtube.com/watch?v=#{craft.episode}", "Watch on YouTube"
+                            elseif Crafts.status.rejected == craft.status
+                                text "Reason: #{craft.rejection_reason}"
 
+            ul ->
                 li style: "list-style:none;", ->
                     --TODO better links, better formatting, different paginators for different statuses
                     if page > 1
