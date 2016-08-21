@@ -135,7 +135,7 @@ class extends lapis.Application
                         td ->
                             if Crafts.statuses.reviewed == craft.status
                                 a href: "https://youtube.com/watch?v=#{craft.episode}", target: "_blank", "Watch on YouTube"
-                            elseif Crafts.statuses.rejected == craft.status
+                            elseif Crafts.statuses.rejected == craft.status or Crafts.statuses.delayed == craft.status
                                 text "#{craft.notes}"
 
     [craft: "/craft/:id[%d]"]: respond_to {
