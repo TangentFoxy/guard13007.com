@@ -8,6 +8,7 @@ class Crafts extends Model
         pending: 1
         reviewed: 2
         rejected: 3
+        delayed: 4
     }
 
     @constraints: {

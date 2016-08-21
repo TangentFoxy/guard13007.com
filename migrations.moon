@@ -1,4 +1,4 @@
-import create_table, types, drop_table, add_column from require "lapis.db.schema"
+import create_table, types, drop_table, add_column, rename_column from require "lapis.db.schema"
 
 {
     [1]: =>
@@ -80,4 +80,6 @@ import create_table, types, drop_table, add_column from require "lapis.db.schema
         }
     [8]: =>
         add_column "crafts", "user_id", types.foreign_key default: 1
+    [9]: =>
+        rename_column "crafts", "rejection_reason", "notes"
 }

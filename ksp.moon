@@ -136,7 +136,7 @@ class extends lapis.Application
                             if Crafts.statuses.reviewed == craft.status
                                 a href: "https://youtube.com/watch?v=#{craft.episode}", target: "_blank", "Watch on YouTube"
                             elseif Crafts.statuses.rejected == craft.status
-                                text "#{craft.rejection_reason}"
+                                text "#{craft.notes}"
 
     [craft: "/craft/:id[%d]"]: respond_to {
         GET: =>
@@ -177,8 +177,8 @@ class extends lapis.Application
                                         option value: Crafts.statuses[status], status
                             text " Episode: "
                             input type: "text", name: "episode", placeholder: craft.episode
-                            text " Rejection Reason: "
-                            input type: "text", name: "rejection_reason", placeholder: craft.rejection_reason
+                            text " Notes: "
+                            input type: "text", name: "notes", placeholder: craft.notes
                             br!
                             input type: "submit"
 
@@ -244,9 +244,9 @@ class extends lapis.Application
                         episode: @params.episode
                     }
                     --todo info popup
-                elseif @params.rejection_reason and @params.rejection_reason\len! > 0
+                elseif @params.notes and @params.notes\len! > 0
                     craft\update {
-                        rejection_reason: @params.rejection_reason
+                        notes: @params.notes
                     }
                     --todo info popup
                 elseif @params.delete
