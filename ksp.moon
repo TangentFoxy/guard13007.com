@@ -124,7 +124,7 @@ class extends lapis.Application
                     th style: "width:20%; word-wrap: break-word;", "Craft"
                     th style: "width:20%; word-wrap: break-word;", "Creator"
                     th "Status"
-                    th "Misc"
+                    th "Notes/Video"
                 for craft in *crafts
                     tr ->
                         td style: "width:20%; word-wrap: break-word;", ->
