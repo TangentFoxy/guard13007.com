@@ -36,7 +36,8 @@ class extends lapis.Application
                     p ->
                         text "(If your craft is on "
                         a href: "https://kerbalx.com/", "KerbalX"
-                        text ", you only need to enter the craft name and a download link!)"
+                        text ", you only need to enter the craft name and a link to the craft on KerbalX! DO NOT use a direct download link from KerbalX, those break for some reason.)"
+                    p "Please check your download links after submission! Several people have submitted invalid links. I will have a system to try to check for this in the future, but it is not ready yet."
                     p ->
                         text "Craft Name: "
                         input type: "text", name: "craft_name"
