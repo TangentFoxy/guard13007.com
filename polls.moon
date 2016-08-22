@@ -19,6 +19,9 @@ class extends lapis.Application
                             ul ->
                                 li ->
                                     a href: @url_for("polls_yt_ksp"), "What kind of KSP videos should I make?"
+                                    ul ->
+                                        li ->
+                                            a href: @url_for("polls_yt_ksp_plane_reviews"), "How long should Plane Reviews episodes be?"
 
     [yt_videos: "/youtube-videos.html"]: =>
         @title = "What type of YouTube videos should I make?"
@@ -48,4 +51,9 @@ class extends lapis.Application
     [yt_ksp: "/ksp-stuff.html"]: =>
         @title = "What kind of KSP videos should I make?"
         @poll = "https://www.strawpoll.me/embed_1/3301812"
+        render: "poll"
+
+    [yt_ksp_plane_reviews: "/ksp-plane-reviews-length"]: =>
+        @title = "How long should Plane Reviews episodes be?"
+        @poll = "https://www.strawpoll.me/embed_1/11056220"
         render: "poll"
