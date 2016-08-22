@@ -6,6 +6,7 @@ import respond_to, json_params from require "lapis.application"
 class extends lapis.Application
     @path: "/polls"
     @name: "polls_"
+    layout: require "simple"
 
     [index: ""]: =>
         @title = "Guard's Polls"
