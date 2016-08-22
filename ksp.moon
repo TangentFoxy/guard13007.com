@@ -228,6 +228,20 @@ class extends lapis.Application
                             input type: "checkbox", name: "delete"
                             br!
                             input type: "submit"
+
+                    div id: "disqus_thread"
+                    script -> raw "
+                        var disqus_config = function () {
+                            this.page.url = '#{@build_url @url_for "ksp_craft", id: craft.id}';
+                            this.page.identifier = '#{@url_for "ksp_craft", id: craft.id}';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = '//guard13007.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();"
+
             else
                 return redirect_to: @url_for "ksp_craft_list"
 
