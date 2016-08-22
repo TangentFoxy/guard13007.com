@@ -6,7 +6,6 @@ import respond_to, json_params from require "lapis.application"
 class extends lapis.Application
     @path: "/polls"
     @name: "polls_"
-    layout: require "views.simple"
 
     [index: ""]: =>
         @title = "Guard's Polls"
@@ -27,7 +26,7 @@ class extends lapis.Application
     [yt_videos: "/youtube-videos.html"]: =>
         @title = "What type of YouTube videos should I make?"
         @poll = "https://www.strawpoll.me/embed_1/6279645"
-        render: "poll"
+        render: "poll", layout: "simple"
 
     [yt_games: "/youtube-games.html"]: =>
         @title = "What kind of gaming videos should I make?"
