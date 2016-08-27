@@ -16,6 +16,7 @@ class extends html.Widget
                 link rel: "stylesheet", href: @build_url "static/css/site.css"
             body ->
                 div id: "container", ->
+                    a name: "top"
                     if @title
                         h1 @title
                     @content_for "inner"

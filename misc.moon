@@ -76,19 +76,23 @@ class extends lapis.Application
 
             hr!
 
-            a name: "general", h2 "General Questions"
+            a name: "general"
+            h2 "General Questions"
 
             dl ->
                 dt -> a name: "contact", "How can I contact you?"
                 dd ->
-                    a href: @url_for "contact", "I have contact info listed here"
+                    a href: @url_for("contact"), "I have contact info listed here"
                     text "."
                 dt -> a name: "name", "Why is your name Guard13007?"
                 dd ->
                     a href: "https://twitter.com/craigperko/status/591228538633621504", target: "_blank", "See this Twitter conversation"
                     text "."
 
-            a name: "youtube", h2 "YouTube Questions"
+            a href: "#top", "top"
+
+            a name: "youtube"
+            h2 "YouTube Questions"
 
             dl ->
                 dt -> a name: "specs", "What are your computer's specs?"
@@ -166,6 +170,8 @@ class extends lapis.Application
                     text "I say \"pro\" very quiet and fast. In combination with the bassy sound of \"pro\" and my post-processing to remove background noise (which is also bassy), this makes the \"pro\" usually inaudible. If you "
                     a href: @build_url("static/img/faq/exhibit-a.png"), target: "_blank", "look at the waveforms"
                     text " though, you can see it's there."
+
+            a href: "#top", "top"
 
     [date: "/date"]: =>
         Crafts = require "models.Crafts"
