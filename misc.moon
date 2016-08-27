@@ -45,28 +45,23 @@ class extends lapis.Application
     [contact: "/contact"]: =>
         @title = "Contact Info"
         @html ->
-            link rel: "stylesheet", href: @build_url "static/css/pure-min.css"
-            link rel: "stylesheet", href: @build_url "static/css/contact.css"
-
-            div id: "container", ->
-                h1 "Contact Info"
-                ul ->
-                    li ->
-                        text "Email: "
-                        a href: "mailto:paul.liverman.iii@gmail.com", "paul.liverman.iii@gmail.com"
-                    li ->
-                        text "Discord (my server): "
-                        a href: "https://discord.gg/0Y9OTJpXWhFJBEMX", target: "_blank", "invite link"
-                    li ->
-                        text "Twitter: "
-                        a href: "https://twitter.com/guard13007", target: "_blank", "@Guard13007"
-                    li ->
-                        text "Player.me: "
-                        a href: "https://player.me/guard13007", target: "_blank", "Guard13007"
-                p ->
-                    text "Do "
-                    em "not"
-                    text " send messages to my YouTube inbox."
+            ul ->
+                li ->
+                    text "Email: "
+                    a href: "mailto:paul.liverman.iii@gmail.com", "paul.liverman.iii@gmail.com"
+                li ->
+                    text "Discord (my server): "
+                    a href: "https://discord.gg/DjB84MP", target: "_blank", "invite link"
+                li ->
+                    text "Twitter: "
+                    a href: "https://twitter.com/guard13007", target: "_blank", "@Guard13007"
+                li ->
+                    text "Player.me: "
+                    a href: "https://player.me/guard13007", target: "_blank", "Guard13007"
+            p ->
+                text "Do "
+                em "not"
+                text " send messages to my YouTube inbox."
 
     [faq: "/faq"]: =>
         @title = "Frequently Asked Questions"
