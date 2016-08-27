@@ -15,8 +15,8 @@ class extends html.Widget
                 link rel: "stylesheet", href: @build_url "static/css/pure-min.css"
                 link rel: "stylesheet", href: @build_url "static/css/site.css"
             body ->
+                a name: "top"
                 div id: "container", ->
-                    a name: "top"
                     if @title
                         h1 @title
                     @content_for "inner"
