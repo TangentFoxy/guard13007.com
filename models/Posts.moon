@@ -1,0 +1,17 @@
+import Model, enum from require "lapis.db.model"
+
+class Posts extends Model
+    @timestamp: true
+
+    @statuses: enum {
+        draft: 1
+        published: 2
+    }
+
+    @constraints: {
+        title: (value) =>
+            if not value or value\len! < 1
+                return "Must have a title."
+            if Posts\find title: value
+                return "A post with that title has already been created."
+    }

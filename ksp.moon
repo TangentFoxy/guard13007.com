@@ -1,7 +1,7 @@
 lapis = require "lapis"
 discount = require "discount"
 
-import respond_to, json_params from require "lapis.application"
+import respond_to from require "lapis.application"
 
 Crafts = require "models.Crafts"
 Users = require "users.models.Users"
@@ -86,8 +86,8 @@ class extends lapis.Application
     }
 
     [craft_list: "/crafts(/:page[%d])"]: =>
-        @title = "Submitted Craft"
         page = tonumber(@params.page) or 1
+        @title = "Submitted Craft (Page #{page})"
 
         Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 13
         crafts = Paginator\get_page page
@@ -101,7 +101,6 @@ class extends lapis.Application
                     a class: "pure-button", href: @url_for("ksp_craft_list", page: page - 1), "Previous"
                 else
                     a class: "pure-button pure-button-disabled", "Previous"
-                --text " | "
                 if page < Paginator\num_pages!
                     a class: "pure-button", href: @url_for("ksp_craft_list", page: page + 1), "Next"
                 else
