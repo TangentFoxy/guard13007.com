@@ -98,4 +98,6 @@ import create_table, types, drop_table, add_column, rename_column from require "
             {"created_at", types.time}
             {"updated_at", types.time}
         }
+    [12]: =>
+        return true -- I fucked up migrations stuff again
 }
