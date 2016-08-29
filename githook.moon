@@ -41,8 +41,12 @@ class extends lapis.Application
 
             if config.githook_secret
                 ngx.req.read_body!
-                unless const_compare ("sha1=" .. hex_dump hmac_sha1(config.githook_secret, ngx.req.get_body_data!)), @req.headers["X-Hub-Signature"]
-                    return { json: { status: "invalid request" } }, status: 400 --Bad Request
+                body = ngx.req.get_body_data!
+                if body
+                    unless const_compare ("sha1=" .. hex_dump hmac_sha1(config.githook_secret, body)), @req.headers["X-Hub-Signature"]
+                        return { json: { status: "invalid request" } }, status: 400 --Bad Request
+                else
+                    return { json: { status: "invalid request", message: "no body sent in request" } }, status: 400 --Bad Request
 
             elseif @params.ref == nil -- fallback to old version for apps that aren't updated to proper verification!
                 return { json: { status: "invalid request" } }, status: 400 --Bad Request
