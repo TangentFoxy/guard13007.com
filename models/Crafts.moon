@@ -4,7 +4,7 @@ class Crafts extends Model
     @timestamp: true
 
     @statuses: enum {
-        unseen: 0
+        new: 0
         pending: 1
         reviewed: 2
         rejected: 3
