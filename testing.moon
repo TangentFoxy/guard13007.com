@@ -21,4 +21,4 @@ class extends lapis.Application
         --return result, layout: false, content_type: "text/plain"
         --return result
         --@html -> raw -> result
-        @html -> text result
+        @html -> raw result
