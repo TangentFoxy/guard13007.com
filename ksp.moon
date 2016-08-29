@@ -157,10 +157,10 @@ class extends lapis.Application
                         a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
 
                     raw discount craft.description, "nohtml" -- THIS IS SCARY! D:
-                    img src: craft.picture, style: "max-width: inherit;"
+                    img src: craft.picture
                     if Crafts.statuses.reviewed == craft.status
-                        --NOTE width/height are hardcoded, this is baaaad
-                        iframe style: "width: 1000px; height: 562.5px;", src: "https://www.youtube.com/embed/#{craft.episode}", frameborder: 0, allowfullscreen: true
+                        --NOTE width/height are hardcoded, this is baaaade style: "width: 620px; height: 348.75px; align: center;", --no idea if the align would even work
+                        iframe src: "https://www.youtube.com/embed/#{craft.episode}", frameborder: 0, allowfullscreen: true
                     p ->
                         a class: "pure-button", href: craft.download_link, "Download" --TODO replace this with something to protect against XSS...
                         text " KSP Version: " .. craft.ksp_version
