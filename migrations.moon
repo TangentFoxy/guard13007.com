@@ -85,7 +85,7 @@ import create_table, types, drop_table, add_column, rename_column from require "
     [9]: =>
         rename_column "crafts", "rejection_reason", "notes"
     [10]: =>
-        db.query "ALTER TABLE crafts ALTER 'picture' SET DEFAULT 'https://guard13007.com/static/img/ksp/no_image.png'"
+        db.query "ALTER TABLE crafts ALTER picture SET DEFAULT 'https://guard13007.com/static/img/ksp/no_image.png'"
     [11]: =>
         create_table "posts", {
             {"id", types.serial primary_key: true}
