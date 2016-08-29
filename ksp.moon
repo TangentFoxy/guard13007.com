@@ -57,17 +57,9 @@ class extends lapis.Application
                         input type: "submit"
 
         POST: =>
-            --unless @params.creator_name
-            --    @params.creator_name = ""
-            --unless @params.description
-            --    @params.description = "No description provided."
-            --unless @params.action_groups
-            --    @params.action_groups = ""
-            --unless @params.ksp_version
-            --    @params.ksp_version = ""
-            --unless @params.mods_used
-            --    @params.mods_used = ""
-            unless @params.picture
+            if @session.id
+                @params.creator_name = (Users\find id: @session.id).name
+            unless @params.picture\len! > 0
                 @params.picture = @build_url "/static/img/ksp/no_image.png"
 
             if @session.id
@@ -126,7 +118,10 @@ class extends lapis.Application
                     tr ->
                         td style: "width:20%; word-wrap: break-word;", ->
                             a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
-                        td style: "width:20%; word-wrap: break-word;", craft.creator_name
+                        if craft.user_id != 1
+                            td style: "width:20%; word-wrap: break-word;", (Users\find id: craft.user_id).name
+                        else
+                            td style: "width:20%; word-wrap: break-word;", craft.creator_name
                         td style: "width:10%;", class: Crafts.statuses\to_name(craft.status), ->
                             text Crafts.statuses\to_name craft.status
                         td ->

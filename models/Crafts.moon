@@ -18,7 +18,7 @@ class Crafts extends Model
                 return "Craft must have a name!"
 
         download_link: (value) =>
-            unless value
+            if not value or value\len! < 1
                 return "You must enter a download link!"
             if Crafts\find download_link: value
                 return "That craft has already been submitted!"
