@@ -1,4 +1,5 @@
 lapis = require "lapis"
+discount = require "discount"
 
 import respond_to, json_params from require "lapis.application"
 
@@ -157,6 +158,8 @@ class extends lapis.Application
 
                     raw discount craft.description, "nohtml" -- THIS IS SCARY! D:
                     img src: craft.picture, style: "max-width: inherit;"
+                    if Crafts.statuses.reviewed == craft.status
+                        iframe src: "https://www.youtube.com/embed/#{craft.episode}", frameborder: 0, allowfullscreen: true
                     p ->
                         a class: "pure-button", href: craft.download_link, "Download" --TODO replace this with something to protect against XSS...
                         text " KSP Version: " .. craft.ksp_version
