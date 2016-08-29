@@ -56,7 +56,7 @@ class extends lapis.Application
                         text " Mods Used: "
                         input type: "text", name: "mods_used"
                     p ->
-                        text "Picture? (URL to an image online!) "
+                        text "Image URL: "
                         input type: "text", name: "picture"
                     p ->
                         input type: "submit"
@@ -164,9 +164,9 @@ class extends lapis.Application
                         a class: "pure-button", href: craft.download_link, "Download" --TODO replace this with something to protect against XSS...
                         text " KSP Version: " .. craft.ksp_version
                     p "Action Groups:"
-                    pre craft.action_groups
+                    pre style: "pre-wrap", craft.action_groups
                     p "Mods Used:"
-                    pre craft.mods_used
+                    pre style: "pre-wrap", craft.mods_used
 
                     if @session.id
                         user = Users\find id: @session.id
@@ -186,16 +186,16 @@ class extends lapis.Application
                                 input type: "text", name: "craft_name", placeholder: craft.craft_name
                                 br!
                                 p "Description:"
-                                textarea cols: 60, rows: 4, name: "description", placeholder: craft.description
+                                textarea cols: 60, rows: 5, name: "description", placeholder: craft.description
                                 br!
                                 text "Download link: "
                                 input type: "text", name: "download_link", placeholder: craft.download_link
                                 br!
-                                text "Picture: "
+                                text "Image URL: "
                                 input type: "text", name: "picture", placeholder: craft.picture
                                 br!
                                 p "Action groups:"
-                                textarea cols: 60, rows: 2, name: "action_groups", placeholder: craft.action_groups
+                                textarea cols: 60, rows: 3, name: "action_groups", placeholder: craft.action_groups
                                 br!
                                 text "KSP version: "
                                 input type: "text", name: "ksp_version", placeholder: craft.ksp_version
