@@ -172,9 +172,3 @@ class extends lapis.Application
                     text " though, you can see it's there."
 
             a href: "#top", "top"
-
-    [date: "/date"]: =>
-        Crafts = require "models.Crafts"
-        out = Crafts\find(id: 1).created_at
-        @html ->
-            p out
