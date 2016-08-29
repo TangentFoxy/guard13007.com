@@ -3,22 +3,26 @@ import Model, enum from require "lapis.db.model"
 class Crafts extends Model
     @timestamp: true
 
-    @status: enum {
-        unseen: 0
+    @statuses: enum {
+        new: 0
         pending: 1
         reviewed: 2
         rejected: 3
+        delayed: 4
+        priority: 5
     }
 
     @constraints: {
         craft_name: (value) =>
-            unless value
+            if not value or value\len! < 1
                 return "Craft must have a name!"
+
         download_link: (value) =>
-            unless value
+            if not value or value\len! < 1
                 return "You must enter a download link!"
             if Crafts\find download_link: value
                 return "That craft has already been submitted!"
+
             --TODO validate URL here!
 
         --description: (value) =>

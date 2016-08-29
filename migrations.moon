@@ -1,4 +1,4 @@
-import create_table, types, drop_table from require "lapis.db.schema"
+import create_table, types, drop_table, add_column, rename_column from require "lapis.db.schema"
 
 {
     [1]: =>
@@ -60,4 +60,26 @@ import create_table, types, drop_table from require "lapis.db.schema"
             {"created_at", types.time}
             {"updated_at", types.time}
         }
+    [5]: =>
+        create_table "users", {
+            {"id", types.serial primary_key: true}
+            {"name", types.varchar unique: true}
+            {"salt", types.text}
+            {"digest", types.text}
+            {"admin", types.boolean default: false}
+        }
+    [6]: =>
+        return true --drop_table "user" --fuck, I messed up
+    [7]: =>
+        drop_table "users"
+        create_table "users", {
+            {"id", types.serial primary_key: true}
+            {"name", types.varchar unique: true}
+            {"digest", types.text}
+            {"admin", types.boolean default: false}
+        }
+    [8]: =>
+        add_column "crafts", "user_id", types.foreign_key default: 1
+    [9]: =>
+        rename_column "crafts", "rejection_reason", "notes"
 }

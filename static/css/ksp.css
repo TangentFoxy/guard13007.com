@@ -1,0 +1,19 @@
+td.new {
+    background: white;
+}
+td.pending {
+    background: lightblue;
+}
+td.reviewed {
+    background: lightgreen;
+}
+td.rejected {
+    background: #FAA;
+}
+td.delayed {
+    background: lightgrey;
+}
+td.priority {
+    background: #11aadd;
+    color: white;
+}

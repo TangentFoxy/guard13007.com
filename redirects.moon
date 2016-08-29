@@ -4,7 +4,7 @@ class extends lapis.Application
     @path: "/redirects"
 
     "/discord": =>
-        redirect_to: "https://guard13007.com/chat", status: 302
+        redirect_to: "https://discord.gg/DjB84MP", status: 302
 
     "/github": => -- not in use
         redirect_to: "https://github.com/guard13007", status: 302
