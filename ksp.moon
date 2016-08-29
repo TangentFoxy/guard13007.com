@@ -10,8 +10,8 @@ class extends lapis.Application
     @path: "/ksp"
     @name: "ksp_"
 
-    [index: "/"]: =>
-        p ->
+    [index: ""]: =>
+        @html -> p ->
             a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
             a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
 
