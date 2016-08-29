@@ -1,3 +1,5 @@
+db = require "lapis.db"
+
 import create_table, types, drop_table, add_column, rename_column from require "lapis.db.schema"
 
 {
@@ -82,4 +84,6 @@ import create_table, types, drop_table, add_column, rename_column from require "
         add_column "crafts", "user_id", types.foreign_key default: 1
     [9]: =>
         rename_column "crafts", "rejection_reason", "notes"
+    [10]: =>
+        db.query "ALTER TABLE 'crafts' ALTER 'picture' SET DEFAULT 'https://guard13007.com/static/img/ksp/no_image.png'"
 }
