@@ -160,7 +160,7 @@ class extends lapis.Application
                     img src: craft.picture
                     if Crafts.statuses.reviewed == craft.status
                         --NOTE width/height are hardcoded, this is baaaade style: "width: 620px; height: 348.75px; align: center;", --no idea if the align would even work
-                        iframe src: "https://www.youtube.com/embed/#{craft.episode}", frameborder: 0, allowfullscreen: true
+                        div class: "yt-embed", -> iframe src: "https://www.youtube.com/embed/#{craft.episode}", frameborder: 0, allowfullscreen: true
                     p ->
                         a class: "pure-button", href: craft.download_link, "Download" --TODO replace this with something to protect against XSS...
                         text " KSP Version: " .. craft.ksp_version
