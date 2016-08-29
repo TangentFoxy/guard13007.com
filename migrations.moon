@@ -85,23 +85,8 @@ import create_table, types, drop_table, add_column, rename_column from require "
     [9]: =>
         rename_column "crafts", "rejection_reason", "notes"
     [10]: =>
-        return true -- I fucked up --db.query "ALTER TABLE crafts ALTER picture SET DEFAULT 'https://guard13007.com/static/img/ksp/no_image.png'"
-    [11]: =>
-        return true -- I fucked up again
-        --create_table "posts", {
-        --    {"id", types.serial primary_key: true}
-        --    {"title", types.text unique: true}
-        --    {"slug", types.text unique: true}
-        --    {"text", types.text default: ""}
-        --    {"status", types.integer default: 1}
-        --    {"pubdate", types.time}
-
-        --    {"created_at", types.time}
-        --    {"updated_at", types.time}
-        --}
-    [12]: =>
         db.query "ALTER TABLE crafts ALTER picture SET DEFAULT 'https://guard13007.com/static/img/ksp/no_image.png'"
-
+    [11]: =>
         create_table "posts", {
             {"id", types.serial primary_key: true}
             {"title", types.text unique: true}
