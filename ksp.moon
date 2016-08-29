@@ -240,7 +240,7 @@ class extends lapis.Application
                     script -> raw "
                         var disqus_config = function () {
                             this.page.url = '#{@build_url @url_for "ksp_craft", id: craft.id}';
-                            this.page.identifier = '#{@url_for "ksp_craft", id: craft.id}';
+                            this.page.identifier = '#{@build_url @url_for "ksp_craft", id: craft.id}';
                         };
                         (function() {
                             var d = document, s = d.createElement('script');
