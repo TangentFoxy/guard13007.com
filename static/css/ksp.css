@@ -1,4 +1,4 @@
-td.unseen {
+td.new {
     background: white;
 }
 td.pending {
@@ -12,4 +12,8 @@ td.rejected {
 }
 td.delayed {
     background: lightgrey;
+}
+td.priority {
+    background: #11aadd;
+    color: white;
 }

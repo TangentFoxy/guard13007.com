@@ -20,20 +20,15 @@ class extends lapis.Application
 
     [submit_crafts: "/submit"]: respond_to {
         GET: =>
+            @title = "Submit a craft to be reviewed!"
             @html ->
+                a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
                 form {
                     action: @url_for "ksp_submit_crafts"
                     method: "POST"
                     enctype: "multipart/form-data"
                 }, ->
                     -- NOTE only craft_name and download_link required
-
-                    -- craft_name, download_link, creator_name
-                    -- description, action_groups
-                    -- ksp_version, mods_used
-                    -- picture
-                    -- Submit!
-                    h2 "Submit a craft to be reviewed!"
                     p ->
                         text "(If your craft is on "
                         a href: "https://kerbalx.com/", "KerbalX"
@@ -56,24 +51,15 @@ class extends lapis.Application
                         text " Mods Used: "
                         input type: "text", name: "mods_used"
                     p ->
-                        text "Picture? (URL to an image online!) "
+                        text "Image URL: "
                         input type: "text", name: "picture"
                     p ->
                         input type: "submit"
-                a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
 
         POST: =>
-            --unless @params.creator_name
-            --    @params.creator_name = ""
-            --unless @params.description
-            --    @params.description = "No description provided."
-            --unless @params.action_groups
-            --    @params.action_groups = ""
-            --unless @params.ksp_version
-            --    @params.ksp_version = ""
-            --unless @params.mods_used
-            --    @params.mods_used = ""
-            unless @params.picture
+            if @session.id
+                @params.creator_name = (Users\find id: @session.id).name
+            unless @params.picture\len! > 0
                 @params.picture = @build_url "/static/img/ksp/no_image.png"
 
             if @session.id
@@ -100,6 +86,7 @@ class extends lapis.Application
     }
 
     [craft_list: "/crafts(/:page[%d])"]: =>
+        @title = "Submitted Craft"
         page = tonumber(@params.page) or 1
 
         Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 13
@@ -131,13 +118,16 @@ class extends lapis.Application
                     tr ->
                         td style: "width:20%; word-wrap: break-word;", ->
                             a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
-                        td style: "width:20%; word-wrap: break-word;", craft.creator_name
+                        if craft.user_id != 1
+                            td style: "width:20%; word-wrap: break-word;", (Users\find id: craft.user_id).name
+                        else
+                            td style: "width:20%; word-wrap: break-word;", craft.creator_name
                         td style: "width:10%;", class: Crafts.statuses\to_name(craft.status), ->
                             text Crafts.statuses\to_name craft.status
                         td ->
                             if Crafts.statuses.reviewed == craft.status
                                 a href: "https://youtube.com/watch?v=#{craft.episode}", target: "_blank", "Watch on YouTube"
-                            elseif Crafts.statuses.rejected == craft.status or Crafts.statuses.delayed == craft.status
+                            else
                                 text "#{craft.notes}"
 
     [craft: "/craft/:id[%d]"]: respond_to {
@@ -164,9 +154,9 @@ class extends lapis.Application
                         a class: "pure-button", href: craft.download_link, "Download" --TODO replace this with something to protect against XSS...
                         text " KSP Version: " .. craft.ksp_version
                     p "Action Groups:"
-                    pre craft.action_groups
+                    pre style: "white-space: pre-wrap;", craft.action_groups
                     p "Mods Used:"
-                    pre craft.mods_used
+                    pre style: "white-space: pre-wrap;", craft.mods_used
 
                     if @session.id
                         user = Users\find id: @session.id
@@ -186,16 +176,16 @@ class extends lapis.Application
                                 input type: "text", name: "craft_name", placeholder: craft.craft_name
                                 br!
                                 p "Description:"
-                                textarea cols: 60, rows: 4, name: "description", placeholder: craft.description
+                                textarea cols: 60, rows: 5, name: "description", placeholder: craft.description
                                 br!
                                 text "Download link: "
                                 input type: "text", name: "download_link", placeholder: craft.download_link
                                 br!
-                                text "Picture: "
+                                text "Image URL: "
                                 input type: "text", name: "picture", placeholder: craft.picture
                                 br!
                                 p "Action groups:"
-                                textarea cols: 60, rows: 2, name: "action_groups", placeholder: craft.action_groups
+                                textarea cols: 60, rows: 3, name: "action_groups", placeholder: craft.action_groups
                                 br!
                                 text "KSP version: "
                                 input type: "text", name: "ksp_version", placeholder: craft.ksp_version
@@ -214,7 +204,7 @@ class extends lapis.Application
                             }, ->
                                 text "Status: "
                                 element "select", name: "status", ->
-                                    option value: 0, "unseen" -- shoddy work-around on my part...
+                                    option value: 0, "new" -- shoddy work-around on my part...
                                     for status in *Crafts.statuses
                                         if status == Crafts.statuses[craft.status]
                                             option value: Crafts.statuses[status], selected: true, status
