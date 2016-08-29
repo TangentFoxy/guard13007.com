@@ -25,17 +25,14 @@ body {
     border-bottom: none;
 }
 
-#container img/*, #container iframe*/ {
-    max-width: inherit;
-    min-width: inherit;
-    width: inherit;
+#container img {
+    width: 100%;
 }
 
 .yt-embed {
     position: relative;
-    /*padding-top: 25px; /* should not be needed */
     padding-bottom: 56.25%; /*16:9 ratio*/
-    height: 0;
+    height: 25px;
 }
 
 .yt-embed iframe {
