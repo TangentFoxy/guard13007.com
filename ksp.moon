@@ -20,20 +20,15 @@ class extends lapis.Application
 
     [submit_crafts: "/submit"]: respond_to {
         GET: =>
+            @title = "Submit a craft to be reviewed!"
             @html ->
+                a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
                 form {
                     action: @url_for "ksp_submit_crafts"
                     method: "POST"
                     enctype: "multipart/form-data"
                 }, ->
                     -- NOTE only craft_name and download_link required
-
-                    -- craft_name, download_link, creator_name
-                    -- description, action_groups
-                    -- ksp_version, mods_used
-                    -- picture
-                    -- Submit!
-                    h2 "Submit a craft to be reviewed!"
                     p ->
                         text "(If your craft is on "
                         a href: "https://kerbalx.com/", "KerbalX"
@@ -60,7 +55,6 @@ class extends lapis.Application
                         input type: "text", name: "picture"
                     p ->
                         input type: "submit"
-                a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
 
         POST: =>
             --unless @params.creator_name
@@ -100,6 +94,7 @@ class extends lapis.Application
     }
 
     [craft_list: "/crafts(/:page[%d])"]: =>
+        @title = "Submitted Craft"
         page = tonumber(@params.page) or 1
 
         Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 13
