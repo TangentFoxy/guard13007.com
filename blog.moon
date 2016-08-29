@@ -71,10 +71,10 @@ class extends lapis.Application
                     br!
                     element "select", name: "status", ->
                         for status in *Posts.statuses
-                            if status == Crafts.statuses.draft
-                                option value: Crafts.statuses[status], selected: true, status
+                            if status == Posts.statuses.draft
+                                option value: Posts.statuses[status], selected: true, status
                             else
-                                option value: Crafts.statuses[status], status
+                                option value: Posts.statuses[status], status
                     br!
                     input type: "submit"
 
@@ -119,10 +119,10 @@ class extends lapis.Application
                         br!
                         element "select", name: "status", ->
                             for status in *Posts.statuses
-                                if status == Crafts.statuses[post.status]
-                                    option value: Crafts.statuses[status], selected: true, status
+                                if status == Posts.statuses[post.status]
+                                    option value: Posts.statuses[status], selected: true, status
                                 else
-                                    option value: Crafts.statuses[status], status
+                                    option value: Posts.statuses[status], status
                         br!
                         input type: "submit"
             else
