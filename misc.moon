@@ -175,6 +175,6 @@ class extends lapis.Application
 
     [date: "/date"]: =>
         Crafts = require "models.Crafts"
-        out = Crafts\find(id: 1).created_at
+        out = Crafts\find(id: 2).created_at
         @html ->
             p out
