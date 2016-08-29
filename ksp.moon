@@ -159,7 +159,8 @@ class extends lapis.Application
                     raw discount craft.description, "nohtml" -- THIS IS SCARY! D:
                     img src: craft.picture, style: "max-width: inherit;"
                     if Crafts.statuses.reviewed == craft.status
-                        iframe src: "https://www.youtube.com/embed/#{craft.episode}", frameborder: 0, allowfullscreen: true
+                        --NOTE width/height are hardcoded, this is baaaad
+                        iframe style: "width: 1000px; height: 562.5px;", src: "https://www.youtube.com/embed/#{craft.episode}", frameborder: 0, allowfullscreen: true
                     p ->
                         a class: "pure-button", href: craft.download_link, "Download" --TODO replace this with something to protect against XSS...
                         text " KSP Version: " .. craft.ksp_version
