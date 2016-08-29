@@ -32,7 +32,7 @@ body {
 .yt-embed {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 ratio */
-    margin-bottom: 10px; /*guesswork*/
+    /*margin-bottom: 1em; /*guesswork*/
 }
 
 .yt-embed iframe {
@@ -47,6 +47,7 @@ h1, h2 {
     text-align: center;
 }
 
+/*   DUNNO WHAT THIS WAS FOR BUT IT IS MESSING UP MY KSP STUFF
 p {
     margin-top: 0;
-}
+}*/
