@@ -143,93 +143,106 @@ class extends lapis.Application
         GET: =>
             --TODO we need a "back" button or something similar
             if craft = Crafts\find id: @params.id
+                if craft.user_id != 1
+                    craft.creator_name = (Users\find id: craft.user_id).name
                 if craft.creator_name\len! > 0
                     @title = "#{craft.craft_name} by #{craft.creator_name}"
                 else
                     @title = "#{craft.craft_name}"
 
                 @html ->
-                    p craft.description --TODO put a fancy box around this (or hr's) ((AND MARKDOWN IT! :D))
-                    img src: craft.picture, style: "max-width: inherit;"
-                    p -> a href: craft.download_link, "Download" --TODO replace this with something to protect against XSS...
-                    p "Action Groups:"
-                    pre craft.action_groups
-                    p "KSP Version: " .. craft.ksp_version
-                    p "Mods Used:"
-                    pre craft.mods_used
                     p ->
                         a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
                         a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
 
-                    if @session.id and (Users\find id: @session.id).admin
-                        hr!
-                        form {
-                            action: @url_for "ksp_craft", id: craft.id
-                            method: "POST"
-                            enctype: "multipart/form-data"
-                        }, ->
-                            text "Status: "
-                            element "select", name: "status", ->
-                                option value: 0, "unseen" -- shoddy work-around on my part...
-                                for status in *Crafts.statuses
-                                    if status == Crafts.statuses[craft.status]
-                                        option value: Crafts.statuses[status], selected: true, status
-                                    else
-                                        option value: Crafts.statuses[status], status
-                            text " Episode: "
-                            input type: "text", name: "episode", placeholder: craft.episode
-                            text " Notes: "
-                            input type: "text", name: "notes", placeholder: craft.notes
-                            br!
-                            input type: "submit"
+                    raw discount craft.description, "nohtml" -- THIS IS SCARY! D:
+                    img src: craft.picture, style: "max-width: inherit;"
+                    p ->
+                        a class: "pure-button", href: craft.download_link, "Download" --TODO replace this with something to protect against XSS...
+                        text " KSP Version: " .. craft.ksp_version
+                    p "Action Groups:"
+                    pre craft.action_groups
+                    p "Mods Used:"
+                    pre craft.mods_used
 
-                        hr!
-                        form {
-                            action: @url_for "ksp_craft", id: craft.id
-                            method: "POST"
-                            enctype: "multipart/form-data"
-                        }, ->
-                            text "Craft name: "
-                            input type: "text", name: "craft_name", placeholder: craft.craft_name
-                            br!
-                            text "Creator name: "
-                            input type: "text", name: "creator_name", placeholder: craft.creator_name
-                            br!
-                            p "Description:"
-                            textarea cols: 60, rows: 4, name: "description", placeholder: craft.description
-                            br!
-                            text "Download link: "
-                            input type: "text", name: "download_link", placeholder: craft.download_link
-                            br!
-                            text "Picture: "
-                            input type: "text", name: "picture", placeholder: craft.picture
-                            br!
-                            p "Action groups:"
-                            textarea cols: 60, rows: 2, name: "action_groups", placeholder: craft.action_groups
-                            br!
-                            text "KSP version: "
-                            input type: "text", name: "ksp_version", placeholder: craft.ksp_version
-                            br!
-                            text "Mods used: "
-                            input type: "text", name: "mods_used", placeholder: craft.mods_used
-                            br!
-                            text "User ID: "
-                            input type: "number", name: "user_id", placeholder: craft.user_id
-                            br!
-                            input type: "submit"
+                    if @session.id
+                        user = Users\find id: @session.id
 
-                        hr!
-                        form {
-                            action: @url_for "ksp_craft", id: craft.id
-                            method: "POST"
-                            enctype: "multipart/form-data"
-                            onsubmit: "return confirm('Are you sure you want to do this?');"
-                        }, ->
-                            text "Delete craft? "
-                            input type: "checkbox", name: "delete"
-                            br!
-                            input type: "submit"
+                        if @session.id == craft.user_id
+                            hr!
+                            p "Notes from Guard13007: " .. craft.notes
 
+                        if @session.id == craft.user_id or user.admin
+                            hr!
+                            form {
+                                action: @url_for "ksp_craft", id: craft.id
+                                method: "POST"
+                                enctype: "multipart/form-data"
+                            }, ->
+                                text "Craft name: "
+                                input type: "text", name: "craft_name", placeholder: craft.craft_name
+                                br!
+                                p "Description:"
+                                textarea cols: 60, rows: 4, name: "description", placeholder: craft.description
+                                br!
+                                text "Download link: "
+                                input type: "text", name: "download_link", placeholder: craft.download_link
+                                br!
+                                text "Picture: "
+                                input type: "text", name: "picture", placeholder: craft.picture
+                                br!
+                                p "Action groups:"
+                                textarea cols: 60, rows: 2, name: "action_groups", placeholder: craft.action_groups
+                                br!
+                                text "KSP version: "
+                                input type: "text", name: "ksp_version", placeholder: craft.ksp_version
+                                br!
+                                text "Mods used: "
+                                input type: "text", name: "mods_used", placeholder: craft.mods_used
+                                br!
+                                input type: "submit"
+
+                        if user.admin
+                            hr!
+                            form {
+                                action: @url_for "ksp_craft", id: craft.id
+                                method: "POST"
+                                enctype: "multipart/form-data"
+                            }, ->
+                                text "Status: "
+                                element "select", name: "status", ->
+                                    option value: 0, "unseen" -- shoddy work-around on my part...
+                                    for status in *Crafts.statuses
+                                        if status == Crafts.statuses[craft.status]
+                                            option value: Crafts.statuses[status], selected: true, status
+                                        else
+                                            option value: Crafts.statuses[status], status
+                                text " Episode: "
+                                input type: "text", name: "episode", placeholder: craft.episode
+                                text " Notes: "
+                                input type: "text", name: "notes", placeholder: craft.notes
+                                br!
+                                text "Creator name: "
+                                input type: "text", name: "creator_name", placeholder: craft.creator_name
+                                br!
+                                text "User ID: "
+                                input type: "number", name: "user_id", placeholder: craft.user_id
+                                br!
+                                input type: "submit"
+
+                            hr!
+                            form {
+                                action: @url_for "ksp_craft", id: craft.id
+                                method: "POST"
+                                enctype: "multipart/form-data"
+                                onsubmit: "return confirm('Are you sure you want to do this?');"
+                            }, ->
+                                text "Delete craft? "
+                                input type: "checkbox", name: "delete"
+                                br!
+                                input type: "submit"
+
+                    hr!
                     div id: "disqus_thread"
                     script -> raw "
                         var disqus_config = function () {
@@ -247,51 +260,50 @@ class extends lapis.Application
                 return redirect_to: @url_for "ksp_craft_list"
 
         POST: =>
-            if @session.id and (Users\find id: @session.id).admin
+            if @session.id
                 craft = Crafts\find id: @params.id
-                if @params.status
-                    craft\update {
-                        status: Crafts.statuses\for_db tonumber @params.status
-                    }
-                    --todo info popup
-                if @params.episode and @params.episode\len! > 0
-                    craft\update {
-                        episode: @params.episode
-                    }
-                    --todo info popup
-                elseif @params.notes and @params.notes\len! > 0
-                    craft\update {
-                        notes: @params.notes
-                    }
-                    --todo info popup
-                elseif @params.delete
-                    if craft\delete!
-                        return "Craft deleted." --shitty prompt whatever
-                    else
-                        return status: 500, "Error deleting craft!"
-
-                -- now for the boring stuff
-                --TODO I could actually combine this with the above stuff...
+                user = Users\find id: @session.id
                 fields = {}
-                if @params.craft_name and @params.craft_name\len! > 0
-                    fields.craft_name = @params.craft_name
-                if @params.creator_name and @params.creator_name\len! > 0
-                    fields.creator_name = @params.creator_name
-                if @params.description and @params.description\len! > 0
-                    fields.description = @params.description
-                if @params.download_link and @params.download_link\len! > 0
-                    fields.download_link = @params.download_link
-                if @params.picture and @params.picture\len! > 0
-                    fields.picture = @params.picture
-                if @params.action_groups and @params.action_groups\len! > 0
-                    fields.action_groups = @params.action_groups
-                if @params.ksp_version and @params.ksp_version\len! > 0
-                    fields.ksp_version = @params.ksp_version
-                if @params.mods_used and @params.mods_used\len! > 0
-                    fields.mods_used = @params.mods_used
-                if @params.user_id and @params.user_id\len! > 0
-                    fields.user_id = tonumber @params.user_id
-                craft\update fields
+
+                if user.id == craft.user_id or user.admin
+                    -- craft name, description, download link, picture, action groups, ksp version, mods used
+                    if @params.craft_name and @params.craft_name\len! > 0
+                        fields.craft_name = @params.craft_name
+                    if @params.description and @params.description\len! > 0
+                        fields.description = @params.description
+                    if @params.download_link and @params.download_link\len! > 0
+                        fields.download_link = @params.download_link
+                    if @params.picture and @params.picture\len! > 0
+                        fields.picture = @params.picture
+                    if @params.action_groups and @params.action_groups\len! > 0
+                        fields.action_groups = @params.action_groups
+                    if @params.ksp_version and @params.ksp_version\len! > 0
+                        fields.ksp_version = @params.ksp_version
+                    if @params.mods_used and @params.mods_used\len! > 0
+                        fields.mods_used = @params.mods_used
+
+                if user.admin
+                    -- status, episode, notes, creator_name, user_id
+                    if @params.status
+                        fields.status = Crafts.statuses\for_db tonumber @params.status
+                    if @params.episode and @params.episode\len! > 0
+                        fields.episode = @params.episode
+                    if @params.notes and @params.notes\len! > 0
+                        fields.notes = @params.notes
+                    if @params.creator_name and @params.creator_name\len! > 0
+                        fields.creator_name = @params.creator_name
+                    if @params.user_id and @params.user_id\len! > 0
+                        fields.user_id = tonumber @params.user_id
+
+                    if @params.delete
+                        if craft\delete!
+                            return "Craft deleted." --shitty prompt whatever, TODO replace with better!
+                        else
+                            return status: 500, "Error deleting craft!"
+
+                if next fields
+                    craft\update fields
+                    --TODO should have a prompt about successful update
 
             return redirect_to: @url_for("ksp_craft", id: @params.id)
     }
