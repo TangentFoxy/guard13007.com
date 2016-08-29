@@ -73,8 +73,8 @@ class extends lapis.Application
             --    @params.ksp_version = ""
             --unless @params.mods_used
             --    @params.mods_used = ""
-            --unless @params.picture
-            --    @params.picture = @build_url "/static/img/ksp_craft_no_picture.gif"
+            unless @params.picture
+                @params.picture = @build_url "/static/img/ksp/no_image.png"
 
             if @session.id
                 user_id = @session.id
@@ -126,7 +126,7 @@ class extends lapis.Application
                     th style: "width:20%; word-wrap: break-word;", "Craft"
                     th style: "width:20%; word-wrap: break-word;", "Creator"
                     th "Status"
-                    th "Notes/Video"
+                    th "Notes"
                 for craft in *crafts
                     tr ->
                         td style: "width:20%; word-wrap: break-word;", ->
