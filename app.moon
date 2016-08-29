@@ -13,6 +13,7 @@ class extends lapis.Application
     @include "redirects"
     @include "testing"
     @include "misc"
+    @include "blog"
 
     [index: "/"]: =>
         render: true
