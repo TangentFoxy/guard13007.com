@@ -164,9 +164,9 @@ class extends lapis.Application
                         a class: "pure-button", href: craft.download_link, "Download" --TODO replace this with something to protect against XSS...
                         text " KSP Version: " .. craft.ksp_version
                     p "Action Groups:"
-                    pre style: "pre-wrap", craft.action_groups
+                    pre style: "white-space: pre-wrap;", craft.action_groups
                     p "Mods Used:"
-                    pre style: "pre-wrap", craft.mods_used
+                    pre style: "white-space: pre-wrap;", craft.mods_used
 
                     if @session.id
                         user = Users\find id: @session.id
