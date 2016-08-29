@@ -27,6 +27,7 @@ sudo make install
 sudo luarocks install lapis
 sudo luarocks install moonscript
 sudo luarocks install bcrypt
+sudo luarocks install lua-discount
 # cleanup
 cd ..
 rm -rf openresty*
