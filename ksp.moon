@@ -209,7 +209,7 @@ class extends lapis.Application
                             }, ->
                                 text "Status: "
                                 element "select", name: "status", ->
-                                    option value: 0, "unseen" -- shoddy work-around on my part...
+                                    option value: 0, "new" -- shoddy work-around on my part...
                                     for status in *Crafts.statuses
                                         if status == Crafts.statuses[craft.status]
                                             option value: Crafts.statuses[status], selected: true, status
