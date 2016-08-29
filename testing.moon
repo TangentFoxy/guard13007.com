@@ -6,9 +6,6 @@ import respond_to, json_params from require "lapis.application"
 import hmac_sha1 from require "lapis.util.encoding"
 
 class extends lapis.Application
-    [body_read_test: "/body-test"]: =>
-        ngx.req.read_body!
-        return ngx.req.get_body_data!
     [request_test: "/req-test"]: =>
         body, status, headers = http.simple "https://api.github.com/meta"
         data = (require "cjson").decode body
