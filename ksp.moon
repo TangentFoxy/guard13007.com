@@ -287,7 +287,7 @@ class extends lapis.Application
 
                 if user.admin
                     -- status, episode, notes, creator_name, user_id
-                    if @params.status
+                    if @params.status and @params.status\len! > 0
                         fields.status = Crafts.statuses\for_db tonumber @params.status
                     if @params.episode and @params.episode\len! > 0
                         fields.episode = @params.episode

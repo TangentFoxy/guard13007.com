@@ -31,8 +31,8 @@ body {
 
 .yt-embed {
     position: relative;
-    padding-bottom: 56.25%; /*16:9 ratio*/
-    height: 25px;
+    padding-bottom: 56.25%; /* 16:9 ratio */
+    margin-bottom: 10px; /*guesswork*/
 }
 
 .yt-embed iframe {
