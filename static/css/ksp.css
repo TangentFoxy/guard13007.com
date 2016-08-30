@@ -10,7 +10,7 @@ td.reviewed {
 td.rejected {
     background: #FAA;
 }
-td.delayed {
+td.delayed, td.old {
     background: lightgrey;
 }
 td.priority {
