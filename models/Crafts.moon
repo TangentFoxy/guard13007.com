@@ -10,6 +10,7 @@ class Crafts extends Model
         rejected: 3
         delayed: 4
         priority: 5
+        old: 6
     }
 
     @constraints: {
