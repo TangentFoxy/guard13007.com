@@ -57,7 +57,7 @@ class extends lapis.Application
                         input type: "submit"
 
         POST: =>
-            if @session.id
+            if @session.id and @session.id != 1   --1 is me, I "don't exist" for submissions, k?
                 @params.creator_name = (Users\find id: @session.id).name
             unless @params.picture\len! > 0
                 @params.picture = @build_url "/static/img/ksp/no_image.png"
