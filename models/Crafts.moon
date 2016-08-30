@@ -11,6 +11,7 @@ class Crafts extends Model
         delayed: 4
         priority: 5
         old: 6
+        imported: 7
     }
 
     @constraints: {
