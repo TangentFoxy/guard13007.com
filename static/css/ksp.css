@@ -17,3 +17,6 @@ td.priority {
     background: #11aadd;
     color: white;
 }
+td.imported {
+    background: #ffff66;
+}
