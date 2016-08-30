@@ -129,6 +129,17 @@ class extends lapis.Application
                             else
                                 text "#{craft.notes}"
 
+            p "What each status means:"
+            ul ->
+                li "new: I haven't noticed the submission yet"
+                li "priority: Next in line to be reviewed."
+                li "pending: (Roughly) next in line!"
+                li "delayed: I'm holding it back for some reason (see notes)."
+                li "reviewed: It's been done! There's a link or embed of the video as well."
+                li "rejected: For some reason I won't or can't review the craft. (These are usually deleted after some time.)"
+                li "imported: I imported this myself from old submissions from email or the KerbalX hanger."
+                li "old: A submission from a long time ago I imported from email."
+
     [craft: "/craft/:id[%d]"]: respond_to {
         GET: =>
             --TODO we need a "back" button or something similar
