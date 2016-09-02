@@ -12,3 +12,6 @@ class extends lapis.Application
         @html ->
             pre body
             p data
+
+    [colors_add: "/colors/add/:hex[a-fA-F%d]"]: =>
+        @params.hex

@@ -113,4 +113,9 @@ import create_table, types, drop_table, add_column, rename_column from require "
             {"created_at", types.time}
             {"updated_at", types.time}
         }
+    [14]: =>
+        create_table "colors", {
+            {"id", types.serial primary_key: true}
+            {"code", types.varchar unique: true}
+        }
 }
