@@ -4,6 +4,7 @@ class extends html.Widget
     content: =>
         html_5 ->
             head ->
+                meta charset: "UTF-8" --hoping this fixes SimpleMDE cursor
                 title @title or "Guard13007.com"
                 script -> raw "
                     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
