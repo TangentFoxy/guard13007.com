@@ -100,7 +100,25 @@ class extends lapis.Application
             @html ->
                 link rel: "stylesheet", href: @build_url "static/simplemde/simplemde.min.css"
                 script src: @build_url "static/simplemde/simplemde.min.js"
-                script -> raw "window.onload = function () { var simplemde = new SimpleMDE(); }"
+                script -> raw "
+                    window.onload = function () { var simplemde = new SimpleMDE({
+                        autosave: {
+                            enabled: true,
+                            uniqueId: #{@url_for "blog_new"}
+                        },
+                        indentWithTabs: false,
+                        insertTexts: {
+                            link: ['[', '](https://)']
+                        },
+                        parsingConfig: {
+                            strikethrough: false
+                        },
+                        renderingConfig: {
+                            singleLineBreaks: false,
+                            // TODO add codeSyntaxHighlighting: true // this uses highlight.js which I already love :P
+                        }
+                    }); }
+                "
                 form {
                     action: @url_for "blog_new"
                     method: "POST"
