@@ -33,13 +33,12 @@ class extends lapis.Application
                     a class: "pure-button pure-button-disabled", "Next"
 
             for post in *posts
-                --hr!
-                h2 ->
-                    a href: @url_for("blog_post", slug: post.slug), post.title
-                h3 ->
-                    a href: @url_for("blog_post", slug: post.slug), time_ago_in_words post.pubdate, 2
-
                 div class: "post-preview", ->
+                    h2 ->
+                        a href: @url_for("blog_post", slug: post.slug), post.title
+                    h3 ->
+                        a href: @url_for("blog_post", slug: post.slug), time_ago_in_words post.pubdate, 2
+
                     if post.text\len! > 200
                         raw discount post.text\sub 1, 200
                         a href: @url_for("blog_post", slug: post.slug), "Read More"
