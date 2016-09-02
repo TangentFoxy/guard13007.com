@@ -21,14 +21,6 @@ class extends lapis.Application
             return redirect_to: @url_for("blog_index", page: Paginator\num_pages!)
 
         @html ->
-            for post in *posts
-                h2 post.title --make a link!
-                h3 post.pubdate --style me!
-                h3 time_ago_in_words post.pubdate, 2 -- NOTE experimental
-                raw discount post.text\sub 1, 200
-                p "Read More" --make a link!
-                --TODO note how many comments from Disqus
-                hr!
             p ->
                 if page > 1
                     a class: "pure-button", href: @url_for("blog_index", page: page - 1), "Previous"
@@ -39,13 +31,23 @@ class extends lapis.Application
                 else
                     a class: "pure-button pure-button-disabled", "Next"
 
+            for post in *posts
+                hr!
+                h2 ->
+                    a href: @url_for("blog_post", slug: post.slug), post.title .. time_ago_in_words post.pubdate, 2
+                if post.text\len! > 200
+                    raw discount post.text\sub 1, 200
+                    a href: @url_for("blog_post", slug: post.slug), "Read More"
+                else
+                    raw discount post.text
+                --TODO note how many comments from Disqus
+
     [post: "/post/:slug"]: =>
         if post = Posts\find slug: @params.slug
             @title = post.title
             @html ->
                 --TODO some sort of back button that returns to the correct page in blog_index
-                h3 post.pubdate --style this!
-                h3 time_ago_in_words post.pubdate, 2 -- NOTE experimental
+                h2 time_ago_in_words post.pubdate, 2
                 raw discount post.text
                 hr!
                 --TODO insert a comments section
@@ -157,4 +159,18 @@ class extends lapis.Application
                 return "That post does not exist."
     }
 
-    --TODO add a list of drafts here
+    [drafts: "/drafts"]: =>
+        -- for now, lazy, select and show data on all
+        -- later I need to paginate this shit
+        unless @session.id and (Users\find id: @session.id).admin
+            return redirect_to: @url_for "index"
+
+        posts = Posts\select "WHERE true"
+
+        @html ->
+            element "table", ->
+                for post in *posts
+                    tr ->
+                        td post.title
+                        td -> a href: @url_for("blog_edit", slug: post.slug), "Edit"
+                        td -> a href: @url_for("blog_post", slug: post.slug), "View"
