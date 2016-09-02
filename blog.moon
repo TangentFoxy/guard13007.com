@@ -76,7 +76,7 @@ class extends lapis.Application
                         (d.head || d.body).appendChild(s);
                     })();"
 
-                p -> a href: @url_for("blog_index"), "Back" -- this is shit
+                p -> a class: "pure-button", href: @url_for("blog_index"), "Back" -- this is shit
 
                 if @session.id and (Users\find id: @session.id).admin
                     p ->
@@ -205,6 +205,8 @@ class extends lapis.Application
         posts = Posts\select "WHERE true"
 
         @html ->
+            p ->
+                a class: "pure-button", href: @url_for("blog_index"), "Return to Blog"
             element "table", class: "pure-table", ->
                 tr ->
                     th "Title"
