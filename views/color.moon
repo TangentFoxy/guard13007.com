@@ -6,7 +6,7 @@ class extends Widget
         link rel: "stylesheet", href: @build_url "static/css/color.css"
         script -> raw "
             window.onload = function() {
-                document.getElementsByTagName('body')[0].setAttribute('style', 'color: #' + document.getElementById('code').value + ';');
+                document.getElementsByTagName('body')[0].setAttribute('style', 'background: #' + document.getElementById('code').value + ';');
             }
         "
         div ->
