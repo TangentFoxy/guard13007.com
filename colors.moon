@@ -8,7 +8,7 @@ class extends lapis.Application
     @path: "/colors"
     @name: "colors_"
 
-    [hex: "(:hex[a-fA-F%d])"]: =>
+    [hex: "(/:hex[a-fA-F%d])"]: =>
         if @params.hex
             @hex = @params.hex\sub 1, 6 -- TODO check me
         else
