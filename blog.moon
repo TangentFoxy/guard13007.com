@@ -34,7 +34,7 @@ class extends lapis.Application
             for post in *posts
                 hr!
                 h2 ->
-                    a href: @url_for("blog_post", slug: post.slug), post.title .. time_ago_in_words post.pubdate, 2
+                    a href: @url_for("blog_post", slug: post.slug), "#{post.title} - #{time_ago_in_words post.pubdate, 2}"
                 if post.text\len! > 200
                     raw discount post.text\sub 1, 200
                     a href: @url_for("blog_post", slug: post.slug), "Read More"
@@ -120,7 +120,7 @@ class extends lapis.Application
                         text "Title: "
                         input type: "text", name: "title", value: post.title
                         br!
-                        textarea cols: 80, rows: 13, name: "text", value: post.text
+                        textarea cols: 80, rows: 13, name: "text", post.text
                         br!
                         element "select", name: "status", ->
                             for status in *Posts.statuses
