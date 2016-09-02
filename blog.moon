@@ -179,7 +179,7 @@ class extends lapis.Application
                         window.onload = function () { var simplemde = new SimpleMDE({
                             autosave: {
                                 enabled: true,
-                                uniqueId: '#{@url_for "blog_edit", slug: post.id}' // we use IDs because slugs can change
+                                uniqueId: '/blog/edit/#{post.id}' // we use IDs because slugs can change (note, that means this is an invalid path!)
                             },
                             indentWithTabs: false,
                             insertTexts: {
