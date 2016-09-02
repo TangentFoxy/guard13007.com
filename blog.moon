@@ -56,7 +56,7 @@ class extends lapis.Application
                 hr!
                 --TODO insert a comments section
 
-        return "\"#{@params.slug}\""
+        --return "\"#{@params.slug}\""
         --return redirect_to: @url_for "blog_index" --TODO error message about post not found
 
     [new: "/new"]: respond_to {
