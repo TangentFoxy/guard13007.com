@@ -49,7 +49,9 @@ class extends lapis.Application
                         raw discount post.text
                         a href: @url_for("blog_post", slug: post.slug), "View Post"
 
+                    text " ("
                     span class: "disqus-comment-count", ["data-disqus-identifier"]: @build_url @url_for "blog_post", slug: post.slug
+                    text ")"
 
             if @session.id and (Users\find id: @session.id).admin
                 p ->
