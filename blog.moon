@@ -172,8 +172,8 @@ class extends lapis.Application
                                     option value: Posts.statuses[status], status
                         br!
                         input class: "pure-button", type: "submit"
-                        a class: "pure-button", href: @url_for("blog_new"), "New Post"
                         a class: "pure-button", href: @url_for("blog_drafts"), "Drafts"
+                        a class: "pure-button", href: @url_for("blog_new"), "New Post"
             else
                 return "That post does not exist."
 
