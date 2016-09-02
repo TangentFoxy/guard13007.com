@@ -12,6 +12,7 @@ h3 {
 
 .post-preview {
     margin: auto;
+    margin-top: 10px;
     padding: 8px;
     border: 1px solid #235;
 }
