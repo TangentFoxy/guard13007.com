@@ -13,9 +13,9 @@ class extends lapis.Application
 
     [index: "(/:page[%d])"]: =>
         page = tonumber(@params.page) or 1
-        @title = "Guard's Microblog (Page #{page})"
+        @title = "Guard's Microblog"
 
-        Paginator = Posts\paginated "WHERE status = ? ORDER BY pubdate DESC", Posts.statuses.published, per_page: 3 -- TODO change to 13 posts
+        Paginator = Posts\paginated "WHERE status = ? ORDER BY pubdate DESC", Posts.statuses.published, per_page: 2 -- change to 9
         posts = Paginator\get_page page
         if #posts < 1
             return redirect_to: @url_for("blog_index", page: Paginator\num_pages!)
@@ -24,13 +24,17 @@ class extends lapis.Application
             link rel: "stylesheet", href: @build_url "static/css/blog.css"
             p ->
                 if page > 1
+                    a class: "pure-button", href: @url_for("blog_index", page: 1), "First"
                     a class: "pure-button", href: @url_for("blog_index", page: page - 1), "Previous"
                 else
+                    a class: "pure-button pure-button-disabled", "First"
                     a class: "pure-button pure-button-disabled", "Previous"
                 if page < Paginator\num_pages!
                     a class: "pure-button", href: @url_for("blog_index", page: page + 1), "Next"
+                    a class: "pure-button", href: @url_for("blog_index", page: Paginator\num_pages!), "Last"
                 else
                     a class: "pure-button pure-button-disabled", "Next"
+                    a class: "pure-button pure-button-disabled", "Last"
 
             for post in *posts
                 div class: "post-preview", ->
