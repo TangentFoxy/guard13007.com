@@ -15,7 +15,7 @@ class extends lapis.Application
         page = tonumber(@params.page) or 1
         @title = "Guard's Microblog"
 
-        Paginator = Posts\paginated "WHERE status = ? ORDER BY pubdate DESC", Posts.statuses.published, per_page: 9
+        Paginator = Posts\paginated "WHERE status = ? ORDER BY pubdate DESC", Posts.statuses.published, per_page: 6
         posts = Paginator\get_page page
         if #posts < 1 and Paginator\num_pages! > 0
             return redirect_to: @url_for("blog_index", page: Paginator\num_pages!)
@@ -100,7 +100,7 @@ class extends lapis.Application
             @html ->
                 link rel: "stylesheet", href: @build_url "static/simplemde/simplemde.min.css"
                 script src: @build_url "static/simplemde/simplemde.min.js"
-                script -> raw "var simplemde = new SimpleMDE();"
+                script -> raw "window.onload = function () { var simplemde = new SimpleMDE(); }"
                 form {
                     action: @url_for "blog_new"
                     method: "POST"
@@ -111,6 +111,8 @@ class extends lapis.Application
                     input type: "text", name: "title"
                     br!
                     textarea cols: 80, rows: 13, name: "text"
+                    br!
+                    text "(Note: Tables are not part of standard Markdown, and will not work.)"
                     br!
                     element "select", name: "status", ->
                         for status in *Posts.statuses
