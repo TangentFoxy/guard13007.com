@@ -39,7 +39,7 @@ class extends lapis.Application
             for post in *posts
                 div class: "post-preview", ->
                     h2 post.title
-                    h3 ->
+                    h3 title: post.pubdate, ->
                         a href: @url_for("blog_post", slug: post.slug), time_ago_in_words post.pubdate
 
                     if post.text\len! > 200
@@ -48,7 +48,9 @@ class extends lapis.Application
                     else
                         raw discount post.text
                         a href: @url_for("blog_post", slug: post.slug), "View Post"
-                    --TODO note how many comments from Disqus
+
+                    span class: "disqus-comment-count", data-disqus-identifier: @build_url @url_for "blog_post", slug: post.slug
+                    script id: "dsq-count-scr", src: "//guard13007.disqus.com/count.js", async: true
 
             if @session.id and (Users\find id: @session.id).admin
                 p ->
@@ -60,7 +62,7 @@ class extends lapis.Application
             @title = post.title
             @html ->
                 --TODO some sort of back button that returns to the correct page in blog_index
-                h2 time_ago_in_words post.pubdate
+                h2 title: post.pubdate, time_ago_in_words post.pubdate
                 raw discount post.text
                 hr!
                 div id: "disqus_thread"
