@@ -93,6 +93,9 @@ class extends lapis.Application
 
             if fields.status == Posts.statuses.published
                 fields.pubdate = os.date("!%Y-%m-%d %X")
+            else
+                fields.pubdate = "1970-01-01 00:00:00"
+
             if post = Posts\create fields
                 return redirect_to: @url_for "blog_edit", slug: post.slug
             else
@@ -133,8 +136,6 @@ class extends lapis.Application
                 return redirect_to: @url_for "blog_index"
 
             if post = Posts\find slug: @params.slug
-                -- now apply changes and redirect
-
                 fields = {}
                 if @params.title and @params.title\len! > 0
                     fields.title = @params.title
@@ -144,9 +145,8 @@ class extends lapis.Application
                 if @params.status and @params.status\len! > 0
                     fields.status = Posts.statuses\for_db tonumber @params.status
 
-                --if fields.status == Posts.statuses.published and post.pubdate\len! < 1
-                    -- WE NEED TO CREATE PUBDATE !!
-                    -- our detection thing is wrong here btw!
+                if fields.status == Posts.statuses.published and post.pubdate == "1970-01-01 00:00:00"
+                    fields.pubdate = os.date("!%Y-%m-%d %X")
 
                 if post\update fields
                     return redirect_to: @url_for "blog_edit", slug: post.slug
