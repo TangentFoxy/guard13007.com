@@ -100,4 +100,17 @@ import create_table, types, drop_table, add_column, rename_column from require "
         }
     [12]: =>
         return true -- I fucked up migrations stuff again
+    [13]: =>
+        drop_table "posts"
+        create_table "posts", {
+            {"id", types.serial primary_key: true}
+            {"title", types.text unique: true}
+            {"slug", types.text unique: true}
+            {"text", types.text default: ""}
+            {"status", types.integer default: 1}
+            {"pubdate", types.time}
+
+            {"created_at", types.time}
+            {"updated_at", types.time}
+        }
 }
