@@ -1,6 +1,7 @@
 import Model, enum from require "lapis.db.model"
 
 class Posts extends Model
+    @table_name: => "posts" --wasn't working before, so let's try this
     @timestamp: true
 
     @statuses: enum {
