@@ -24,17 +24,17 @@ class extends lapis.Application
             link rel: "stylesheet", href: @build_url "static/css/blog.css"
             p ->
                 if page > 1
-                    a class: "pure-button", href: @url_for("blog_index", page: 1), "First"
-                    a class: "pure-button", href: @url_for("blog_index", page: page - 1), "Previous"
+                    a class: "pure-button", href: @url_for("blog_index", page: 1), "Most Recent"
+                    a class: "pure-button", href: @url_for("blog_index", page: page - 1), "Newer"
                 else
-                    a class: "pure-button pure-button-disabled", "First"
-                    a class: "pure-button pure-button-disabled", "Previous"
+                    a class: "pure-button pure-button-disabled", "Most Recent"
+                    a class: "pure-button pure-button-disabled", "Newer"
                 if page < Paginator\num_pages!
-                    a class: "pure-button", href: @url_for("blog_index", page: page + 1), "Next"
-                    a class: "pure-button", href: @url_for("blog_index", page: Paginator\num_pages!), "Last"
+                    a class: "pure-button", href: @url_for("blog_index", page: page + 1), "Older"
+                    a class: "pure-button", href: @url_for("blog_index", page: Paginator\num_pages!), "Oldest"
                 else
-                    a class: "pure-button pure-button-disabled", "Next"
-                    a class: "pure-button pure-button-disabled", "Last"
+                    a class: "pure-button pure-button-disabled", "Older"
+                    a class: "pure-button pure-button-disabled", "Oldest"
 
             for post in *posts
                 div class: "post-preview", ->
