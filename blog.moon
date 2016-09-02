@@ -104,7 +104,7 @@ class extends lapis.Application
                     window.onload = function () { var simplemde = new SimpleMDE({
                         autosave: {
                             enabled: true,
-                            uniqueId: #{@url_for "blog_new"}
+                            uniqueId: '#{@url_for "blog_new"}'
                         },
                         indentWithTabs: false,
                         insertTexts: {
