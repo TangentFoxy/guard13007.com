@@ -98,7 +98,7 @@ class extends lapis.Application
                 return redirect_to: @url_for "blog_index"
 
             @html ->
-                link rel: "stylesheet" href: @build_url "static/simplemde/simplemde.min.css"
+                link rel: "stylesheet", href: @build_url "static/simplemde/simplemde.min.css"
                 script src: @build_url "static/simplemde/simplemde.min.js"
                 script -> raw "var simplemde = new SimpleMDE();"
                 form {
