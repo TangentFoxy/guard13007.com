@@ -173,27 +173,6 @@ class extends lapis.Application
 
             if post = Posts\find slug: @params.slug
                 @html ->
-                    link rel: "stylesheet", href: @build_url "static/simplemde/simplemde.min.css"
-                    script src: @build_url "static/simplemde/simplemde.min.js"
-                    script -> raw "
-                        window.onload = function () { var simplemde = new SimpleMDE({
-                            autosave: {
-                                enabled: true,
-                                uniqueId: '#{@url_for "blog_edit", slug: post.id}' // we use IDs because slugs can change
-                            },
-                            indentWithTabs: false,
-                            insertTexts: {
-                                link: ['[', '](https://)']
-                            },
-                            parsingConfig: {
-                                strikethrough: false
-                            },
-                            renderingConfig: {
-                                singleLineBreaks: false,
-                                // TODO add codeSyntaxHighlighting: true // this uses highlight.js which I already love :P
-                            }
-                        }); }
-                    "
                     form {
                         action: @url_for "blog_edit", slug: post.slug
                         method: "POST"
@@ -204,8 +183,6 @@ class extends lapis.Application
                         input type: "text", name: "title", value: post.title
                         br!
                         textarea cols: 80, rows: 13, name: "text", post.text
-                        br!
-                        text "(Note: Tables are not part of standard Markdown, and will not work.)"
                         br!
                         element "select", name: "status", ->
                             for status in *Posts.statuses
