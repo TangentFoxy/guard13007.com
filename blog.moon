@@ -17,7 +17,7 @@ class extends lapis.Application
 
         Paginator = Posts\paginated "WHERE status = ? ORDER BY pubdate DESC", Posts.statuses.published, per_page: 9
         posts = Paginator\get_page page
-        if #posts < 1
+        if #posts < 1 and Paginator\num_pages! > 0
             return redirect_to: @url_for("blog_index", page: Paginator\num_pages!)
 
         @html ->
@@ -43,7 +43,7 @@ class extends lapis.Application
                         a href: @url_for("blog_post", slug: post.slug), time_ago_in_words post.pubdate
 
                     if post.text\len! > 200
-                        raw discount post.text\sub 1, 200
+                        raw discount post.text\sub(1, 200) .. " …"
                         a href: @url_for("blog_post", slug: post.slug), "Read More"
                     else
                         raw discount post.text
