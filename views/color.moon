@@ -16,7 +16,7 @@ class extends Widget
                 enctype: "multipart/form-data"
                 class: "pure-form"
             }, ->
-                input type: "text", name: "name", value: @hex
+                input style: "color: black;", type: "text", name: "name", value: @hex
                 input type: "hidden", name: "code", id: "code", value: @hex
                 br!
                 button class: "pure-button", onclick: "location.href = \"#{@build_url "colors/"}\" + document.getElementById('name').value; return false;", "Set"
