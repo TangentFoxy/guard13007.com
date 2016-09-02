@@ -173,9 +173,17 @@ class extends lapis.Application
         posts = Posts\select "WHERE true"
 
         @html ->
-            element "table", ->
+            element "table", class: "pure-table", ->
+                tr ->
+                    th "Title"
+                    th "Status"
+                    th "Edit/View"
                 for post in *posts
                     tr ->
                         td post.title
-                        td -> a href: @url_for("blog_edit", slug: post.slug), "Edit"
-                        td -> a href: @url_for("blog_post", slug: post.slug), "View"
+                        td Posts.statuses\to_name post.status
+                        td ->
+                            a href: @url_for("blog_edit", slug: post.slug), "Edit"
+                            if post.status == Posts.statuses.published
+                                text " | "
+                                a href: @url_for("blog_post", slug: post.slug), "View"
