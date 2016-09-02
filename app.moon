@@ -14,7 +14,6 @@ class extends lapis.Application
     @include "testing"
     @include "misc"
     @include "blog"
-    @include "colors"
 
     [index: "/"]: =>
         render: true
