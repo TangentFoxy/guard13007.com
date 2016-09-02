@@ -37,13 +37,14 @@ class extends lapis.Application
                     h2 ->
                         a href: @url_for("blog_post", slug: post.slug), post.title
                     h3 ->
-                        a href: @url_for("blog_post", slug: post.slug), time_ago_in_words post.pubdate, 2
+                        a href: @url_for("blog_post", slug: post.slug), time_ago_in_words post.pubdate
 
                     if post.text\len! > 200
                         raw discount post.text\sub 1, 200
                         a href: @url_for("blog_post", slug: post.slug), "Read More"
                     else
                         raw discount post.text
+                        a href: @url_for("blog_post", slug: post.slug), "View Post"
                     --TODO note how many comments from Disqus
 
     [post: "/post/:slug"]: =>
@@ -51,7 +52,7 @@ class extends lapis.Application
             @title = post.title
             @html ->
                 --TODO some sort of back button that returns to the correct page in blog_index
-                h2 time_ago_in_words post.pubdate, 2
+                h2 time_ago_in_words post.pubdate
                 raw discount post.text
                 hr!
                 --TODO insert a comments section

@@ -1,13 +1,20 @@
+h2 {
+    margin-top: -5px;
+    font-size: 1.8em;
+}
+
+h3 {
+    text-align: center;
+    margin-top: -24px;
+    font-size: 1em;
+}
+
 h2 > a {
     text-decoration: none;
 }
 
 h3 > a {
     text-decoration: none;
-}
-
-h3 {
-    text-align: right;
 }
 
 .post-preview {
@@ -17,6 +24,6 @@ h3 {
     border: 1px solid #235;
 }
 
-.post-preview > h3 {
-    text-align: center;
+.post-preview > h1 {
+    font-size: 1.6em;
 }
