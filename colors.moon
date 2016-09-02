@@ -9,7 +9,7 @@ class extends lapis.Application
     @name: "colors_"
 
     [hex: "(:hex[a-fA-F%d])"]: =>
-        @hex = hex\sub 1, 6 -- TODO check me
+        @hex = @params.hex\sub 1, 6 -- TODO check me
         render: "color", layout: "simple"
 
     -- id, code, name
