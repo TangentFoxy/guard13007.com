@@ -118,4 +118,6 @@ import create_table, types, drop_table, add_column, rename_column from require "
             {"id", types.serial primary_key: true}
             {"code", types.varchar unique: true}
         }
+    [15]: =>
+        add_column "colors", "name", types.text unique: true
 }

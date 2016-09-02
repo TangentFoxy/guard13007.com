@@ -8,10 +8,10 @@ class extends lapis.Application
     @path: "/colors"
     @name: "colors_"
 
-    [index: ""]: =>
-        return layout: "simple", @html ->
-            p "Some rendering."
+    [hex: "(:hex[a-fA-F%d])"]: =>
+        @hex = hex\sub 1, 6 -- TODO check me
+        render: "color", layout: "simple"
 
-    -- id, code
+    -- id, code, name
     --[colors_add: "/colors/add/:hex[a-fA-F%d]"]: =>
     --    @params.hex
