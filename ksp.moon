@@ -91,7 +91,7 @@ class extends lapis.Application
 
         Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 13
         crafts = Paginator\get_page page
-        if #crafts < 1
+        if #crafts < 1 and Paginator\num_pages! > 0
             return redirect_to: @url_for("ksp_craft_list", page: Paginator\num_pages!)
 
         @html ->
