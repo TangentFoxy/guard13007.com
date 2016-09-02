@@ -21,6 +21,7 @@ class extends lapis.Application
             return redirect_to: @url_for("blog_index", page: Paginator\num_pages!)
 
         @html ->
+            link rel: "stylesheet", href: @build_url "static/css/blog.css"
             p ->
                 if page > 1
                     a class: "pure-button", href: @url_for("blog_index", page: page - 1), "Previous"
