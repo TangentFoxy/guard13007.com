@@ -15,7 +15,7 @@ class extends lapis.Application
         page = tonumber(@params.page) or 1
         @title = "Guard's Microblog"
 
-        Paginator = Posts\paginated "WHERE status = ? ORDER BY pubdate DESC", Posts.statuses.published, per_page: 2 -- change to 9
+        Paginator = Posts\paginated "WHERE status = ? ORDER BY pubdate DESC", Posts.statuses.published, per_page: 9
         posts = Paginator\get_page page
         if #posts < 1
             return redirect_to: @url_for("blog_index", page: Paginator\num_pages!)
@@ -50,6 +50,11 @@ class extends lapis.Application
                         a href: @url_for("blog_post", slug: post.slug), "View Post"
                     --TODO note how many comments from Disqus
 
+            if @session.id and (Users\find id: @session.id).admin
+                p ->
+                    a class: "pure-button", href: @url_for("blog_new"), "New Post"
+                    a class: "pure-button", href: @url_for("blog_drafts"), "Drafts"
+
     [post: "/post/:slug"]: =>
         if post = Posts\find slug: @params.slug
             @title = post.title
@@ -58,7 +63,26 @@ class extends lapis.Application
                 h2 time_ago_in_words post.pubdate
                 raw discount post.text
                 hr!
-                --TODO insert a comments section
+                div id: "disqus_thread"
+                script -> raw "
+                    var disqus_config = function () {
+                        this.page.url = '#{@build_url @url_for "blog_post", slug: post.slug}';
+                        this.page.identifier = '#{@build_url @url_for "blog_post", slug: post.slug}';
+                    };
+                    (function() {
+                        var d = document, s = d.createElement('script');
+                        s.src = '//guard13007.disqus.com/embed.js';
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })();"
+
+                p -> a href: @url_for("blog_index"), "Back" -- this is shit
+
+                if @session.id and (Users\find id: @session.id).admin
+                    p ->
+                        a class: "pure-button", href: @url_for("blog_new"), "New Post"
+                        a class: "pure-button", href: @url_for("blog_drafts"), "Drafts"
+                        a class: "pure-button", href: @url_for("blog_edit", slug: post.slug), "Edit Post"
 
         else
             return redirect_to: @url_for "blog_index" --TODO error message about post not found
@@ -88,6 +112,7 @@ class extends lapis.Application
                                 option value: Posts.statuses[status], status
                     br!
                     input type: "submit"
+                    a class: "pure-button", href: @url_for("blog_drafts"), "Drafts"
 
         POST: =>
             unless @session.id and (Users\find id: @session.id).admin
@@ -139,6 +164,8 @@ class extends lapis.Application
                                     option value: Posts.statuses[status], status
                         br!
                         input type: "submit"
+                        a class: "pure-button", href: @url_for("blog_new"), "New Post"
+                        a class: "pure-button", href: @url_for("blog_drafts"), "Drafts"
             else
                 return "That post does not exist."
 
