@@ -43,7 +43,7 @@ class extends lapis.Application
                         a href: @url_for("blog_post", slug: post.slug), time_ago_in_words post.pubdate
 
                     if post.text\len! > 200
-                        raw discount post.text\sub(1, 200) .. " …"
+                        raw discount post.text\sub(1, 200) .. " ..."
                         a href: @url_for("blog_post", slug: post.slug), "Read More"
                     else
                         raw discount post.text
