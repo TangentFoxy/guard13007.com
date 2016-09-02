@@ -191,6 +191,7 @@ class extends lapis.Application
                                 else
                                     option value: Posts.statuses[status], status
                         br!
+                        input type: "hidden", name: "slug", value: post.slug -- is this really needed?
                         input class: "pure-button", type: "submit"
                         a class: "pure-button", href: @url_for("blog_drafts"), "Drafts"
                         a class: "pure-button", href: @url_for("blog_new"), "New Post"
