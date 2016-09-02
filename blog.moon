@@ -34,8 +34,7 @@ class extends lapis.Application
 
             for post in *posts
                 div class: "post-preview", ->
-                    h2 ->
-                        a href: @url_for("blog_post", slug: post.slug), post.title
+                    h2 post.title
                     h3 ->
                         a href: @url_for("blog_post", slug: post.slug), time_ago_in_words post.pubdate
 
