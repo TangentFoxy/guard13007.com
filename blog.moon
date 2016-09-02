@@ -111,7 +111,7 @@ class extends lapis.Application
                             else
                                 option value: Posts.statuses[status], status
                     br!
-                    input type: "submit"
+                    input class: "pure-button", type: "submit"
                     a class: "pure-button", href: @url_for("blog_drafts"), "Drafts"
 
         POST: =>
@@ -163,7 +163,7 @@ class extends lapis.Application
                                 else
                                     option value: Posts.statuses[status], status
                         br!
-                        input type: "submit"
+                        input class: "pure-button", type: "submit"
                         a class: "pure-button", href: @url_for("blog_new"), "New Post"
                         a class: "pure-button", href: @url_for("blog_drafts"), "Drafts"
             else
@@ -186,10 +186,11 @@ class extends lapis.Application
                 if fields.status == Posts.statuses.published and post.pubdate == "1970-01-01 00:00:00"
                     fields.pubdate = os.date("!%Y-%m-%d %X")
 
-                if post\update fields
+                post, errMsg = post\update fields
+                if post
                     return redirect_to: @url_for "blog_edit", slug: post.slug
                 else
-                    return "Error updating post.", status: 500
+                    return "Error updating post: #{errMsg}", status: 500 --TODO fix other errors to be like this one
 
             else
                 return "That post does not exist."
