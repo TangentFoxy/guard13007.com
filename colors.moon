@@ -9,9 +9,8 @@ class extends lapis.Application
     @name: "colors_"
 
     [index: ""]: =>
-        @html ->
+        return layout: "simple", @html ->
             p "Some rendering."
-        return layout: "simple"
 
     -- id, code
     --[colors_add: "/colors/add/:hex[a-fA-F%d]"]: =>
