@@ -4,7 +4,7 @@ class extends Widget
     content: =>
         link rel: "stylesheet", href: @build_url "static/css/pure-min.css"
         link rel: "stylesheet", href: @build_url "static/css/color.css"
-        script raw "
+        script -> raw "
             window.onload = function() {
                 document.getElementsByTagName('body')[0].style = 'color: ' + document.getElementById('code').value + ';';
             }
