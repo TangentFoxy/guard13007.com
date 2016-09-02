@@ -49,13 +49,14 @@ class extends lapis.Application
                         raw discount post.text
                         a href: @url_for("blog_post", slug: post.slug), "View Post"
 
-                    span class: "disqus-comment-count", data-disqus-identifier: @build_url @url_for "blog_post", slug: post.slug
-                    script id: "dsq-count-scr", src: "//guard13007.disqus.com/count.js", async: true
+                    span class: "disqus-comment-count", "data-disqus-identifier": @build_url @url_for "blog_post", slug: post.slug
 
             if @session.id and (Users\find id: @session.id).admin
                 p ->
                     a class: "pure-button", href: @url_for("blog_new"), "New Post"
                     a class: "pure-button", href: @url_for("blog_drafts"), "Drafts"
+
+            script id: "dsq-count-scr", src: "https://guard13007.disqus.com/count.js", async: true
 
     [post: "/post/:slug"]: =>
         if post = Posts\find slug: @params.slug
