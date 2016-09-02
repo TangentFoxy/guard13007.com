@@ -34,4 +34,4 @@ class extends lapis.Application
             @hex = color.code
             return render: "color", layout: "simple"
         else
-            return redirect_to: "colors_hex"
+            return redirect_to: @url_for "colors_hex"
