@@ -191,7 +191,7 @@ class extends lapis.Application
                                 else
                                     option value: Posts.statuses[status], status
                         br!
-                        input type: "hidden", name: "slug", value: post.slug -- is this really needed?
+                        --input type: "hidden", name: "slug", value: post.slug -- is this really needed?
                         input class: "pure-button", type: "submit"
                         a class: "pure-button", href: @url_for("blog_drafts"), "Drafts"
                         a class: "pure-button", href: @url_for("blog_new"), "New Post"
@@ -215,9 +215,9 @@ class extends lapis.Application
                 if fields.status == Posts.statuses.published and post.pubdate == "1970-01-01 00:00:00"
                     fields.pubdate = os.date("!%Y-%m-%d %X")
 
-                post, errMsg = post\update fields
-                if post
-                    return redirect_to: @url_for "blog_edit", slug: post.slug
+                success, errMsg = post\update fields
+                if success
+                    return redirect_to: @url_for "blog_edit", slug: fields.slug or post.slug
                 else
                     return "Error updating post: #{errMsg}", status: 500 --TODO fix other errors to be like this one
 
