@@ -62,6 +62,7 @@ class extends lapis.Application
             unless @params.picture\len! > 0
                 @params.picture = @build_url "/static/img/ksp/no_image.png"
 
+            local user_id
             if @session.id
                 user_id = @session.id
             else
