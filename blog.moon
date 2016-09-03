@@ -254,11 +254,12 @@ class extends lapis.Application
         unless @session.id and (Users\find id: @session.id).admin
             return redirect_to: @url_for "index"
 
-        posts = Posts\select "WHERE true"
+        posts = Posts\select "WHERE true ORDER DESC"
 
         @html ->
             p ->
                 a class: "pure-button", href: @url_for("blog_index"), "Return to Blog"
+                a class: "pure-button", href: @url_for("blog_new"), "New Post"
             element "table", class: "pure-table", ->
                 tr ->
                     th "Title"
