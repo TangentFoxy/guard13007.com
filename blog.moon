@@ -254,7 +254,7 @@ class extends lapis.Application
         unless @session.id and (Users\find id: @session.id).admin
             return redirect_to: @url_for "index"
 
-        posts = Posts\select "WHERE true ORDER desc"
+        posts = Posts\select "WHERE true ORDER BY pubdate ASC"
 
         @html ->
             p ->
