@@ -132,13 +132,15 @@ class extends lapis.Application
                 dt -> a name: "ksp-submit-plane", "How do I send you a KSP plane?"
                 dd ->
                     p ->
-                        text "It's not finished yet, but you can submit them "
-                        a href: @url_for("ksp_submit_crafts"), "here"
-                        text ". Until that's finished, I recommend uploading your craft to "
+                        text "You need to upload your craft to a file sharing website (I recommend "
                         a href: "https://kerbalx.com/", target: "_blank", "KerbalX"
-                        text " and adding it to my public hanger. The interface is pretty bad, but it looks "
+                        text "), and then submit at least your name/username and a link to the craft "
+                        a href: @url_for("ksp_submit_crafts"), "here"
+                        text ". If you register an account on my website and log into it (look at the bottom of any page), you will be able to edit your submissions."
+                    p ->
+                        text "You can also still use the public hanger on KerbalX. The interface is pretty bad, but it looks "
                         a href: @build_url("static/img/faq/public-hanger.png"), target: "_blank", "like this"
-                        text " (after clicking \"add to hanger\" and then \"add to open hanger\" from your craft's page)."
+                        text " (after clicking \"add to hanger\" and then \"add to open hanger\" from your craft's page). (Note that I don't check these often, it is a better idea to submit your craft here.)"
                     p ->
                         text "Alternately, you can still send an email to "
                         a href: "mailto:GuardAlmostGames@gmail.com", "GuardAlmostGames@gmail.com"
