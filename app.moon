@@ -8,7 +8,7 @@ class extends lapis.Application
         str = ""
         for key, value in pairs @req.parsed_url
             str ..= "\n#{key} = #{value}"
-        return str
+        @write str
 
         --@redirect = @req.parsed_url
         --if @session.info
