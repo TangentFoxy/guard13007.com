@@ -5,15 +5,11 @@ import respond_to, json_params from require "lapis.application"
 
 class extends lapis.Application
     @before_filter =>
-        str = ""
-        for key, value in pairs @req.parsed_url
-            str ..= "\n#{key} = #{value}"
-        @write str
-
-        --@redirect = @req.parsed_url
-        --if @session.info
-        --    @info = @session.info
-        --    @session.info = nil
+        u = @req.parsed_url
+        @redirect = "#{u.scheme}://#{u.host}#{u.path}"
+        if @session.info
+            @info = @session.info
+            @session.info = nil
 
     layout: "default"
 
