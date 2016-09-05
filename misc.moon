@@ -9,7 +9,7 @@ class extends lapis.Application
                 iframe src: "https://discordapp.com/widget?id=98612945000345600&amp;theme=dark", width: 350, height: 500, allowtransparency: true, frameborder: 0
             h2 "YouTuber Gamers"
             p ->
-                text "Kind of ghost town right now, but "
+                text "Kind of a ghost town right now, but "
                 em "you"
                 text " can fix that."
             div ->
@@ -38,7 +38,7 @@ class extends lapis.Application
                         li "#roleplay .. some of our users like to roleplay .. I made this so they'd get out of #general .."
                         li "#bot-abuse is for playing with BoomBot, developed by Lomeli. :P"
                         li "#boomtest is a testing channel for Lomeli's use on BoomBot development."
-                hr! --no idea if this will be valid syntax lol
+                hr!
                 li "More rules may be added as needed, obviously."
                 li title: "If you don't like it, see http://xkcd.com/1357/", "And finally, if you are causing significant annoyance to several members, especially if they are friends of mine, I may ban you."
 

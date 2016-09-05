@@ -54,6 +54,7 @@ h1, h2 {
     padding: 8px;
     border-radius: 6px;
     background: lightblue;
+    margin-bottom: 1em; /* will look good on /blog, might look terrible on /ksp */
 }
 
 .info > button {

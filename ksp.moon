@@ -88,7 +88,8 @@ class extends lapis.Application
             if craft
                 return redirect_to: @url_for "ksp_craft", id: craft.id
             else
-                return errMsg
+                @session.info = "Craft submission failed: #{errMsg}"
+                return redirect_to: @url_for "ksp_submit_crafts"
     }
 
     [craft_list: "/crafts(/:page[%d])"]: =>
@@ -270,6 +271,7 @@ class extends lapis.Application
                         })();"
 
             else
+                @session.info = "That craft does not exist."
                 return redirect_to: @url_for "ksp_craft_list"
 
         POST: =>
@@ -310,13 +312,15 @@ class extends lapis.Application
 
                     if @params.delete
                         if craft\delete!
-                            return "Craft deleted." --shitty prompt whatever, TODO replace with better!
+                            @session.info = "Craft deleted."
+                            return redirect_to: @url_for "ksp_craft_list"
                         else
-                            return status: 500, "Error deleting craft!"
+                            @session.info = "Error deleting craft!"
+                            --return redirect_to: @url_for "ksp_craft", id: @params.id
 
                 if next fields
                     craft\update fields
-                    --TODO should have a prompt about successful update
+                    @session.info = "Craft updated."
 
             return redirect_to: @url_for("ksp_craft", id: @params.id)
     }

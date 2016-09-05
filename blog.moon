@@ -164,7 +164,8 @@ class extends lapis.Application
             if post = Posts\create fields
                 return redirect_to: @url_for "blog_edit", slug: post.slug
             else
-                return "Failed to create post.", status: 500
+                @session.info = "Failed to create post."
+                return redirect_to: @url_for "blog_new"
     }
 
     [edit: "/edit/:slug"]: respond_to {
@@ -220,7 +221,8 @@ class extends lapis.Application
                         a class: "pure-button", href: @url_for("blog_drafts"), "Drafts"
                         a class: "pure-button", href: @url_for("blog_new"), "New Post"
             else
-                return "That post does not exist."
+                @session.info = "That post does not exist."
+                return redirect_to: @url_for "blog_drafts"
 
         POST: =>
             unless @session.id and (Users\find id: @session.id).admin
@@ -243,10 +245,12 @@ class extends lapis.Application
                 if success
                     return redirect_to: @url_for "blog_edit", slug: fields.slug or post.slug
                 else
-                    return "Error updating post: #{errMsg}", status: 500 --TODO fix other errors to be like this one
+                    @session.id = "Error updating post: #{errMsg}"
+                    return redirect_to: @url_for "blog_edit", slug: @params.slug
 
             else
-                return "That post does not exist."
+                @session.info = "That post does not exist."
+                return redirect_to: @url_for "blog_drafts"
     }
 
     [drafts: "/drafts"]: =>
