@@ -19,6 +19,11 @@ class extends html.Widget
                 div id: "container", ->
                     if @title
                         h1 @title
+                        if @session.info
+                            div class: "info", ->
+                                button class: "pure-button", onclick: "var e = document.getElementsByClassName('info')[0]; e.parentNode.removeChild(e);", "X"
+                                text @session.info
+                                @session.info = nil
                     @content_for "inner"
                 div style: "position: fixed; bottom: 0; width: 100%", ->
                     div id: "footer", ->

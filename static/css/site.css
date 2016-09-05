@@ -47,6 +47,21 @@ h1, h2 {
     text-align: center;
 }
 
+.info {
+    margin: auto;
+    text-align: center;
+    width: 60%;
+    padding: 8px;
+    border-radius: 6px;
+    background: lightblue;
+}
+
+.info > button {
+    float: right;
+    font-size: 0.52em;
+    background: lightblue;
+}
+
 /*   DUNNO WHAT THIS WAS FOR BUT IT IS MESSING UP MY KSP STUFF
 p {
     margin-top: 0;

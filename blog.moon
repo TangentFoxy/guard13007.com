@@ -90,7 +90,8 @@ class extends lapis.Application
                         a class: "pure-button", href: @url_for("blog_edit", slug: post.slug), "Edit Post"
 
         else
-            return redirect_to: @url_for "blog_index" --TODO error message about post not found
+            @session.info = "That post does not exist."
+            return redirect_to: @url_for "blog_index"
 
     [new: "/new"]: respond_to {
         GET: =>
