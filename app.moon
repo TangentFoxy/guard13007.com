@@ -5,9 +5,14 @@ import respond_to, json_params from require "lapis.application"
 
 class extends lapis.Application
     @before_filter =>
-        if @session.info
-            @info = @session.info
-            @session.info = nil
+        local str = ""
+        for k,v in pairs(@req.parsed_url)
+            str ..= "\n#{k} = #{v}"
+        return str
+        --@redirect = @req.parsed_url
+        --if @session.info
+        --    @info = @session.info
+        --    @session.info = nil
 
     layout: "default"
 
