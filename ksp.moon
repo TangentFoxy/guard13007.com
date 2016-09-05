@@ -57,8 +57,12 @@ class extends lapis.Application
                         input type: "submit"
 
         POST: =>
-            if @session.id and @session.id != 1   --1 is me, I "don't exist" for submissions, k?
-                @params.creator_name = (Users\find id: @session.id).name
+            local status
+            if @session.id
+                if @session.id == 1   -- if 1, is me, I imported something
+                    status = Crafts.statuses.imported
+                else                  -- else give it their name
+                    @params.creator_name = (Users\find id: @session.id).name
             unless @params.picture\len! > 0
                 @params.picture = @build_url "/static/img/ksp/no_image.png"
 
@@ -78,6 +82,7 @@ class extends lapis.Application
                 mods_used: @params.mods_used
                 picture: @params.picture
                 user_id: user_id
+                status: status or Crafts.statuses.new
             }
 
             if craft
