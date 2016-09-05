@@ -6,7 +6,8 @@ import respond_to, json_params from require "lapis.application"
 class extends lapis.Application
     @before_filter =>
         u = @req.parsed_url
-        @redirect = "#{u.scheme}://#{u.host}#{u.path}"
+        if u.path != "/users/login"
+            @session.redirect = "#{u.scheme}://#{u.host}#{u.path}"
         if @session.info
             @info = @session.info
             @session.info = nil
