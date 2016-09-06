@@ -50,7 +50,7 @@ class extends lapis.Application
                     else
                         --raw discount post.text
                         a href: @url_for("blog_post", slug: post.slug), "View Post"
-                    script -> raw "document.getElementById('post_#{post.slug}').innerHTML = marked('#{post.slug\gsub "'", "\\'"}');"
+                    script -> raw "document.getElementById('post_#{post.slug}').innerHTML = marked('#{post.text\gsub "'", "\\'"}');"
 
                     text " ("
                     span class: "disqus-comment-count", ["data-disqus-identifier"]: @build_url @url_for "blog_post", slug: post.slug
@@ -71,7 +71,7 @@ class extends lapis.Application
                 h2 title: post.pubdate, time_ago_in_words post.pubdate
                 --raw discount post.text
                 div id: "post_text"
-                script -> raw "document.getElementById('post_text').innerHTML = marked('#{post.slug\gsub "'", "\\'"}');"
+                script -> raw "document.getElementById('post_text').innerHTML = marked('#{post.text\gsub "'", "\\'"}');"
                 hr!
                 div id: "disqus_thread"
                 script -> raw "
