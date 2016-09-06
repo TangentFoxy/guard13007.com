@@ -15,6 +15,7 @@ class extends html.Widget
                 link rel: "stylesheet", href: @build_url "static/css/pure-min.css"
                 link rel: "stylesheet", href: @build_url "static/css/site.css"
             body ->
+                noscript "This website requies JavaScript for many of its pages."
                 a name: "top"
                 div id: "container", ->
                     if @title
