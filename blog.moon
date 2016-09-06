@@ -1,5 +1,5 @@
 lapis = require "lapis"
---discount = require "discount"
+discount = require "discount"
 
 import respond_to from require "lapis.application"
 import slugify, time_ago_in_words from require "lapis.util"
@@ -45,10 +45,10 @@ class extends lapis.Application
 
                     div id: "post_#{post.slug}"
                     if post.text\len! > 500
-                        --raw discount post.text\sub(1, 500) .. " ..."
+                        div -> raw discount post.text\sub(1, 500) .. " ..."
                         a href: @url_for("blog_post", slug: post.slug), "Read More"
                     else
-                        --raw discount post.text
+                        div -> raw discount post.text
                         a href: @url_for("blog_post", slug: post.slug), "View Post"
                     script -> raw "document.getElementById('post_#{post.slug}').innerHTML = marked('#{post.text\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")}');"
 
@@ -67,9 +67,10 @@ class extends lapis.Application
         if post = Posts\find slug: @params.slug
             @title = post.title
             @html ->
+                script src: @build_url "static/js/marked.min.js"
                 --TODO some sort of back button that returns to the correct page in blog_index
                 h2 title: post.pubdate, time_ago_in_words post.pubdate
-                --raw discount post.text
+                div -> raw discount post.text
                 div id: "post_text"
                 script -> raw "document.getElementById('post_text').innerHTML = marked('#{post.text\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")}');"
                 hr!
