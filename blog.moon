@@ -22,9 +22,9 @@ class extends lapis.Application
         @html ->
             link rel: "stylesheet", href: @build_url "static/css/blog.css"
             script src: @build_url "static/js/marked.min.js"
-            link rel: "stylesheet", href: @build_url "static/highlight/styles/school-book.css"
+            link rel: "stylesheet", href: @build_url "static/highlight/styles/solarized-dark.css"
             script src: @build_url "static/highlight/highlight.pack.js"
-            script -> raw "marked.setOptions({ highlight: function(code) { return hljs.highlightAuto(code).value; } });"
+            script -> raw "marked.setOptions({ highlight: function(code) { return hljs.highlightAuto(code).value; } }); hljs.initHighlightingOnLoad();"
             if page > 1
                 a class: "pure-button", href: @url_for("blog_index", page: 1), "Most Recent"
                 a class: "pure-button", href: @url_for("blog_index", page: page - 1), "Newer"
@@ -68,9 +68,9 @@ class extends lapis.Application
             @title = post.title
             @html ->
                 script src: @build_url "static/js/marked.min.js"
-                link rel: "stylesheet", href: @build_url "static/highlight/styles/school-book.css"
+                link rel: "stylesheet", href: @build_url "static/highlight/styles/solarized-dark.css"
                 script src: @build_url "static/highlight/highlight.pack.js"
-                script -> raw "marked.setOptions({ highlight: function(code) { return hljs.highlightAuto(code).value; } });"
+                script -> raw "marked.setOptions({ highlight: function(code) { return hljs.highlightAuto(code).value; } }); hljs.initHighlightingOnLoad();"
                 --TODO some sort of back button that returns to the correct page in blog_index
                 h2 title: post.pubdate, time_ago_in_words post.pubdate
                 div id: "post_text"
