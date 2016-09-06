@@ -1,5 +1,4 @@
 lapis = require "lapis"
-discount = require "discount"
 
 import respond_to from require "lapis.application"
 
@@ -163,11 +162,14 @@ class extends lapis.Application
                     @title = "#{craft.craft_name}"
 
                 @html ->
+                    script src: @build_url "static/js/marked.min.js"
+                    script -> raw "marked.setOptions({ sanitize: true, smartypants: true });"
                     p ->
                         a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
                         a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
 
-                    raw discount craft.description, "nohtml" -- THIS IS SCARY! D:
+                    div id: "craft_description"
+                    script -> raw "document.getElementById('craft_description').innerHTML = marked('#{craft.description\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")}');"
                     img src: craft.picture
                     if Crafts.statuses.reviewed == craft.status
                         div class: "yt-embed", -> iframe src: "https://www.youtube.com/embed/#{craft.episode}", frameborder: 0, allowfullscreen: true
