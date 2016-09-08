@@ -25,7 +25,7 @@ class extends lapis.Application
             ol ->
                 li "Do not post links to pirated software. You can discuss piracy, but do not link to illegal downloads."
                 li "No constant advertising. It's fine to tell people you have a YouTube channel or are working on something, but do not mention it constantly."
-                li "By default, no one can post links except in the #shitpost or the #picsandlinks channels. If you build up trust, you will be allowed to post in other channels."
+                li "By default, no one can post links except in the #picsandlinks and #shitpost channels. If you build up trust, you will be allowed to post in other channels."
                 li ->
                     text "The channels:"
                     ul ->
@@ -35,7 +35,7 @@ class extends lapis.Application
                         li "#music is for sharing music! :D"
                         li "#concept-art is for sharing concept art."
                         li "#bot-abuse is for playing with BoomBot, developed by Lomeli. :P"
-                        li "#picsandlinks is for posting stuff you want to share. While similar to #shitpost, things are generally taken more seriously here"
+                        li "#picsandlinks is for sharing stuff, as long as it's not crap."
                         li "#shitpost is for random crap..since some people want that for some reason. >.>"
                 hr!
                 li "More rules may be added as needed, obviously."
