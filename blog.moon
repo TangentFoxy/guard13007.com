@@ -1,5 +1,4 @@
 lapis = require "lapis"
-discount = require "discount"
 
 import respond_to from require "lapis.application"
 import slugify, time_ago_in_words from require "lapis.util"
@@ -22,6 +21,17 @@ class extends lapis.Application
 
         @html ->
             link rel: "stylesheet", href: @build_url "static/css/blog.css"
+            script src: @build_url "static/js/marked.min.js"
+            link rel: "stylesheet", href: @build_url "static/highlight/styles/solarized-dark.css"
+            script src: @build_url "static/highlight/highlight.pack.js"
+            script -> raw "
+                marked.setOptions({
+                    highlight: function(code) { return hljs.highlightAuto(code).value; },
+                    sanitize: true,
+                    smartypants: true
+                });
+                hljs.initHighlightingOnLoad();
+            "
             if page > 1
                 a class: "pure-button", href: @url_for("blog_index", page: 1), "Most Recent"
                 a class: "pure-button", href: @url_for("blog_index", page: page - 1), "Newer"
@@ -42,12 +52,13 @@ class extends lapis.Application
                     h3 title: post.pubdate, ->
                         a href: @url_for("blog_post", slug: post.slug), time_ago_in_words post.pubdate
 
+                    div id: "post_#{post.slug}"
                     if post.text\len! > 500
-                        raw discount post.text\sub(1, 500) .. " ..."
                         a href: @url_for("blog_post", slug: post.slug), "Read More"
+                        script -> raw "document.getElementById('post_#{post.slug}').innerHTML = marked('#{post.text\sub(1, 500)\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")}');"
                     else
-                        raw discount post.text
                         a href: @url_for("blog_post", slug: post.slug), "View Post"
+                        script -> raw "document.getElementById('post_#{post.slug}').innerHTML = marked('#{post.text\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")}');"
 
                     text " ("
                     span class: "disqus-comment-count", ["data-disqus-identifier"]: @build_url @url_for "blog_post", slug: post.slug
@@ -64,9 +75,21 @@ class extends lapis.Application
         if post = Posts\find slug: @params.slug
             @title = post.title
             @html ->
+                script src: @build_url "static/js/marked.min.js"
+                link rel: "stylesheet", href: @build_url "static/highlight/styles/solarized-dark.css"
+                script src: @build_url "static/highlight/highlight.pack.js"
+                script -> raw "
+                    marked.setOptions({
+                        highlight: function(code) { return hljs.highlightAuto(code).value; },
+                        sanitize: true,
+                        smartypants: true
+                    });
+                    hljs.initHighlightingOnLoad();
+                "
                 --TODO some sort of back button that returns to the correct page in blog_index
                 h2 title: post.pubdate, time_ago_in_words post.pubdate
-                raw discount post.text
+                div id: "post_text"
+                script -> raw "document.getElementById('post_text').innerHTML = marked('#{post.text\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")}');"
                 hr!
                 div id: "disqus_thread"
                 script -> raw "
