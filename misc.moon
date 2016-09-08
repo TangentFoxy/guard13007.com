@@ -151,6 +151,12 @@ class extends lapis.Application
                         li "Name to call you (or I will use whatever your email uses)"
                         li "Action groups, any other notes you want to add"
 
+                dt -> a name: "ksp-mods-allowed", "Can I use mods / X mod on a craft I submit to you?
+                dd "As long as you tell me what mods are used, and I can get ahold of them, I don't care. The more mods you use though, the more likely I will delay your craft, as mods make it harder to make episodes."
+
+                dt -> a name: "ksp-submit-non-planes", "Can I submit crafts that aren't planes?"
+                dd "Yes."
+
                 dt -> a name: "email", "Did you get my email? Why didn't you reply to my email?"
                 dd ->
                     text "Assuming you sent it to the "
