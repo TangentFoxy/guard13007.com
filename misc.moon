@@ -25,7 +25,7 @@ class extends lapis.Application
             ol ->
                 li "Do not post links to pirated software. You can discuss piracy, but do not link to illegal downloads."
                 li "No constant advertising. It's fine to tell people you have a YouTube channel or are working on something, but do not mention it constantly."
-                li "By default, no one can post links except in the #shitpost channel. If you build up trust, you will be allowed to post in other channels."
+                li "By default, no one can post links except in the #picsandlinks and #shitpost channels. If you build up trust, you will be allowed to post in other channels."
                 li ->
                     text "The channels:"
                     ul ->
@@ -34,10 +34,9 @@ class extends lapis.Application
                         li "#trusted is a private channel for people I trust."
                         li "#music is for sharing music! :D"
                         li "#concept-art is for sharing concept art."
-                        li "#shitpost is for random crap..since some people want that for some reason. >.>"
-                        li "#roleplay .. some of our users like to roleplay .. I made this so they'd get out of #general .."
                         li "#bot-abuse is for playing with BoomBot, developed by Lomeli. :P"
-                        li "#boomtest is a testing channel for Lomeli's use on BoomBot development."
+                        li "#picsandlinks is for sharing stuff, as long as it's not crap."
+                        li "#shitpost is for random crap..since some people want that for some reason. >.>"
                 hr!
                 li "More rules may be added as needed, obviously."
                 li title: "If you don't like it, see http://xkcd.com/1357/", "And finally, if you are causing significant annoyance to several members, especially if they are friends of mine, I may ban you."
