@@ -3,6 +3,7 @@ import Widget from require "lapis.html"
 class extends Widget
     content: =>
         h1 "Welcome"
+        iframe width: 560, height: 315, src: "https://www.youtube.com/embed/_fy8rKNoYx0", frameborder: 0, allowfullscreen: true
         p ->
             text "My server is soon to be running on Lapis moreso than hand-coded HTML. In the meantime, "
             a href: @build_url("map.html"), "here's a link"
