@@ -139,8 +139,6 @@ class extends lapis.Application
                             else
                                 text "#{craft.notes}"
 
-            iframe width: 560, height: 315, src: "https://www.youtube.com/embed/_fy8rKNoYx0", frameborder: 0, allowfullscreen: true
-
             p "What each status means:"
             ul ->
                 li "new: I haven't noticed the submission yet"
