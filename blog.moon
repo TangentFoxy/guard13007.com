@@ -89,7 +89,7 @@ class extends lapis.Application
                 --TODO some sort of back button that returns to the correct page in blog_index
                 h2 title: post.pubdate, time_ago_in_words post.pubdate
                 div id: "post_text"
-                script -> raw "document.getElementById('post_text').innerHTML = marked('#{post.text\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</'+'script>")}');"
+                script -> raw "document.getElementById('post_text').innerHTML = marked('#{post.text\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</'+'script>")\gsub("'", "\\'")}');"
                 hr!
                 div id: "disqus_thread"
                 script -> raw "
