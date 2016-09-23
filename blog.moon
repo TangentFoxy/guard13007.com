@@ -154,8 +154,6 @@ class extends lapis.Application
                     br!
                     textarea cols: 80, rows: 13, name: "text"
                     br!
-                    text "(Note: Tables are not part of standard Markdown, and will not work.)"
-                    br!
                     element "select", name: "status", ->
                         for status in *Posts.statuses
                             if status == Posts.statuses.draft
@@ -229,8 +227,6 @@ class extends lapis.Application
                         input type: "text", name: "title", value: post.title
                         br!
                         textarea cols: 80, rows: 13, name: "text", post.text
-                        br!
-                        text "(Note: Tables are not part of standard Markdown, and will not work.)"
                         br!
                         element "select", name: "status", ->
                             for status in *Posts.statuses
