@@ -55,10 +55,10 @@ class extends lapis.Application
                     div id: "post_#{post.slug}"
                     if post.text\len! > 500
                         a href: @url_for("blog_post", slug: post.slug), "Read More"
-                        script -> raw "document.getElementById('post_#{post.slug}').innerHTML = marked('#{post.text\sub(1, 500)\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")}');"
+                        script -> raw "document.getElementById('post_#{post.slug}').innerHTML = marked('#{post.text\sub(1, 500)\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</\'+\'script>")}');"
                     else
                         a href: @url_for("blog_post", slug: post.slug), "View Post"
-                        script -> raw "document.getElementById('post_#{post.slug}').innerHTML = marked('#{post.text\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")}');"
+                        script -> raw "document.getElementById('post_#{post.slug}').innerHTML = marked('#{post.text\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</\'+\'script>")}');"
 
                     text " ("
                     span class: "disqus-comment-count", ["data-disqus-identifier"]: @build_url @url_for "blog_post", slug: post.slug
@@ -89,7 +89,7 @@ class extends lapis.Application
                 --TODO some sort of back button that returns to the correct page in blog_index
                 h2 title: post.pubdate, time_ago_in_words post.pubdate
                 div id: "post_text"
-                script -> raw "document.getElementById('post_text').innerHTML = marked('#{post.text\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")}');"
+                script -> raw "document.getElementById('post_text').innerHTML = marked('#{post.text\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</\'+\'script>")}');"
                 hr!
                 div id: "disqus_thread"
                 script -> raw "
