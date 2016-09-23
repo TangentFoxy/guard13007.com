@@ -169,7 +169,7 @@ class extends lapis.Application
                         a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
 
                     div id: "craft_description"
-                    script -> raw "document.getElementById('craft_description').innerHTML = marked('#{craft.description\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</'+'script>")}');"
+                    script -> raw "document.getElementById('craft_description').innerHTML = marked('#{craft.description\gsub("\\", "\\\\")\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</'+'script>")}');"
                     img src: craft.picture
                     if Crafts.statuses.reviewed == craft.status
                         div class: "yt-embed", -> iframe src: "https://www.youtube.com/embed/#{craft.episode}", frameborder: 0, allowfullscreen: true
