@@ -85,7 +85,7 @@
 						//else just load thumbnails (all except last)
 						var added=0;
 						for (var i=0;i<videos.length;i++)
-							if (videos[i].snippet.resourceId.videoId!=videoLoaded && added<48) {
+							if (added<48) {
 								insertThumbnail(thumbs,i);
 								added++;
 							}
