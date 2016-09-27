@@ -124,6 +124,8 @@ class extends lapis.Application
             @html ->
                 link rel: "stylesheet", href: @build_url "static/simplemde/simplemde.min.css"
                 script src: @build_url "static/simplemde/simplemde.min.js"
+                link rel: "stylesheet", href: @build_url "static/highlight/styles/solarized-dark.css"
+                script src: @build_url "static/highlight/highlight.pack.js"
                 script -> raw "
                     window.onload = function () { var simplemde = new SimpleMDE({
                         autosave: {
@@ -139,7 +141,7 @@ class extends lapis.Application
                         },
                         renderingConfig: {
                             singleLineBreaks: false,
-                            // TODO add codeSyntaxHighlighting: true // this uses highlight.js which I already love :P
+                            codeSyntaxHighlighting: true // uses highlight.js
                         }
                     }); }
                 "
