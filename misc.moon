@@ -112,10 +112,19 @@ class extends lapis.Application
                         b "HDD"
                         text ": WD Blue 1 TB 7200rpm 64 MB cache (x2)"
                     li ->
+                        b "OS"
+                        text ": Windows 10 / "
+                        a href: "https://elementary.io", target: "_blank", "eOS Loki"
+                    li ->
+                        b "Mic"
+                        text ": Blue Yeti ("
+                        em "not"
+                        text " the Pro version)"
+                    li ->
                         b "Other"
                         text ": "
                         a href: "https://www.amazon.com/Cables-Go-4PORT-AUTHORITY2-35555/dp/B0006U6GGQ", target: "_blank", "This"
-                        text " KVM (not actually connected to main PC right now), "
+                        text " KVM, "
                         a href: "https://www.amazon.com/Logitech-G510s-Gaming-Keyboard-Screen/dp/B00BCEK2LU", target: "_blank", "this"
                         text " keyboard, and other shit that don't matter."
 
