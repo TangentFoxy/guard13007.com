@@ -274,6 +274,38 @@ class extends lapis.Application
                 return redirect_to: @url_for "blog_drafts"
     }
 
+    [preview: "/preview/:slug"]: =>
+        if @session.id and (Users\find id: @session.id).admin
+            if post = Posts\find slug: @params.slug
+                @title = post.title .. " (Preview)"
+                @html ->
+                    script src: @build_url "static/js/marked.min.js"
+                    link rel: "stylesheet", href: @build_url "static/highlight/styles/solarized-dark.css"
+                    script src: @build_url "static/highlight/highlight.pack.js"
+                    script -> raw "
+                        marked.setOptions({
+                            highlight: function(code) { return hljs.highlightAuto(code).value; },
+                            sanitize: true,
+                            smartypants: true
+                        });
+                        hljs.initHighlightingOnLoad();
+                    "
+                    h2 title: post.pubdate, time_ago_in_words post.pubdate
+                    div id: "post_text"
+                    script -> raw "document.getElementById('post_text').innerHTML = marked('#{post.text\gsub("\\", "\\\\\\\\")\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</'+'script>")}');"
+                    hr!
+
+                    p ->
+                        a class: "pure-button", href: @url_for("blog_new"), "New Post"
+                        a class: "pure-button", href: @url_for("blog_drafts"), "Drafts"
+                        a class: "pure-button", href: @url_for("blog_edit", slug: post.slug), "Edit Post"
+
+            else
+                @session.info = "That post does not exist."
+                return redirect_to: @url_for "blog_index"
+        else
+            return redirect_to: @url_for "blog_post", @params.slug   -- not 100% sure this will work
+
     [drafts: "/drafts"]: =>
         -- for now, lazy, select and show data on all
         -- later I need to paginate this shit
