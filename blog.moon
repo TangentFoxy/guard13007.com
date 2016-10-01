@@ -186,7 +186,10 @@ class extends lapis.Application
                 fields.pubdate = "1970-01-01 00:00:00"
 
             if post = Posts\create fields
-                return redirect_to: @url_for "blog_edit", slug: post.slug
+                if fields.status == Posts.statuses.published
+                    return redirect_to: @url_for "blog_post", slug: post.slug
+                else
+                    return redirect_to: @url_for "blog_edit", slug: post.slug
             else
                 @session.info = "Failed to create post."
                 return redirect_to: @url_for "blog_new"
@@ -198,7 +201,7 @@ class extends lapis.Application
                 return redirect_to: @url_for "blog_index"
 
             if post = Posts\find slug: @params.slug
-                @title = "Editing #{post.title}"
+                @title = post.title .. " (Editing)"
                 @html ->
                     link rel: "stylesheet", href: @build_url "static/simplemde/simplemde.min.css"
                     script src: @build_url "static/simplemde/simplemde.min.js"
