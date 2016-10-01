@@ -21,6 +21,29 @@ class extends lapis.Application
         GET: =>
             @title = "Submit a craft to be reviewed!"
             @html ->
+                link rel: "stylesheet", href: @build_url "static/simplemde/simplemde.min.css"
+                script src: @build_url "static/simplemde/simplemde.min.js"
+                link rel: "stylesheet", href: @build_url "static/highlight/styles/solarized-dark.css"
+                script src: @build_url "static/highlight/highlight.pack.js"
+                script -> raw "
+                    window.onload = function () { var simplemde = new SimpleMDE({
+                        autosave: {
+                            enabled: true,
+                            uniqueId: '#{@url_for "ksp_submit_crafts"}'
+                        },
+                        indentWithTabs: false,
+                        insertTexts: {
+                            link: ['[', '](https://)']
+                        },
+                        parsingConfig: {
+                            strikethrough: false
+                        },
+                        renderingConfig: {
+                            singleLineBreaks: false,
+                            codeSyntaxHighlighting: true // uses highlight.js
+                        }
+                    }); }
+                "
                 a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
                 form {
                     action: @url_for "ksp_submit_crafts"
@@ -163,7 +186,16 @@ class extends lapis.Application
 
                 @html ->
                     script src: @build_url "static/js/marked.min.js"
-                    script -> raw "marked.setOptions({ sanitize: true, smartypants: true });"
+                    link rel: "stylesheet", href: @build_url "static/highlight/styles/solarized-dark.css"
+                    script src: @build_url "static/highlight/highlight.pack.js"
+                    script -> raw "
+                        marked.setOptions({
+                            highlight: function(code) { return hljs.highlightAuto(code).value; },
+                            sanitize: true,
+                            smartypants: true
+                        });
+                        hljs.initHighlightingOnLoad();
+                    "
                     p ->
                         a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
                         a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
