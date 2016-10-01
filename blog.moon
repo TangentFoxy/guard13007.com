@@ -241,6 +241,9 @@ class extends lapis.Application
                         input class: "pure-button", type: "submit", value: "Save"
                         a class: "pure-button", href: @url_for("blog_drafts"), "Drafts"
                         a class: "pure-button", href: @url_for("blog_new"), "New Post"
+                        text " | "
+                        a class: "pure-button", href: @url_for("blog_preview", slug: post.slug), "Preview Post"
+                        text " (make sure you saved first!)"
             else
                 @session.info = "That post does not exist."
                 return redirect_to: @url_for "blog_drafts"
