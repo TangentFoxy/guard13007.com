@@ -121,6 +121,7 @@ class extends lapis.Application
             unless @session.id and (Users\find id: @session.id).admin
                 return redirect_to: @url_for "blog_index"
 
+            @title = "New Post"
             @html ->
                 link rel: "stylesheet", href: @build_url "static/simplemde/simplemde.min.css"
                 script src: @build_url "static/simplemde/simplemde.min.js"
@@ -197,6 +198,7 @@ class extends lapis.Application
                 return redirect_to: @url_for "blog_index"
 
             if post = Posts\find slug: @params.slug
+                @title = "Editing #{post.title}"
                 @html ->
                     link rel: "stylesheet", href: @build_url "static/simplemde/simplemde.min.css"
                     script src: @build_url "static/simplemde/simplemde.min.js"
@@ -317,6 +319,7 @@ class extends lapis.Application
 
         posts = Posts\select "WHERE true ORDER BY pubdate ASC"
 
+        @title = "Drafts"
         @html ->
             p ->
                 a class: "pure-button", href: @url_for("blog_index"), "Return to Blog"
