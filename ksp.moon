@@ -88,7 +88,7 @@ class extends lapis.Application
                     @params.creator_name = (Users\find id: @session.id).name
             if @params.picture\len! > 0
                 _, http_status = http.simple @params.picture
-                if http_status == 404 or http_status == 403 pr http_status == 500
+                if http_status == 404 or http_status == 403 or http_status == 500
                     @session.info = "Craft submission failed: Image URL is invalid."
                     return redirect_to: @url_for "ksp_submit_crafts"
                 -- TODO attempt to verify and fix Imgur links to albums or pages
