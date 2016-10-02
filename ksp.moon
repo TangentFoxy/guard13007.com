@@ -1,4 +1,5 @@
 lapis = require "lapis"
+http = require "lapis.nginx.http"
 
 import respond_to from require "lapis.application"
 
@@ -55,11 +56,11 @@ class extends lapis.Application
                         text "(If your craft is on "
                         a href: "https://kerbalx.com/", "KerbalX"
                         text ", you only need to enter the craft name and a link to the craft on KerbalX! DO NOT use a direct download link from KerbalX, those break for some reason.)"
-                    p "Please check your download links after submission! Several people have submitted invalid links. I will have a system to try to check for this in the future, but it is not ready yet."
+                    p "Please check your craft links after submission! Several people have submitted invalid links. I will have a system to try to check for this in the future, but it is not ready yet."
                     p ->
                         text "Craft Name: "
                         input type: "text", name: "craft_name"
-                        text " Download Link: "
+                        text " Craft Link: "
                         input type: "text", name: "download_link"
                         text " Creator Name: "
                         input type: "text", name: "creator_name"
@@ -85,8 +86,20 @@ class extends lapis.Application
                     status = Crafts.statuses.imported
                 else                  -- else give it their name
                     @params.creator_name = (Users\find id: @session.id).name
-            unless @params.picture\len! > 0
+            if @params.picture\len! > 0
+                _, status = http.simple @params.picture
+                unless status == 200 or status == 304   -- I think this should be sufficient
+                    @session.info = "Craft submission failed: Image URL is invalid."
+                    return redirect_to: @url_for "ksp_submit_crafts"
+                -- TODO attempt to verify and fix Imgur links to albums or pages
+            else
                 @params.picture = @build_url "/static/img/ksp/no_image.png"
+
+            if @params.download_link\len! > 0
+                _, status = http.simple @params.download_link
+                unless status == 200 or status == 304
+                    @session.info = "Craft submission failed: Craft link is invalid."
+                    return redirect_to: @url_for "ksp_submit_crafts"
 
             local user_id
             if @session.id
@@ -233,7 +246,7 @@ class extends lapis.Application
                                 p "Description:"
                                 textarea cols: 60, rows: 5, name: "description", placeholder: craft.description
                                 br!
-                                text "Download link: "
+                                text "Craft link: "
                                 input type: "text", name: "download_link", placeholder: craft.download_link
                                 br!
                                 text "Image URL: "
