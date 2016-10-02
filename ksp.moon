@@ -98,7 +98,7 @@ class extends lapis.Application
             if @params.download_link\len! > 0
                 _, status = http.simple @params.download_link
                 unless status == 200 or status == 304
-                    @session.info = "Craft submission failed: Craft link is invalid."
+                    @session.info = "Craft submission failed: Craft link is invalid. #{status}"
                     return redirect_to: @url_for "ksp_submit_crafts"
 
             local user_id
