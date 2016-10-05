@@ -71,6 +71,8 @@ class extends lapis.Application
 
             script id: "dsq-count-scr", src: "https://guard13007.disqus.com/count.js", async: true
 
+    "/post": => redirect_to: @url_for "blog_index"
+
     [post: "/post/:slug"]: =>
         if post = Posts\find slug: @params.slug
             @title = post.title
@@ -164,7 +166,7 @@ class extends lapis.Application
                             else
                                 option value: Posts.statuses[status], status
                     br!
-                    input class: "pure-button", type: "submit"
+                    input class: "pure-button", type: "submit", value: "Create"
                     a class: "pure-button", href: @url_for("blog_drafts"), "Drafts"
 
         POST: =>
@@ -312,7 +314,7 @@ class extends lapis.Application
                 @session.info = "That post does not exist."
                 return redirect_to: @url_for "blog_index"
         else
-            return redirect_to: @url_for "blog_post", @params.slug   -- not 100% sure this will work
+            return redirect_to: @url_for "blog_post", slug: @params.slug
 
     [drafts: "/drafts"]: =>
         -- for now, lazy, select and show data on all
