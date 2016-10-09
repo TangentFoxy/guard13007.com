@@ -10,6 +10,9 @@ class extends lapis.Application
     @path: "/ksp"
     @name: "ksp_"
 
+    "/*": =>
+        redirect_to: @url_for "ksp_craft_list"
+
     [index: ""]: =>
         @html -> p ->
             a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
@@ -57,6 +60,7 @@ class extends lapis.Application
                         a href: "https://kerbalx.com/", "KerbalX"
                         text ", you only need to enter the craft name and a link to the craft on KerbalX! DO NOT use a direct download link from KerbalX, those break for some reason.)"
                     p "Please check your craft links after submission! Several people have submitted invalid links. I will have a system to try to check for this in the future, but it is not ready yet."
+                    p "Note: TinyPic is not supported because they do not have HTTPS support."
                     p ->
                         text "Craft Name: "
                         input type: "text", name: "craft_name"
