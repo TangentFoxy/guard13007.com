@@ -82,18 +82,19 @@ class extends lapis.Application
         POST: =>
             local status
             if @session.id
-                if @session.id == 1   -- if 1, is me, I imported something
+                if (Users\find id: @session.id).admin   -- if an admin is uploading, it is imported
                     status = Crafts.statuses.imported
-                else                  -- else give it their name
+                else                                    -- else give it the user's name
                     @params.creator_name = (Users\find id: @session.id).name
             if @params.picture\len! > 0
+                if @params.picture\sub(1, 7) == "http://"
+                    @params.picture = "https://#{@params.picture\sub 8}"
                 _, http_status = http.simple @params.picture
+                -- TODO log all http_status checks here to compare for what I should allow and disallow
                 if http_status == 404 or http_status == 403 or http_status == 500
                     @session.info = "Craft submission failed: Image URL is invalid."
                     return redirect_to: @url_for "ksp_submit_crafts"
                 -- TODO attempt to verify and fix Imgur links to albums or pages
-                if @params.picture\sub(1, 7) == "http://"
-                    @params.picture = "https://#{@params.picture\sub 8}"
             else
                 @params.picture = @build_url "/static/img/ksp/no_image.png"
 
