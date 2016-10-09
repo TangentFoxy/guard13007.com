@@ -20,10 +20,10 @@ class extends html.Widget
                 div id: "container", ->
                     if @title
                         h1 @title
-                        if @info
-                            div class: "info", ->
-                                button class: "pure-button", onclick: "var e = document.getElementsByClassName('info')[0]; e.parentNode.removeChild(e);", "X"
-                                text @info
+                    if @info
+                        div class: "info", ->
+                            button class: "pure-button", onclick: "var e = document.getElementsByClassName('info')[0]; e.parentNode.removeChild(e);", "X"
+                            text @info
                     @content_for "inner"
                 div style: "position: fixed; bottom: 0; width: 100%", ->
                     div id: "footer", ->

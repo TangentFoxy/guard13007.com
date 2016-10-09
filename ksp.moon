@@ -92,6 +92,8 @@ class extends lapis.Application
                     @session.info = "Craft submission failed: Image URL is invalid."
                     return redirect_to: @url_for "ksp_submit_crafts"
                 -- TODO attempt to verify and fix Imgur links to albums or pages
+                if @params.picture\sub(1, 7) == "http://"
+                    @params.picture = "https://#{@params.picture\sub 8}"
             else
                 @params.picture = @build_url "/static/img/ksp/no_image.png"
 
