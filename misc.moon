@@ -37,6 +37,7 @@ class extends lapis.Application
                         li "#bot-abuse is for playing with BoomBot, developed by Lomeli. :P"
                         li "#picsandlinks is for sharing stuff, as long as it's not crap."
                         li "#shitpost is for random crap..since some people want that for some reason. >.>"
+                li "Racism is bad. Let's just not have it."
                 hr!
                 li "More rules may be added as needed, obviously."
                 li title: "If you don't like it, see http://xkcd.com/1357/", "And finally, if you are causing significant annoyance to several members, especially if they are friends of mine, I may ban you."
@@ -46,10 +47,13 @@ class extends lapis.Application
         @html ->
             ul ->
                 li ->
-                    text "Email: "
+                    text "Email (business): "
                     a href: "mailto:paul.liverman.iii@gmail.com", "paul.liverman.iii@gmail.com"
+                    text " (use "
+                    a href: @url_for("ksp_submit_crafts"), "this form"
+                    text " for KSP craft submissions!)"
                 li ->
-                    text "Discord (my server): "
+                    text "Discord (general contact/hanging out): "
                     a href: "https://discord.gg/DjB84MP", target: "_blank", "invite link"
                 li ->
                     text "Twitter: "
@@ -57,6 +61,9 @@ class extends lapis.Application
                 li ->
                     text "Player.me: "
                     a href: "https://player.me/guard13007", target: "_blank", "Guard13007"
+                hr!
+                li ->
+                    a href: "http://www.last.fm/user/Guard13007", target: "_blank", "Last.fm"
             p ->
                 text "Do "
                 em "not"
