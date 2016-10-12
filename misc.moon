@@ -61,6 +61,9 @@ class extends lapis.Application
                 li ->
                     text "Player.me: "
                     a href: "https://player.me/guard13007", target: "_blank", "Guard13007"
+                hr!
+                li ->
+                    a href: "http://www.last.fm/user/Guard13007", target: "_blank", "Last.fm"
             p ->
                 text "Do "
                 em "not"
