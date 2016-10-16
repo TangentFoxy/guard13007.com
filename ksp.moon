@@ -145,7 +145,7 @@ class extends lapis.Application
         else
             @html ->
                 form {
-                    action: @url_for "ksp_search"
+                    action: @url_for "ksp_craft_search"
                     method: "GET"
                 }, ->
                     input type: "text", name: "query"
