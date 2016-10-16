@@ -134,6 +134,13 @@ class extends lapis.Application
                 return redirect_to: @url_for "ksp_submit_crafts"
     }
 
+    [craft_search: "/search"]: =>
+        if @params.query
+            crafts = Crafts\select "WHERE craft_name LIKE '%?%'", @params.query--, @params.query
+            @html ->
+                for craft in *crafts
+                    li craft.craft_name
+
     [craft_list: "/crafts(/:page[%d])"]: =>
         page = tonumber(@params.page) or 1
         @title = "Submitted Craft (Page #{page})"
