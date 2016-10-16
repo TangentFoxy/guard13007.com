@@ -136,7 +136,7 @@ class extends lapis.Application
 
     [craft_search: "/search"]: =>
         if @params.query
-            crafts = Crafts\select "WHERE craft_name LIKE ?", "%"..@params.query.."%"--, @params.query
+            crafts = Crafts\select "WHERE craft_name LIKE '%'" --?", "%"..@params.query.."%"--, @params.query
             @html ->
                 for craft in *crafts
                     li craft.craft_name
