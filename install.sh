@@ -27,6 +27,7 @@ sudo make install
 sudo luarocks install lapis
 sudo luarocks install moonscript
 sudo luarocks install bcrypt
+sudo luarocks install --server=http://luarocks.org/dev lapis-systemd
 # cleanup
 cd ..
 rm -rf openresty*
@@ -45,20 +46,8 @@ nano secret.moon   # Put the info needed in there!
 moonc .
 lapis migrate production
 # guard13007.com as a service
-echo "[Unit]
-Description=guard13007.com server
-
-[Service]
-Type=forking
-WorkingDirectory=$(pwd)
-ExecStart=$(which lapis) server production
-ExecReload=$(which lapis) build production
-ExecStop=$(which lapis) term
-
-[Install]
-WantedBy=multi-user.target" > guard13007com.service
-sudo cp ./guard13007com.service /etc/systemd/system/guard13007com.service
-sudo systemctl daemon-reload
-sudo systemctl enable guard13007com.service
-service guard13007com start
+lapis systemd service production --install
+lapis systemd service development --install
 echo "(Don't forget to proxy or pass to port 8150!)"
+echo "I'm expecting you to want to start the production service now."
+echo "Press Ctrl+C to cancel! (Remember sudo service guard13007.com start)"
