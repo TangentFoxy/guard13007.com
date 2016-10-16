@@ -136,10 +136,20 @@ class extends lapis.Application
 
     [craft_search: "/search"]: =>
         if @params.query
-            crafts = Crafts\select "WHERE craft_name LIKE ?", "%"..@params.query.."%"--, @params.query
+            crafts = Crafts\select "WHERE craft_name LIKE ?", "%"..@params.query.."%"
             @html ->
                 for craft in *crafts
-                    li craft.craft_name
+                    li ->
+                        a href: @url_for("ksp_craft", id: craft.id), "#{craft.craft_name} by #{craft.creator_name}"
+
+        else
+            @html ->
+                form {
+                    action: @url_for "ksp_search"
+                    method: "GET"
+                }, ->
+                    input type: "text", name: "query"
+                    input type: "submit", value: "Search"
 
     [craft_list: "/crafts(/:page[%d])"]: =>
         page = tonumber(@params.page) or 1
