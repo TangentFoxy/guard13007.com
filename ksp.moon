@@ -54,6 +54,7 @@ class extends lapis.Application
                     class: "pure-form"
                     action: @url_for "ksp_craft_search"
                     method: "GET"
+                    style: "display: inline-block;"
                 }, ->
                     input type: "text", name: "query", placeholder: "Search for Crafts"
                     input type: "text", name: "ksp_version", placeholder: "KSP version?"
@@ -157,6 +158,7 @@ class extends lapis.Application
                         class: "pure-form"
                         action: @url_for "ksp_craft_search"
                         method: "GET"
+                        style: "display: inline-block;"
                     }, ->
                         input type: "text", name: "query", placeholder: "Search for Crafts"
                         input type: "text", name: "ksp_version", placeholder: "KSP version?"
@@ -223,6 +225,7 @@ class extends lapis.Application
                 class: "pure-form"
                 action: @url_for "ksp_craft_search"
                 method: "GET"
+                style: "display: inline-block;"
             }, ->
                 input type: "text", name: "query", placeholder: "Search for Crafts"
                 input type: "text", name: "ksp_version", placeholder: "KSP version?"
@@ -291,10 +294,11 @@ class extends lapis.Application
                         class: "pure-form"
                         action: @url_for "ksp_craft_search"
                         method: "GET"
+                        style: "display: inline-block;"
                     }, ->
                         input type: "text", name: "query", placeholder: "Search for Crafts"
                         input type: "text", name: "ksp_version", placeholder: "KSP version?"
-                        input type: "submit", value: "Search", "pure-button"
+                        input type: "submit", value: "Search", class: "pure-button"
 
                     div id: "craft_description"
                     script -> raw "document.getElementById('craft_description').innerHTML = marked('#{craft.description\gsub("\\", "\\\\\\\\")\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</'+'script>")}');"
