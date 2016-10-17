@@ -57,7 +57,9 @@ class extends lapis.Application
                     style: "display: inline-block;"
                 }, ->
                     input type: "text", name: "query", placeholder: "Search for Crafts"
+                    text " "
                     input type: "text", name: "ksp_version", placeholder: "KSP version?"
+                    text " "
                     input type: "submit", value: "Search", class: "pure-button"
                 form {
                     action: @url_for "ksp_submit_crafts"
@@ -148,7 +150,7 @@ class extends lapis.Application
             else
                 crafts = Crafts\select "WHERE craft_name LIKE ? OR creator_name LIKE ? OR description LIKE ?", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.query.."%"
             if next crafts
-                @html ->                
+                @html ->
                     link rel: "stylesheet", href: @build_url "static/css/ksp.css"
                     a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
                     text " "
@@ -161,7 +163,9 @@ class extends lapis.Application
                         style: "display: inline-block;"
                     }, ->
                         input type: "text", name: "query", placeholder: "Search for Crafts"
+                        text " "
                         input type: "text", name: "ksp_version", placeholder: "KSP version?"
+                        text " "
                         input type: "submit", value: "Search", class: "pure-button"
                     element "table", class: "pure-table", ->
                         tr ->
@@ -228,7 +232,9 @@ class extends lapis.Application
                 style: "display: inline-block;"
             }, ->
                 input type: "text", name: "query", placeholder: "Search for Crafts"
+                text " "
                 input type: "text", name: "ksp_version", placeholder: "KSP version?"
+                text " "
                 input type: "submit", value: "Search", class: "pure-button"
             br!
             br!
@@ -299,10 +305,13 @@ class extends lapis.Application
                         style: "display: inline-block;"
                     }, ->
                         input type: "text", name: "query", placeholder: "Search for Crafts"
+                        text " "
                         input type: "text", name: "ksp_version", placeholder: "KSP version?"
+                        text " "
                         input type: "submit", value: "Search", class: "pure-button"
-                    br!
-                    br!
+                    if craft.description\len! < 1
+                        br!
+                        br!
 
                     div id: "craft_description"
                     script -> raw "document.getElementById('craft_description').innerHTML = marked('#{craft.description\gsub("\\", "\\\\\\\\")\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</'+'script>")}');"
