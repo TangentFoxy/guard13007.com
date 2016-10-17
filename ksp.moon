@@ -104,6 +104,8 @@ class extends lapis.Application
                 else                                    -- else give it the user's name
                     @params.creator_name = (Users\find id: @session.id).name
                     user_id = @session.id
+            else
+                user_id = 0
             if @params.picture\len! > 0
                 if @params.picture\sub(1, 7) == "http://"
                     @params.picture = "https://#{@params.picture\sub 8}"
