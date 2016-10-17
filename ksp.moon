@@ -84,12 +84,14 @@ class extends lapis.Application
                         input type: "submit"
 
         POST: =>
-            local status
+            local status, user_id
             if @session.id
                 if (Users\find id: @session.id).admin   -- if an admin is uploading, it is imported
                     status = Crafts.statuses.imported
+                    user_id = 0
                 else                                    -- else give it the user's name
                     @params.creator_name = (Users\find id: @session.id).name
+                    user_id = @session.id
             if @params.picture\len! > 0
                 if @params.picture\sub(1, 7) == "http://"
                     @params.picture = "https://#{@params.picture\sub 8}"
@@ -107,12 +109,6 @@ class extends lapis.Application
                 if http_status == 404 or http_status == 403 or http_status == 500
                     @session.info = "Craft submission failed: Craft link is invalid."
                     return redirect_to: @url_for "ksp_submit_crafts"
-
-            local user_id
-            if @session.id
-                user_id = @session.id
-            else
-                user_id = 1
 
             craft, errMsg = Crafts\create {
                 craft_name: @params.craft_name
@@ -187,7 +183,7 @@ class extends lapis.Application
                     tr ->
                         td style: "width:20%; word-wrap: break-word;", ->
                             a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
-                        if craft.user_id != 1
+                        if craft.user_id != 0
                             td style: "width:20%; word-wrap: break-word;", (Users\find id: craft.user_id).name
                         else
                             td style: "width:20%; word-wrap: break-word;", craft.creator_name
@@ -214,7 +210,7 @@ class extends lapis.Application
         GET: =>
             --TODO we need a "back" button or something similar
             if craft = Crafts\find id: @params.id
-                if craft.user_id != 1
+                if craft.user_id != 0
                     craft.creator_name = (Users\find id: craft.user_id).name
                 if craft.creator_name\len! > 0
                     @title = "#{craft.craft_name} by #{craft.creator_name}"
@@ -249,13 +245,11 @@ class extends lapis.Application
                     pre style: "white-space: pre-wrap;", craft.action_groups
                     p "Mods Used:"
                     pre style: "white-space: pre-wrap;", craft.mods_used
+                    hr!
+                    p "Notes from Guard13007: " .. craft.notes
 
                     if @session.id
                         user = Users\find id: @session.id
-
-                        if @session.id == craft.user_id
-                            hr!
-                            p "Notes from Guard13007: " .. craft.notes
 
                         if @session.id == craft.user_id or user.admin
                             hr!

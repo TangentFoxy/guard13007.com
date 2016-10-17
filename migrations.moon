@@ -122,4 +122,10 @@ import create_table, types, drop_table, add_column, rename_column from require "
         add_column "colors", "name", types.text unique: true
     [16]: =>
         drop_table "colors"
+    [17]: =>
+        db.update "crafts", {
+          user_id: 0 --what to change
+        }, {
+          user_id: 1 --matching what
+        }
 }
