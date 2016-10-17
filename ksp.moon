@@ -137,8 +137,8 @@ class extends lapis.Application
                 crafts = Crafts\select "WHERE (craft_name LIKE ? OR creator_name LIKE ? OR description LIKE ?) AND ksp_version LIKE ?", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.ksp_version.."%"
             else
                 crafts = Crafts\select "WHERE craft_name LIKE ? OR creator_name LIKE ? OR description LIKE ?", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.query.."%"
-            @html ->
-                if next crafts
+            if next crafts
+                @html ->                
                     link rel: "stylesheet", href: @build_url "static/css/ksp.css"
                     element "table", class: "pure-table", ->
                         tr ->
@@ -163,9 +163,9 @@ class extends lapis.Application
                                     else
                                         text craft.notes
 
-                else
-                    @session.info = "No search results for \"#{@params.query}\""
-                    return redirect_to: @url_for "ksp_craft_search"
+            else
+                @session.info = "No search results for \"#{@params.query}\""
+                return redirect_to: @url_for "ksp_craft_search"
 
         else
             @html ->
