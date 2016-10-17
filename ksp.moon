@@ -57,7 +57,7 @@ class extends lapis.Application
                 }, ->
                     input type: "text", name: "query", placeholder: "Search for Crafts"
                     input type: "text", name: "ksp_version", placeholder: "KSP version?"
-                    input type: "submit", value: "Search", "pure-button"
+                    input type: "submit", value: "Search", class: "pure-button"
                 form {
                     action: @url_for "ksp_submit_crafts"
                     method: "POST"
@@ -160,7 +160,7 @@ class extends lapis.Application
                     }, ->
                         input type: "text", name: "query", placeholder: "Search for Crafts"
                         input type: "text", name: "ksp_version", placeholder: "KSP version?"
-                        input type: "submit", value: "Search", "pure-button"
+                        input type: "submit", value: "Search", class: "pure-button"
                     element "table", class: "pure-table", ->
                         tr ->
                             th style: "width:20%; word-wrap: break-word;", "Craft"
@@ -226,7 +226,7 @@ class extends lapis.Application
             }, ->
                 input type: "text", name: "query", placeholder: "Search for Crafts"
                 input type: "text", name: "ksp_version", placeholder: "KSP version?"
-                input type: "submit", value: "Search", "pure-button"
+                input type: "submit", value: "Search", class: "pure-button"
 
             element "table", class: "pure-table", ->
                 tr ->
