@@ -48,16 +48,16 @@ class extends lapis.Application
                         }
                     }); }
                 "
-                p ->
-                    a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
-                    form {
-                        action: @url_for "ksp_craft_search"
-                        method: "GET"
-                    }, ->
-                        input type: "text", name: "query"
-                        text " KSP Version? "
-                        input type: "text", name: "ksp_version"
-                        input type: "submit", value: "Search"
+                a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
+                text " "
+                form {
+                    class: "pure-form"
+                    action: @url_for "ksp_craft_search"
+                    method: "GET"
+                }, ->
+                    input type: "text", name: "query", placeholder: "Search for Crafts"
+                    input type: "text", name: "ksp_version", placeholder: "KSP version?"
+                    input type: "submit", value: "Search", "pure-button"
                 form {
                     action: @url_for "ksp_submit_crafts"
                     method: "POST"
@@ -149,17 +149,18 @@ class extends lapis.Application
             if next crafts
                 @html ->                
                     link rel: "stylesheet", href: @build_url "static/css/ksp.css"
-                    p ->
-                        a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
-                        text " "
-                        form {
-                            action: @url_for "ksp_craft_search"
-                            method: "GET"
-                        }, ->
-                            input type: "text", name: "query"
-                            text " KSP Version? "
-                            input type: "text", name: "ksp_version"
-                            input type: "submit", value: "Search"
+                    a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
+                    text " "
+                    a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
+                    text " "
+                    form {
+                        class: "pure-form"
+                        action: @url_for "ksp_craft_search"
+                        method: "GET"
+                    }, ->
+                        input type: "text", name: "query", placeholder: "Search for Crafts"
+                        input type: "text", name: "ksp_version", placeholder: "KSP version?"
+                        input type: "submit", value: "Search", "pure-button"
                     element "table", class: "pure-table", ->
                         tr ->
                             th style: "width:20%; word-wrap: break-word;", "Craft"
@@ -203,30 +204,29 @@ class extends lapis.Application
 
         @html ->
             link rel: "stylesheet", href: @build_url "static/css/ksp.css"
-            p ->
-                if page > 1
-                    a class: "pure-button", href: @url_for("ksp_craft_list", page: 1), "First"
-                    a class: "pure-button", href: @url_for("ksp_craft_list", page: page - 1), "Previous"
-                else
-                    a class: "pure-button pure-button-disabled", "First"
-                    a class: "pure-button pure-button-disabled", "Previous"
-                if page < Paginator\num_pages!
-                    a class: "pure-button", href: @url_for("ksp_craft_list", page: page + 1), "Next"
-                    a class: "pure-button", href: @url_for("ksp_craft_list", page: Paginator\num_pages!), "Last"
-                else
-                    a class: "pure-button pure-button-disabled", "Next"
-                    a class: "pure-button pure-button-disabled", "Last"
-                text " "
-                a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
-                text " "
-                form {
-                    action: @url_for "ksp_craft_search"
-                    method: "GET"
-                }, ->
-                    input type: "text", name: "query"
-                    text " KSP Version? "
-                    input type: "text", name: "ksp_version"
-                    input type: "submit", value: "Search"
+            if page > 1
+                a class: "pure-button", href: @url_for("ksp_craft_list", page: 1), "First"
+                a class: "pure-button", href: @url_for("ksp_craft_list", page: page - 1), "Previous"
+            else
+                a class: "pure-button pure-button-disabled", "First"
+                a class: "pure-button pure-button-disabled", "Previous"
+            if page < Paginator\num_pages!
+                a class: "pure-button", href: @url_for("ksp_craft_list", page: page + 1), "Next"
+                a class: "pure-button", href: @url_for("ksp_craft_list", page: Paginator\num_pages!), "Last"
+            else
+                a class: "pure-button pure-button-disabled", "Next"
+                a class: "pure-button pure-button-disabled", "Last"
+            text " "
+            a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
+            text " "
+            form {
+                class: "pure-form"
+                action: @url_for "ksp_craft_search"
+                method: "GET"
+            }, ->
+                input type: "text", name: "query", placeholder: "Search for Crafts"
+                input type: "text", name: "ksp_version", placeholder: "KSP version?"
+                input type: "submit", value: "Search", "pure-button"
 
             element "table", class: "pure-table", ->
                 tr ->
@@ -263,7 +263,6 @@ class extends lapis.Application
 
     [craft: "/craft/:id[%d]"]: respond_to {
         GET: =>
-            --TODO we need a "back" button or something similar
             if craft = Crafts\find id: @params.id
                 if craft.user_id != 0
                     craft.creator_name = (Users\find id: craft.user_id).name
@@ -284,9 +283,18 @@ class extends lapis.Application
                         });
                         hljs.initHighlightingOnLoad();
                     "
-                    p ->
-                        a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
-                        a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
+                    a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
+                    text " "
+                    a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
+                    text " "
+                    form {
+                        class: "pure-form"
+                        action: @url_for "ksp_craft_search"
+                        method: "GET"
+                    }, ->
+                        input type: "text", name: "query", placeholder: "Search for Crafts"
+                        input type: "text", name: "ksp_version", placeholder: "KSP version?"
+                        input type: "submit", value: "Search", "pure-button"
 
                     div id: "craft_description"
                     script -> raw "document.getElementById('craft_description').innerHTML = marked('#{craft.description\gsub("\\", "\\\\\\\\")\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</'+'script>")}');"
