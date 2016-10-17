@@ -132,11 +132,32 @@ class extends lapis.Application
 
     [craft_search: "/search"]: =>
         if @params.query
-            crafts = Crafts\select "WHERE craft_name LIKE ?", "%"..@params.query.."%"
+            crafts = Crafts\select "WHERE craft_name LIKE ? OR creator_name LIKE ? OR description LIKE ?", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.query.."%"
             @html ->
-                for craft in *crafts
-                    li ->
-                        a href: @url_for("ksp_craft", id: craft.id), "#{craft.craft_name} by #{craft.creator_name}"
+                if next crafts
+                    link rel: "stylesheet", href: @build_url "static/css/ksp.css"
+                    element "table", class: "pure-table", ->
+                        tr ->
+                            th style: "width:20%; word-wrap: break-word;", "Craft"
+                            th style: "width:20%; word-wrap: break-word;", "Creator"
+                            th "Status"
+                            th "Notes"
+                        for craft in *crafts
+                            tr ->
+                                --a href: @url_for("ksp_craft", id: craft.id), "#{craft.craft_name} by #{craft.creator_name}"
+                                td style: "width:20%; word-wrap: break-word;", ->
+                                    a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
+                                if craft.user_id != 0
+                                    td style: "width:20%; word-wrap: break-word;", (Users\find id: craft.user_id).name
+                                else
+                                    td style: "width:20%; word-wrap: break-word;", craft.creator_name
+                                td style: "width:10%;", class: Crafts.statuses\to_name(craft.status), ->
+                                    text Crafts.statuses\to_name craft.status
+                                td ->
+                                    if Crafts.statuses.reviewed == craft.status
+                                        a href: "https://youtube.com/watch?v=#{craft.episode}", target: "_blank", "Watch on YouTube"
+                                    else
+                                        text craft.notes
 
         else
             @html ->
@@ -193,7 +214,7 @@ class extends lapis.Application
                             if Crafts.statuses.reviewed == craft.status
                                 a href: "https://youtube.com/watch?v=#{craft.episode}", target: "_blank", "Watch on YouTube"
                             else
-                                text "#{craft.notes}"
+                                text craft.notes
 
             p "What each status means:"
             ul ->
