@@ -230,6 +230,7 @@ class extends lapis.Application
                 input type: "text", name: "query", placeholder: "Search for Crafts"
                 input type: "text", name: "ksp_version", placeholder: "KSP version?"
                 input type: "submit", value: "Search", class: "pure-button"
+            br! br!
 
             element "table", class: "pure-table", ->
                 tr ->
