@@ -1,5 +1,7 @@
 import Model, enum from require "lapis.db.model"
 
+import trim from require "lapis.util"
+
 class Crafts extends Model
     @timestamp: true
 
@@ -24,8 +26,12 @@ class Crafts extends Model
                 return "You must enter a link to the craft!"
             if Crafts\find download_link: value
                 return "That craft has already been submitted!"
+        creator_name: (value) =>
+            value = trim value
+            return
 
             --TODO validate URL here!
+            --     (uhh, accidentally was validating it elsewhere...)
 
         --description: (value) =>
         --    unless value
