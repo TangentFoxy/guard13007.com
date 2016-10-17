@@ -216,12 +216,6 @@ class extends lapis.Application
             else
                 a class: "pure-button pure-button-disabled", "First"
                 a class: "pure-button pure-button-disabled", "Previous"
-            if page < Paginator\num_pages!
-                a class: "pure-button", href: @url_for("ksp_craft_list", page: page + 1), "Next"
-                a class: "pure-button", href: @url_for("ksp_craft_list", page: Paginator\num_pages!), "Last"
-            else
-                a class: "pure-button pure-button-disabled", "Next"
-                a class: "pure-button pure-button-disabled", "Last"
             text " "
             a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
             text " "
@@ -236,6 +230,13 @@ class extends lapis.Application
                 input type: "text", name: "ksp_version", placeholder: "KSP version?"
                 text " "
                 input type: "submit", value: "Search", class: "pure-button"
+            text " "
+            if page < Paginator\num_pages!
+                a class: "pure-button", href: @url_for("ksp_craft_list", page: page + 1), "Next"
+                a class: "pure-button", href: @url_for("ksp_craft_list", page: Paginator\num_pages!), "Last"
+            else
+                a class: "pure-button pure-button-disabled", "Next"
+                a class: "pure-button pure-button-disabled", "Last"
             br!
             br!
 
