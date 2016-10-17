@@ -189,7 +189,7 @@ class extends lapis.Application
                                         text craft.notes
 
             else
-                @session.info = "No search results for \"#{@params.query}\""
+                @session.info = "No search results for \"#{@params.query}\" (version \"#{@params.ksp_version}\")"
                 return redirect_to: @url_for "ksp_craft_list"
 
         else
