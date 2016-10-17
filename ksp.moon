@@ -301,6 +301,8 @@ class extends lapis.Application
                         input type: "text", name: "query", placeholder: "Search for Crafts"
                         input type: "text", name: "ksp_version", placeholder: "KSP version?"
                         input type: "submit", value: "Search", class: "pure-button"
+                    br!
+                    br!
 
                     div id: "craft_description"
                     script -> raw "document.getElementById('craft_description').innerHTML = marked('#{craft.description\gsub("\\", "\\\\\\\\")\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</'+'script>")}');"
