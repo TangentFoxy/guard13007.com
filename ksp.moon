@@ -190,7 +190,7 @@ class extends lapis.Application
 
             else
                 @session.info = "No search results for \"#{@params.query}\""
-                return redirect_to: @url_for "ksp_craft_search"
+                return redirect_to: @url_for "ksp_craft_list"
 
         else
             return redirect_to: @url_for "ksp_craft_list"
