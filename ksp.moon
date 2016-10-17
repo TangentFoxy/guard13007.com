@@ -48,7 +48,16 @@ class extends lapis.Application
                         }
                     }); }
                 "
-                a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
+                p ->
+                    a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
+                    form {
+                        action: @url_for "ksp_craft_search"
+                        method: "GET"
+                    }, ->
+                        input type: "text", name: "query"
+                        text " KSP Version? "
+                        input type: "text", name: "ksp_version"
+                        input type: "submit", value: "Search"
                 form {
                     action: @url_for "ksp_submit_crafts"
                     method: "POST"
@@ -140,10 +149,22 @@ class extends lapis.Application
             if next crafts
                 @html ->                
                     link rel: "stylesheet", href: @build_url "static/css/ksp.css"
+                    p ->
+                        a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
+                        text " "
+                        form {
+                            action: @url_for "ksp_craft_search"
+                            method: "GET"
+                        }, ->
+                            input type: "text", name: "query"
+                            text " KSP Version? "
+                            input type: "text", name: "ksp_version"
+                            input type: "submit", value: "Search"
                     element "table", class: "pure-table", ->
                         tr ->
                             th style: "width:20%; word-wrap: break-word;", "Craft"
                             th style: "width:20%; word-wrap: break-word;", "Creator"
+                            th style: "width:12%;", "KSP version"
                             th "Status"
                             th "Notes"
                         for craft in *crafts
@@ -155,6 +176,7 @@ class extends lapis.Application
                                     td style: "width:20%; word-wrap: break-word;", (Users\find id: craft.user_id).name
                                 else
                                     td style: "width:20%; word-wrap: break-word;", craft.creator_name
+                                td style: "width:13%;", craft.ksp_version
                                 td style: "width:10%;", class: Crafts.statuses\to_name(craft.status), ->
                                     text Crafts.statuses\to_name craft.status
                                 td ->
@@ -168,15 +190,7 @@ class extends lapis.Application
                 return redirect_to: @url_for "ksp_craft_search"
 
         else
-            @html ->
-                form {
-                    action: @url_for "ksp_craft_search"
-                    method: "GET"
-                }, ->
-                    input type: "text", name: "query"
-                    text " KSP Version? "
-                    input type: "text", name: "ksp_version"
-                    input type: "submit", value: "Search"
+            return redirect_to: @url_for "ksp_craft_list"
 
     [craft_list: "/crafts(/:page[%d])"]: =>
         page = tonumber(@params.page) or 1
@@ -202,7 +216,17 @@ class extends lapis.Application
                 else
                     a class: "pure-button pure-button-disabled", "Next"
                     a class: "pure-button pure-button-disabled", "Last"
-                a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit"
+                text " "
+                a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
+                text " "
+                form {
+                    action: @url_for "ksp_craft_search"
+                    method: "GET"
+                }, ->
+                    input type: "text", name: "query"
+                    text " KSP Version? "
+                    input type: "text", name: "ksp_version"
+                    input type: "submit", value: "Search"
 
             element "table", class: "pure-table", ->
                 tr ->
