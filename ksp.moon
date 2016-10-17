@@ -146,9 +146,9 @@ class extends lapis.Application
         if @params.query
             local crafts
             if @params.ksp_version and @params.ksp_version\len! > 0
-                crafts = Crafts\select "WHERE (craft_name LIKE ? OR creator_name LIKE ? OR description LIKE ?) AND ksp_version LIKE ?", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.ksp_version.."%"
+                crafts = Crafts\select "WHERE (craft_name LIKE ? OR creator_name LIKE ? OR description LIKE ?) AND ksp_version LIKE ? ORDER BY id ASC", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.ksp_version.."%"
             else
-                crafts = Crafts\select "WHERE craft_name LIKE ? OR creator_name LIKE ? OR description LIKE ?", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.query.."%"
+                crafts = Crafts\select "WHERE craft_name LIKE ? OR creator_name LIKE ? OR description LIKE ? ORDER BY id ASC", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.query.."%"
             if next crafts
                 @html ->
                     link rel: "stylesheet", href: @build_url "static/css/ksp.css"
