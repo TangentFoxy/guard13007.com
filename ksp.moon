@@ -10,7 +10,7 @@ class extends lapis.Application
     @path: "/ksp"
     @name: "ksp_"
 
-    "/*": =>
+    "*": => -- might be dangerous! :D
         redirect_to: @url_for "ksp_craft_list"
 
     [index: ""]: =>

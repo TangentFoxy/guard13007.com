@@ -31,10 +31,15 @@ class extends html.Widget
                                 li class: "pure-menu-item pure-menu-has-children pure-menu-allow-hover", ->
                                     a href: "/ksp", class: "pure-menu-link", "Kerbal Space Program" -- NOTE NOT A REAL LINK!!!
                                     ul class: "pure-menu-children", ->
-                                        li class: "pure-menu-item", -> a href: @url_for("ksp_craft_list"), class: "pure-menu-link", "Submit a craft!"
-                                        li class: "pure-menu-item", -> a href: @url_for("ksp_submit_crafts"), class: "pure-menu-link", "Craft sent in"
+                                        li class: "pure-menu-item", -> a href: @url_for("ksp_submit_crafts"), class: "pure-menu-link", "Submit a craft!"
+                                        li class: "pure-menu-item", -> a href: @url_for("ksp_craft_list"), class: "pure-menu-link", "Craft sent in"
+                                li class: "pure-menu-item", ->
+                                    --a href: @url_for("games"), class: "pure-menu-link", "Games"
+                                    a href: "/games", class: "pure-menu-link", "Games"
                                 li class: "pure-menu-item", ->
                                     a href: @url_for("blog_index"), class: "pure-menu-link", "Blog"
+                                li class: "pure-menu-item", ->
+                                    a href: @url_for("faq"), class: "pure-menu-link", "FAQ"
                     div id: "container", ->
                         if @title
                             h1 @title
