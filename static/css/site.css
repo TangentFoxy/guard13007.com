@@ -63,10 +63,6 @@ body {
   background: #2c4475;
 }
 
-.pure-menu-children {
-  min-width: 110px;
-}
-
 /*#container {
     margin-top: 0.8em;
     margin-bottom: 3em;
@@ -84,6 +80,10 @@ h1, h2 {
 
 h1:first-child {
   margin-top: 0;
+}
+
+h2 {
+  font-size: 1.3em;
 }
 
 p:first-child {

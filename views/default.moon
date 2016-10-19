@@ -28,16 +28,15 @@ class extends html.Widget
                                 li class: "pure-menu-item pure-menu-has-children pure-menu-allow-hover", ->
                                     a href: @url_for("contact"), class: "pure-menu-link", "Contact"
                                     ul class: "pure-menu-children", ->
-                                        li class: "pure-menu-item", -> a href: "#", class: "pure-menu-link", "Profiles"
-                                        li class: "pure-menu-item", -> a href: @url_for("chat"), class: "pure-menu-link", "Chat"
+                                        li class: "pure-menu-item", -> a href: "#", class: "pure-menu-link", style: "min-width:110px;", "Profiles" -- NOTE not a real link yet!
+                                        li class: "pure-menu-item", -> a href: @url_for("chat"), class: "pure-menu-link", style: "min-width:110px;", "Chat"
                                 li class: "pure-menu-item pure-menu-has-children pure-menu-allow-hover", ->
                                     a href: "/ksp", class: "pure-menu-link", "Kerbal Space Program" -- NOTE NOT A REAL LINK!!!
                                     ul class: "pure-menu-children", ->
-                                        li class: "pure-menu-item", -> a href: @url_for("ksp_submit_crafts"), class: "pure-menu-link", "Submit a craft!"
-                                        li class: "pure-menu-item", -> a href: @url_for("ksp_craft_list"), class: "pure-menu-link", "Craft sent in"
+                                        li class: "pure-menu-item", -> a href: @url_for("ksp_submit_crafts"), class: "pure-menu-link", style: "min-width:190px", "Submit a craft!"
+                                        li class: "pure-menu-item", -> a href: @url_for("ksp_craft_list"), class: "pure-menu-link", style: "min-width:190px", "Craft sent in"
                                 li class: "pure-menu-item", ->
-                                    --a href: @url_for("games"), class: "pure-menu-link", "Games"
-                                    a href: "/games", class: "pure-menu-link", "Games"
+                                    a href: @url_for("games"), class: "pure-menu-link", "Games"
                                 li class: "pure-menu-item", ->
                                     a href: @url_for("blog_index"), class: "pure-menu-link", "Blog"
                 div id: "container", ->
