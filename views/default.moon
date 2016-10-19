@@ -40,14 +40,14 @@ class extends html.Widget
                                     a href: "/games", class: "pure-menu-link", "Games"
                                 li class: "pure-menu-item", ->
                                     a href: @url_for("blog_index"), class: "pure-menu-link", "Blog"
-                    div id: "container", ->
-                        if @title
-                            h1 @title
-                        if @info
-                            div class: "info", ->
-                                button class: "pure-button", onclick: "var e = document.getElementsByClassName('info')[0]; e.parentNode.removeChild(e);", "X"
-                                text @info
-                        @content_for "inner"
+                div id: "container", ->
+                    if @title
+                        h1 @title
+                    if @info
+                        div class: "info", ->
+                            button class: "pure-button", onclick: "var e = document.getElementsByClassName('info')[0]; e.parentNode.removeChild(e);", "X"
+                            text @info
+                    @content_for "inner"
                 div style: "position: fixed; bottom: 0; width: 100%;", ->
                     div id: "footer", ->
                         if @session.id
