@@ -23,7 +23,7 @@ class extends html.Widget
                             ul class: "pure-menu-list", ->
                                 li class: "pure-menu-item pure-menu-selected", ->
                                     a href: @url_for("index"), class: "pure-menu-link", "Home"
-                                li class: "pure-menu-item pure-menu-has-children pure-menu-allowed-hover", ->
+                                li class: "pure-menu-item pure-menu-has-children pure-menu-allow-hover", ->
                                     a href: @url_for("contact"), class: "pure-menu-link", "Contact"
                                     ul class: "pure-menu-children", ->
                                         li class: "pure-menu-item", -> a href: "#", class: "pure-menu-link", "Profiles"
