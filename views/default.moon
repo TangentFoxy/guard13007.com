@@ -23,6 +23,8 @@ class extends html.Widget
                             ul class: "pure-menu-list", ->
                                 li class: "pure-menu-item pure-menu-selected", ->
                                     a href: @url_for("index"), class: "pure-menu-link", "Home"
+                                li class: "pure-menu-item", ->
+                                    a href: @url_for("faq"), class: "pure-menu-link", "FAQ"
                                 li class: "pure-menu-item pure-menu-has-children pure-menu-allow-hover", ->
                                     a href: @url_for("contact"), class: "pure-menu-link", "Contact"
                                     ul class: "pure-menu-children", ->
@@ -38,8 +40,6 @@ class extends html.Widget
                                     a href: "/games", class: "pure-menu-link", "Games"
                                 li class: "pure-menu-item", ->
                                     a href: @url_for("blog_index"), class: "pure-menu-link", "Blog"
-                                li class: "pure-menu-item", ->
-                                    a href: @url_for("faq"), class: "pure-menu-link", "FAQ"
                     div id: "container", ->
                         if @title
                             h1 @title
