@@ -80,6 +80,10 @@ h1, h2 {
     text-align: center;
 }
 
+h1:first-child {
+  margin-top: 0;
+}
+
 p:first-child {
   margin-top: 0;
 }

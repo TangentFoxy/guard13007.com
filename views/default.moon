@@ -28,6 +28,13 @@ class extends html.Widget
                                     ul class: "pure-menu-children", ->
                                         li class: "pure-menu-item", -> a href: "#", class: "pure-menu-link", "Profiles"
                                         li class: "pure-menu-item", -> a href: @url_for("chat"), class: "pure-menu-link", "Chat"
+                                li class: "pure-menu-item pure-menu-has-children pure-menu-allow-hover", ->
+                                    a href: "/ksp", class: "pure-menu-link", "Kerbal Space Program" -- NOTE NOT A REAL LINK!!!
+                                    ul class: "pure-menu-children", ->
+                                        li class: "pure-menu-item", -> a href: @url_for("ksp_craft_list"), class: "pure-menu-link", "Submit a craft!"
+                                        li class: "pure-menu-item", -> a href: @url_for("ksp_submit_crafts"), class: "pure-menu-link", "Craft sent in"
+                                li class: "pure-menu-item", ->
+                                    a href: @url_for("blog_index"), class: "pure-menu-link", "Blog"
                     div id: "container", ->
                         if @title
                             h1 @title
@@ -40,9 +47,11 @@ class extends html.Widget
                     div id: "footer", ->
                         if @session.id
                             a href: @url_for("user_me"), class: "pure-button", "You"
+                            text " | "
                             a href: @url_for("user_logout"), class: "pure-button", "Log Out"
                         else
                             a href: @url_for("user_login"), class: "pure-button", "Log In"
+                            text " | "
                             a href: @url_for("user_new"), class: "pure-button", "New User"
                         text " | This website is open-source... "
                         a href: "https://github.com/Guard13007/guard13007.com", "Help me with it?"
