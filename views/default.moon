@@ -38,8 +38,6 @@ class extends html.Widget
                         @content_for "inner"
                 div style: "position: fixed; bottom: 0; width: 100%;", ->
                     div id: "footer", ->
-                        if
-                        --
                         if @session.id
                             a href: @url_for("user_me"), class: "pure-button", "You"
                             a href: @url_for("user_logout"), class: "pure-button", "Log Out"
