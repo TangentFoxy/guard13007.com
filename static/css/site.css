@@ -55,6 +55,10 @@ body {
   color: #CCC;
 }
 
+.pure-menu-selected .pure-menu-link:visited {
+  color: #BABABA;
+}
+
 .pure-menu-item {
   background: #2c4475;
 }
