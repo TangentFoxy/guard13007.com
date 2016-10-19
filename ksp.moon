@@ -10,13 +10,15 @@ class extends lapis.Application
     @path: "/ksp"
     @name: "ksp_"
 
-    "*": => -- might be dangerous! :D
+    "/*": =>
         redirect_to: @url_for "ksp_craft_list"
 
     [index: ""]: =>
-        @html -> p ->
-            a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
-            a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
+        redirect_to: @url_for "ksp_craft_list"
+        -- Past me, why the fuck did you do this?
+        --@html -> p ->
+        --    a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
+        --    a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
 
     "/craft": =>
         redirect_to: @url_for "ksp_craft_list"
