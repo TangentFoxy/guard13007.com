@@ -26,5 +26,3 @@ class extends lapis.Application
         render: true
 
     "/submit": => redirect_to: @url_for "ksp_submit_crafts"
-
-    "/a": => redirect_to: "http://www.strawpoll.me/11474955"
