@@ -63,6 +63,8 @@ class extends lapis.Application
                     input type: "text", name: "ksp_version", placeholder: "KSP version?"
                     text " "
                     input type: "submit", value: "Search", class: "pure-button"
+                br!
+                br!
                 form {
                     action: @url_for "ksp_submit_crafts"
                     method: "POST"
