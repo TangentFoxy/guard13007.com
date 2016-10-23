@@ -209,7 +209,7 @@ class extends lapis.Application
         page = tonumber(@params.page) or 1
         @title = "Submitted Craft (Page #{page})"
 
-        Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 13
+        Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 25
         crafts = Paginator\get_page page
         if #crafts < 1 and Paginator\num_pages! > 0
             return redirect_to: @url_for("ksp_craft_list", page: Paginator\num_pages!)
