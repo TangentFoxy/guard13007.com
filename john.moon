@@ -85,6 +85,6 @@ class extends lapis.Application
             @html ->
                 element "table", class: "pure-table", ->
                     tr ->
-                        td -> john.score
-                        td -> john.john
+                        td john.score
+                        td john.john
                         td "someone remind me to put vote buttons here"
