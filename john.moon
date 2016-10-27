@@ -13,13 +13,14 @@ class extends lapis.Application
                 form {
                     class: "pure-form"
                     action: @url_for "john_submissions"
-                    method: "GET"
+                    method: "POST"
                 }, ->
                     input type: "text", name: "john"
                     br!
                     input type: "submit", class: "pure-button"
                 JOHNS = Johns\paginated "* ORDER BY id DESC", per_page: 5
-                if Johnny = JOHNS\get_page 1
+                Johnny = JOHNS\get_page 1
+                if #Johnny > 0
                     p "Recent Johns:"
                     for j in *Johnny
                         li j.john
