@@ -35,7 +35,7 @@ class extends lapis.Application
                                     action: @url_for "john_voat"
                                     method: "POST"
                                 }, ->
-                                    td -> j.john
+                                    td j.john
                                     td ->
                                         input type: "checkbox", name: "plus"
                                         text "+"
