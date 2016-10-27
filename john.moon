@@ -5,7 +5,7 @@ import respond_to from require "lapis.application"
 Johns = require "models.Johns"
 
 class extends lapis.Application
-    [john_submissions: "/john/submit(/:page[%d])"]: respond_to {
+    [john_submissions: "/john/submit(/:paged[%d])"]: respond_to {
         GET: =>
             @title = "Submit John"
             @html ->
@@ -22,9 +22,9 @@ class extends lapis.Application
                     br!
                     input type: "submit", class: "pure-button"
                 JOHNS = Johns\paginated "* ORDER BY score DESC", per_page: 20
-                unless page
-                    page = 1
-                Johnny = JOHNS\get_page page
+                unless paged
+                    paged = 1
+                Johnny = JOHNS\get_page paged
                 if #Johnny > 0
                     div class: "pure-g", ->
                         div class: "pure-u-1-2", ->
@@ -48,7 +48,7 @@ class extends lapis.Application
                                             td ->
                                                 input type: "hidden", name: "id", value: j.id
                                                 input type: "submit"
-                        Johnny = JOHNS\get_page page+1
+                        Johnny = JOHNS\get_page (paged+1)
                         if #Johnny > 0
                             div class: "pure-u-1-2", ->
                                 p "Slight less Top Johns:"
