@@ -46,11 +46,11 @@ class extends lapis.Application
                                         input type: "hidden", name: "id", value: j.id
                                         input type: "submit"
                 br!
-                pages = JOHNS\num_pages!
-                for i=1,pages-1
-                    a href: @url_for("john_submissions", page: i), i
-                    text " | "
-                a href: @url_for("john_submissions", page: pages), pages
+                --pages = JOHNS\num_pages!
+                --for i=1,pages-1
+                --    a href: @url_for("john_submissions", page: i), i
+                --    text " | "
+                --a href: @url_for("john_submissions", page: pages), pages
         POST: =>
             if Jacob = Johns\find john: @params.john
                 if Jacob\update { score: Jacob.score + 1 }
