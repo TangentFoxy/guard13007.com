@@ -35,7 +35,7 @@ class extends lapis.Application
                                     method: "POST"
                                 }, ->
                                     td j.score
-                                    td j.john\sub 1, 50
+                                    td -> a href: @url_for("a_john", JID: j.id), j.john\sub(1, 50)
                                     td ->
                                         input type: "checkbox", name: "plus"
                                         text "+"
@@ -79,3 +79,12 @@ class extends lapis.Application
                         @session.info = "Vote saved."
             return redirect_to: @url_for "john_submissions"
     }
+
+    [a_john: "/john/:JID"]: =>
+        if john = Johns\find id: @params.JID
+            @html ->
+                element "table", class: "pure-table", ->
+                    tr ->
+                        td -> john.score
+                        td -> john.john
+                        td "someone remind me to put vote buttons here"
