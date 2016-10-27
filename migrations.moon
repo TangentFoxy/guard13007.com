@@ -128,4 +128,12 @@ import create_table, types, drop_table, add_column, rename_column from require "
         }, {
           user_id: 1 --matching what
         }
+    [18]: =>
+        create_table "johns", {
+            {"id", types.serial primary_key: true}
+            {"john", types.text}
+
+            {"created_at", types.time}
+            {"updated_at", types.time}
+        }
 }
