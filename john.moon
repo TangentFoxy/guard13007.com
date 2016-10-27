@@ -22,7 +22,6 @@ class extends lapis.Application
                     br!
                     input type: "submit", class: "pure-button"
                 JOHNS = Johns\paginated "* ORDER BY score DESC", per_page: 20
-                --pages = JOHNS\num_pages!
                 page = tonumber(@params.page) or 1
                 Johnny = JOHNS\get_page page
                 if #Johnny > 0
@@ -47,10 +46,11 @@ class extends lapis.Application
                                         input type: "hidden", name: "id", value: j.id
                                         input type: "submit"
                 br!
-                --for i=1,pages-1
-                --    a href: @url_for("john_submissions", page: i), i
-                --    text " | "
-                --a href: @url_for("john_submissions", page: pages), pages
+                pages = 20
+                for i=1,pages-1
+                    a href: @url_for("john_submissions", page: i), i
+                    text " | "
+                a href: @url_for("john_submissions", page: pages), pages
         POST: =>
             if Jacob = Johns\find john: @params.john
                 if Jacob\update { score: Jacob.score + 1 }
