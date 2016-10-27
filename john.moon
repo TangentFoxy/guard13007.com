@@ -22,7 +22,7 @@ class extends lapis.Application
                     br!
                     input type: "submit", class: "pure-button"
                 JOHNS = Johns\paginated "* ORDER BY score DESC", per_page: 20
-                pages = JOHNS\num_pages!
+                --pages = JOHNS\num_pages!
                 page = tonumber(@params.page) or 1
                 Johnny = JOHNS\get_page page
                 if #Johnny > 0
