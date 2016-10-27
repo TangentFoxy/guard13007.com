@@ -7,3 +7,4 @@ class Johns extends Model
         john: (value) =>
             if not value or value\len! < 1
                 return "Must have a John."
+    }
