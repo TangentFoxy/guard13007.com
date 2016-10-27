@@ -11,8 +11,8 @@ class extends lapis.Application
             @html ->
                 p "You thought I was joking?! Submit a John!"
                 input type: "checkbox", id: "refreshing"
-                text " <- click that thing to refresh this page every 5 sextants"
-                script -> raw "if (localStorage.getItem('refreshme')=='1') { document.getElementById('refreshing').checked = true; } setInterval(function(){ if (document.getElementById('refreshing').checked) { localStorage.setItem('refreshme', '1'); location.reload(); } else { localStorage.setItem('refreshme', '0'); } }, 5000);"
+                text " <- click that thing to refresh this page every 10 Lomeli's"
+                script -> raw "if (localStorage.getItem('refreshme')=='1') { document.getElementById('refreshing').checked = true; } setInterval(function(){ if (document.getElementById('refreshing').checked) { localStorage.setItem('refreshme', '1'); location.reload(); } else { localStorage.setItem('refreshme', '0'); } }, 10000);"
                 form {
                     class: "pure-form"
                     action: @url_for "john_submissions"
@@ -22,8 +22,7 @@ class extends lapis.Application
                     br!
                     input type: "submit", class: "pure-button"
                 JOHNS = Johns\paginated "* ORDER BY score DESC", per_page: 20
-                unless page
-                    page = 1
+                page = tonumber(@params.page) or 1
                 Johnny = JOHNS\get_page page
                 if #Johnny > 0
                     p "Top Johns:"
@@ -46,6 +45,12 @@ class extends lapis.Application
                                     td ->
                                         input type: "hidden", name: "id", value: j.id
                                         input type: "submit"
+                br!
+                pages = JOHNS\num_pages!
+                for i=1,pages-1
+                    a href: @url_for("john_submissions", page: i), i
+                    text " | "
+                a href: @url_for("john_submissions", page: pages), pages
         POST: =>
             if Jacob = Johns\find john: @params.john
                 if Jacob\update { score: Jacob.score + 1 }
