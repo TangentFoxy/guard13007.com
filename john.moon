@@ -57,7 +57,7 @@ class extends lapis.Application
 
     [john_voat: "/john/vote-for-president"]: respond_to {
         GET: =>
-            p "What are you doing here?"
+            @html -> p "What are you doing here?"
         POST: =>
             if @params.plus == "on"
                 if john = Johns\find id: @params.id
