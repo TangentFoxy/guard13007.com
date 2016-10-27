@@ -10,6 +10,11 @@ class extends lapis.Application
             @title = "Submit John"
             @html ->
                 p "You thought I was joking?! Submit a John!"
+                p ->
+                    text "This Johnsite will get better functionality in the future, see the progress "
+                    a href: "https://github.com/Guard13007/guard13007.com/milestone/4", target: "_blank", "here"
+                    text " and submit questions and ideas and stuff!"
+                p "(For tonight, I am done working with John. There will be more John in the future.)"
                 input type: "checkbox", id: "refreshing"
                 text " <- click that thing to refresh this page every 10 Lomeli's"
                 script -> raw "if (localStorage.getItem('refreshme')=='1') { document.getElementById('refreshing').checked = true; } setInterval(function(){ if (document.getElementById('refreshing').checked) { localStorage.setItem('refreshme', '1'); location.reload(); } else { localStorage.setItem('refreshme', '0'); } }, 10000);"
