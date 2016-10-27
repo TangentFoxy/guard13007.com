@@ -27,7 +27,7 @@ class extends lapis.Application
                 Johnny = JOHNS\get_page page
                 if #Johnny > 0
                     p "Recent Johns:"
-                    element "table", ->
+                    element "table", style: "padding: 2px;", ->
                         for j in *Johnny
                             tr ->
                                 form {
@@ -68,5 +68,5 @@ class extends lapis.Application
                 if john = Johns\find id: @params.id
                     if john\update { score: john.score - 1 }
                         @session.info = "Vote saved."
-                        return redirect_to @url_for "john_submissions"
+                        return redirect_to: @url_for "john_submissions"
     }
