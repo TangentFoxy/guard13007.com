@@ -27,7 +27,7 @@ class extends lapis.Application
                 Johnny = JOHNS\get_page page
                 if #Johnny > 0
                     p "Recent Johns:"
-                    element "table", style: "padding: 2px;", ->
+                    element "table", class: "pure-table pure-table-striped", ->
                         for j in *Johnny
                             tr ->
                                 form {
