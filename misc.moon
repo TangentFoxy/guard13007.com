@@ -113,7 +113,7 @@ class extends lapis.Application
                     text "."
                 dt -> a name: "john", "Who the heck is John?"
                 dd ->
-                    a href: "https://guard13007.com/john/41", "This is John."
+                    a href: "https://guard13007.com/john/id/41", "This is John."
 
             a href: "#top", "top"
 
