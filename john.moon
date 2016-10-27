@@ -27,14 +27,15 @@ class extends lapis.Application
                 Johnny = JOHNS\get_page page
                 if #Johnny > 0
                     p "Recent Johns:"
-                    for j in *Johnny
-                        element "table", ->
+                    element "table", ->
+                        for j in *Johnny
                             tr ->
                                 form {
                                     class: "pure-form"
                                     action: @url_for "john_voat"
                                     method: "POST"
                                 }, ->
+                                    td j.score
                                     td j.john
                                     td ->
                                         input type: "checkbox", name: "plus"
