@@ -25,7 +25,7 @@ class extends lapis.Application
                     for j in *Johnny
                         li j.john
         POST: =>
-            john, errrrrrr = Johns\create { @params.john }
+            john, errrrrrr = Johns\create { john: @params.john }
             if john
                 @session.info = "John!"
             else
