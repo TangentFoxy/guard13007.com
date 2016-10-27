@@ -111,6 +111,9 @@ class extends lapis.Application
                 dd ->
                     a href: "https://twitter.com/craigperko/status/591228538633621504", target: "_blank", "See this Twitter conversation"
                     text "."
+                dt -> a name: "john", "Who the heck is John?"
+                dd ->
+                    a href: "https://guard13007.com/john/41", "This is John."
 
             a href: "#top", "top"
 
