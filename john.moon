@@ -54,7 +54,7 @@ class extends lapis.Application
             return redirect_to: @url_for "john_submissions"
     }
 
-    [john_voat = "/john/vote-for-president"]: respond_to {
+    [john_voat: "/john/vote-for-president"]: respond_to {
         GET: =>
             p "What are you doing here?"
         POST: =>
