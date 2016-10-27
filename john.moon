@@ -21,12 +21,12 @@ class extends lapis.Application
                     input type: "text", name: "john"
                     br!
                     input type: "submit", class: "pure-button"
-                JOHNS = Johns\paginated "* ORDER BY score DESC", per_page: 10
+                JOHNS = Johns\paginated "* ORDER BY score DESC", per_page: 20
                 unless page
                     page = 1
                 Johnny = JOHNS\get_page page
                 if #Johnny > 0
-                    p "Recent Johns:"
+                    p "Top Johns:"
                     element "table", class: "pure-table pure-table-striped", ->
                         for j in *Johnny
                             tr ->
