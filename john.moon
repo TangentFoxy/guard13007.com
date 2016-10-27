@@ -5,7 +5,7 @@ import respond_to from require "lapis.application"
 Johns = require "models.Johns"
 
 class extends lapis.Application
-    [john_submissions: "/john/submit"]: respond_to {
+    [john_submissions: "/john/submit(/:page[%d])"]: respond_to {
         GET: =>
             @title = "Submit John"
             @html ->
@@ -21,12 +21,30 @@ class extends lapis.Application
                     input type: "text", name: "john"
                     br!
                     input type: "submit", class: "pure-button"
-                JOHNS = Johns\paginated "* ORDER BY id DESC", per_page: 5
-                Johnny = JOHNS\get_page 1
+                JOHNS = Johns\paginated "* ORDER BY score DESC", per_page: 10
+                unless page
+                    page = 1
+                Johnny = JOHNS\get_page page
                 if #Johnny > 0
                     p "Recent Johns:"
                     for j in *Johnny
-                        li j.john
+                        element "table", ->
+                            tr ->
+                                form {
+                                    class: "pure-form"
+                                    action: @url_for "john_voat"
+                                    method: "POST"
+                                }, ->
+                                    td -> j.john
+                                    td ->
+                                        input type: "checkbox", name: "plus"
+                                        text "+"
+                                    td ->
+                                        input type: "checkbox", name: "minus"
+                                        text "-"
+                                    td ->
+                                        input type: "hidden", name: "id", value: j.id
+                                        input type: "submit"
         POST: =>
             john, errrrrrr = Johns\create { john: @params.john }
             if john
@@ -34,4 +52,20 @@ class extends lapis.Application
             else
                 @session.info = "Failed to John. :( Because \"#{errrrrrr}\""
             return redirect_to: @url_for "john_submissions"
+    }
+
+    [john_voat = "/john/vote-for-president"]: respond_to {
+        GET: =>
+            p "What are you doing here?"
+        POST: =>
+            if @params.plus == "on"
+                if john = Johns\find id: @params.id
+                    if john\update { score: john.score + 1 }
+                        @session.info = "Vote saved."
+                        return redirect_to: @url_for "john_submissions"
+            if @params.minus == "on"
+                if john = Johns\find id: @params.id
+                    if john\update { score: john.score - 1 }
+                        @session.info = "Vote saved."
+                        return redirect_to @url_for "john_submissions"
     }
