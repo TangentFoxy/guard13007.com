@@ -136,4 +136,6 @@ import create_table, types, drop_table, add_column, rename_column from require "
             {"created_at", types.time}
             {"updated_at", types.time}
         }
+    [19]: =>
+        add_column "johns", "score", types.integer default: 0
 }
