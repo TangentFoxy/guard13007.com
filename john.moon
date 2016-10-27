@@ -36,7 +36,7 @@ class extends lapis.Application
                                     method: "POST"
                                 }, ->
                                     td j.score
-                                    td j.john
+                                    td j.john\sub 1, 50
                                     td ->
                                         input type: "checkbox", name: "plus"
                                         text "+"
