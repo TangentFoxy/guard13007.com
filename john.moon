@@ -12,7 +12,7 @@ class extends lapis.Application
                 p "You thought I was joking?! Submit a John!"
                 input type: "checkbox", id: "refreshing"
                 text " <- click that thing to refresh this page every second"
-                script -> raw "setInterval(function(){ if (document.getElementById('refreshing').checked) { location.reload(); }}, 1000);"
+                script -> raw "if (localStorage.getItem('refreshme')=='1') { document.getElementById('refreshing').checked = true; } setInterval(function(){ if (document.getElementById('refreshing').checked) { localStorage.setItem('refreshme', '1'); location.reload(); } else { localStorage.setItem('refreshme', '0'); } }, 1000);"
                 form {
                     class: "pure-form"
                     action: @url_for "john_submissions"
