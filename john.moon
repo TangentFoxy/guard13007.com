@@ -80,7 +80,7 @@ class extends lapis.Application
             return redirect_to: @url_for "john_submissions"
     }
 
-    [a_john: "/john/:JID"]: =>
+    [a_john: "/john/id/:JID"]: =>
         if john = Johns\find id: @params.JID
             @html ->
                 element "table", class: "pure-table", ->
