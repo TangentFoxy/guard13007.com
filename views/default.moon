@@ -40,6 +40,8 @@ class extends html.Widget
                                     a href: @url_for("games"), class: "pure-menu-link", "Games"
                                 li class: "pure-menu-item", ->
                                     a href: @url_for("blog_index"), class: "pure-menu-link", "Blog"
+                                li class: "pure-menu-item", ->
+                                    a href: @url_for("john_submissions"), class: "pure-menu-link", "John"
                 div id: "container", ->
                     if @title
                         h1 @title
