@@ -47,6 +47,11 @@ class extends lapis.Application
                                         input type: "hidden", name: "id", value: j.id
                                         input type: "submit"
         POST: =>
+            if Jacob = Johns\find john: @params.john
+                if Jacob\update { score: Jacob.score + 1 }
+                    @session.info = "That John exists, so you has now voted for it! :D"
+                    return redirect_to: @url_for "john_submissions"
+
             john, errrrrrr = Johns\create { john: @params.john }
             if john
                 @session.info = "John!"
