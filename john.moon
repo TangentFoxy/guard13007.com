@@ -10,6 +10,8 @@ class extends lapis.Application
             @title = "Submit John"
             @html ->
                 p "You thought I was joking?! Submit a John!"
+                input type: "checkbox", id: "refreshing"
+                script -> raw "setInterval(function(){ if (document.getElementById('refreshing').value=='on') { location.reload(): }}, 1000);"
                 form {
                     class: "pure-form"
                     action: @url_for "john_submissions"
