@@ -63,10 +63,9 @@ class extends lapis.Application
                 if john = Johns\find id: @params.id
                     if john\update { score: john.score + 1 }
                         @session.info = "Vote saved."
-                        return redirect_to: @url_for "john_submissions"
             if @params.minus == "on"
                 if john = Johns\find id: @params.id
                     if john\update { score: john.score - 1 }
                         @session.info = "Vote saved."
-                        return redirect_to: @url_for "john_submissions"
+            return redirect_to: @url_for "john_submissions"
     }
