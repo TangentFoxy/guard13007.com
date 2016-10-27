@@ -26,51 +26,26 @@ class extends lapis.Application
                     page = 1
                 Johnny = JOHNS\get_page page
                 if #Johnny > 0
-                    div class: "pure-g", ->
-                        div class: "pure-u-1-2", ->
-                            p "Top Johns:"
-                            element "table", class: "pure-table pure-table-striped", ->
-                                for j in *Johnny
-                                    tr ->
-                                        form {
-                                            class: "pure-form"
-                                            action: @url_for "john_voat"
-                                            method: "POST"
-                                        }, ->
-                                            td j.score
-                                            td j.john
-                                            td ->
-                                                input type: "checkbox", name: "plus"
-                                                text "+"
-                                            td ->
-                                                input type: "checkbox", name: "minus"
-                                                text "-"
-                                            td ->
-                                                input type: "hidden", name: "id", value: j.id
-                                                input type: "submit"
-                        Johnny = JOHNS\get_page page
-                        if #Johnny > 0
-                            div class: "pure-u-1-2", ->
-                                p "Slight less Top Johns:"
-                                element "table", class: "pure-table pure-table-striped", ->
-                                    for j in *Johnny
-                                        tr ->
-                                            form {
-                                                class: "pure-form"
-                                                action: @url_for "john_voat"
-                                                method: "POST"
-                                            }, ->
-                                                td j.score
-                                                td j.john
-                                                td ->
-                                                    input type: "checkbox", name: "plus"
-                                                    text "+"
-                                                td ->
-                                                    input type: "checkbox", name: "minus"
-                                                    text "-"
-                                                td ->
-                                                    input type: "hidden", name: "id", value: j.id
-                                                    input type: "submit"
+                    p "Top Johns:"
+                    element "table", class: "pure-table pure-table-striped", ->
+                        for j in *Johnny
+                            tr ->
+                                form {
+                                    class: "pure-form"
+                                    action: @url_for "john_voat"
+                                    method: "POST"
+                                }, ->
+                                    td j.score
+                                    td j.john
+                                    td ->
+                                        input type: "checkbox", name: "plus"
+                                        text "+"
+                                    td ->
+                                        input type: "checkbox", name: "minus"
+                                        text "-"
+                                    td ->
+                                        input type: "hidden", name: "id", value: j.id
+                                        input type: "submit"
         POST: =>
             john, errrrrrr = Johns\create { john: @params.john }
             if john
