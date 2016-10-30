@@ -43,6 +43,7 @@ class extends lapis.Application
                 li "Do not post links to pirated software. You can discuss piracy, but do not link to illegal downloads."
                 li "No constant advertising. It's fine to tell people you have a YouTube channel or are working on something, but do not mention it constantly."
                 li "By default, no one can post links except in the #picsandlinks and #shitpost channels. If you build up trust, you will be allowed to post in other channels."
+                li "No copypasta."
                 li ->
                     text "The channels:"
                     ul ->
