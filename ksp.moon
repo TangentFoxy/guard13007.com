@@ -277,16 +277,18 @@ class extends lapis.Application
                 li "rejected: For some reason I won't or can't review the craft. (These are usually deleted after some time.)"
                 li "imported: I imported this myself from email or the KerbalX hanger."
                 li "old: A submission from a long time ago I imported from email."
-            if @session.id and user = Users\find id: @session.id
-                if user.admin
-                    a href: @url_for("ksp_random"), class: "pure-button", "Random"
+            if @session.id
+                if user = Users\find id: @session.id
+                    if user.admin
+                        a href: @url_for("ksp_random"), class: "pure-button", "Random"
 
     [random: "/random"]: =>
-        if @session.id and user = Users\find id: @session.id
-            if user.admin
-                crafts = Crafts\select!
-                rand = math.random(1,#crafts)
-                return redirect_to: @url_for "ksp_craft", id: rand
+        if @session.id
+            if user = Users\find id: @session.id
+                if user.admin
+                    crafts = Crafts\select!
+                    rand = math.random(1,#crafts)
+                    return redirect_to: @url_for "ksp_craft", id: rand
         return redirect_to: @url_for "ksp_craft_list"
 
     [craft: "/craft/:id[%d]"]: respond_to {
