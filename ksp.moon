@@ -289,7 +289,7 @@ class extends lapis.Application
                     crafts = Crafts\select!
                     math.randomseed(os.time()) -- this is terrible randomness, figure out how to fix it
                     rand = math.random(1,#crafts)
-                    return redirect_to: @url_for "ksp_craft", id: rand
+                    return redirect_to: @url_for "ksp_craft", id: crafts[rand].id
         return redirect_to: @url_for "ksp_craft_list"
 
     [craft: "/craft/:id[%d]"]: respond_to {
