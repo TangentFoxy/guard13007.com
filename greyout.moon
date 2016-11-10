@@ -12,7 +12,7 @@ class extends lapis.Application
                 text " started. Let's talk about why we only have two real choices in an election, or if the electoral college should be abolished."
             p ->
                 text "Talk about this with the hashtag #TwitterGreyout, switch your avatar to "
-                a href: @build_url("static/img/greyout"), target: "_blank", "this"
+                a href: @build_url("static/img/greyout.png"), target: "_blank", "this"
                 text ", and mention "
                 a href: "https://twitter.com/Guard13007", target: "_blank", "@Guard13007"
                 text " a bunch! Or whoever, come on!"
