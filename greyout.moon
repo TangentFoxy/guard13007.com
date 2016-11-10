@@ -11,9 +11,10 @@ class extends lapis.Application
                 a href: "https://twitter.com/search?f=tweets&q=%23TwitterGreyout&src=typd", target: "_blank", "#TwitterGreyout"
                 text " started. Let's talk about why we only have two real choices in an election, or if the electoral college should be abolished."
                 hr!
-                iframe src: "https://www.youtube.com/embed/reUJAS8dsSM", width: 560, height: 315, frameborder: 0, allowfullscreen: true
-                iframe src: "https://www.youtube.com/embed/s7tWHJfhiyo", width: 560, height: 315, frameborder: 0, allowfullscreen: true
-                iframe src: "https://www.youtube.com/embed/l8XOZJkozfI", width: 560, height: 315, frameborder: 0, allowfullscreen: true
+                div class: "yt-embed", ->
+                    iframe src: "https://www.youtube.com/embed/reUJAS8dsSM", frameborder: 0, allowfullscreen: true
+                    iframe src: "https://www.youtube.com/embed/s7tWHJfhiyo", frameborder: 0, allowfullscreen: true
+                    iframe src: "https://www.youtube.com/embed/l8XOZJkozfI", frameborder: 0, allowfullscreen: true
                 hr!
                 div id: "disqus_thread"
                 script -> raw "
