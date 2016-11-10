@@ -6,9 +6,9 @@ class extends lapis.Application
         @html ->
             p ->
                 text "There's a protest about Donald Trump winning the election at "
-                a href: "https://twitter.com/search?q=%23TwitterBlackout&src=typd", target: "_blank", "#TwitterBlackout"
+                a href: "https://twitter.com/hashtag/TwitterBlackout", target: "_blank", "#TwitterBlackout"
                 text ", but I think it's far more important to address the fact that the USA's voting system is garbage. So I'm trying to get "
-                a href: "https://twitter.com/search?f=tweets&q=%23TwitterGreyout&src=typd", target: "_blank", "#TwitterGreyout"
+                a href: "https://twitter.com/hashtag/TwitterGreyout", target: "_blank", "#TwitterGreyout"
                 text " started. Let's talk about why we only have two real choices in an election, or if the electoral college should be abolished."
             p ->
                 text "Talk about this with the hashtag #TwitterGreyout, switch your avatar to "
