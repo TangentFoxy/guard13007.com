@@ -13,7 +13,9 @@ class extends lapis.Application
                 hr!
                 div class: "yt-embed", ->
                     iframe src: "https://www.youtube.com/embed/reUJAS8dsSM", frameborder: 0, allowfullscreen: true
+                div class: "yt-embed", ->
                     iframe src: "https://www.youtube.com/embed/s7tWHJfhiyo", frameborder: 0, allowfullscreen: true
+                div class: "yt-embed", ->
                     iframe src: "https://www.youtube.com/embed/l8XOZJkozfI", frameborder: 0, allowfullscreen: true
                 hr!
                 div id: "disqus_thread"
