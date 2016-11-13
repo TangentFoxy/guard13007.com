@@ -1,7 +1,5 @@
 lapis = require "lapis"
 
-import respond_to, json_params from require "lapis.application"
-
 class extends lapis.Application
     @before_filter =>
         u = @req.parsed_url
