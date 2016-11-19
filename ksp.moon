@@ -286,7 +286,7 @@ class extends lapis.Application
         if @session.id
             if user = Users\find id: @session.id
                 if user.admin
-                    crafts = Crafts\select!
+                    crafts = Crafts\select "WHERE status = 1"
                     math.randomseed(os.time()) -- this is terrible randomness, figure out how to fix it
                     rand = math.random(1,#crafts)
                     return redirect_to: @url_for "ksp_craft", id: crafts[rand].id
