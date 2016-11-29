@@ -143,6 +143,9 @@ class extends lapis.Application
                         b "PSU"
                         text ": Rosewill 630W (RG630-S12)"
                     li ->
+                        b "MOBO"
+                        text ": ASRock 970DE3/U3S3"
+                    li ->
                         b "OS"
                         text ": Windows 10 / "
                         a href: "https://elementary.io", target: "_blank", "eOS Loki"
