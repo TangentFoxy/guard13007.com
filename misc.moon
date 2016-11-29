@@ -126,7 +126,7 @@ class extends lapis.Application
                 dd -> ul ->
                     li ->
                         b "CPU"
-                        text ": FX-6300 (6-core 3.5 GHz AMD)"
+                        text ": FX-6300 (6-core, 3.5 GHz, AMD)"
                     li ->
                         b "GPU"
                         text ": HD-7850 (1 GB VRAM, AMD)"
@@ -138,7 +138,10 @@ class extends lapis.Application
                         text ": Samsung Evo 840 something (250 GB)"
                     li ->
                         b "HDD"
-                        text ": WD Blue 1 TB 7200rpm 64 MB cache (x2)"
+                        text ": WD Blue 1TB, 7200rpm, 64MB cache (x2)"
+                    li ->
+                        b "PSU"
+                        text ": Rosewill 630W (RG630-S12)"
                     li ->
                         b "OS"
                         text ": Windows 10 / "
@@ -147,14 +150,20 @@ class extends lapis.Application
                         b "Mic"
                         text ": Blue Yeti ("
                         em "not"
-                        text " the Pro version)"
+                        text " the Pro version), "
+                        a href: "https://www.amazon.com/Turtle-Beach-Universal-Amplified-Playstation-3/dp/B00E5UHSYW", target: "_blank", "this"
+                        text " (not too bad), or"
+                        a href: "https://www.amazon.com/gp/product/B003VANOFY", target: "_blank", "this"
+                        text " (do "
+                        em "not"
+                        text " buy it!)"
                     li ->
                         b "Other"
                         text ": "
                         a href: "https://www.amazon.com/Cables-Go-4PORT-AUTHORITY2-35555/dp/B0006U6GGQ", target: "_blank", "This"
                         text " KVM, "
                         a href: "https://www.amazon.com/Logitech-G510s-Gaming-Keyboard-Screen/dp/B00BCEK2LU", target: "_blank", "this"
-                        text " keyboard, and other shit that don't matter."
+                        text " keyboard, a cheap mouse"
 
                 dt -> a name: "ksp-next-plane-reviews", "When is the next Plane Reviews episode?"
                 dd "When I have the time to make it. It takes several hours to make each one, and I don't have a solid chunk of time for that as often as I used to."
