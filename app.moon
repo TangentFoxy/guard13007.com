@@ -1,7 +1,5 @@
 lapis = require "lapis"
 
-import respond_to, json_params from require "lapis.application"
-
 class extends lapis.Application
     @before_filter =>
         u = @req.parsed_url
@@ -21,6 +19,8 @@ class extends lapis.Application
     @include "testing"
     @include "misc"
     @include "blog"
+    @include "john"
+    @include "greyout"
 
     [index: "/"]: =>
         render: true

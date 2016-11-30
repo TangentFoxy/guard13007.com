@@ -209,7 +209,7 @@ class extends lapis.Application
         page = tonumber(@params.page) or 1
         @title = "Submitted Craft (Page #{page})"
 
-        Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 25
+        Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 19
         crafts = Paginator\get_page page
         if #crafts < 1 and Paginator\num_pages! > 0
             return redirect_to: @url_for("ksp_craft_list", page: Paginator\num_pages!)
@@ -277,6 +277,20 @@ class extends lapis.Application
                 li "rejected: For some reason I won't or can't review the craft. (These are usually deleted after some time.)"
                 li "imported: I imported this myself from email or the KerbalX hanger."
                 li "old: A submission from a long time ago I imported from email."
+            if @session.id
+                if user = Users\find id: @session.id
+                    if user.admin
+                        a href: @url_for("ksp_random"), class: "pure-button", "Random"
+
+    [random: "/random"]: =>
+        if @session.id
+            if user = Users\find id: @session.id
+                if user.admin
+                    crafts = Crafts\select "WHERE status = 1"
+                    math.randomseed(os.time()) -- this is terrible randomness, figure out how to fix it
+                    rand = math.random(1,#crafts)
+                    return redirect_to: @url_for "ksp_craft", id: crafts[rand].id
+        return redirect_to: @url_for "ksp_craft_list"
 
     [craft: "/craft/:id[%d]"]: respond_to {
         GET: =>
