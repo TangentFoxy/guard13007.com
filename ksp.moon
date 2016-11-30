@@ -6,6 +6,11 @@ import respond_to from require "lapis.application"
 Crafts = require "models.Crafts"
 Users = require "users.models.Users"
 
+-- this is probably a bad idea
+mt = getmetatable("")
+mt.starts = (string, start) ->
+    string.sub(string,1,string.len(start))==start
+
 class extends lapis.Application
     @path: "/ksp"
     @name: "ksp_"
@@ -113,6 +118,13 @@ class extends lapis.Application
             if @params.picture\len! > 0
                 if @params.picture\sub(1, 7) == "http://"
                     @params.picture = "https://#{@params.picture\sub 8}"
+                t = @params.picture
+                if t:starts("https://dropbox.com") or t:starts("https://www.dropbox.com")
+                    @session.info = "Dropbox cannot be used to host images."
+                    return redirect_to: @url_for "ksp_submit_crafts"
+                if t:starts("https://youtube.com") or t:starts("https://www.youtube.com")
+                    @session.info = "YouTube cannot be used to host images.."
+                    return redirect_to: @url_for "ksp_submit_crafts"
                 _, http_status = http.simple @params.picture
                 -- TODO log all http_status checks here to compare for what I should allow and disallow
                 if http_status == 404 or http_status == 403 or http_status == 500

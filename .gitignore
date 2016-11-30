@@ -3,5 +3,6 @@ logs/
 *_temp/
 nginx.conf.compiled
 guard13007com.service
+dev.guard13007.service
 dhparams.pem
 secret.moon

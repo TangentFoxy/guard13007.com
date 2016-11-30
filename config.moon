@@ -8,7 +8,6 @@ config {"production", "development"}, ->
         host "127.0.0.1"
         user "postgres"
         password sql_password
-    githook_secret github_secret
     digest_rounds 9
 
 config "production", ->
@@ -17,7 +16,6 @@ config "production", ->
     port 8150
     num_workers 4
     code_cache "on"
-    githook "master"
 
 config "development", ->
     postgres ->
@@ -25,4 +23,3 @@ config "development", ->
     port 8155
     num_workers 2
     code_cache "off"
-    githook "dev"
