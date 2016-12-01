@@ -459,32 +459,32 @@ class extends lapis.Application
 
                 if user.id == craft.user_id or user.admin
                     -- craft name, description, download link, picture, action groups, ksp version, mods used
-                    if @params.craft_name and @params.craft_name\len! > 0
+                    if @params.craft_name and @params.craft_name\len! > 0 and @params.craft_name != craft.craft_name
                         fields.craft_name = @params.craft_name
-                    if @params.description and @params.description\len! > 0
+                    if @params.description and @params.description\len! > 0 and @params.description != craft.description
                         fields.description = @params.description
-                    if @params.download_link and @params.download_link\len! > 0
+                    if @params.download_link and @params.download_link\len! > 0 and @params.download_link != craft.download_link
                         fields.download_link = @params.download_link
-                    if @params.picture and @params.picture\len! > 0
+                    if @params.picture and @params.picture\len! > 0 and @params.picture != craft.picture
                         fields.picture = @params.picture
-                    if @params.action_groups and @params.action_groups\len! > 0
+                    if @params.action_groups and @params.action_groups\len! > 0 and @params.action_groups != craft.action_groups
                         fields.action_groups = @params.action_groups
-                    if @params.ksp_version and @params.ksp_version\len! > 0
+                    if @params.ksp_version and @params.ksp_version\len! > 0 and @params.ksp_version != craft.ksp_version
                         fields.ksp_version = @params.ksp_version
-                    if @params.mods_used and @params.mods_used\len! > 0
+                    if @params.mods_used and @params.mods_used\len! > 0 and @params.mods_used != craft.mods_used
                         fields.mods_used = @params.mods_used
 
                 if user.admin
                     -- status, episode, notes, creator_name, user_id
-                    if @params.status and @params.status\len! > 0
+                    if @params.status and @params.status\len! > 0 and @params.status != craft.status
                         fields.status = Crafts.statuses\for_db tonumber @params.status
-                    if @params.episode and @params.episode\len! > 0
+                    if @params.episode and @params.episode\len! > 0 and @params.episode != craft.episode
                         fields.episode = @params.episode
-                    if @params.notes and @params.notes\len! > 0
+                    if @params.notes and @params.notes\len! > 0 and @params.notes != craft.notes
                         fields.notes = @params.notes
-                    if @params.creator_name and @params.creator_name\len! > 0
+                    if @params.creator_name and @params.creator_name\len! > 0 and @params.creator_name != craft.creator_name
                         fields.creator_name = @params.creator_name
-                    if @params.user_id and @params.user_id\len! > 0
+                    if @params.user_id and @params.user_id\len! > 0 and @params.user_id != craft.user_id
                         fields.user_id = tonumber @params.user_id
 
                     if @params.delete
@@ -496,13 +496,6 @@ class extends lapis.Application
                             --return redirect_to: @url_for "ksp_craft", id: @params.id
 
                 if next fields
-                    -- TEMPORARY DEBUG CODE
-                    for k,v in pairs fields
-                        fields[k] = v .. ""
-                        v_clean = v\gsub("\"", "\\\"")
-                        os.execute("echo \"#{k}=#{v_clean}\" >> ./tmp.log")
-                    -- OH GOD THIS IS DANGEROUS
-
                     craft\update fields
                     @session.info = "Craft updated."
 
