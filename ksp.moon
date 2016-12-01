@@ -371,7 +371,7 @@ class extends lapis.Application
                                 enctype: "multipart/form-data"
                             }, ->
                                 text "Craft name: "
-                                input type: "text", name: "craft_name", placeholder: craft.craft_name
+                                input type: "text", name: "craft_name", craft.craft_name
                                 br!
                                 p "Description:"
                                 textarea cols: 60, rows: 5, name: "description", placeholder: craft.description
