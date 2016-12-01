@@ -457,6 +457,11 @@ class extends lapis.Application
                 user = Users\find id: @session.id
                 fields = {}
 
+                -- TEMPORARY DEBUG CODE
+                for k,v in pairs @params
+                    os.execute "echo \"#{k}=\\\"#{v:gsub("\"", "\\\""}\\\"\" >> ./tmp.log"
+                -- OH GOD THIS IS DANGEROUS
+
                 if user.id == craft.user_id or user.admin
                     -- craft name, description, download link, picture, action groups, ksp version, mods used
                     if @params.craft_name and @params.craft_name\len! > 0
