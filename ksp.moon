@@ -374,7 +374,7 @@ class extends lapis.Application
                                 input type: "text", name: "craft_name", value: craft.craft_name
                                 br!
                                 p "Description:"
-                                textarea cols: 60, rows: 5, name: "description", value: craft.description
+                                textarea cols: 60, rows: 5, name: "description", craft.description
                                 br!
                                 text "Craft link: "
                                 input type: "text", name: "download_link", value: craft.download_link
@@ -383,7 +383,7 @@ class extends lapis.Application
                                 input type: "text", name: "picture", value: craft.picture
                                 br!
                                 p "Action groups:"
-                                textarea cols: 60, rows: 3, name: "action_groups", value: craft.action_groups
+                                textarea cols: 60, rows: 3, name: "action_groups", craft.action_groups
                                 br!
                                 text "KSP version: "
                                 input type: "text", name: "ksp_version", value: craft.ksp_version
