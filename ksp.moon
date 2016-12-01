@@ -459,7 +459,7 @@ class extends lapis.Application
 
                 -- TEMPORARY DEBUG CODE
                 for k,v in pairs @params
-                    v_clean = (v..""):gsub("\"", "\\\"")
+                    v_clean = v\gsub("\"", "\\\"")
                     os.execute("echo \"#{k}=#{v_clean}\" >> ./tmp.log")
                 -- OH GOD THIS IS DANGEROUS
 
