@@ -457,19 +457,12 @@ class extends lapis.Application
                 user = Users\find id: @session.id
                 fields = {}
 
-                -- TEMPORARY DEBUG CODE
-                for k,v in pairs @params
-                    v_clean = v\gsub("\"", "\\\"")
-                    os.execute("echo \"#{k}=#{v_clean}\" >> ./tmp.log")
-                -- OH GOD THIS IS DANGEROUS
-
                 if user.id == craft.user_id or user.admin
                     -- craft name, description, download link, picture, action groups, ksp version, mods used
                     if @params.craft_name and @params.craft_name\len! > 0
                         fields.craft_name = @params.craft_name
                     if @params.description and @params.description\len! > 0
                         fields.description = @params.description
-                        os.execute "echo \"WORKING!\" >> ./tmp.log" -- this should be functional...
                     if @params.download_link and @params.download_link\len! > 0
                         fields.download_link = @params.download_link
                     if @params.picture and @params.picture\len! > 0
@@ -503,6 +496,12 @@ class extends lapis.Application
                             --return redirect_to: @url_for "ksp_craft", id: @params.id
 
                 if next fields
+                    -- TEMPORARY DEBUG CODE
+                    for k,v in pairs fields
+                        v_clean = v\gsub("\"", "\\\"")
+                        os.execute("echo \"#{k}=#{v_clean}\" >> ./tmp.log")
+                    -- OH GOD THIS IS DANGEROUS
+
                     craft\update fields
                     @session.info = "Craft updated."
 
