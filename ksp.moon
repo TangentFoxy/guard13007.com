@@ -371,25 +371,25 @@ class extends lapis.Application
                                 enctype: "multipart/form-data"
                             }, ->
                                 text "Craft name: "
-                                input type: "text", name: "craft_name", placeholder: craft.craft_name
+                                input type: "text", name: "craft_name", value: craft.craft_name
                                 br!
                                 p "Description:"
                                 textarea cols: 60, rows: 5, name: "description", placeholder: craft.description
                                 br!
                                 text "Craft link: "
-                                input type: "text", name: "download_link", placeholder: craft.download_link
+                                input type: "text", name: "download_link", value: craft.download_link
                                 br!
                                 text "Image URL: "
-                                input type: "text", name: "picture", placeholder: craft.picture
+                                input type: "text", name: "picture", value: craft.picture
                                 br!
                                 p "Action groups:"
                                 textarea cols: 60, rows: 3, name: "action_groups", placeholder: craft.action_groups
                                 br!
                                 text "KSP version: "
-                                input type: "text", name: "ksp_version", placeholder: craft.ksp_version
+                                input type: "text", name: "ksp_version", value: craft.ksp_version
                                 br!
                                 text "Mods used: "
-                                input type: "text", name: "mods_used", placeholder: craft.mods_used
+                                input type: "text", name: "mods_used", value: craft.mods_used
                                 br!
                                 input type: "submit"
 
@@ -411,13 +411,13 @@ class extends lapis.Application
                                 text " Episode: "
                                 input type: "text", name: "episode", placeholder: craft.episode
                                 text " Notes: "
-                                input type: "text", name: "notes", placeholder: craft.notes
+                                input type: "text", name: "notes", value: craft.notes
                                 br!
                                 text "Creator name: "
-                                input type: "text", name: "creator_name", placeholder: craft.creator_name
+                                input type: "text", name: "creator_name", value: craft.creator_name
                                 br!
                                 text "User ID: "
-                                input type: "number", name: "user_id", placeholder: craft.user_id
+                                input type: "number", name: "user_id", value: craft.user_id
                                 br!
                                 input type: "submit"
 
