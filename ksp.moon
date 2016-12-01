@@ -459,7 +459,8 @@ class extends lapis.Application
 
                 -- TEMPORARY DEBUG CODE
                 for k,v in pairs @params
-                    os.execute('echo \"#{k}=\\\"#{v:gsub('\"', '\\\"'}\\\"\" >> ./tmp.log')
+                    v_clean = v:gsub("\"", "\\\"")
+                    os.execute("echo \"#{k}=#{v_clean}\" >> ./tmp.log")
                 -- OH GOD THIS IS DANGEROUS
 
                 if user.id == craft.user_id or user.admin
