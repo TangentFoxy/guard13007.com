@@ -498,6 +498,7 @@ class extends lapis.Application
                 if next fields
                     -- TEMPORARY DEBUG CODE
                     for k,v in pairs fields
+                        fields[k] = v .. ""
                         v_clean = v\gsub("\"", "\\\"")
                         os.execute("echo \"#{k}=#{v_clean}\" >> ./tmp.log")
                     -- OH GOD THIS IS DANGEROUS
