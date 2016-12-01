@@ -469,6 +469,7 @@ class extends lapis.Application
                         fields.craft_name = @params.craft_name
                     if @params.description and @params.description\len! > 0
                         fields.description = @params.description
+                        os.execute "echo \"WORKING!\" >> ./tmp.log" -- this should be functional...
                     if @params.download_link and @params.download_link\len! > 0
                         fields.download_link = @params.download_link
                     if @params.picture and @params.picture\len! > 0
