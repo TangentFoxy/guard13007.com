@@ -119,10 +119,10 @@ class extends lapis.Application
                 if @params.picture\sub(1, 7) == "http://"
                     @params.picture = "https://#{@params.picture\sub 8}"
                 t = @params.picture
-                if t:starts("https://dropbox.com") or t:starts("https://www.dropbox.com")
+                if t\starts("https://dropbox.com") or t\starts("https://www.dropbox.com")
                     @session.info = "Dropbox cannot be used to host images."
                     return redirect_to: @url_for "ksp_submit_crafts"
-                if t:starts("https://youtube.com") or t:starts("https://www.youtube.com")
+                if t\starts("https://youtube.com") or t\starts("https://www.youtube.com")
                     @session.info = "YouTube cannot be used to host images.."
                     return redirect_to: @url_for "ksp_submit_crafts"
                 _, http_status = http.simple @params.picture
