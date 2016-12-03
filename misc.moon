@@ -206,6 +206,9 @@ class extends lapis.Application
                 dt -> a name: "ksp-submit-non-planes", "Can I submit crafts that aren't planes?"
                 dd "Yes."
 
+                dt -> a name: "ksp-plane-not-reviewed", "Why haven't you reviewed my plane yet?"
+                dd "I pick randomly from the planes that have been sent to me, because I receive so many, and people tend to send several designs at once. I also delay designs that I have recently covered. However, when I get a lot of a particular replica submitted, I will often do an episode of all the same replica from different people. This means it could be anywhere from immediately after to submit to .. never. I'm sorry about that, but I'm only one person with limited time."
+
                 dt -> a name: "email", "Did you get my email? Why didn't you reply to my email?"
                 dd ->
                     text "Assuming you sent it to the "
