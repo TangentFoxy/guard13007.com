@@ -130,7 +130,7 @@ class extends lapis.Application
                     -- TODO fix with a PNG, JPG, or GIF extension and i.imgur.com
                 _, http_status = http.simple @params.picture
                 -- TODO log all http_status checks here to compare for what I should allow and disallow
-                if http_status == 404 or http_status == 403 or http_status == 500 or http_status = 301 or http_status = 302
+                if http_status == 404 or http_status == 403 or http_status == 500 or http_status == 301 or http_status == 302
                     @session.info = "Craft submission failed: Image URL is invalid."
                     return redirect_to: @url_for "ksp_submit_crafts"
             else
