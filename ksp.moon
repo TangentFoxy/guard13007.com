@@ -6,9 +6,7 @@ import respond_to from require "lapis.application"
 Crafts = require "models.Crafts"
 Users = require "users.models.Users"
 
--- this is probably a bad idea
-mt = getmetatable("")
-mt.starts = (string, start) ->
+starts = (string, start) ->
     string.sub(string,1,string.len(start))==start
 
 class extends lapis.Application
@@ -119,18 +117,22 @@ class extends lapis.Application
                 if @params.picture\sub(1, 7) == "http://"
                     @params.picture = "https://#{@params.picture\sub 8}"
                 t = @params.picture
-                if t:starts("https://dropbox.com") or t:starts("https://www.dropbox.com")
+                if starts(t,"https://dropbox.com") or starts(t,"https://www.dropbox.com")
                     @session.info = "Dropbox cannot be used to host images."
                     return redirect_to: @url_for "ksp_submit_crafts"
-                if t:starts("https://youtube.com") or t:starts("https://www.youtube.com")
+                if starts(t,"https://youtube.com") or starts(t,"https://www.youtube.com")
                     @session.info = "YouTube cannot be used to host images.."
                     return redirect_to: @url_for "ksp_submit_crafts"
+                if starts(t,"https://imgur.com/a/") or starts(t,"https://imgur.com/gallery/")
+                    @session.info = "Use the direct link to an image, not an album."
+                    return redirect_to: @url_for "ksp_submit_crafts"
+                --if starts(t,"https://imgur.com/")
+                    -- TODO fix with a PNG, JPG, or GIF extension and i.imgur.com
                 _, http_status = http.simple @params.picture
                 -- TODO log all http_status checks here to compare for what I should allow and disallow
-                if http_status == 404 or http_status == 403 or http_status == 500
+                if http_status == 404 or http_status == 403 or http_status == 500 or http_status = 301 or http_status = 302
                     @session.info = "Craft submission failed: Image URL is invalid."
                     return redirect_to: @url_for "ksp_submit_crafts"
-                -- TODO attempt to verify and fix Imgur links to albums or pages
             else
                 @params.picture = @build_url "/static/img/ksp/no_image.png"
 
