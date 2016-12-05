@@ -126,6 +126,9 @@ class extends lapis.Application
                 if starts(t,"https://imgur.com/a/") or starts(t,"https://imgur.com/gallery/")
                     @session.info = "Use the direct link to an image, not an album."
                     return redirect_to: @url_for "ksp_submit_crafts"
+                if starts(t,"https://images.akamai.steamusercontent.com")
+                    @session.info = "Steam's user images are not securely served, so I cannot accept them."
+                    return redirect_to: @url_for "ksp_submit_crafts"
                 --if starts(t,"https://imgur.com/")
                     -- TODO fix with a PNG, JPG, or GIF extension and i.imgur.com
                 _, http_status = http.simple @params.picture
