@@ -297,13 +297,13 @@ class extends lapis.Application
             if @session.id
                 if user = Users\find id: @session.id
                     if user.admin
-                        a href: @url_for("ksp_random"), class: "pure-button", "Random"
+                        a href: @url_for("ksp_random"), target: "_blank", class: "pure-button", "Random"
 
     [random: "/random"]: =>
         if @session.id
             if user = Users\find id: @session.id
                 if user.admin
-                    crafts = Crafts\select "WHERE status = 1"
+                    crafts = Crafts\select "WHERE status = 1 OR status = 7"
                     math.randomseed(os.time()) -- this is terrible randomness, figure out how to fix it
                     rand = math.random(1,#crafts)
                     return redirect_to: @url_for "ksp_craft", id: crafts[rand].id
