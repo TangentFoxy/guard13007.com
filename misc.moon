@@ -7,14 +7,14 @@ class extends lapis.Application
             link rel: "stylesheet", href: @build_url "static/css/pure-responsive-grids.css"
             link rel: "stylesheet", href: @build_url "static/css/itchEmbed.css"
             div class: "pure-g", ->
-                div class: "pure-u-1 pure-u-lg-1-2", ->
+                div class: "pure-u-1 pure-u-xl-1-2", ->
                     div class: "itchEmbed", -> -- 300 Words to Save Your Ship
                         iframe src: "https://itch.io/embed/46307?linkback=true", width: 552, height: 167, frameborder: 0
                     div class: "itchEmbed", -> -- FADE
                         iframe src: "https://itch.io/embed/65758?linkback=true", width: 552, height: 167, frameborder: 0
                     div class: "itchEmbed", -> -- Opcode-Powered Shuttle
                         iframe src: "https://itch.io/embed/47156?linkback=true", width: 552, height: 167, frameborder: 0
-                div class: "pure-u-1 pure-u-lg-1-2", ->
+                div class: "pure-u-1 pure-u-xl-1-2", ->
                     div class: "itchEmbed", -> -- RGB - The Color Chooser
                         iframe src: "https://itch.io/embed/50932?linkback=true", width: 552, height: 167, frameborder: 0
                     div class: "itchEmbed", -> -- Grand Theft Papercut
