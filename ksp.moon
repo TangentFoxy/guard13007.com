@@ -126,6 +126,9 @@ class extends lapis.Application
                 if starts(t,"https://imgur.com/a/") or starts(t,"https://imgur.com/gallery/")
                     @session.info = "Use the direct link to an image, not an album."
                     return redirect_to: @url_for "ksp_submit_crafts"
+                if starts(t,"https://images.akamai.steamusercontent.com")
+                    @session.info = "Steam's user images are not securely served, so I cannot accept them."
+                    return redirect_to: @url_for "ksp_submit_crafts"
                 --if starts(t,"https://imgur.com/")
                     -- TODO fix with a PNG, JPG, or GIF extension and i.imgur.com
                 _, http_status = http.simple @params.picture
@@ -294,13 +297,13 @@ class extends lapis.Application
             if @session.id
                 if user = Users\find id: @session.id
                     if user.admin
-                        a href: @url_for("ksp_random"), class: "pure-button", "Random"
+                        a href: @url_for("ksp_random"), target: "_blank", class: "pure-button", "Random"
 
     [random: "/random"]: =>
         if @session.id
             if user = Users\find id: @session.id
                 if user.admin
-                    crafts = Crafts\select "WHERE status = 1"
+                    crafts = Crafts\select "WHERE status = 1 OR status = 7"
                     math.randomseed(os.time()) -- this is terrible randomness, figure out how to fix it
                     rand = math.random(1,#crafts)
                     return redirect_to: @url_for "ksp_craft", id: crafts[rand].id

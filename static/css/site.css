@@ -8,9 +8,9 @@ body {
 
 #header, #container, #footer {
   margin: auto;
-  width: 80%;
-  min-width: 620px;
-  max-width: 1000px;
+  width: 95%;
+  min-width: 686px;
+  max-width: 1108px;
 }
 
 /*#container, #footer {
