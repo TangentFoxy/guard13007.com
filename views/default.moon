@@ -51,7 +51,7 @@ class extends html.Widget
                             text @info
                     @content_for "inner"
                     script async: true, src: "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-                    ins class: "adsbygoogle", style: "display:block;", "data-ad-client": "ca-pub-9019103053166505", "data-ad-slot": "4422103590", "data-ad-format": "auto"
+                    ins class: "adsbygoogle", style: "display:block;", ["data-ad-client"]: "ca-pub-9019103053166505", ["data-ad-slot"]: "4422103590", ["data-ad-format"]: "auto"
                     script -> raw "(adsbygoogle = window.adsbygoogle || []).push({});"
                 div style: "position: fixed; bottom: 0; width: 100%;", ->
                     div id: "footer", ->
