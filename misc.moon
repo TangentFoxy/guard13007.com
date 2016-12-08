@@ -7,7 +7,7 @@ class extends lapis.Application
             link rel: "stylesheet", href: @build_url "static/css/pure-responsive-grids.css"
             link rel: "stylesheet", href: @build_url "static/css/itchEmbed.css"
             div class: "pure-g", ->
-                div class: "pure-u-1 pure-u-xl-1-2", ->
+                div class: "pure-u-1 pure-u-xl-1-2", style: "margin-bottom: -2px;", ->
                     div class: "itchEmbed", -> -- 300 Words to Save Your Ship
                         iframe src: "https://itch.io/embed/46307?linkback=true", width: 552, height: 167, frameborder: 0
                     div class: "itchEmbed", -> -- FADE
