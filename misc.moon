@@ -130,10 +130,12 @@ class extends lapis.Application
                 dd -> ul ->
                     li ->
                         b "CPU"
-                        text ": FX-6300 (6-core, 3.5 GHz, AMD)"
+                        text ": FX-8350 (8-core, 4 GHz, AMD) "
+                        strike "FX-6300 (6-core, 3.5 GHz, AMD)"
                     li ->
                         b "GPU"
-                        text ": HD-7850 (1 GB VRAM, AMD)"
+                        text ": GTX 1060 (6 GM VRAM :D) "
+                        strike "HD-7850 (1 GB VRAM, AMD)"
                     li ->
                         b "RAM"
                         text ": 16 GB DDR3 (1600 MHz or whatever)"
