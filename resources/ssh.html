@@ -1,0 +1,11 @@
+<html>
+<head>
+<title>SSH keygen</title>
+</head>
+<body style='font-family: "Lucida Console", Monaco, monospace;'>
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+# now copy-paste contents of ~/.ssh/id_rsa.pub where they are needed
+</body>
+</html>
