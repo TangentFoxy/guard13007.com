@@ -55,7 +55,7 @@ class extends lapis.Application
                         li "#computers-n-code is for programming, hacking, code, other technological items or discussions."
                         li "#trusted is a private channel for people I trust."
                         li "#music is for sharing music! :D"
-                        li "#concept-art is for sharing concept art."
+                        li "#art is for sharing art."
                         li "#bot-abuse is for playing with BoomBot, developed by Lomeli. :P"
                         li "#picsandlinks is for sharing stuff, as long as it's not crap."
                         li "#shitpost is for random crap..since some people want that for some reason. >.>"
