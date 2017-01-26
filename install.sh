@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# NOTE: This script is pretty much out of date and probably won't ever be applicable to me again. Use import.sh
+
 set -o errexit   # exit on error
 
 # Prerequisites
@@ -7,7 +9,6 @@ echo "Please set up certificates before continuing."
 read -p " Press [Enter] to continue, or Ctrl+C to cancel."
 sudo apt-get update
 sudo apt-get install wget curl lua5.1 liblua5.1-0-dev zip unzip libreadline-dev libncurses5-dev libpcre3-dev openssl libssl-dev perl make build-essential postgresql -y
-# Make sure you note your PostgreSQL password!
 
 # OpenResty
 cd ..
@@ -21,7 +22,7 @@ sudo make install
 cd ..
 
 # LuaRocks
-LVER=2.4.2
+LVER=2.4.1
 wget https://keplerproject.github.io/luarocks/releases/luarocks-$LVER.tar.gz
 tar xvf luarocks-$LVER.tar.gz
 cd luarocks-$LVER
