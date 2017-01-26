@@ -6,22 +6,25 @@ set -o errexit   # exit on error
 echo "Please set up certificates before continuing."
 read -p " Press [Enter] to continue, or Ctrl+C to cancel."
 sudo apt-get update
-sudo apt-get install wget curl lua5.1 liblua5.1-0-dev zip unzip libreadline-dev libncurses5-dev libpcre3-dev openssl libssl-dev perl make build-essential postgresql -y   # Make sure you note your PostgreSQL password!
+sudo apt-get install wget curl lua5.1 liblua5.1-0-dev zip unzip libreadline-dev libncurses5-dev libpcre3-dev openssl libssl-dev perl make build-essential postgresql -y
+# Make sure you note your PostgreSQL password!
 
 # OpenResty
 cd ..
-wget https://openresty.org/download/openresty-1.9.7.5.tar.gz
-tar xvf openresty-1.9.7.5.tar.gz
-cd openresty-1.9.7.5
+OVER=1.11.2.2
+wget https://openresty.org/download/openresty-$OVER.tar.gz
+tar xvf openresty-$OVER.tar.gz
+cd openresty-$OVER
 ./configure
 make
 sudo make install
 cd ..
 
 # LuaRocks
-wget https://keplerproject.github.io/luarocks/releases/luarocks-2.3.0.tar.gz
-tar xvf luarocks-2.3.0.tar.gz
-cd luarocks-2.3.0
+LVER=2.4.2
+wget https://keplerproject.github.io/luarocks/releases/luarocks-$LVER.tar.gz
+tar xvf luarocks-$LVER.tar.gz
+cd luarocks-$LVER
 ./configure
 make build
 sudo make install
@@ -44,6 +47,7 @@ echo "Run 'psql', enter the following (using a real password of course):"
 echo "ALTER USER postgres WITH PASSWORD 'password';"
 echo "\q"
 echo "Then run 'createdb guard13007com' and then 'exit' !"
+echo "'createdb devguard13007com' for development database!"
 sudo -i -u postgres
 cp secret.moon.example secret.moon
 nano secret.moon   # Put the info needed in there!
