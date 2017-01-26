@@ -4,8 +4,23 @@ set -o errexit   # exit on error
 
 # Prerequisites
 sudo apt-get update
-sudo apt-get install wget curl lua5.1 liblua5.1-0-dev zip unzip libreadline-dev libncurses5-dev libpcre3-dev openssl libssl-dev perl make build-essential postgresql -y
-# Make sure you note your PostgreSQL password!
+sudo apt-get install wget curl lua5.1 liblua5.1-0-dev zip unzip libreadline-dev libncurses5-dev libpcre3-dev openssl libssl-dev perl make build-essential postgresql nginx -y
+
+# Certificates
+# I am assuming the domains have already been pointed to the new IP
+wget https://dl.eff.org/certbot-auto
+chmod a+x ./certbot-auto
+mv ./certbot-auto /bin/certbot-auto
+certbot-auto certonly --standalone -m paul.liverman.iii@gmail.com -d www.guard1007.com -d guard13007.com
+
+# Import database
+# Assuming a guard13007com.pgsql file exists here...
+echo "Changing user to postgres..."
+echo "Run 'psql', enter the following (using a real password of course):"
+echo "ALTER USER postgres WITH PASSWORD 'password';"
+echo "\q"
+echo "Then run 'psql guard13007com < guard13007com.pgsql'"
+sudo -i -u postgres
 
 # OpenResty
 cd ..
@@ -19,7 +34,7 @@ sudo make install
 cd ..
 
 # LuaRocks
-LVER=2.4.2
+LVER=2.4.1
 wget https://keplerproject.github.io/luarocks/releases/luarocks-$LVER.tar.gz
 tar xvf luarocks-$LVER.tar.gz
 cd luarocks-$LVER
@@ -27,6 +42,8 @@ cd luarocks-$LVER
 make build
 sudo make install
 # some rocks
+#sudo luarocks install ansicolors   # for some reason installing lapis wasn't installing this
+# it isn't installing any other dependencies either: date,etlua,loadkit,lpeg,lua-cjson,luacrypto,luafilesystem,luasocket,mimetypes,pgmoon
 sudo luarocks install lapis
 sudo luarocks install moonscript
 sudo luarocks install bcrypt
@@ -39,17 +56,10 @@ rm -rf luarocks*
 # okay now let's set it up
 cd guard13007.com
 openssl dhparam -out dhparams.pem 2048
-echo "Changing user to postgres..."
-echo "Run 'psql', enter the following (using a real password of course):"
-echo "ALTER USER postgres WITH PASSWORD 'password';"
-echo "\q"
-echo "Then run 'createdb guard13007com' and then 'exit' !"
-echo "'createdb devguard13007com' for development database!"
-sudo -i -u postgres
 cp secret.moon.example secret.moon
 nano secret.moon   # Put the info needed in there!
 moonc .
-#lapis migrate production   # do not do this yet!
+lapis migrate production
 
 # guard13007.com as a service
 echo "[Unit]
@@ -67,7 +77,7 @@ WantedBy=multi-user.target" > guard13007com.service
 sudo cp ./guard13007com.service /etc/systemd/system/guard13007com.service
 sudo systemctl daemon-reload
 sudo systemctl enable guard13007com.service
-#service guard13007com start   # it is not ready to start!
+service guard13007com start
 echo "(Don't forget to proxy or pass to port 8150!)"
 
-# todo: after getting other things set up, need to make this script executable, start the service, and run a migration BEFORE STARTING SERVICE
+# todo: after getting other things set up, need to make this script executable
