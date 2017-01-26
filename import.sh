@@ -55,8 +55,11 @@ rm -rf luarocks*
 # okay now let's set it up
 cd guard13007.com
 openssl dhparam -out dhparams.pem 2048
+cp ./dhparams.pem ../   # I use same values between here and other server stuff on the same host
 cp secret.moon.example secret.moon
-nano secret.moon   # Put the info needed in there!
+nano secret.moon        # Put the info needed in there!
+git submodule init
+git submodule update
 moonc .
 lapis migrate production
 
