@@ -11,7 +11,7 @@ sudo apt-get install wget curl lua5.1 liblua5.1-0-dev zip unzip libreadline-dev 
 wget https://dl.eff.org/certbot-auto
 chmod a+x ./certbot-auto
 mv ./certbot-auto /bin/certbot-auto
-certbot-auto certonly --standalone -m paul.liverman.iii@gmail.com -d www.guard1007.com -d guard13007.com
+certbot-auto certonly --standalone -m paul.liverman.iii@gmail.com -d www.guard13007.com -d guard13007.com
 
 # Import database
 # Assuming a guard13007com.pgsql file exists here...
@@ -19,7 +19,8 @@ echo "Changing user to postgres..."
 echo "Run 'psql', enter the following (using a real password of course):"
 echo "ALTER USER postgres WITH PASSWORD 'password';"
 echo "\q"
-echo "Then run 'psql guard13007com < guard13007com.pgsql'"
+echo "Then run 'createdb guard13007com'"
+echo "And finally 'psql guard13007com < /path/to/guard13007com.pgsql'"
 sudo -i -u postgres
 
 # OpenResty
@@ -42,8 +43,6 @@ cd luarocks-$LVER
 make build
 sudo make install
 # some rocks
-#sudo luarocks install ansicolors   # for some reason installing lapis wasn't installing this
-# it isn't installing any other dependencies either: date,etlua,loadkit,lpeg,lua-cjson,luacrypto,luafilesystem,luasocket,mimetypes,pgmoon
 sudo luarocks install lapis
 sudo luarocks install moonscript
 sudo luarocks install bcrypt
@@ -79,5 +78,3 @@ sudo systemctl daemon-reload
 sudo systemctl enable guard13007com.service
 service guard13007com start
 echo "(Don't forget to proxy or pass to port 8150!)"
-
-# todo: after getting other things set up, need to make this script executable
