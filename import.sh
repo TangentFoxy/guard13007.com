@@ -3,7 +3,7 @@
 set -o errexit   # exit on error
 
 # Prerequisites
-sudo apt-get update
+sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get install wget curl lua5.1 liblua5.1-0-dev zip unzip libreadline-dev libncurses5-dev libpcre3-dev openssl libssl-dev perl make build-essential postgresql nginx -y
 
 # Certificates
@@ -79,5 +79,7 @@ WantedBy=multi-user.target" > guard13007com.service
 sudo cp ./guard13007com.service /etc/systemd/system/guard13007com.service
 sudo systemctl daemon-reload
 sudo systemctl enable guard13007com.service
-service guard13007com start
-echo "(Don't forget to proxy or pass to port 8150!)"
+service guard13007com start   # is sudo really not needed?
+sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bac
+sudo cp ./nginx-proxy.conf /etc/nginx/nginx.conf
+sudo nginx -s reload
