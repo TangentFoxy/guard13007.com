@@ -62,13 +62,17 @@ class extends lapis.Application
                     input type: "number", name: "point_value", placeholder: "100"
                     input type: "submit", value: "Submit", class: "pure-button", onclick: "artwork.getImage();"
 
-                script -> raw "var artwork = LC.init(
-                    document.getElementsByClassName('artwork')[0],
-                    {
-                        imageURLPrefix: '/static/literallycanvas/img',
-                        imageSize: {width: 400, height: 400}
-                    }
-                );"
+                script -> raw "
+                    window.onload = function() {
+                        var artwork = LC.init(
+                            document.getElementsByClassName('artwork')[0],
+                            {
+                                imageURLPrefix: '/static/literallycanvas/img',
+                                imageSize: {width: 400, height: 400}
+                            }
+                        }
+                    );
+                "
         POST: =>
             unless @session.id
                 return redirect_to: @url_for "user_login"
