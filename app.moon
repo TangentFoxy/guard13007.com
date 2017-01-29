@@ -21,6 +21,7 @@ class extends lapis.Application
     @include "blog"
     @include "john"
     @include "greyout"
+    @include "1000cards"
 
     [index: "/"]: =>
         render: true

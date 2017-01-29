@@ -138,4 +138,21 @@ import create_table, types, drop_table, add_column, rename_column from require "
         }
     [19]: =>
         add_column "johns", "score", types.integer default: 0
+    [20]: =>
+        create_table "cards", {
+            {"id", types.serial primary_key: true}
+            {"user_id", types.foreign_key}
+            {"title", types.text}
+            {"artwork", types.text}
+            {"description", types.text}
+            {"point_value", types.integer}
+            {"rating", types.integer}
+
+            {"created_at", types.time}
+            {"updated_at", types.time}
+        }
+        create_table "card_votes", {
+            {"user_id", types.foreign_key}
+            {"card_id", types.foreign_key}
+        }
 }
