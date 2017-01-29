@@ -7,7 +7,7 @@ class extends lapis.Application
             link rel: "stylesheet", href: @build_url "static/css/pure-responsive-grids.css"
             link rel: "stylesheet", href: @build_url "static/css/itchEmbed.css"
             div class: "pure-g", ->
-                div class: "pure-u-1 pure-u-xl-1-2", ->
+                div class: "pure-u-1 pure-u-xl-1-2", style: "margin-bottom: -2px;", ->
                     div class: "itchEmbed", -> -- 300 Words to Save Your Ship
                         iframe src: "https://itch.io/embed/46307?linkback=true", width: 552, height: 167, frameborder: 0
                     div class: "itchEmbed", -> -- FADE
@@ -55,7 +55,7 @@ class extends lapis.Application
                         li "#computers-n-code is for programming, hacking, code, other technological items or discussions."
                         li "#trusted is a private channel for people I trust."
                         li "#music is for sharing music! :D"
-                        li "#concept-art is for sharing concept art."
+                        li "#art is for sharing art."
                         li "#bot-abuse is for playing with BoomBot, developed by Lomeli. :P"
                         li "#picsandlinks is for sharing stuff, as long as it's not crap."
                         li "#shitpost is for random crap..since some people want that for some reason. >.>"
@@ -130,10 +130,12 @@ class extends lapis.Application
                 dd -> ul ->
                     li ->
                         b "CPU"
-                        text ": FX-6300 (6-core, 3.5 GHz, AMD)"
+                        text ": FX-8350 (8-core, 4 GHz, AMD) "
+                        strike "FX-6300 (6-core, 3.5 GHz, AMD)"
                     li ->
                         b "GPU"
-                        text ": HD-7850 (1 GB VRAM, AMD)"
+                        text ": GTX 1060 (6 GM VRAM :D) "
+                        strike "HD-7850 (1 GB VRAM, AMD)"
                     li ->
                         b "RAM"
                         text ": 16 GB DDR3 (1600 MHz or whatever)"

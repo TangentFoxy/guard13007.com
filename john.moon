@@ -5,6 +5,8 @@ import respond_to from require "lapis.application"
 Johns = require "models.Johns"
 
 class extends lapis.Application
+    layout: "john"
+
     [john_submissions: "/john/submit(/:page[%d])"]: respond_to {
         GET: =>
             @title = "Submit John"
