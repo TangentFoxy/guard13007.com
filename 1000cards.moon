@@ -70,8 +70,8 @@ class extends lapis.Application
                                 imageURLPrefix: '/static/literallycanvas/img',
                                 imageSize: {width: 400, height: 400}
                             }
-                        }
-                    );
+                        );
+                    }
                 "
         POST: =>
             unless @session.id
