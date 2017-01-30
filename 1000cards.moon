@@ -45,11 +45,6 @@ class extends lapis.Application
                 return redirect_to: @url_for "user_login"
 
             @html ->
-                link href: @build_url "/static/literallycanvas/literallycanvas.css"
-                script src: @build_url "/static/literallycanvas/react-with-addons.js"
-                script src: @build_url "/static/literallycanvas/react-dom.js"
-                script src: @build_url "/static/literallycanvas/literallycanvas.min.js"
-
                 form {
                     class: "pure-form"
                     action: @url_for "cards_1000_create"
@@ -58,24 +53,39 @@ class extends lapis.Application
                 }, ->
                     input type: "text", name: "title", placeholder: "Title"
                     input type: "text", name: "description", placeholder: "Description"
+                    input type: "text", name: "artwork", placeholder: "URL for card artwork"
                     input type: "number", name: "point_value", placeholder: "100"
-                    input type: "submit", value: "Submit", class: "pure-button", onclick: "artwork.getImage();"
-                div class: "artwork"
+                    input type: "submit", value: "Submit", class: "pure-button"
 
-                script -> raw "
-                    window.onload = function() {
-                        var artwork = LC.init(
-                            document.getElementsByClassName('artwork')[0],
-                            {
-                                imageURLPrefix: '/static/literallycanvas/img',
-                                imageSize: {width: 400, height: 400}
-                            }
-                        );
-                    }
-                "
         POST: =>
             unless @session.id
                 return redirect_to: @url_for "user_login"
+
+            --TODO turn this kind of code into a utility thing for verifying images
+            -- (and just check MIME types already ?)
+            if @params.artwork\len! > 0
+                if @params.artwork\sub(1, 7) == "http://"
+                    @params.artwork = "https://#{@params.artwork\sub 8}"
+                t = @params.artwork
+                if starts(t,"https://dropbox.com") or starts(t,"https://www.dropbox.com")
+                    @session.info = "Dropbox cannot be used to host images."
+                    return redirect_to: @url_for "cards_1000_create"
+                if starts(t,"https://youtube.com") or starts(t,"https://www.youtube.com")
+                    @session.info = "YouTube cannot be used to host images.."
+                    return redirect_to: @url_for "cards_1000_create"
+                if starts(t,"https://imgur.com/a/") or starts(t,"https://imgur.com/gallery/")
+                    @session.info = "Use the direct link to an image on Imgur, not an album."
+                    return redirect_to: @url_for "cards_1000_create"
+                if starts(t,"https://images.akamai.steamusercontent.com")
+                    @session.info = "Steam's user images are not securely served, so I cannot accept them."
+                    return redirect_to: @url_for "cards_1000_create"
+                --if starts(t,"https://imgur.com/")
+                    -- TODO fix with a PNG, JPG, or GIF extension and i.imgur.com
+                _, http_status = http.simple @params.artwork
+                -- TODO log all http_status checks here to compare for what I should allow and disallow
+                if http_status == 404 or http_status == 403 or http_status == 500 or http_status == 301 or http_status == 302
+                    @session.info = "Card submission failed: Artwork URL is invalid."
+                    return redirect_to: @url_for "cards_1000_create"
 
             card, errMsg = Cards\create {
                 user_id: @session.id

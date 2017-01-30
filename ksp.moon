@@ -124,7 +124,7 @@ class extends lapis.Application
                     @session.info = "YouTube cannot be used to host images.."
                     return redirect_to: @url_for "ksp_submit_crafts"
                 if starts(t,"https://imgur.com/a/") or starts(t,"https://imgur.com/gallery/")
-                    @session.info = "Use the direct link to an image, not an album."
+                    @session.info = "Use the direct link to an image on Imgur, not an album."
                     return redirect_to: @url_for "ksp_submit_crafts"
                 if starts(t,"https://images.akamai.steamusercontent.com")
                     @session.info = "Steam's user images are not securely served, so I cannot accept them."
