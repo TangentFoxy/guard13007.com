@@ -57,10 +57,10 @@ class extends lapis.Application
                     enctype: "multipart/form-data"
                 }, ->
                     input type: "text", name: "title", placeholder: "Title"
-                    div class: "artwork"
                     input type: "text", name: "description", placeholder: "Description"
                     input type: "number", name: "point_value", placeholder: "100"
                     input type: "submit", value: "Submit", class: "pure-button", onclick: "artwork.getImage();"
+                div class: "artwork"
 
                 script -> raw "
                     window.onload = function() {
