@@ -162,7 +162,7 @@ import create_table, types, drop_table, add_column, rename_column from require "
             {"user_id", types.foreign_key}
             {"title", types.text default: ""}
             {"artwork", types.text default: "https://guard13007.com/static/img/aaa-1x1.png"}
-            {"description", types.text default ""}
+            {"description", types.text default: ""}
             {"point_value", types.integer default: 0}
             {"rating", types.integer default: 0}
 
