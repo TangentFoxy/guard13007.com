@@ -28,7 +28,7 @@ class extends lapis.Application
                             div class: "right", card.rating
 
     [card: "/card/:id[%d]"]: =>
-        if card = Cards\find id: id
+        if card = Cards\find id: @params.id
             @html ->
                 h2 card.title
                 img src: card.artwork
@@ -54,7 +54,7 @@ class extends lapis.Application
                     input type: "text", name: "title", placeholder: "Title"
                     input type: "text", name: "description", placeholder: "Description"
                     input type: "text", name: "artwork", placeholder: "URL for card artwork"
-                    input type: "number", name: "point_value", placeholder: "100"
+                    input type: "number", name: "point_value", placeholder: "0"
                     input type: "submit", value: "Submit", class: "pure-button"
 
         POST: =>
