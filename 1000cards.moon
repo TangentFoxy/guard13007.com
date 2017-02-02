@@ -1,4 +1,5 @@
 lapis = require "lapis"
+http = require "lapis.nginx.http"
 
 import respond_to from require "lapis.application"
 import starts from require "utility.string"
@@ -19,7 +20,7 @@ class extends lapis.Application
             link rel: "stylesheet", href: @build_url "static/css/pure-responsive-grids.css"
             div class: "pure-g", ->
                 for card in *cards
-                    div class: "pure-u-sm-1-2 pure-u-md-1-3 pure-u-lg-1-4 pure-u-xl-1-6", ->
+                    div class: "pure-u-1 pure-u-sm-1-2 pure-u-md-1-3 pure-u-lg-1-4 pure-u-xl-1-6", ->
                         -- id, user_id, title, artwork, description, point_value, rating
                         h2 card.title
                         img src: card.artwork, width: "100%"--, height: 400
