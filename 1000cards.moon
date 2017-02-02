@@ -31,7 +31,7 @@ class extends lapis.Application
         if card = Cards\find id: @params.id
             @html ->
                 h2 card.title
-                img src: card.artwork
+                img src: card.artwork, width: 400, height: 400
                 div card.description
                 div class: "card_bottom", ->
                     div class: "left", card.point_value
