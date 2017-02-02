@@ -6,21 +6,21 @@ class extends lapis.Application
         @html ->
             link rel: "stylesheet", href: @build_url "static/css/pure-responsive-grids.css"
             div class: "pure-u-1-2", ->
-                h2 "My Discord Server"
+                h2 style: "text-align: left;", "My Discord Server"
                 iframe src: "https://discordapp.com/widget?id=98612945000345600&amp;theme=dark", width: 350, height: 500, allowtransparency: true, frameborder: 0
                 p ->
                     text "Please read the "
                     a href: @url_for("chat_rules"), "rules"
                     text " and try not to break them. ;)"
             div class: "pure-u-1-2", ->
-                h2 "YouTuber Gamers"
+                h2 style: "text-align: left;", "YouTuber Gamers"
                 iframe src: "https://discordapp.com/widget?id=98996659454775296&amp;theme=dark", width: 350, height: 500, allowtransparency: true, frameborder: 0
                 p ->
                     text "Kind of a ghost town right now, but "
                     em "you"
                     text " can fix that."
             --div class: "pure-u-1-2", ->
-            --    h2 "Kerbal Warfare"
+            --    h2 style: "text-align: left;", "Kerbal Warfare"
             --    iframe src: "https://discordapp.com/widget?id=115597534726062086&amp;theme=dark", width: 350, height: 500, allowtransparency: true, frameborder: 0
             --    p "Used for organizing multiplayer Kerbal warfare."
 
