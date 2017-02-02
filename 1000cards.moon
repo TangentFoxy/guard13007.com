@@ -1,4 +1,5 @@
 lapis = require "lapis"
+http = require "lapis.nginx.http"
 
 import respond_to from require "lapis.application"
 import starts from require "utility.string"
