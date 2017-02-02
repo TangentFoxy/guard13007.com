@@ -1,6 +1,7 @@
 lapis = require "lapis"
 
 import respond_to from require "lapis.application"
+import starts from require "utility.string"
 
 Cards = require "models.Cards"
 CardVotes = require "models.CardVotes"

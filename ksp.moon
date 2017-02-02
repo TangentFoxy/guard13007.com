@@ -2,12 +2,10 @@ lapis = require "lapis"
 http = require "lapis.nginx.http"
 
 import respond_to from require "lapis.application"
+import starts from require "utility.string"
 
 Crafts = require "models.Crafts"
 Users = require "users.models.Users"
-
-starts = (string, start) ->
-    string.sub(string,1,string.len(start))==start
 
 class extends lapis.Application
     @path: "/ksp"
