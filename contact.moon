@@ -4,19 +4,21 @@ class extends lapis.Application
     [chat: "/chat"]: =>
         @title = "Chat on Discord"
         @html ->
-            h2 "My Discord Server"
-            div ->
+            link rel: "stylesheet", href: @build_url "static/css/pure-responsive-grids.css"
+            div class: "pure-u-1-3", ->
+                h2 "My Discord Server"
                 iframe src: "https://discordapp.com/widget?id=98612945000345600&amp;theme=dark", width: 350, height: 500, allowtransparency: true, frameborder: 0
-            h2 "YouTuber Gamers"
-            p ->
-                text "Kind of a ghost town right now, but "
-                em "you"
-                text " can fix that."
-            div ->
+                a href: @url_for("chat_rules"), "Rules"
+            div class: "pure-u-1-3", ->
+                h2 "YouTuber Gamers"
+                p ->
+                    text "Kind of a ghost town right now, but "
+                    em "you"
+                    text " can fix that."
                 iframe src: "https://discordapp.com/widget?id=98996659454775296&amp;theme=dark", width: 350, height: 500, allowtransparency: true, frameborder: 0
-            h2 "Kerbal Warfare"
-            p "(Will be) Used for organizing multiplayer Kerbal warfare."
-            div ->
+            div class: "pure-u-1-3", ->
+                h2 "Kerbal Warfare"
+                p "(Will be) Used for organizing multiplayer Kerbal warfare."
                 iframe src: "https://discordapp.com/widget?id=115597534726062086&amp;theme=dark", width: 350, height: 500, allowtransparency: true, frameborder: 0
 
     [chat_rules: "/chat/rules"]: =>
