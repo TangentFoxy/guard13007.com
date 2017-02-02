@@ -21,7 +21,7 @@ class extends lapis.Application
                     div class: "pure-u-1 pure-u-sm-1-2 pure-u-md-1-3 pure-u-lg-1-4 pure-u-xl-1-6", ->
                         -- id, user_id, title, artwork, description, point_value, rating
                         h2 card.title
-                        img src: card.artwork
+                        img src: card.artwork, width: 400, height: 400
                         div card.description
                         div class: "card_bottom", ->
                             div class: "left", card.point_value
@@ -63,6 +63,7 @@ class extends lapis.Application
 
             --TODO turn this kind of code into a utility thing for verifying images
             -- (and just check MIME types already ?)
+            -- this code should also be in the model, not here
             if @params.artwork\len! > 0
                 if @params.artwork\sub(1, 7) == "http://"
                     @params.artwork = "https://#{@params.artwork\sub 8}"
@@ -86,6 +87,8 @@ class extends lapis.Application
                 if http_status == 404 or http_status == 403 or http_status == 500 or http_status == 301 or http_status == 302
                     @session.info = "Card submission failed: Artwork URL is invalid."
                     return redirect_to: @url_for "cards_1000_create"
+            else
+                @params.artwork = "https://guard13007.com/static/img/aaa-1x1.png"
 
             card, errMsg = Cards\create {
                 user_id: @session.id
