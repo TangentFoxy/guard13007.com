@@ -21,7 +21,7 @@ class extends lapis.Application
                     div class: "pure-u-1 pure-u-sm-1-2 pure-u-md-1-3 pure-u-lg-1-4 pure-u-xl-1-6", ->
                         -- id, user_id, title, artwork, description, point_value, rating
                         h2 card.title
-                        img src: card.artwork, width: 400, height: 400
+                        img src: card.artwork, width: "100%"--, height: 400
                         div card.description
                         div class: "card_bottom", ->
                             div class: "left", card.point_value
@@ -31,7 +31,7 @@ class extends lapis.Application
         if card = Cards\find id: @params.id
             @html ->
                 h2 card.title
-                img src: card.artwork, width: 400, height: 400
+                img src: card.artwork, width: "100%"--, height: 400
                 div card.description
                 div class: "card_bottom", ->
                     div class: "left", card.point_value
