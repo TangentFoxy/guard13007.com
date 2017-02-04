@@ -1,22 +1,22 @@
 td.new {
-    background: white;
+    background: white !important;
 }
 td.pending {
-    background: lightblue;
+    background: lightblue !important;
 }
 td.reviewed {
-    background: lightgreen;
+    background: lightgreen !important;
 }
 td.rejected {
-    background: #FAA;
+    background: #FAA !important;
 }
 td.delayed, td.old {
-    background: lightgrey;
+    background: lightgrey !important;
 }
 td.priority {
-    background: #11aadd;
-    color: white;
+    background: #11aadd !important;
+    color: white !important;
 }
 td.imported {
-    background: #ffff66;
+    background: #ffff66 !important;
 }

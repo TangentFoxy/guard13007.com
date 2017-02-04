@@ -2,21 +2,21 @@
 
 set -o errexit   # exit on error
 
-echo "Assuming you have pre-requisites set up locally,"
+echo "Assuming the main server was set up and running adjacent to this,"
 echo " this will set up and run a dev environment."
 
-openssl genrsa -des3 -out privkey.pem 1024   # I'm pretty sure we shouldn't be using 1024-bit keys...
-openssl req -new -key privkey.pem -out server.csr
-openssl rsa -in privkey.pem -out privkey.pem
-openssl x509 -req -days 365 -in server.csr -signkey privkey.pem -out fullchain.pem
-rm server.csr
+cp ../dhparams.pem ./dhparams.pem
+certbot-auto certonly --standalone -m paul.liverman.iii@gmail.com -d www.guard13007.com -d guard13007.com -d dev.guard13007.com
 
-openssl dhparam -out dhparams.pem 2048
 echo "Changing user to postgres..."
-echo "Run 'createdb devguard13007com' and then 'exit' !"
+echo "Run 'createdb devguard13007com'"
+echo "And then 'psql devguard13007com < /path/to/devguard13007com.pgsql'"
+echo "And finally 'exit'"
 sudo -i -u postgres
 cp secret.moon.example secret.moon
 nano secret.moon   # Put the info needed in there!
+git submodule init
+git submodule update
 moonc .
 lapis migrate development
 

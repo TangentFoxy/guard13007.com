@@ -13,12 +13,14 @@ class extends lapis.Application
 
     @include "githook/githook"
     @include "users/users"
+    @include "contact"
     @include "ksp"
-    @include "polls"
     @include "redirects"
-    @include "testing"
-    @include "misc"
+    @include "polls"
     @include "blog"
+    @include "1000cards"
+    @include "misc"
+    @include "testing"
     @include "john"
     @include "greyout"
 

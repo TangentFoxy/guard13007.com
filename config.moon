@@ -16,7 +16,6 @@ config "production", ->
     port 8150
     num_workers 4
     code_cache "on"
-    ssl_path "/etc/letsencrypt/live/www.guard13007.com/"
 
 config "development", ->
     postgres ->
@@ -24,4 +23,3 @@ config "development", ->
     port 8155
     num_workers 2
     code_cache "off"
-    ssl_path "./"

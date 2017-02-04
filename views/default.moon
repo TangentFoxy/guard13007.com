@@ -29,7 +29,7 @@ class extends html.Widget
                                     a href: "#", class: "pure-menu-link", "Contact"
                                     ul class: "pure-menu-children", ->
                                         li class: "pure-menu-item", -> a href: @url_for("contact"), class: "pure-menu-link", style: "min-width:78px;", "Info"
-                                        li class: "pure-menu-item", -> a href: "#", class: "pure-menu-link", style: "min-width:78px;", "Profiles" -- NOTE not a real link yet!
+                                        li class: "pure-menu-item", -> a href: @url_for("profiles"), class: "pure-menu-link", style: "min-width:78px;", "Profiles"
                                         li class: "pure-menu-item", -> a href: @url_for("chat"), class: "pure-menu-link", style: "min-width:78px;", "Chat"
                                 li class: "pure-menu-item pure-menu-has-children pure-menu-allow-hover", ->
                                     a href: "#", class: "pure-menu-link", "Kerbal Space Program"
@@ -50,14 +50,14 @@ class extends html.Widget
                             button class: "pure-button", onclick: "var e = document.getElementsByClassName('info')[0]; e.parentNode.removeChild(e);", "X"
                             text @info
                     @content_for "inner"
-                    script async: true, src: "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+                    --script async: true, src: "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
                     --ins class: "adsbygoogle", style: "display:block;", ["data-ad-client"]: "ca-pub-9019103053166505", ["data-ad-slot"]: "4422103590", ["data-ad-format"]: "auto"
                     --script -> raw "(adsbygoogle = window.adsbygoogle || []).push({});"
-                    script -> raw "
-                        (adsbygoogle = window.adsbygoogle || []).push({
-                            google_ad_client: \"ca-pub-9019103053166505\",
-                            enable_page_level_ads: true
-                        });"
+                    --script -> raw "
+                    --    (adsbygoogle = window.adsbygoogle || []).push({
+                    --        google_ad_client: \"ca-pub-9019103053166505\",
+                    --        enable_page_level_ads: true
+                    --    });"
                 div style: "position: fixed; bottom: 0; width: 100%;", ->
                     div id: "footer", ->
                         if @session.id
