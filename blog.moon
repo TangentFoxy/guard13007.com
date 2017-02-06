@@ -75,6 +75,8 @@ class extends lapis.Application
 
     [post: "/post/:slug"]: =>
         if post = Posts\find slug: @params.slug
+            unless post.status == Posts.statuses.published
+                return redirect_to: @url_for("blog_index")
             @title = post.title
             @html ->
                 script src: @build_url "static/js/marked.min.js"
