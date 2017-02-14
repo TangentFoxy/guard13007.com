@@ -35,7 +35,7 @@ class extends lapis.Application
             unless @session.id
                 return redirect_to: @url_for "user_login"
 
-            key, errMsg = Cards\create {
+            key, errMsg = Keys\create {
                 user_id: @session.id
                 game: @params.game
                 data: @params.data
