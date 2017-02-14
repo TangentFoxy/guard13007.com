@@ -44,5 +44,6 @@ class extends Widget
                             input type: "text", name: "recipient", value: key.recipient
                         td ->
                             input type: "checkbox", name: "delete"
+        br!
         a href: @url_for("gamekeys_add"), class: "pure-button", "add key"
         a href: @url_for("gamekeys_list"), class: "pure-button", "key list"
