@@ -53,11 +53,11 @@ class extends lapis.Application
         keys = Keys\select "* ORDER BY game DESC"
         @html ->
             a href: @url_for("gamekeys_add"), "add a key"
-            element "table", ->
+            element "table", class: "pure-table pure-table-striped", ->
                 tr ->
                     th "Game"
                     th "Type"
                 for key in *keys
                     tr ->
                         td key.game
-                        td key.type
+                        td Keys.types[key.type]
