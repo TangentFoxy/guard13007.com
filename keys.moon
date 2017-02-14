@@ -77,12 +77,15 @@ class extends lapis.Application
 
         POST: =>
             key = Keys\find id: @params.id
-            key\update {
-                game: @params.game
-                data: @params.data
-                type: @params.type
-                status: @params.status
-            }
+            if @params.delete
+                key\delete!
+            else
+                key\update {
+                    game: @params.game
+                    data: @params.data
+                    type: @params.type
+                    status: @params.status
+                }
 
             @info = "Key updated."
             render: true
