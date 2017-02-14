@@ -41,7 +41,7 @@ class extends lapis.Application
                 game: @params.game
                 data: @params.data
                 type: @params.type
-                status: Keys.statues.unclaimed
+                status: Keys.statuses.unclaimed
                 --recipient: "" -- this is just in case, I don't know if it is needed
             }
 
