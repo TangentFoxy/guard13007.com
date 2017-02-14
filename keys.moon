@@ -15,7 +15,6 @@ class extends lapis.Application
                 return redirect_to: @url_for "user_login"
 
             @html ->
-                a href: @url_for("gamekeys_list"), "list keys"
                 form {
                     class: "pure-form"
                     action: @url_for "gamekeys_add"
@@ -31,6 +30,10 @@ class extends lapis.Application
                             else
                                 option value: Keys.types[t], t
                     input type: "submit", value: "Submit", class: "pure-button"
+                br!
+                a href: @url_for("gamekeys_list"), class: "pure-button", "key list"
+                if @session.id and (Users\find id: @session.id).admin
+                    a href: @url_for("gamekeys_list_edit"), class: "pure-button", "edit keys"
 
         POST: =>
             unless @session.id
@@ -46,6 +49,7 @@ class extends lapis.Application
             }
 
             if key
+                @session.info = "Key added!"
                 return redirect_to: @url_for "gamekeys_list"
             else
                 @session.info = "Key submission failed: #{errMsg}"
@@ -55,7 +59,6 @@ class extends lapis.Application
     [list: "/list"]: =>
         keys = Keys\select "* WHERE NOT status = #{Keys.statuses.claimed} ORDER BY game ASC"
         @html ->
-            a href: @url_for("gamekeys_add"), "add a key"
             element "table", class: "pure-table pure-table-striped", ->
                 tr ->
                     th "Game"
@@ -64,6 +67,10 @@ class extends lapis.Application
                     tr ->
                         td key.game
                         td Keys.types[key.type]
+            br!
+            a href: @url_for("gamekeys_add"), class: "pure-button", "add key"
+            if @session.id and (Users\find id: @session.id).admin
+                a href: @url_for("gamekeys_list_edit"), class: "pure-button", "edit keys"
 
     [list_edit: "/list/edit"]: respond_to {
         before: =>
