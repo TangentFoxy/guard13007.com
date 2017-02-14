@@ -18,6 +18,7 @@ class extends Widget
                         action: @url_for "gamekeys_list_edit"
                         method: "POST"
                         enctype: "multipart/form-data"
+                        class: "pure-table pure-table-striped"
                     }, ->
                         td -> input type: "text", name: "game", value: key.game
                         td ->
