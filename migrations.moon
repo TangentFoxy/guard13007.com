@@ -184,4 +184,6 @@ import create_table, types, drop_table, add_column, rename_column from require "
         }
     [24]: =>
         add_column "keys", "status", types.integer default: 1
+    [25]: =>
+        add_column "keys", "recipient", types.text default: ""
 }

@@ -42,6 +42,7 @@ class extends lapis.Application
                 data: @params.data
                 type: @params.type
                 status: Keys.statues.unclaimed
+                --recipient: "" -- this is just in case, I don't know if it is needed
             }
 
             if key
@@ -85,6 +86,7 @@ class extends lapis.Application
                     data: @params.data
                     type: @params.type
                     status: @params.status
+                    recipient: @params.recipient
                 }
 
             @info = "Key updated."

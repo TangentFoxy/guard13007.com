@@ -12,6 +12,7 @@ class extends Widget
                 th "Key"
                 th "Status"
                 th "Submit"
+                th "Recipient"
                 th "Delete?"
             for key in *keys
                 tr ->
@@ -39,5 +40,7 @@ class extends Widget
                         td ->
                             input type: "hidden", name: "id", value: key.id
                             input type: "submit", value: "Update"
+                        td ->
+                            input type: "text", name: "recipient", value: key.recipient
                         td ->
                             input type: "checkbox", name: "delete"
