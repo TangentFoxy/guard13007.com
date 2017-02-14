@@ -3,6 +3,7 @@ lapis = require "lapis"
 import respond_to from require "lapis.application"
 
 Keys = require "models.Keys"
+Users = require "users.models.Users"
 
 class extends lapis.Application
     @path: "/keys"
@@ -40,6 +41,7 @@ class extends lapis.Application
                 game: @params.game
                 data: @params.data
                 type: @params.type
+                status: Keys.statues.unclaimed
             }
 
             if key
@@ -50,7 +52,7 @@ class extends lapis.Application
     }
 
     [list: "/list"]: =>
-        keys = Keys\select "* ORDER BY game DESC"
+        keys = Keys\select "* ORDER BY game ASC"
         @html ->
             a href: @url_for("gamekeys_add"), "add a key"
             element "table", class: "pure-table pure-table-striped", ->
@@ -61,3 +63,27 @@ class extends lapis.Application
                     tr ->
                         td key.game
                         td Keys.types[key.type]
+
+    [list_edit: "/list/edit"]: respond_to {
+        before: =>
+            unless @session.id
+                @write redirect_to: @url_for "index"
+            user = Users\find id: @session.id
+            unless user and user.admin
+                @write redirect_to: @url_for "index"
+
+        GET: =>
+            render: true
+
+        POST: =>
+            key = Keys\find id: @params.id
+            key\update {
+                game: @params.game
+                data: @params.data
+                type: @params.type
+                status: @params.status
+            }
+
+            @info = "Key updated."
+            render: true
+    }

@@ -10,3 +10,8 @@ class Keys extends Model
         uplay: 4
         other: 5
     }
+
+    @statuses: enum {
+        unclaimed: 1
+        claimed: 2
+    }
