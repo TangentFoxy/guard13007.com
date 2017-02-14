@@ -52,7 +52,7 @@ class extends lapis.Application
     }
 
     [list: "/list"]: =>
-        keys = Keys\select "* ORDER BY game ASC"
+        keys = Keys\select "* WHERE status NOT #{Keys.statuses.claimed} ORDER BY game ASC"
         @html ->
             a href: @url_for("gamekeys_add"), "add a key"
             element "table", class: "pure-table pure-table-striped", ->
