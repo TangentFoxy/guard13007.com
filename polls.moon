@@ -10,6 +10,7 @@ class extends lapis.Application
     [index: ""]: =>
         @title = "Guard's Polls"
         @html ->
+            style: "ul { list-style: square; }"
             ul ->
                 li ->
                     a href: @url_for("polls_yt_videos"), "What type of videos should I make?"
