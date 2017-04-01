@@ -346,7 +346,13 @@ class extends lapis.Application
 
                     div id: "craft_description"
                     script -> raw "document.getElementById('craft_description').innerHTML = marked('#{craft.description\gsub("\\", "\\\\\\\\")\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</'+'script>")}');"
-                    img src: craft.picture
+                    the_date = os.date("*t", os.time())
+                    if the_data.month == 4 and the_data.day == 1
+                        img id: "da_image", src: https://i.imgur.com/xs190GO.jpg
+                        br!
+                        button onclick: "javascript:document.getElementById('da_image').src = '#{craft.picture}';"
+                    else
+                        img src: craft.picture
                     if Crafts.statuses.reviewed == craft.status
                         div class: "yt-embed", -> iframe src: "https://www.youtube.com/embed/#{craft.episode}", frameborder: 0, allowfullscreen: true
                     p ->
