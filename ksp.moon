@@ -262,11 +262,14 @@ class extends lapis.Application
                     th style: "width:20%; word-wrap: break-word;", "Creator"
                     th "Status"
                     th "Notes"
+                the_date = os.date("*t", os.time())
                 for craft in *crafts
                     tr ->
                         td style: "width:20%; word-wrap: break-word;", ->
                             a href: @url_for("ksp_craft", id: craft.id), craft.craft_name
-                        if craft.user_id != 0
+                        if the_date.month == 4 and the_date.day == 1
+                            td style: "width:20%; word-wrap: break-word;", "John"
+                        elseif craft.user_id != 0
                             td style: "width:20%; word-wrap: break-word;", (Users\find id: craft.user_id).name
                         else
                             td style: "width:20%; word-wrap: break-word;", craft.creator_name
@@ -305,13 +308,20 @@ class extends lapis.Application
 
     [craft: "/craft/:id[%d]"]: respond_to {
         GET: =>
+            the_date = os.date("*t", os.time())
             if craft = Crafts\find id: @params.id
                 if craft.user_id != 0
                     craft.creator_name = (Users\find id: craft.user_id).name
                 if craft.creator_name\len! > 0
-                    @title = "#{craft.craft_name} by #{craft.creator_name}"
+                    if the_date.month == 4 and the_date.day == 1
+                        @title = "#{craft.craft_name} by John"
+                    else
+                        @title = "#{craft.craft_name} by #{craft.creator_name}"
                 else
-                    @title = "#{craft.craft_name}"
+                    if the_date.month == 4 and the_date.day == 1
+                        @title = "#{craft.craft_name} by John"
+                    else
+                        @title = "#{craft.craft_name}"
 
                 @html ->
                     script src: @build_url "static/js/marked.min.js"
@@ -346,8 +356,7 @@ class extends lapis.Application
 
                     div id: "craft_description"
                     script -> raw "document.getElementById('craft_description').innerHTML = marked('#{craft.description\gsub("\\", "\\\\\\\\")\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</'+'script>")}');"
-                    the_date = os.date("*t", os.time())
-                    if the_data.month == 4 and the_data.day == 1
+                    if the_date.month == 4 and the_date.day == 1
                         img id: "da_image", src: https://i.imgur.com/xs190GO.jpg
                         br!
                         button onclick: "javascript:document.getElementById('da_image').src = '#{craft.picture}';"
