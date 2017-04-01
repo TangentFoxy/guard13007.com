@@ -357,7 +357,7 @@ class extends lapis.Application
                     div id: "craft_description"
                     script -> raw "document.getElementById('craft_description').innerHTML = marked('#{craft.description\gsub("\\", "\\\\\\\\")\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</'+'script>")}');"
                     if the_date.month == 4 and the_date.day == 1
-                        img id: "da_image", src: https://i.imgur.com/xs190GO.jpg
+                        img id: "da_image", src: "https://i.imgur.com/xs190GO.jpg"
                         br!
                         button onclick: "javascript:document.getElementById('da_image').src = '#{craft.picture}';"
                     else
