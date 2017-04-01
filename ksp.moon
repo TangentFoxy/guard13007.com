@@ -359,7 +359,7 @@ class extends lapis.Application
                     if the_date.month == 4 and the_date.day == 1
                         img id: "da_image", src: "https://i.imgur.com/xs190GO.jpg"
                         br!
-                        button onclick: "javascript:document.getElementById('da_image').src = '#{craft.picture}';"
+                        button onclick: "javascript:document.getElementById('da_image').src = '#{craft.picture}';", "Get da real image"
                     else
                         img src: craft.picture
                     if Crafts.statuses.reviewed == craft.status
