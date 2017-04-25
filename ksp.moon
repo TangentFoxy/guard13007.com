@@ -179,9 +179,12 @@ class extends lapis.Application
                         method: "GET"
                         style: "display: inline-block;"
                     }, ->
-                        input type: "text", name: "query", placeholder: "Search for Crafts"
+                        input type: "text", name: "query", value: @params.query, placeholder: "Search for Crafts"
                         text " "
-                        input type: "text", name: "ksp_version", placeholder: "KSP version?"
+                        if @params.ksp_version
+                            input type: "text", name: "ksp_version", value: @params.ksp_version, placeholder: "KSP version?"
+                        else
+                            input type: "text", name: "ksp_version", placeholder: "KSP version?"
                         text " "
                         input type: "submit", value: "Search", class: "pure-button"
                     element "table", class: "pure-table", ->
