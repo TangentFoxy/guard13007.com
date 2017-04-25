@@ -3,7 +3,6 @@ http = require "lapis.nginx.http"
 
 import respond_to from require "lapis.application"
 import starts from require "utility.string"
-import random_number from require "helpers"
 
 Crafts = require "models.Crafts"
 Users = require "users.models.Users"
@@ -305,7 +304,8 @@ class extends lapis.Application
             if user = Users\find id: @session.id
                 if user.admin
                     crafts = Crafts\select "WHERE status = 1 OR status = 7"
-                    rand = random_number! % #crafts + 1
+                    math.randomseed(os.time()) -- this is terrible randomness, figure out how to fix it
+                    rand = math.random(1,#crafts)
                     return redirect_to: @url_for "ksp_craft", id: crafts[rand].id
         return redirect_to: @url_for "ksp_craft_list"
 
