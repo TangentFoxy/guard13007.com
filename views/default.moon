@@ -39,6 +39,8 @@ class extends html.Widget
                                 li class: "pure-menu-item", ->
                                     a href: @url_for("games"), class: "pure-menu-link", "Games"
                                 li class: "pure-menu-item", ->
+                                    a href: @url_for("gamekeys_list"), class: "pure-menu-link", "Game Keys"
+                                li class: "pure-menu-item", ->
                                     a href: @url_for("blog_index"), class: "pure-menu-link", "Blog"
                                 li class: "pure-menu-item", ->
                                     a href: @url_for("john_submissions"), class: "pure-menu-link", "John"

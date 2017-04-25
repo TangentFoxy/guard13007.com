@@ -59,6 +59,8 @@ class extends lapis.Application
     [list: "/list"]: =>
         keys = Keys\select "* WHERE NOT status = #{Keys.statuses.claimed} ORDER BY game ASC"
         @html ->
+            h1 "Game Keys"
+            p "Keys on this list will either be given out to someone in an upcomming video, or given out to someone requesting them from me. Contact me on Discord if you want a key on this list."
             element "table", class: "pure-table pure-table-striped", ->
                 tr ->
                     th "Game"
