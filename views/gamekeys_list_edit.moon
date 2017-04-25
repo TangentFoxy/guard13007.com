@@ -25,7 +25,7 @@ class extends Widget
                         td ->
                             element "select", name: "type", ->
                                 for t in *Keys.types
-                                    if t == Keys.statuses[key.type]
+                                    if t == Keys.types[key.type]
                                         option value: Keys.types[t], selected: true, t
                                     else
                                         option value: Keys.types[t], t
