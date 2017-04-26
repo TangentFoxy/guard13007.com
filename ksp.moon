@@ -359,14 +359,14 @@ class extends lapis.Application
 
                     div id: "craft_description"
                     script -> raw "document.getElementById('craft_description').innerHTML = marked('#{craft.description\gsub("\\", "\\\\\\\\")\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</'+'script>")}');"
+                    if Crafts.statuses.reviewed == craft.status
+                        div class: "yt-embed", -> iframe src: "https://www.youtube.com/embed/#{craft.episode}", frameborder: 0, allowfullscreen: true
                     if the_date.month == 4 and the_date.day == 1
                         img id: "da_image", src: "https://i.imgur.com/xs190GO.jpg"
                         br!
                         button onclick: "javascript:document.getElementById('da_image').src = '#{craft.picture}';", "Get da real image"
                     else
                         img src: craft.picture
-                    if Crafts.statuses.reviewed == craft.status
-                        div class: "yt-embed", -> iframe src: "https://www.youtube.com/embed/#{craft.episode}", frameborder: 0, allowfullscreen: true
                     p ->
                         a class: "pure-button", href: craft.download_link, "Download" --TODO replace this with something to protect against XSS...
                         text " KSP Version: " .. craft.ksp_version
