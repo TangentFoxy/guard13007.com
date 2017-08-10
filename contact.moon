@@ -44,6 +44,7 @@ class extends lapis.Application
                         li "#picsandlinks is for sharing stuff, as long as it's not crap."
                         li "#shitpost is for random crap..since some people want that for some reason. >.>"
                 li "Racism is bad. Let's just not have it."
+                li "Please refrain from using offensive language meant to provoke an argument with no constructive purpose."
                 hr!
                 li "More rules may be added as needed, obviously."
                 li title: "If you don't like it, see http://xkcd.com/1357/", "And finally, if you are causing significant annoyance to several members, especially if they are friends of mine, I may ban you."
