@@ -8,7 +8,7 @@ config {"production", "development"}, ->
         host "127.0.0.1"
         user "postgres"
         password sql_password
-    digest_rounds 9
+    digest_rounds 12
 
 config "production", ->
     postgres ->
