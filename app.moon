@@ -4,7 +4,7 @@ class extends lapis.Application
     @before_filter =>
         u = @req.parsed_url
         if u.path != "/users/login"
-            @session.redirect = "#{u.scheme}://#{u.host}#{u.path}"
+            @session.redirect = u.path
         if @session.info
             @info = @session.info
             @session.info = nil
