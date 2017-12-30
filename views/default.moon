@@ -47,10 +47,14 @@ class extends html.Widget
                 div id: "container", ->
                     if @title
                         h1 @title
-                    if @info
+                    --if @info
+                    if true
                         div class: "info", ->
                             button class: "pure-button", onclick: "var e = document.getElementsByClassName('info')[0]; e.parentNode.removeChild(e);", "X"
-                            text @info
+                            text "Website will go down for 10-40 minutes to be updated in an uncertain amount of time."
+                            if @info
+                                br!
+                                text @info
                     @content_for "inner"
                     --script async: true, src: "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
                     --ins class: "adsbygoogle", style: "display:block;", ["data-ad-client"]: "ca-pub-9019103053166505", ["data-ad-slot"]: "4422103590", ["data-ad-format"]: "auto"
