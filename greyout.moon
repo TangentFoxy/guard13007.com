@@ -12,7 +12,7 @@ class extends lapis.Application
                 text " started. Let's talk about why we only have two real choices in an election, or if the electoral college should be abolished."
             p ->
                 text "Talk about this with the hashtag #TwitterGreyout, switch your avatar to "
-                a href: @build_url("static/img/greyout.png"), target: "_blank", "this"
+                a href: ("/static/img/greyout.png"), target: "_blank", "this"
                 text ", and mention "
                 a href: "https://twitter.com/Guard13007", target: "_blank", "@Guard13007"
                 text " a bunch! Or whoever, come on!"
@@ -29,8 +29,8 @@ class extends lapis.Application
             div id: "disqus_thread"
             script -> raw "
                 var disqus_config = function () {
-                    this.page.url = '#{@build_url "/greyout"}';
-                    this.page.identifier = '#{@build_url "/greyout"}';
+                    this.page.url = 'https://guard13007.com/greyout';
+                    this.page.identifier = 'https://guard13007.com:8150/greyout';
                 };
                 (function() {
                     var d = document, s = d.createElement('script');

@@ -20,10 +20,10 @@ class extends lapis.Application
             return redirect_to: @url_for("blog_index", page: Paginator\num_pages!)
 
         @html ->
-            link rel: "stylesheet", href: @build_url "static/css/blog.css"
-            script src: @build_url "static/js/marked.min.js"
-            link rel: "stylesheet", href: @build_url "static/highlight/styles/solarized-dark.css"
-            script src: @build_url "static/highlight/highlight.pack.js"
+            link rel: "stylesheet", href:  "/static/css/blog.css"
+            script src:  "/static/js/marked.min.js"
+            link rel: "stylesheet", href:  "/static/highlight/styles/solarized-dark.css"
+            script src:  "/static/highlight/highlight.pack.js"
             script -> raw "
                 marked.setOptions({
                     highlight: function(code) { return hljs.highlightAuto(code).value; },
@@ -61,7 +61,7 @@ class extends lapis.Application
                         script -> raw "document.getElementById('post_#{post.slug}').innerHTML = marked('#{post.text\gsub("\\", "\\\\\\\\")\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</'+'script>")}');"
 
                     text " ("
-                    span class: "disqus-comment-count", ["data-disqus-identifier"]: @build_url @url_for "blog_post", slug: post.slug
+                    span class: "disqus-comment-count", ["data-disqus-identifier"]: "https://guard13007.com:8150#{@url_for "blog_post", slug: post.slug}"
                     text ")"
 
             if @session.id and (Users\find id: @session.id).admin
@@ -79,9 +79,9 @@ class extends lapis.Application
                 return redirect_to: @url_for("blog_index")
             @title = post.title
             @html ->
-                script src: @build_url "static/js/marked.min.js"
-                link rel: "stylesheet", href: @build_url "static/highlight/styles/solarized-dark.css"
-                script src: @build_url "static/highlight/highlight.pack.js"
+                script src:  "/static/js/marked.min.js"
+                link rel: "stylesheet", href:  "/static/highlight/styles/solarized-dark.css"
+                script src:  "/static/highlight/highlight.pack.js"
                 script -> raw "
                     marked.setOptions({
                         highlight: function(code) { return hljs.highlightAuto(code).value; },
@@ -98,8 +98,8 @@ class extends lapis.Application
                 div id: "disqus_thread"
                 script -> raw "
                     var disqus_config = function () {
-                        this.page.url = '#{@build_url @url_for "blog_post", slug: post.slug}';
-                        this.page.identifier = '#{@build_url @url_for "blog_post", slug: post.slug}';
+                        this.page.url = 'https://guard13007.com#{@url_for "blog_post", slug: post.slug}';
+                        this.page.identifier = 'https://guard13007.com:8150#{@url_for "blog_post", slug: post.slug}';
                     };
                     (function() {
                         var d = document, s = d.createElement('script');
@@ -127,10 +127,10 @@ class extends lapis.Application
 
             @title = "New Post"
             @html ->
-                link rel: "stylesheet", href: @build_url "static/simplemde/simplemde.min.css"
-                script src: @build_url "static/simplemde/simplemde.min.js"
-                link rel: "stylesheet", href: @build_url "static/highlight/styles/solarized-dark.css"
-                script src: @build_url "static/highlight/highlight.pack.js"
+                link rel: "stylesheet", href:  "/static/simplemde/simplemde.min.css"
+                script src:  "/static/simplemde/simplemde.min.js"
+                link rel: "stylesheet", href:  "/static/highlight/styles/solarized-dark.css"
+                script src:  "/static/highlight/highlight.pack.js"
                 script -> raw "
                     window.onload = function () { var simplemde = new SimpleMDE({
                         autosave: {
@@ -207,8 +207,8 @@ class extends lapis.Application
             if post = Posts\find slug: @params.slug
                 @title = post.title .. " (Editing)"
                 @html ->
-                    link rel: "stylesheet", href: @build_url "static/simplemde/simplemde.min.css"
-                    script src: @build_url "static/simplemde/simplemde.min.js"
+                    link rel: "stylesheet", href:  "/static/simplemde/simplemde.min.css"
+                    script src:  "/static/simplemde/simplemde.min.js"
                     script -> raw "
                         window.onload = function () { var simplemde = new SimpleMDE({
                             autosave: {
@@ -291,9 +291,9 @@ class extends lapis.Application
             if post = Posts\find slug: @params.slug
                 @title = post.title .. " (Preview)"
                 @html ->
-                    script src: @build_url "static/js/marked.min.js"
-                    link rel: "stylesheet", href: @build_url "static/highlight/styles/solarized-dark.css"
-                    script src: @build_url "static/highlight/highlight.pack.js"
+                    script src:  "/static/js/marked.min.js"
+                    link rel: "stylesheet", href:  "/static/highlight/styles/solarized-dark.css"
+                    script src:  "/static/highlight/highlight.pack.js"
                     script -> raw "
                         marked.setOptions({
                             highlight: function(code) { return hljs.highlightAuto(code).value; },

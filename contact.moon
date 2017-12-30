@@ -4,7 +4,7 @@ class extends lapis.Application
     [chat: "/chat"]: =>
         @title = "Chat on Discord"
         @html ->
-            link rel: "stylesheet", href: @build_url "static/css/pure-responsive-grids.css"
+            link rel: "stylesheet", href:  "/static/css/pure-responsive-grids.css"
             div class: "pure-u-1-2", ->
                 h2 style: "text-align: left;", "My Discord Server"
                 iframe src: "https://discordapp.com/widget?id=98612945000345600&amp;theme=dark", width: 350, height: 500, allowtransparency: true, frameborder: 0

@@ -24,10 +24,10 @@ class extends lapis.Application
         GET: =>
             @title = "Submit a craft to be reviewed!"
             @html ->
-                link rel: "stylesheet", href: @build_url "static/simplemde/simplemde.min.css"
-                script src: @build_url "static/simplemde/simplemde.min.js"
-                link rel: "stylesheet", href: @build_url "static/highlight/styles/solarized-dark.css"
-                script src: @build_url "static/highlight/highlight.pack.js"
+                link rel: "stylesheet", href:  "/static/simplemde/simplemde.min.css"
+                script src:  "/static/simplemde/simplemde.min.js"
+                link rel: "stylesheet", href:  "/static/highlight/styles/solarized-dark.css"
+                script src:  "/static/highlight/highlight.pack.js"
                 script -> raw "
                     window.onload = function () { var simplemde = new SimpleMDE({
                         autosave: {
@@ -131,7 +131,7 @@ class extends lapis.Application
                     @session.info = "Craft submission failed: Image URL is invalid."
                     return redirect_to: @url_for "ksp_submit_crafts"
             else
-                @params.picture = @build_url "/static/img/ksp/no_image.png"
+                @params.picture =  "/static/img/ksp/no_image.png"
 
             if @params.download_link\len! > 0
                 _, http_status = http.simple @params.download_link
@@ -168,7 +168,7 @@ class extends lapis.Application
                 crafts = Crafts\select "WHERE craft_name LIKE ? OR creator_name LIKE ? OR description LIKE ? ORDER BY id ASC", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.query.."%"
             if next crafts
                 @html ->
-                    link rel: "stylesheet", href: @build_url "static/css/ksp.css"
+                    link rel: "stylesheet", href:  "/static/css/ksp.css"
                     a class: "pure-button", href: @url_for("ksp_craft_list"), "Craft List"
                     text " "
                     a class: "pure-button", href: @url_for("ksp_submit_crafts"), "Submit Craft"
@@ -229,7 +229,7 @@ class extends lapis.Application
             return redirect_to: @url_for("ksp_craft_list", page: Paginator\num_pages!)
 
         @html ->
-            link rel: "stylesheet", href: @build_url "static/css/ksp.css"
+            link rel: "stylesheet", href:  "/static/css/ksp.css"
             if page > 1
                 a class: "pure-button", href: @url_for("ksp_craft_list", page: 1), "First"
                 a class: "pure-button", href: @url_for("ksp_craft_list", page: page - 1), "Previous"
@@ -327,9 +327,9 @@ class extends lapis.Application
                         @title = "#{craft.craft_name}"
 
                 @html ->
-                    script src: @build_url "static/js/marked.min.js"
-                    link rel: "stylesheet", href: @build_url "static/highlight/styles/solarized-dark.css"
-                    script src: @build_url "static/highlight/highlight.pack.js"
+                    script src:  "/static/js/marked.min.js"
+                    link rel: "stylesheet", href:  "/static/highlight/styles/solarized-dark.css"
+                    script src:  "/static/highlight/highlight.pack.js"
                     script -> raw "
                         marked.setOptions({
                             highlight: function(code) { return hljs.highlightAuto(code).value; },
@@ -454,8 +454,8 @@ class extends lapis.Application
                     div id: "disqus_thread"
                     script -> raw "
                         var disqus_config = function () {
-                            this.page.url = '#{@build_url @url_for "ksp_craft", id: craft.id}';
-                            this.page.identifier = '#{@build_url @url_for "ksp_craft", id: craft.id}';
+                            this.page.url = 'https://guard13007.com#{@url_for "ksp_craft", id: craft.id}';
+                            this.page.identifier = 'https://guard13007.com:8150#{@url_for "ksp_craft", id: craft.id}';
                         };
                         (function() {
                             var d = document, s = d.createElement('script');

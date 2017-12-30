@@ -4,8 +4,8 @@ class extends lapis.Application
     [games: "/games"]: =>
         @title = "Guard's Games"
         @html ->
-            link rel: "stylesheet", href: @build_url "static/css/pure-responsive-grids.css"
-            link rel: "stylesheet", href: @build_url "static/css/itchEmbed.css"
+            link rel: "stylesheet", href:  "/static/css/pure-responsive-grids.css"
+            link rel: "stylesheet", href:  "/static/css/itchEmbed.css"
             div class: "pure-g", ->
                 div class: "pure-u-1 pure-u-xl-1-2", style: "margin-bottom: -2px;", ->
                     div class: "itchEmbed", -> -- Realms
@@ -29,7 +29,7 @@ class extends lapis.Application
     [faq: "/faq"]: =>
         @title = "Frequently Asked Questions"
         @html ->
-            link rel: "stylesheet", href: @build_url "static/css/faq.css"
+            link rel: "stylesheet", href:  "/static/css/faq.css"
 
             p "I get asked some questions a lot more often than others...so here are some answers!"
 
@@ -128,7 +128,7 @@ class extends lapis.Application
                         text ". If you register an account on my website and log into it (look at the bottom of any page), you will be able to edit your submissions."
                     p ->
                         text "You can also still use the public hanger on KerbalX. The interface is pretty bad, but it looks "
-                        a href: @build_url("static/img/faq/public-hanger.png"), target: "_blank", "like this"
+                        a href: ("/static/img/faq/public-hanger.png"), target: "_blank", "like this"
                         text " (after clicking \"add to hanger\" and then \"add to open hanger\" from your craft's page). (Note that I don't check these often, it is a better idea to submit your craft here.)"
                     p ->
                         text "Alternately, you can still send an email to "
@@ -168,7 +168,7 @@ class extends lapis.Application
                 dt -> a name: "ksp-intro", "Why do you say \"Kerbal Space-gram\"?"
                 dd ->
                     text "I say \"pro\" very quiet and fast. In combination with the bassy sound of \"pro\" and my post-processing to remove background noise (which is also bassy), this makes the \"pro\" usually inaudible. If you "
-                    a href: @build_url("static/img/faq/exhibit-a.png"), target: "_blank", "look at the waveforms"
+                    a href: ("/static/img/faq/exhibit-a.png"), target: "_blank", "look at the waveforms"
                     text " though, you can see it's there."
 
             a href: "#top", "top"
