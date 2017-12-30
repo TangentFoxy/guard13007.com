@@ -1,7 +1,7 @@
 config = require "lapis.config"
-import sql_password, session_secret, github_secret from require "secret"
+import sql_password, session_secret from require "secret"
 
-config {"production", "development"}, ->
+config {"production", "development", "livedev"}, ->
     session_name "guard13007com"
     secret session_secret
     postgres ->
@@ -17,9 +17,14 @@ config "production", ->
     num_workers 4
     code_cache "on"
 
-config "development", ->
+config {"development", "livedev"}, ->
     postgres ->
         database "devguard13007com"
-    port 8155
     num_workers 2
     code_cache "off"
+
+config "development", ->
+    port 9000
+
+config "livedev", ->
+    port 8155
