@@ -1,25 +1,11 @@
 import Model, enum from require "lapis.db.model"
 
-class Posts extends Model
+class OldPosts extends Model
   @timestamp: true
 
   @statuses: enum {
     draft: 1
     published: 2
-    scheduled: 3
-  }
-
-  @types: enum {
-    undefined: 0 -- for imported posts
-    my_game: 1
-    my_video: 2
-    my_art: 3
-    game_page: 4
-    my_playlist: 5
-    my_review: 6
-    my_library: 7
-    my_tutorial: 8
-    stand_alone: 9 -- for posts with custom url
   }
 
   @constraints: {

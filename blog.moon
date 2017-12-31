@@ -3,7 +3,7 @@ lapis = require "lapis"
 import respond_to from require "lapis.application"
 import slugify, time_ago_in_words from require "lapis.util"
 
-Posts = require "models.Posts"
+Posts = require "models.OldPosts"
 Users = require "users.models.Users"
 
 class extends lapis.Application
