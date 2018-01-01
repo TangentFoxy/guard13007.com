@@ -3,13 +3,13 @@ lapis = require "lapis"
 class extends lapis.Application
   @before_filter =>
     u = @req.parsed_url
-    if u.path != "/users/login" -- TODO replace w @url_for login
+    if u.path != @url_for "user_login"
       @session.redirect = u.path
     if @session.info
       @info = @session.info
       @session.info = nil
 
-  layout: "default"
+  layout: "default2" -- TODO replace original when ready
 
   @include "applications.posts"
 

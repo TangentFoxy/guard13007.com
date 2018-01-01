@@ -10,7 +10,7 @@ class Posts extends Model
   }
 
   @types: enum {
-    undefined: 0 -- for imported posts
+    undefined: 0 -- for imported posts / drafts / undecided
     my_game: 1
     my_video: 2
     my_art: 3

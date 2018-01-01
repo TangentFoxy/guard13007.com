@@ -205,4 +205,17 @@ import create_table, types, drop_table, add_column, rename_column, rename_table 
       {"created_at", types.time}
       {"updated_at", types.time}
     }
+  [28]: =>
+    rename_column "posts", "url", "splat"
+    add_column "posts", "html", types.text default: ""
+    add_column "posts", "preview_html", types.text default: ""
+
+    create_table "tags", {
+      {"id", types.serial primary_key: true}
+      {"name", types.text unique: true}
+    }
+    create_table "post_tags", {
+      {"post_id", types.foreign_key}
+      {"tag_id", types.foreign_key}
+    }
 }
