@@ -5,8 +5,6 @@ class GithookApp extends lapis.Application
   [githook: "/githook"]: =>
     os.execute "echo \"Updating server...\" >> logs/updates.log"
     result = 0 == os.execute "git pull origin >> logs/updates.log"
-    result = (0 == os.execute "git submodule init >> logs/updates.log") and result
-    result = (0 == os.execute "git submodule update >> logs/updates.log") and result
     result = (0 == os.execute "moonc . 2>> logs/updates.log") and result
     result = (0 == os.execute "lapis migrate #{config._name} >> logs/updates.log") and result
     result = (0 == os.execute "lapis build #{config._name} >> logs/updates.log") and result
