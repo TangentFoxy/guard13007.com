@@ -33,5 +33,6 @@ class extends lapis.Application
   "/submit": => redirect_to: @url_for "ksp_submit_crafts"
 
   -- TODO this will return a post if one exists at that custom url, else 404
+  -- TODO make this work by just returning the render directive for a post
   -- "/*": =>
   --   return @params.splat

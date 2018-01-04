@@ -7,6 +7,7 @@ class NewPost extends Widget
     script src: "/static/simplemde/simplemde.min.js"
     link rel: "stylesheet", href: "/static/highlight/styles/solarized-dark.css"
     script src: "/static/highlight/highlight.pack.js"
+    script src: "/static/js/marked.min.js"
     script src: "/static/js/jquery-3.1.0.min.js"
     script src: "/static/js/posts/new.js"
     form {
@@ -21,9 +22,9 @@ class NewPost extends Widget
           input class: "input", type: "text", name: "slug", id: "slug", placeholder: "title"
       div class: "field", ->
         div class: "control", ->
-          textarea class: "textarea", rows: 13, name: "text", placeholder: "Write here..."
+          textarea class: "textarea", rows: 13, name: "text", id: "text", placeholder: "Write here..."
         div class: "control", ->
-          textarea class: "textarea", rows: 4, name: "preview_text", placeholder: "Preview text."
+          textarea class: "textarea", rows: 4, name: "preview_text", id: "preview_text", placeholder: "Preview text."
       div class: "tile is-ancestor is-parent", ->
         div class: "tile is-child is-half", ->
           div class: "field is-horizontal", ->
@@ -37,8 +38,8 @@ class NewPost extends Widget
                     for ptype in *Posts.types
                       option value: Posts.types[ptype], ptype
               div class: "field", ->
-                div class: "control is-invisible", ->
-                  input class: "input", type: "text", name: "splat", id: "splat", placeholder: "splat"
+                div class: "control", ->
+                  input class: "input is-invisible", type: "text", name: "splat", id: "splat", placeholder: "splat"
         div class: "tile is-child is-half", ->
           div class: "field is-horizontal", ->
             div class: "field-label", ->
@@ -46,15 +47,17 @@ class NewPost extends Widget
             div class: "field-body", ->
               div class: "field", ->
                 div class: "control", ->
-                  element "select", class: "select", name: "status", ->
+                  element "select", class: "select", name: "status", id: "status", ->
                     for status in *Posts.statuses
                       if status == Posts.statuses.draft
                         option value: Posts.statuses[status], selected: true, status
                       else
                         option value: Posts.statuses[status], status
               div class: "field", ->
-                div class: "control is-invisible", ->
-                  input class: "input", type: "text", name: "published_at", id: "published_at", placeholder: "1970-01-01 00:00:00"
+                div class: "control", ->
+                  input class: "input is-invisible", type: "text", name: "published_at", id: "published_at", placeholder: "1970-01-01 00:00:00"
       div class: "control", ->
         div class: "buttons is-centered", ->
           input class: "button", type: "submit", value: "Create"
+          input type: "hidden", name: "html", id: "html"
+          input type: "hidden", name: "preview_html", id: "preview_html"

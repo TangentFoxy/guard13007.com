@@ -87,6 +87,10 @@ class extends html.Widget
             -- div class: "navbar-end"
         -- a name: "top"
         section class: "section", ->
+          if @info
+            div class: "notification is-primary", ->
+              button class: "delete", onclick: "var e = document.getElementsByClassName('notification')[0]; e.parentNode.removeChild(e);"
+              text @info
           div class: "container has-text-centered", ->
             -- @info popup
             if @title

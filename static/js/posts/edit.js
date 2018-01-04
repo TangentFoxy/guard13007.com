@@ -18,6 +18,9 @@ function slugify (str) {
 
 $(function() {
   var simplemde = new SimpleMDE({
+    // element: $("#text").get(0),
+    // that doesn't work, but it attaches to the first
+    //  textarea only by default, so it works
     autosave: {
       enabled: true,
       uniqueId: '/post/new'
@@ -34,6 +37,9 @@ $(function() {
       codeSyntaxHighlighting: true // highlight.js by default
     }
   });
+
+  // isn't loading existing values for some reason
+  // simplemde.value($("#text").val());
 
   marked.setOptions({
     highlight: function(code) { return hljs.highlightAuto(code).value; },
