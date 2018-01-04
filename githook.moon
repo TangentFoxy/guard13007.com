@@ -1,14 +1,21 @@
 lapis = require "lapis"
 config = require("lapis.config").get!
 
+execute = (cmd) ->
+  handle = io.popen cmd
+  result = handle\read "*a"
+  handle\close!
+  return result
+
 class GithookApp extends lapis.Application
   [githook: "/githook"]: =>
-    os.execute "echo \"Updating server...\" >> logs/updates.log"
-    result = 0 == os.execute "git pull origin >> logs/updates.log"
-    result = (0 == os.execute "moonc . 2>> logs/updates.log") and result
-    result = (0 == os.execute "lapis migrate #{config._name} >> logs/updates.log") and result
-    result = (0 == os.execute "lapis build #{config._name} >> logs/updates.log") and result
-    if result
-      return { json: { status: "successful", message: "server updated to latest version" } }
-    else
-      return { json: { status: "failure", message: "check logs/updates.log"} }, status: 500 --Internal Server Error
+    result = "#{execute "git pull origin"}\n"
+    result ..= "#{execute "moonc ."}\n"
+    result ..= "#{execute "lapis migrate #{config._name}"}\n"
+    result ..= "#{execute "lapis build #{config._name}"}\n"
+    return {
+      json: {
+        status: "unknown",
+        message: result
+      }
+    }
