@@ -11,8 +11,8 @@ class GithookApp extends lapis.Application
   [githook: "/githook"]: =>
     result = "#{execute "git pull origin"}\n"
     result ..= "#{execute "moonc ."}\n"
-    result ..= "#{execute "lapis migrate #{config._name}"}\n"
-    result ..= "#{execute "lapis build #{config._name}"}\n"
+    result ..= "#{execute "lapis migrate #{config._name} --trace"}\n"
+    result ..= "#{execute "lapis build #{config._name} --trace"}\n"
     return {
       json: {
         status: "unknown",
