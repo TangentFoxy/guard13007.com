@@ -13,7 +13,7 @@ class extends lapis.Application
 
   @include "applications.posts"
 
-  @include "githook/githook"
+  @include "githook"
   @include "users/users"
   @include "contact"
   @include "ksp"
