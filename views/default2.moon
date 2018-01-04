@@ -27,8 +27,7 @@ class extends html.Widget
         nav class: "navbar is-fixed-top is-dark", ->
           div class: "navbar-brand", ->
             a class: "navbar-item", href: @url_for("index"), ->
-              -- TODO replace w my logo image
-              text "img"
+              img src: "/static/img/logo.png"
             div class: "navbar-burger burger", "data-target": "navbar", ->
               span!
               span!
