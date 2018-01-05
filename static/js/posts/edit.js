@@ -39,7 +39,7 @@ $(function() {
   });
 
   // fix rendering previews
-  // $(".editor-preview").addClass("content");
+  $(".editor-preview").addClass("content");
 
   marked.setOptions({
     highlight: function(code) { return hljs.highlightAuto(code).value; },

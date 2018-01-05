@@ -99,7 +99,7 @@ class extends html.Widget
               h1 class: "title", @title
             if @subtitle
               h2 class: "subtitle", @subtitle
-          div class: "container content", ->
+          div class: "container", ->
             @content_for "inner"
         nav class: "navbar is-fixed-bottom is-light", ->
           div class: "navbar-brand", ->
