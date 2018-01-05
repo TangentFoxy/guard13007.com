@@ -55,7 +55,7 @@ $(function() {
       },
       {
         name: "side-by-side",
-        action: => function() { preview(SimpleMDE.toggleSideBySide) },
+        action: function() { preview(SimpleMDE.toggleSideBySide) },
         className: "fa fa-columns no-disable no-mobile",
         title: "Toggle Side by Side",
         // default: true
