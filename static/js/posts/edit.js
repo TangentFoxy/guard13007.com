@@ -38,12 +38,12 @@ $(function() {
     }
   });
 
-  // isn't loading existing values for some reason
-  // simplemde.value($("#text").val());
+  // fix rendering previews
+  $(".editor-preview").addClass("content");
 
   marked.setOptions({
     highlight: function(code) { return hljs.highlightAuto(code).value; },
-    sanitize: true,
+    // sanitize: true, // NOTE only disabled for admins!
     smartypants: true
   });
   hljs.initHighlightingOnLoad();
