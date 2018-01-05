@@ -16,6 +16,7 @@ class extends lapis.Application
 
   [view: "/:slug"]: =>
     if @post = Posts\find slug: @params.slug
+      @title = @post.title
       return render: "posts.view"
     else
       @session.info = "That post does not exist."
