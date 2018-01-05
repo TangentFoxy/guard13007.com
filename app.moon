@@ -1,5 +1,7 @@
 lapis = require "lapis"
 
+import Posts from require "models"
+
 class extends lapis.Application
   @before_filter =>
     u = @req.parsed_url
@@ -32,7 +34,8 @@ class extends lapis.Application
 
   "/submit": => redirect_to: @url_for "ksp_submit_crafts"
 
-  -- TODO this will return a post if one exists at that custom url, else 404
-  -- TODO make this work by just returning the render directive for a post
-  -- "/*": =>
-  --   return @params.splat
+  "/*": =>
+    if @post = Posts\find splat: @params.splat
+      return render: "posts.view"
+    else
+      return status: 404 -- TODO write better error page
