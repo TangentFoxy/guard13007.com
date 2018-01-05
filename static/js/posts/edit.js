@@ -24,7 +24,8 @@ $(function() {
     $(".editor-preview-side").addClass("content");
   };
 
-  var simplemde = new SimpleMDE({
+  var simplemde;
+  simplemde = new SimpleMDE({
     // element: $("#text").get(0),
     // that doesn't work, but it attaches to the first
     //  textarea only by default, so it works
