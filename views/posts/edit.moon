@@ -10,6 +10,8 @@ class EditPost extends Widget
     script src: "/static/highlight/highlight.pack.js"
     script src: "/static/js/marked.min.js"
     script src: "/static/js/jquery-3.1.0.min.js"
+    if @post
+      script -> raw "var uniqueID = '#{@url_for "posts_render"}';"
     script src: "/static/js/posts/edit.js"
     local action
     if @post

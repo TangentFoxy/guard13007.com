@@ -14,7 +14,7 @@ class extends lapis.Application
   [index: "s(/:page[%d])"]: =>
     return "Temporarily out of order."
 
-  [post: "/:slug"]: =>
+  [render: "/:slug"]: =>
     return "To be written."
 
   [new: "/new"]: respond_to {
@@ -57,7 +57,7 @@ class extends lapis.Application
       post, err = Posts\create fields
       if post
         if fields.status == Posts.statuses.published
-          return redirect_to: @url_for "posts_post", slug: post.slug
+          return redirect_to: @url_for "posts_render", slug: post.slug
         else
           return redirect_to: @url_for "posts_edit", id: post.id
       else
