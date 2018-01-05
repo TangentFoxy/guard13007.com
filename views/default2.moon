@@ -35,8 +35,9 @@ class extends html.Widget
           div id: "navbar", class: "navbar-menu", ->
             div class: "navbar-start", ->
               -- TODO update hrefs to point towards @url_for sources
+              a class: "navbar-link", href: "/faq", "FAQ"
               div class: "navbar-item has-dropdown is-hoverable", ->
-                p class: "navbar-link is-unselectable", "Games"
+                p class: "navbar-link is-unselectable", "My Games"
                 div class: "navbar-dropdown", ->
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
@@ -82,6 +83,7 @@ class extends html.Widget
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
                       li -> a href: "/contact", "Contact Info"
+                      li -> a href: "/contact/profiles", "Me Elsewhere"
                       li -> a href: "/contact/support", "Support Me"
             -- div class: "navbar-end"
         -- a name: "top"
