@@ -18,13 +18,13 @@ function slugify (str) {
 
 $(function() {
   // fix rendering previews
+  var simplemde;
   var preview = function(action) {
-    action();
+    action(simplemde);
     $(".editor-preview").addClass("content");
     $(".editor-preview-side").addClass("content");
   };
 
-  var simplemde;
   simplemde = new SimpleMDE({
     // element: $("#text").get(0),
     // that doesn't work, but it attaches to the first
@@ -49,14 +49,14 @@ $(function() {
       "unordered-list", "ordered-list", "|", "link", "image", "|",
       {
         name: "preview",
-        action: function() { preview(simplemde.togglePreview) },
+        action: function() { preview(SimpleMDE.togglePreview) },
         className: "fa fa-eye no-disable",
         title: "Toggle Preview",
         // default: true
       },
       {
         name: "side-by-side",
-        action: function() { preview(simplemde.toggleSideBySide) },
+        action: function() { preview(SimpleMDE.toggleSideBySide) },
         className: "fa fa-columns no-disable no-mobile",
         title: "Toggle Side by Side",
         // default: true
