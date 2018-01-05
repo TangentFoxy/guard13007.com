@@ -10,8 +10,8 @@ class ViewPost extends Widget
     div id: "disqus_thread"
     script -> raw "
       var disqus_config = function () {
-        this.page.url = 'https://guard13007.com#{@url_for "posts_view", slug: post.slug}';
-        this.page.identifier = 'https://guard13007.com#{@url_for "posts_view", slug: post.slug}';
+        this.page.url = 'https://guard13007.com#{@url_for "posts_view", slug: @post.slug}';
+        this.page.identifier = 'https://guard13007.com#{@url_for "posts_view", slug: @post.slug}';
       };
       (function() {
         var d = document, s = d.createElement('script');
