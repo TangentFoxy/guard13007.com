@@ -36,6 +36,7 @@ class extends lapis.Application
 
   "/*": =>
     if @post = Posts\find splat: @params.splat
+      @title = @post.title
       return render: "posts.view"
     else
       return status: 404 -- TODO write better error page
