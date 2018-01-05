@@ -15,7 +15,8 @@ class extends lapis.Application
     return "Temporarily out of order."
 
   [view: "/:slug"]: =>
-    if @post = Posts\find slug: @params.slug
+    @post = Posts\find slug: @params.slug
+    if @post
       render: "posts.view"
     else
       @session.info = "That post does not exist."
