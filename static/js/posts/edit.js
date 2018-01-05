@@ -23,7 +23,7 @@ $(function() {
     //  textarea only by default, so it works
     autosave: {
       enabled: true,
-      uniqueId: uniqueID || '/post/new'
+      uniqueId: uniqueID
     },
     indentWithTabs: false,
     insertTexts: {
