@@ -103,6 +103,13 @@ class extends html.Widget
             @content_for "inner"
         nav class: "navbar is-fixed-bottom is-light", ->
           div class: "navbar-brand", ->
+            if is_admin @
+              div class: "navbar-item has-dropdown has-dropdown-up is-hoverable", ->
+                p class: "navbar-link is-unselectable", "Admin"
+                div class: "navbar-dropdown", ->
+                  div class: "navbar-item menu", ->
+                    ul class: "menu-list", ->
+                      li -> a href: @url_for("posts_new"), "New Post"
             div class: "navbar-item", ->
               div class: "level", ->
                 div class: "level-left", ->
@@ -124,10 +131,3 @@ class extends html.Widget
                     raw "&nbsp;"
                     a href: "https://github.com/Guard13007/guard13007.com", "GitHub"
                     text "."
-            if is_admin @
-              div class: "navbar-item has-dropdown has-dropup is-hoverable", ->
-                p class: "navbar-link is-unselectable", "Admin"
-                div class: "navbar-dropdown", ->
-                  div class: "navbar-item menu", ->
-                    ul class: "menu-list", ->
-                      li -> a href: @url_for("posts_new"), "New Post"
