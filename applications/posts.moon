@@ -61,7 +61,10 @@ class extends lapis.Application
       post, err = Posts\create fields
       if post
           @session.info = "Post created!"
-          return redirect_to: @url_for "posts_view", slug: post.slug
+          if post.status != Posts.statuses.draft
+            return redirect_to: @url_for "posts_view", slug: post.slug
+          else
+            return redirect_to: url_for "posts_edit", id: post.id
       else
         @session.info = "Failed to create post. #{err}"
         return redirect_to: @url_for "posts_new"
