@@ -15,12 +15,11 @@ class extends lapis.Application
     return "Temporarily out of order."
 
   [view: "/:slug"]: =>
-    @post = Posts\find slug: @params.slug
-    if @post
-      render: "posts.view"
+    if @post = Posts\find slug: @params.slug
+      return render: "posts.view"
     else
       @session.info = "That post does not exist."
-      redirect_to: @url_for "posts_index"
+      return redirect_to: @url_for "posts_index"
 
   [new: "/new"]: respond_to {
     before: =>
