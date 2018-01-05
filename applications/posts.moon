@@ -14,8 +14,12 @@ class extends lapis.Application
   [index: "s(/:page[%d])"]: =>
     return "Temporarily out of order."
 
-  [render: "/:slug"]: =>
-    return "To be written."
+  [view: "/:slug"]: =>
+    if @post = Posts\find slug: @params.slug
+      render: "posts.view"
+    else
+      @session.info = "That post does not exist."
+      redirect_to: @url_for "posts_index"
 
   [new: "/new"]: respond_to {
     before: =>
@@ -56,14 +60,14 @@ class extends lapis.Application
 
       post, err = Posts\create fields
       if post
-          @session.info = "Post '#{post.title}' created!"
-          return redirect_to: @url_for "posts_edit", id: post.id
+          @session.info = "Post created!"
+          return redirect_to: @url_for "posts_view", slug: post.slug
       else
         @session.info = "Failed to create post. #{err}"
         return redirect_to: @url_for "posts_new"
   }
 
-  [edit: "/edit/:id"]: respond_to {
+  [edit: "/edit/:id[%d]"]: respond_to {
     before: =>
       unless is_admin @ return redirect_to: @url_for "posts_index"
       @post = Posts\find id: @params.id
