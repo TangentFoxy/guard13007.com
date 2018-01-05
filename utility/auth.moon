@@ -1,5 +1,4 @@
 import Users from require "models"
--- Users = require "models.Users"
 
 is_admin = =>
   error "@ not passed!" unless @

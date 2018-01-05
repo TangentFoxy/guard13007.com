@@ -1,5 +1,7 @@
 html = require "lapis.html"
 
+import is_admin from require "utility.auth"
+
 class extends html.Widget
   content: =>
     html_5 class: "has-navbar-fixed-top has-navbar-fixed-bottom", ->
@@ -35,7 +37,7 @@ class extends html.Widget
           div id: "navbar", class: "navbar-menu", ->
             div class: "navbar-start", ->
               -- TODO update hrefs to point towards @url_for sources
-              a class: "navbar-link", href: "/faq", "FAQ"
+              a class: "navbar-item", href: "/faq", "FAQ"
               div class: "navbar-item has-dropdown is-hoverable", ->
                 p class: "navbar-link is-unselectable", "My Games"
                 div class: "navbar-dropdown", ->
@@ -93,7 +95,6 @@ class extends html.Widget
               button class: "delete", onclick: "var e = document.getElementsByClassName('notification')[0]; e.parentNode.removeChild(e);"
               text @info
           div class: "container has-text-centered", ->
-            -- @info popup
             if @title
               h1 class: "title", @title
             if @subtitle
@@ -123,3 +124,10 @@ class extends html.Widget
                     raw "&nbsp;"
                     a href: "https://github.com/Guard13007/guard13007.com", "GitHub"
                     text "."
+            if is_admin @
+              div class: "navbar-item has-dropdown has-dropup is-hoverable", ->
+                p class: "navbar-link is-unselectable", "Admin"
+                div class: "navbar-dropdown", ->
+                  div class: "navbar-item menu", ->
+                    ul class: "menu-list", ->
+                      li -> a href: @url_for("posts_new"), "New Post"
