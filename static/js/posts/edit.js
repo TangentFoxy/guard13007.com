@@ -48,14 +48,14 @@ $(function() {
       "unordered-list", "ordered-list", "|", "link", "image", "|",
       {
         name: "preview",
-        action: function() { preview(SimpleMDE.togglePreview) },
+        action: function() { preview(simplemde.togglePreview) },
         className: "fa fa-eye no-disable",
         title: "Toggle Preview",
         // default: true
       },
       {
         name: "side-by-side",
-        action: function() { preview(SimpleMDE.toggleSideBySide) },
+        action: function() { preview(simplemde.toggleSideBySide) },
         className: "fa fa-columns no-disable no-mobile",
         title: "Toggle Side by Side",
         // default: true

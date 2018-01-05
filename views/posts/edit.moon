@@ -33,7 +33,7 @@ class EditPost extends Widget
           if @post.slug and @post.slug != slugify @post.title
             input class: "input", type: "text", name: "slug", id: "slug", placeholder: @post.slug, value: @post.slug
           else
-            input class: "input", type: "text", name: "slug", id: "slug", placeholder: @post.slug
+            input class: "input", type: "text", name: "slug", id: "slug", placeholder: "title"
       div class: "field", ->
         div class: "control", ->
           textarea class: "textarea", rows: 13, name: "text", id: "text", placeholder: "Write here...", @post.text
@@ -41,7 +41,7 @@ class EditPost extends Widget
           if @post.preview_text and @post.preview_text != @post.text\sub 1, 500
             textarea class: "textarea", rows: 4, name: "preview_text", id: "preview_text", placeholder: @post.preview_text, @post.preview_text
           else
-            textarea class: "textarea", rows: 4, name: "preview_text", id: "preview_text", placeholder: @post.preview_text
+            textarea class: "textarea", rows: 4, name: "preview_text", id: "preview_text", placeholder: @post.preview_text or "Preview text..."
       div class: "tile is-ancestor is-parent", ->
         div class: "tile is-child is-half", ->
           div class: "field is-horizontal", ->
