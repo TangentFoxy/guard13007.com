@@ -56,9 +56,7 @@ class extends lapis.Application
 
       post, err = Posts\create fields
       if post
-        if fields.status == Posts.statuses.published
-          return redirect_to: @url_for "posts_render", slug: post.slug
-        else
+          @session.info = "Post '#{post.title}' created!"
           return redirect_to: @url_for "posts_edit", id: post.id
       else
         @session.info = "Failed to create post. #{err}"
@@ -76,24 +74,25 @@ class extends lapis.Application
       render: "posts.edit"
     POST: =>
       fields = {
-        -- title will trigger if you try to set it to its existing value
+        -- title will error if you set it to its existing value
         -- slug is only modified if user modified it
         text: @params.text
-        preview_text: @params.preview_text -- at this point it is definitely set
+        -- preview_text may not be set (if is default / generated)
+        -- NOTE this could be an error (if editing doesn't update a preview text)
         html: @params.html
         preview_html: @params.preview_html
         status: tonumber @params.status
         type: tonumber @params.type
       }
 
-      if @params.title != @post.title
+      if @params.title and @params.title\len! > 0 and @params.title != @post.title
         fields.title = @params.title
 
-      if @params.slug and @params.slug != @post.slug
-        if @params.slug\len! > 0 -- NOTE do not know if this can be triggered
-          fields.slug = @params.slug
-        else
-          fields.slug = slugify @params.title
+      if @params.slug and @params.slug\len! > 0 and @params.slug != @post.slug
+        fields.slug = @params.slug
+
+      if @params.preview_text and @params.preview_text\len! > 0
+        fields.preview_text = @params.preview_text
 
       if @params.splat and @params.splat\len! > 0
         fields.splat = @params.splat
@@ -108,10 +107,9 @@ class extends lapis.Application
       _, err = @post\update fields
       unless err
         @info = "Post updated."
-        @title = "#{@post.title} (Editing)"
-        render: "posts.edit"
       else
         @info = "Failed to update post. #{err}"
-        @title = "#{@post.title} (Editing)"
-        render: "posts.edit"
+
+      @title = "#{@post.title} (Editing)"
+      render: "posts.edit"
   }

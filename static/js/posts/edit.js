@@ -17,6 +17,13 @@ function slugify (str) {
 }
 
 $(function() {
+  // fix rendering previews
+  var preview = function(action) {
+    action();
+    $(".editor-preview").addClass("content");
+    $(".editor-preview-side").addClass("content");
+  };
+
   var simplemde = new SimpleMDE({
     // element: $("#text").get(0),
     // that doesn't work, but it attaches to the first
@@ -35,11 +42,27 @@ $(function() {
     renderingConfig: {
       singleLineBreaks: false,
       codeSyntaxHighlighting: true // highlight.js by default
-    }
+    },
+    toolbar: [
+      "bold", "italic", "strikethrough", "heading", "|", "quote",
+      "unordered-list", "ordered-list", "|", "link", "image", "|",
+      {
+        name: "preview",
+        action: preview(SimpleMDE.togglePreview),
+        className: "fa fa-eye no-disable",
+        title: "Toggle Preview",
+        // default: true
+      },
+      {
+        name: "side-by-side",
+        action: preview(SimpleMDE.toggleSideBySide),
+        className: "fa fa-columns no-disable no-mobile",
+        title: "Toggle Side by Side",
+        // default: true
+      },
+      "fullscreen", "|", "guide"
+    ]
   });
-
-  // fix rendering previews
-  $(".editor-preview").addClass("content");
 
   marked.setOptions({
     highlight: function(code) { return hljs.highlightAuto(code).value; },
