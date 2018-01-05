@@ -107,10 +107,3 @@ class EditPost extends Widget
             input class: "button", type: "submit", value: "Create"
           input type: "hidden", name: "html", id: "html", value: @post.html
           input type: "hidden", name: "preview_html", id: "preview_html", value: @post.preview_html
-    -- TEMPORARY
-    if @post
-      hr!
-      dl ->
-        for k,v in pairs @post
-          dt -> text k
-          dd -> text v

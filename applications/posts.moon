@@ -66,7 +66,8 @@ class extends lapis.Application
   [edit: "/edit/:id"]: respond_to {
     before: =>
       unless is_admin @ return redirect_to: @url_for "posts_index"
-      unless @post = Posts\find id: @params.id
+      @post = Posts\find id: @params.id
+      unless @post
         @session.info = "That post does not exist."
         redirect_to: @url_for "posts_index"
     GET: =>
