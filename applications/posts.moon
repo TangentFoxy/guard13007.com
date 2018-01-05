@@ -26,7 +26,7 @@ class extends lapis.Application
       unless is_admin @ return redirect_to: @url_for "posts_index"
     GET: =>
       @title = "New Post"
-      render: "posts.edit"
+      return render: "posts.edit"
     POST: =>
       fields = {
         title: @params.title
@@ -73,10 +73,10 @@ class extends lapis.Application
       @post = Posts\find id: @params.id
       unless @post
         @session.info = "That post does not exist."
-        redirect_to: @url_for "posts_index"
+        return redirect_to: @url_for "posts_index"
     GET: =>
       @title = "#{@post.title} (Editing)"
-      render: "posts.edit"
+      return render: "posts.edit"
     POST: =>
       fields = {
         -- title will error if you set it to its existing value
@@ -116,5 +116,5 @@ class extends lapis.Application
         @info = "Failed to update post. #{err}"
 
       @title = "#{@post.title} (Editing)"
-      render: "posts.edit"
+      return render: "posts.edit"
   }
