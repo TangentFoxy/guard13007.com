@@ -15,8 +15,7 @@ class PostIndex extends Widget
           th "Type"
           th "Updated"
           th "Created"
-          th "View"
-          th "Edit"
+          th "View/Edit/Delete"
           th "Comments"
       tbody ->
         for post in *@posts
@@ -27,8 +26,13 @@ class PostIndex extends Widget
             td Posts.types\to_name post.type
             td post.updated_at
             td post.created_at
-            td -> a class: "button", href: @url_for("posts_view", slug: post.slug), "View"
-            td -> a class: "button", href: @url_for("posts_edit", id: post.id), "Edit"
+            td ->
+              a class: "button", href: @url_for("posts_view", slug: post.slug), "View"
+              a class: "button", href: @url_for("posts_edit", id: post.id), "Edit"
+              a class: "button", href: @url_for("posts_delete", id: post.id), onclick: "return confirm('Are you sure you want to delete this post?');", "Delete"
             td -> span class: "disqus-comment-count", "data-disqus-identifier": "https://guard13007.com#{@url_for "posts_view", slug: post.slug}"
+
+    div class: "container has-text-centered", ->
+      a class: "button", href: @url_for("posts_new"), "New Post"
 
     widget Pagination
