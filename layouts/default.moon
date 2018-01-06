@@ -62,7 +62,7 @@ class extends html.Widget
                 div class: "navbar-dropdown", ->
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
-                      li -> a href: "/blog", "All Posts"
+                      li -> a href: "/posts", "All Posts"
                       li -> a href: "/blog/art", "Art"
                       li -> a href: "/blog/reviewws", "Reviews"
               div class: "navbar-item has-dropdown is-hoverable", ->
@@ -109,6 +109,7 @@ class extends html.Widget
                 div class: "navbar-dropdown", ->
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
+                      li -> a href: @url_for("posts_admin_index"), "All Posts"
                       li -> a href: @url_for("posts_new"), "New Post"
             div class: "navbar-item", ->
               div class: "level", ->
@@ -126,8 +127,8 @@ class extends html.Widget
                         div class: "control", ->
                           a class: "button", href: @url_for("user_new"), "New User"
                   div class: "level-item", ->
+                    text "This website is open source on "
+                    -- raw "&nbsp;"
                     -- TODO modify to use icon ?
-                    text "This website is open source on"
-                    raw "&nbsp;"
                     a href: "https://github.com/Guard13007/guard13007.com", "GitHub"
                     text "."

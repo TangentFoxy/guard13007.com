@@ -13,9 +13,8 @@ class PostIndex extends Widget
       div class: "content", ->
         raw post.preview_html
         h3 class: "subtitle is-6", ->
-          text "Published #{pretty_date post.published_at}. "
           a href: @url_for("posts_view", slug: post.slug), "Read More"
-          text " ("
+          text ". Published #{pretty_date post.published_at} ("
           span class: "disqus-comment-count", "data-disqus-identifier": "https://guard13007.com#{@url_for "posts_view", slug: post.slug}"
           text ")"
           if is_admin @

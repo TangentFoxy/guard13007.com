@@ -13,7 +13,7 @@ class extends lapis.Application
 
   [index: "s(/:page[%d])"]: =>
     @page = tonumber(@params.page) or 1
-    Paginator = Posts\paginated "WHERE status = ? ORDER BY published_at DESC", Posts.statuses.published, per_page: 10
+    Paginator = Posts\paginated "WHERE status = ? ORDER BY published_at DESC", Posts.statuses.published, per_page: 6
 
     @last_page = Paginator\num_pages!
     @posts = Paginator\get_page @page
@@ -26,12 +26,27 @@ class extends lapis.Application
     return render: "posts.index"
 
   [view: "/:slug"]: =>
-    if @post = Posts\find slug: @params.slug
-      @title = @post.title
-      return render: "posts.view"
-    else
+    @post = Posts\find slug: @params.slug
+    if (not @post) or (@post.status != Posts.statuses.published and not is_admin @)
       @session.info = "That post does not exist."
       return redirect_to: @url_for "posts_index"
+    else
+      @title = @post.title
+      return render: "posts.view"
+
+  [admin_index: "s/admin/index(/:page[%d])"]: =>
+    unless is_admin @ return redirect_to: @url_for "posts_index"
+
+    @page = tonumber(@params.page) or 1
+    Paginator = Posts\paginated "ORDER BY updated_at DESC", per_page: 50
+
+    @last_page = Paginator\num_pages!
+    @posts = Paginator\get_page @page
+    if #@posts < 1 and @last_page > 0
+      return redirect_to: @url_for "posts_admin_index", page: @last_page
+
+    @title = "Admin Posts Index (Page #{@page})"
+    return render: "posts.admin_index"
 
   [new: "/new"]: respond_to {
     before: =>
