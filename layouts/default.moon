@@ -127,8 +127,8 @@ class extends html.Widget
                         div class: "control", ->
                           a class: "button", href: @url_for("user_new"), "New User"
                   div class: "level-item", ->
-                    text "This website is open source on "
-                    -- raw "&nbsp;"
+                    text "This website is open source on"
+                    raw "&nbsp;"
                     -- TODO modify to use icon ?
                     a href: "https://github.com/Guard13007/guard13007.com", "GitHub"
                     text "."

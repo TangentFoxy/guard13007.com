@@ -11,9 +11,9 @@ class EditPost extends Widget
     script src: "/static/js/marked.min.js"
     script src: "/static/js/jquery-3.1.0.min.js"
     if @post
-      script -> raw "var uniqueID = '#{@url_for "posts_view", slug: @post.slug}';"
+      script -> raw "var uniqueID = '#{@url_for "posts_view", slug: @post.slug}'; var splatPage = #{Posts.types["stand-alone page"]};"
     else
-      script -> raw "var uniqueID = '/post/new';"
+      script -> raw "var uniqueID = '/post/new'; var splatPage = #{Posts.types["stand-alone page"]};"
     script src: "/static/js/posts/edit.js"
     local action
     if @post

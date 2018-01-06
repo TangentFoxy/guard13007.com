@@ -103,7 +103,7 @@ $(function() {
 
   ptype.on('change', function() {
     var splat = $('#splat');
-    if (ptype.val() == 9) { // hardcoded :\
+    if (ptype.val() == splatPage) {
       splat.removeClass('is-invisible');
     } else {
       splat.addClass('is-invisible');

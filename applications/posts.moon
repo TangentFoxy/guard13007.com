@@ -140,7 +140,7 @@ class extends lapis.Application
 
       _, err = @post\update fields
       unless err
-        @info = "Post updated. #{fields.published_at}"
+        @info = "Post updated."
       else
         @info = "Failed to update post. #{err}"
 
