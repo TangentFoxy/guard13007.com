@@ -6,7 +6,7 @@ class PostIndex extends Widget
   content: =>
     widget Pagination
 
-    table class: "table is-bordered is-striped is-narrow is-fullwidth", ->
+    element "table", class: "table is-bordered is-striped is-narrow is-fullwidth", ->
       thead ->
         tr ->
           th "ID"
