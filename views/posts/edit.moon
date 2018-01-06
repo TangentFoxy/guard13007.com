@@ -102,8 +102,14 @@ class EditPost extends Widget
       div class: "control", ->
         div class: "buttons is-centered", ->
           if @post.text
-            input class: "button", type: "submit", value: "Update"
+            if @post.splat
+              a class: "button", href: "/#{@post.splat}", "View Post"
+            else
+              a class: "button", href: @url_for("posts_view", slug: @post.slug), "View Post"
+            input class: "button", type: "submit", value: "Update Post"
+            -- a class: "button", href: @url_for("posts_preview"), "Preview Changes"
           else
-            input class: "button", type: "submit", value: "Create"
+            input class: "button", type: "submit", value: "Create Post"
+            -- a class: "button", href: @url_for("posts_preview"), "Preview Post"
           input type: "hidden", name: "html", id: "html", value: @post.html
           input type: "hidden", name: "preview_html", id: "preview_html", value: @post.preview_html

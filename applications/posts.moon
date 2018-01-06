@@ -12,7 +12,16 @@ class extends lapis.Application
   @name: "posts_"
 
   [index: "s(/:page[%d])"]: =>
-    return "Temporarily out of order."
+    @page = tonumber(@params.page) or 1
+    Paginator = Posts\paginated "WHERE status = ? ORDER BY published_at DESC", Posts.statuses.published, per_page: 10
+
+    @last_page = Paginator\num_pages!
+    @posts = Paginator\get_page @page
+    if #@posts < 1 and @last_page > 0
+      return redirect_to: @url_for "posts_index", page: @last_page
+
+    @title = "All Posts - Page #{@page}"
+    return render: "posts.index"
 
   [view: "/:slug"]: =>
     if @post = Posts\find slug: @params.slug

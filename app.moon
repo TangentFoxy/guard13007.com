@@ -1,6 +1,7 @@
 lapis = require "lapis"
 
 import Posts from require "models"
+import default from require "layouts"
 
 class extends lapis.Application
   @before_filter =>
@@ -11,32 +12,36 @@ class extends lapis.Application
       @info = @session.info
       @session.info = nil
 
-  layout: "default2" -- TODO replace original when ready
+  layout: default
 
   @include "applications.posts"
+  @include "applications.githook"
+  @include "applications.redirects"
 
-  @include "githook"
   @include "users/users"
   @include "contact"
   @include "ksp"
-  @include "redirects"
   @include "polls"
   @include "blog"
   @include "keys"
   @include "misc"
   @include "1000cards"
-  @include "testing"
   @include "john"
   @include "greyout"
 
   [index: "/"]: =>
-    render: true
+    return render: true
 
-  "/submit": => redirect_to: @url_for "ksp_submit_crafts"
-
-  "/*": =>
+  [posts_splat: "/*"]: =>
     if @post = Posts\find splat: @params.splat
       @title = @post.title
       return render: "posts.view"
     else
+      @html ->
+        h1 "404"
+        p "That means you followed a broken link. :/"
       return status: 404 -- TODO write better error page
+
+  -- Legacy redirects
+  "/submit": => redirect_to: @url_for "ksp_submit_crafts"
+  "/ksp/*": => redirect_to: "/gaming/ksp/#{@params.splat}", status: 302

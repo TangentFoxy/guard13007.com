@@ -8,7 +8,7 @@ Crafts = require "models.Crafts"
 Users = require "users.models.Users"
 
 class extends lapis.Application
-    @path: "/ksp"
+    @path: "/gaming/ksp"
     @name: "ksp_"
 
     "/*": =>

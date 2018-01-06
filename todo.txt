@@ -1,12 +1,4 @@
 TODO
-- splat can be defined,
-  splat will direct to proper thing if url defined for it
-- slug auto-generated on page while editing,
-  can be modified to custom slug
-- preview_text auto-generated on page while editing,
-  can be modified to custom preview_text
-- type dropdown menu (will open splat definition
-   if stand_alone chosen)
 - setting of custom published_at needed
   (need to possibly find better way of combining
    this tool and scheduled?)
@@ -25,6 +17,3 @@ Note to self:
 - Need to have local fallback for SimpleMDE to get its icons.
 - Should use CDNs for content where available.
 - Want to have local fallback for all content. (?)
-
-- html and preview_html need to be generated client-side
-  for admin posts, saved

@@ -53,7 +53,7 @@ class extends html.Widget
                       li -> a href: "/videos", "All Videos"
                       li -> a href: "/playlists", "Playlists"
                       li ->
-                        a href: "/gaming", "Games"
+                        a href: "/gaming", "Gaming"
                         ul ->
                           li -> a href: "/gaming/ksp", "Kerbal Space Program"
                           li -> a href: "/gaming/starmade", "StarMade"
