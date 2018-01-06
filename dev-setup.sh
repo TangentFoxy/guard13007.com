@@ -7,6 +7,7 @@ set -o errexit   # exit on error
 #sudo apt-get install wget curl lua5.1 liblua5.1-0-dev zip unzip libreadline-dev libncurses5-dev libpcre3-dev openssl libssl-dev perl make build-essential postgresql nginx -y
 #Those should already be installed and probably were mostly only needed for compiling prerequisites of OpenResty/LuaRocks themselves.
 sudo luarocks install luacrypto
+sudo luarocks install markdown
 
 # No certificates
 
