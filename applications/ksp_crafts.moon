@@ -17,11 +17,11 @@ class KSPCraftsApp extends lapis.Application
     if @params.tab == "all" or @params.tab == nil
       Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 19
     elseif @params.tab == "pending"
-      Paginator = Crafts\paginated "WHERE status IN (?, ?, ?, ?, ?) ORDER BY id ASC", "priority", "imported", "pending", "delayed", "old", per_page: 19
+      Paginator = Crafts\paginated "WHERE status IN (?, ?, ?, ?, ?) ORDER BY id ASC", Crafts.statuses.priority, Crafts.statuses.imported, Crafts.statuses.pending, Crafts.statuses.delayed, Crafts.statuses.old, per_page: 19
     elseif not Crafts.statuses[@params.tab]
       return redirect_to: @url_for "ksp_crafts_index"
     else
-      Paginator = Crafts\paginated "WHERE status = ? ORDER BY id ASC", @params.tab, per_page: 19
+      Paginator = Crafts\paginated "WHERE status = ? ORDER BY id ASC", Crafts.statuses[@params.tab], per_page: 19
 
     @last_page = Paginator\num_pages!
     @crafts = Paginator\get_page @page
