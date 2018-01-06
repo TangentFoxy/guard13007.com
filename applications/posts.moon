@@ -20,7 +20,9 @@ class extends lapis.Application
     if #@posts < 1 and @last_page > 0
       return redirect_to: @url_for "posts_index", page: @last_page
 
-    @title = "All Posts - Page #{@page}"
+    @title = "All Posts (Page #{@page})"
+    @previous_label = "Most recent"
+    @next_label = "Oldest"
     return render: "posts.index"
 
   [view: "/:slug"]: =>

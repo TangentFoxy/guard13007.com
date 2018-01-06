@@ -1,5 +1,6 @@
 import Widget from require "lapis.html"
 import time_ago_in_words from require "lapis.util"
+import pretty_date from require "utility.date"
 import is_admin from require "utility.auth"
 
 class ViewPost extends Widget
@@ -9,7 +10,7 @@ class ViewPost extends Widget
     div class: "content", ->
       raw @post.html
     div class: "container has-text-centered", ->
-      h2 class: "subtitle", "Originally published #{time_ago_in_words @post.published_at, 2}"
+      h2 class: "subtitle", "Originally published #{pretty_date @post.published_at}"
       if is_admin @
         a class: "button", href: @url_for("posts_edit", id: @post.id), "Edit Post"
     div id: "disqus_thread"
