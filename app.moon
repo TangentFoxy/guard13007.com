@@ -17,10 +17,10 @@ class extends lapis.Application
   @include "applications.posts"
   @include "applications.githook"
   @include "applications.redirects"
+  @include "applications.ksp_crafts"
 
   @include "users/users"
   @include "contact"
-  @include "ksp"
   @include "polls"
   @include "blog"
   @include "keys"
