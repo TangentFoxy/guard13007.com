@@ -227,4 +227,25 @@ import create_table, types, drop_table, add_column, rename_column, rename_table 
   [30]: =>
     rename_column "crafts", "craft_name", "name"
     rename_column "crafts", "creator_name", "creator"
+  [31]: =>
+    markdown = require "markdown"
+    import Posts from require "models"
+    OldPosts = require "legacy.OldPosts"
+    oldPosts = OldPosts\select "WHERE status = 1 OR NOT status = 1"
+
+    for oldPost in *oldPosts
+      post, err = Posts\create {
+        title: oldPost.title
+        slug: oldPost.slug
+        text: oldPost.text
+        preview_text: oldPost.text\sub 1, 500
+        status: oldPost.status
+        type: Posts.types["blog post"]
+        published_at: oldPost.pubdate
+        created_at: oldPost.created_at
+        updated_at: oldPost.updated_at
+        html: markdown oldPost.text
+        preview_html: markdown oldPost.text\sub 1, 500
+      }
+      error err unless post
 }

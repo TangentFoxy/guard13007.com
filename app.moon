@@ -22,7 +22,6 @@ class extends lapis.Application
   @include "users/users"
   @include "contact"
   @include "polls"
-  @include "blog"
   @include "keys"
   @include "1000cards"
   @include "john"
