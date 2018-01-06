@@ -35,7 +35,7 @@ class KSPCraftsIndex extends Widget
           th "Notes"
       tbody ->
         the_date = os.date "*t", os.time!
-        for craft in *crafts
+        for craft in *@crafts
           tr ->
             td -> a href: @url_for("ksp_crafts_view", id: craft.id), craft.name
             name = craft.creator
