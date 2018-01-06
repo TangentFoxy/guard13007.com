@@ -6,20 +6,20 @@ class Posts extends Model
   @statuses: enum {
     draft: 1
     published: 2
-    scheduled: 3
+    scheduled: 3 -- /static/js/posts/edit.js relies on the numerical value
   }
 
   @types: enum {
-    undefined: 0 -- for imported posts / drafts / undecided
-    my_game: 1
-    my_video: 2
-    my_art: 3
-    game_page: 4
-    my_playlist: 5
-    my_review: 6
-    my_library: 7
-    my_tutorial: 8
-    stand_alone: 9 -- for posts with custom url
+    undefined: 0 -- views/posts.edit relies on the string value
+    "game page": 1
+    "video post (mine)": 2
+    "art post (mine)": 3
+    "game-specific videos page": 4
+    "playlist page (mine)": 5
+    "review post (mine)": 6
+    "software library page (mine)": 7
+    "tutorial post/page (mine)": 8
+    "stand-alone page (splat)": 9 -- /static/js/posts/edit.js relies on the numerical value
   }
 
   @constraints: {

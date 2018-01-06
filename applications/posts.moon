@@ -113,7 +113,6 @@ class extends lapis.Application
         -- slug is only modified if user modified it
         text: @params.text
         -- preview_text may not be set (if is default / generated)
-        -- NOTE this could be an error (if editing doesn't update a preview text)
         html: @params.html
         preview_html: @params.preview_html
         status: tonumber @params.status
@@ -141,7 +140,7 @@ class extends lapis.Application
 
       _, err = @post\update fields
       unless err
-        @info = "Post updated."
+        @info = "Post updated. #{fields.published_at}"
       else
         @info = "Failed to update post. #{err}"
 
