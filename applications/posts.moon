@@ -132,10 +132,10 @@ class extends lapis.Application
         fields.splat = @params.splat
 
       -- draft -> scheduled?
-      if @post.status == Posts.statuses.draft and @params.status == Posts.statuses.scheduled and @params.published_at and @params.published_at\len! > 0
+      if @post.status == Posts.statuses.draft and fields.status == Posts.statuses.scheduled and @params.published_at and @params.published_at\len! > 0
         fields.published_at = @params.published_at
       -- draft -> published / scheduled -> published
-      if @params.status == Posts.statuses.published and not @post.status == Posts.statuses.published
+      if fields.status == Posts.statuses.published and not @post.status == Posts.statuses.published
         fields.published_at = gdate.now!
 
       _, err = @post\update fields
