@@ -12,6 +12,7 @@ class KSPCraftsIndex extends Widget
 
     div class: "tabs is-centered", ->
       ul ->
+        @params.tab = "all" unless @params.tab
         for tab in *tabs
           if @params.tab == tab\lower!
             li class: "is-active", -> a tab
