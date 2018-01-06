@@ -11,15 +11,15 @@ class PostIndex extends Widget
       div class: "container has-text-centered", ->
         h2 class: "subtitle", post.title
       div class: "content", ->
-        h3 class: "subtitle is-6", pretty_date post.published_at
         raw post.preview_html
-        hr!
-        a href: @url_for("posts_view", slug: post.slug), "Read More"
-        text " ("
-        span class: "disqus-comment-count", "data-disqus-identifier": "https://guard13007.com#{@url_for "posts_view", slug: post.slug}"
-        text ")"
-      if is_admin @
-        div class: "container has-text-centered", ->
-          a class: "button", href: @url_for("posts_edit", id: post.id), "Edit Post"
+        h3 class: "subtitle is-6", ->
+          text "Published #{pretty_date post.published_at}. "
+          a href: @url_for("posts_view", slug: post.slug), "Read More"
+          text " ("
+          span class: "disqus-comment-count", "data-disqus-identifier": "https://guard13007.com#{@url_for "posts_view", slug: post.slug}"
+          text ")"
+          if is_admin @
+            text " "
+            a href: @url_for("posts_edit", id: post.id), "Edit Post"
 
     widget Pagination
