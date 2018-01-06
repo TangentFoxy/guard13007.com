@@ -40,7 +40,7 @@ class Crafts extends Model
           value = "https://#{value\sub 8}"
         elseif value\sub(1, 8) != "https://"
           value = "https://#{value}"
-        t = value
+
         if starts(value, "https://dropbox.com") or starts(value, "https://www.dropbox.com")
           return "Dropbox cannot be used to host images."
         if starts(value, "https://youtube.com") or starts(value, "https://www.youtube.com")
@@ -51,6 +51,8 @@ class Crafts extends Model
           return "Steam's user images are not securely served, so I cannot accept them."
         --if starts(value, "https://imgur.com/")
           -- TODO fix with a PNG, JPG, or GIF extension and i.imgur.com
+
         _, http_status = http.simple value
-        if http_status == 404 or http_status == 403 or http_status == 500 or http_status == 301 or http_status == 302
+        if (http_status == 404) or (http_status == 403) or (http_status == 500) or (http_status == 301) or (http_status == 302)
           return "Image URL is invalid."
+  }
