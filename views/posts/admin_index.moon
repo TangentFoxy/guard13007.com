@@ -26,7 +26,7 @@ class PostIndex extends Widget
             td Posts.types\to_name post.type
             td post.updated_at
             td post.created_at
-            td ->
+            td -> div class: "buttons", ->
               a class: "button", href: @url_for("posts_view", slug: post.slug), "View"
               a class: "button", href: @url_for("posts_edit", id: post.id), "Edit"
               a class: "button", href: @url_for("posts_delete", id: post.id), onclick: "return confirm('Are you sure you want to delete this post?');", "Delete"
