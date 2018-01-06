@@ -87,7 +87,7 @@ $(function() {
     }
   });
 
-  simplemde.codemirror.on('change', function() {
+  updateGeneratedHTML = function() {
     preview_text.placeholder = simplemde.value().substring(0, 500);
     _html.val(marked(simplemde.value()));
 
@@ -96,7 +96,10 @@ $(function() {
     } else {
       preview_html.val(marked(preview_text.placeholder));
     }
-  });
+  };
+
+  simplemde.codemirror.on('change', updateGeneratedHTML);
+  $("#preview_text").on("change", updateGeneratedHTML);
 
   var ptype = $('#type');
   var status = $('#status');
