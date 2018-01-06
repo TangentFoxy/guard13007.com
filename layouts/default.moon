@@ -55,7 +55,13 @@ class extends html.Widget
                       li ->
                         a href: "/gaming", "Gaming"
                         ul ->
-                          li -> a href: "/gaming/ksp", "Kerbal Space Program"
+                          -- li -> a href: "/gaming/ksp", "Kerbal Space Program"
+                          li ->
+                            a href: "/gaming/ksp", "Kerbal Space Program"
+                            div class: "navbar-item menu", ->
+                              ul class: "menu-list", ->
+                                li -> a href: "/gaming/ksp/crafts", "View submitted craft"
+                                li -> a href: "/gaming/ksp/submit", "Submit a craft"
                           li -> a href: "/gaming/starmade", "StarMade"
               div class: "navbar-item has-dropdown is-hoverable", ->
                 p class: "navbar-link is-unselectable", "Blog"

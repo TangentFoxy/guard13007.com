@@ -7,7 +7,7 @@ import is_admin from require "utility.auth"
 
 gdate = require "utility.date"
 
-class extends lapis.Application
+class PostsApp extends lapis.Application
   @path: "/post"
   @name: "posts_"
 
@@ -20,7 +20,7 @@ class extends lapis.Application
     if #@posts < 1 and @last_page > 0
       return redirect_to: @url_for "posts_index", page: @last_page
 
-    @title = "All Posts (Page #{@page})"
+    @title = "All Site Posts & Pages"
     @previous_label = "Most recent"
     @next_label = "Oldest"
     return render: "posts.index"
@@ -45,7 +45,7 @@ class extends lapis.Application
     if #@posts < 1 and @last_page > 0
       return redirect_to: @url_for "posts_admin_index", page: @last_page
 
-    @title = "Admin Posts Index (Page #{@page})"
+    @title = "Admin Posts Index"
     return render: "posts.admin_index"
 
   [new: "/new"]: respond_to {

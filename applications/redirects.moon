@@ -1,6 +1,6 @@
 lapis = require "lapis"
 
-class extends lapis.Application
+class RedirectsApp extends lapis.Application
   @path: "/redirects"
 
   "/discord": =>
