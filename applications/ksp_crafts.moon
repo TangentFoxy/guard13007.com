@@ -13,6 +13,7 @@ class KSPCraftsApp extends lapis.Application
   [index: "/crafts(/:tab[%l])(/:page[%d])"]: =>
     @page = tonumber(@params.page) or 1
 
+    local Paginator
     if @params.tab == "all" or @params.tab == nil
       Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 19
     elseif @params.tab == "pending"
