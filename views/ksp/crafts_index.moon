@@ -16,7 +16,7 @@ class KSPCraftsIndex extends Widget
           if @params.tab == tab\lower!
             li class: "is-active", -> a tab
           else
-            li -> a href: @url_for("ksp_crafts_index", :tab), tab
+            li -> a href: @url_for("ksp_crafts_index", tab: tab\lower!), tab
 
     widget Pagination
 
