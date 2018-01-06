@@ -124,7 +124,7 @@ import create_table, types, drop_table, add_column, rename_column, rename_table 
     drop_table "colors"
   [17]: =>
     db.update "crafts", {
-      user_id: 0 --what to change
+      user_id: 0 --change to
     }, {
       user_id: 1 --matching what
     }
@@ -217,5 +217,11 @@ import create_table, types, drop_table, add_column, rename_column, rename_table 
     create_table "post_tags", {
       {"post_id", types.foreign_key}
       {"tag_id", types.foreign_key}
+    }
+  [29]: =>
+    db.update "posts", {
+      type: 7 --change to
+    }, {
+      type: 9 --matching what
     }
 }
