@@ -107,9 +107,8 @@ class EditPost extends Widget
             else
               a class: "button", href: @url_for("posts_view", slug: @post.slug), "View Post"
             input class: "button", type: "submit", value: "Update Post"
-            -- a class: "button", href: @url_for("posts_preview"), "Preview Changes"
+            a class: "button", href: @url_for("posts_delete", id: @post.id), onclick: "return confirm('Are you sure you want to delete this post?');", "Delete Post"
           else
             input class: "button", type: "submit", value: "Create Post"
-            -- a class: "button", href: @url_for("posts_preview"), "Preview Post"
           input type: "hidden", name: "html", id: "html", value: @post.html
           input type: "hidden", name: "preview_html", id: "preview_html", value: @post.preview_html

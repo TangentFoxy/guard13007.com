@@ -8,10 +8,8 @@ class PostIndex extends Widget
     widget Pagination
 
     for post in *@posts
-      -- div class: "container", ->
-      --   h2 class: "subtitle", post.title
       div class: "content", ->
-        h2 class: "subtitle", post.title
+        h2 post.title
         raw post.preview_html
         h3 class: "subtitle is-6", ->
           a href: @url_for("posts_view", slug: post.slug), "Read More"
