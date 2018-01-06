@@ -91,7 +91,7 @@ class extends lapis.Application
           if post.status != Posts.statuses.draft
             return redirect_to: @url_for "posts_view", slug: post.slug
           else
-            return redirect_to: url_for "posts_edit", id: post.id
+            return redirect_to: @url_for "posts_edit", id: post.id
       else
         @session.info = "Failed to create post. #{err}"
         return redirect_to: @url_for "posts_new"
