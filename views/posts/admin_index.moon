@@ -17,6 +17,16 @@ class PostIndex extends Widget
           th "Created"
           th "View/Edit/Delete"
           th "Comments"
+      tfoot ->
+        tr ->
+          th "ID"
+          th "Title"
+          th "Status"
+          th "Type"
+          th "Updated"
+          th "Created"
+          th "View/Edit/Delete"
+          th "Comments"
       tbody ->
         for post in *@posts
           tr ->

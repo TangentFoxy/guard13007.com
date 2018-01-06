@@ -224,4 +224,7 @@ import create_table, types, drop_table, add_column, rename_column, rename_table 
     }, {
       type: 9 --matching what
     }
+  [30]: =>
+    rename_column "crafts", "craft_name", "name"
+    rename_column "crafts", "creator_name", "creator"
 }
