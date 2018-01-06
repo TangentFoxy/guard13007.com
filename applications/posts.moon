@@ -150,14 +150,15 @@ class extends lapis.Application
   }
 
   [delete: "/delete/:id[%d]"]: =>
-    if is_admin @
-      if post = Posts\find id: @params.id
-        if post\delete!
-          @session.info = "Post deleted."
-        else
-          @session.info = "Error while deleting post!"
-          return redirect_to: @url_for "posts_edit", id: @params.id
-      else
-        @session.info = "A post with ID #{@params.id} does not exist. (Perhaps it was already deleted?)"
+    unless is_admin @ return redirect_to: @url_for "posts_index"
 
-    return redirect_to: @url_for "posts_index"
+    if post = Posts\find id: @params.id
+      if post\delete!
+        @session.info = "Post deleted."
+      else
+        @session.info = "Error while deleting post!"
+        return redirect_to: @url_for "posts_edit", id: @params.id
+    else
+      @session.info = "A post with ID #{@params.id} does not exist. (Perhaps it was already deleted?)"
+
+    return redirect_to: @url_for "posts_admin_index"
