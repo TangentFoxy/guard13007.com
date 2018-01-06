@@ -12,9 +12,9 @@ class OldPosts extends Model
     title: (value) =>
       if not value or value\len! < 1
         return "Must have a title."
-      if Posts\find title: value
+      if OldPosts\find title: value
         return "A post with that title has already been created."
     slug: (value) =>
-      if Posts\find slug: value
+      if OldPosts\find slug: value
         return "A post with too similar a title has already been created."
     }
