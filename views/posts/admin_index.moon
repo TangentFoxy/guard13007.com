@@ -37,7 +37,10 @@ class PostIndex extends Widget
             td post.updated_at
             td post.created_at
             td -> div class: "buttons", ->
-              a class: "button", href: @url_for("posts_view", slug: post.slug), "View"
+              if post.splat
+                a class: "button", href: "/#{post.splat}", "View"
+              else
+                a class: "button", href: @url_for("posts_view", slug: post.slug), "View"
               a class: "button", href: @url_for("posts_edit", id: post.id), "Edit"
               a class: "button", href: @url_for("posts_delete", id: post.id), onclick: "return confirm('Are you sure you want to delete this post?');", "Delete"
             td -> span class: "disqus-comment-count", "data-disqus-identifier": "https://guard13007.com#{@url_for "posts_view", slug: post.slug}"

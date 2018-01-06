@@ -24,7 +24,6 @@ class extends lapis.Application
   @include "polls"
   @include "blog"
   @include "keys"
-  @include "misc"
   @include "1000cards"
   @include "john"
   @include "greyout"

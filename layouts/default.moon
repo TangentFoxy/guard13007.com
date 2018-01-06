@@ -70,7 +70,7 @@ class extends html.Widget
                     ul class: "menu-list", ->
                       li -> a href: "/posts", "All Posts"
                       li -> a href: "/blog/art", "Art"
-                      li -> a href: "/blog/reviewws", "Reviews"
+                      li -> a href: "/blog/reviews", "Reviews"
               div class: "navbar-item has-dropdown is-hoverable", ->
                 p class: "navbar-link is-unselectable", "Code"
                 div class: "navbar-dropdown", ->
