@@ -17,9 +17,7 @@ class extends html.Widget
           })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
           ga('create', 'UA-82645104-1', 'auto'); ga('send', 'pageview');"
-        -- link rel: "stylesheet", href:  "/static/css/pure-min.css"
         link rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css", integrity: "sha256-v5YlJGWVLS5hQ+o48fBzCKHEP2vMNsku57x3CosYykc=", crossorigin: "anonymous"
-        -- link rel: "stylesheet", href:  "/static/css/site.css"
         meta name: "viewport", content: "width=device-width, initial-scale=1"
         script src: "/static/js/burgers.js"
       body ->
@@ -39,15 +37,15 @@ class extends html.Widget
               -- TODO update hrefs to point towards @url_for sources
               a class: "navbar-item", href: "/faq", "FAQ"
               div class: "navbar-item has-dropdown is-hoverable", ->
-                a class: "navbar-link", "My Games"
-                div class: "navbar-dropdown", ->
+                p class: "navbar-link is-unselectable", "data-target": "games", "My Games"
+                div class: "navbar-dropdown", id: "games", ->
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
                       li -> a href: "/games", "All Games"
                       li -> a href: "/games/support", "Support"
               div class: "navbar-item has-dropdown is-hoverable", ->
-                a class: "navbar-link", "Videos"
-                div class: "navbar-dropdown", ->
+                p class: "navbar-link is-unselectable", "data-target": "videos", "Videos"
+                div class: "navbar-dropdown", id: "videos", ->
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
                       li -> a href: "/videos", "All Videos"
@@ -64,16 +62,16 @@ class extends html.Widget
                                 li -> a href: "/gaming/ksp/submit", "Submit a craft"
                           li -> a href: "/gaming/starmade", "StarMade"
               div class: "navbar-item has-dropdown is-hoverable", ->
-                a class: "navbar-link", "Blog"
-                div class: "navbar-dropdown", ->
+                p class: "navbar-link is-unselectable", "data-target": "blog", "Blog"
+                div class: "navbar-dropdown", id: "blog", ->
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
                       li -> a href: "/posts", "All Posts"
                       li -> a href: "/blog/art", "Art"
                       li -> a href: "/blog/reviews", "Reviews"
               div class: "navbar-item has-dropdown is-hoverable", ->
-                a class: "navbar-link", "Code"
-                div class: "navbar-dropdown", ->
+                p class: "navbar-link is-unselectable", "data-target": "code", "Code"
+                div class: "navbar-dropdown", id: "code", ->
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
                       li -> a href: "/code", "All Code"
@@ -86,8 +84,8 @@ class extends html.Widget
                       li -> a href: "/code/portfolio", "Portfolio"
                       li -> a href: "/code/resume", "Resume"
               div class: "navbar-item has-dropdown is-hoverable", ->
-                a class: "navbar-link", "Contact"
-                div class: "navbar-dropdown", ->
+                p class: "navbar-link is-unselectable", "data-target": "contact", "Contact"
+                div class: "navbar-dropdown", id: "contact", ->
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
                       li -> a href: "/contact", "Contact Info"
@@ -111,8 +109,8 @@ class extends html.Widget
           div class: "navbar-brand", ->
             if is_admin @
               div class: "navbar-item has-dropdown has-dropdown-up is-hoverable", ->
-                a class: "navbar-link", "Admin"
-                div class: "navbar-dropdown", ->
+                p class: "navbar-link is-unselectable", "data-target": "admin", "Admin"
+                div class: "navbar-dropdown", id: "admin", ->
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
                       li -> a href: @url_for("posts_admin_index"), "All Posts"
