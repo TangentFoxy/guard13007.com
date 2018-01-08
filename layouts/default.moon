@@ -17,9 +17,7 @@ class extends html.Widget
           })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
           ga('create', 'UA-82645104-1', 'auto'); ga('send', 'pageview');"
-        -- link rel: "stylesheet", href:  "/static/css/pure-min.css"
         link rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css", integrity: "sha256-v5YlJGWVLS5hQ+o48fBzCKHEP2vMNsku57x3CosYykc=", crossorigin: "anonymous"
-        -- link rel: "stylesheet", href:  "/static/css/site.css"
         meta name: "viewport", content: "width=device-width, initial-scale=1"
         script src: "/static/js/burgers.js"
       body ->
@@ -39,14 +37,14 @@ class extends html.Widget
               -- TODO update hrefs to point towards @url_for sources
               a class: "navbar-item", href: "/faq", "FAQ"
               div class: "navbar-item has-dropdown is-hoverable", ->
-                a class: "navbar-link", "My Games"
+                p class: "navbar-link is-unselectable", "My Games"
                 div class: "navbar-dropdown", ->
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
                       li -> a href: "/games", "All Games"
                       li -> a href: "/games/support", "Support"
               div class: "navbar-item has-dropdown is-hoverable", ->
-                a class: "navbar-link", "Videos"
+                p class: "navbar-link is-unselectable", "Videos"
                 div class: "navbar-dropdown", ->
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
@@ -64,7 +62,7 @@ class extends html.Widget
                                 li -> a href: "/gaming/ksp/submit", "Submit a craft"
                           li -> a href: "/gaming/starmade", "StarMade"
               div class: "navbar-item has-dropdown is-hoverable", ->
-                a class: "navbar-link", "Blog"
+                p class: "navbar-link is-unselectable", "Blog"
                 div class: "navbar-dropdown", ->
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
@@ -72,7 +70,7 @@ class extends html.Widget
                       li -> a href: "/blog/art", "Art"
                       li -> a href: "/blog/reviews", "Reviews"
               div class: "navbar-item has-dropdown is-hoverable", ->
-                a class: "navbar-link", "Code"
+                p class: "navbar-link is-unselectable", "Code"
                 div class: "navbar-dropdown", ->
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
@@ -86,7 +84,7 @@ class extends html.Widget
                       li -> a href: "/code/portfolio", "Portfolio"
                       li -> a href: "/code/resume", "Resume"
               div class: "navbar-item has-dropdown is-hoverable", ->
-                a class: "navbar-link", "Contact"
+                p class: "navbar-link is-unselectable", "Contact"
                 div class: "navbar-dropdown", ->
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
@@ -111,7 +109,7 @@ class extends html.Widget
           div class: "navbar-brand", ->
             if is_admin @
               div class: "navbar-item has-dropdown has-dropdown-up is-hoverable", ->
-                a class: "navbar-link", "Admin"
+                p class: "navbar-link is-unselectable", "Admin"
                 div class: "navbar-dropdown", ->
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
