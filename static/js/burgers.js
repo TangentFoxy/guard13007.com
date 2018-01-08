@@ -10,15 +10,4 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   }
-
-  var dropdowns = Array.prototype.slice.call(document.querySelectorAll('.navbar-dropdown'), 0);
-
-  if (dropdowns.length > 0) {
-    dropdowns.forEach(function(e) {
-      e.addEventListener('click', function() {
-        var target = document.getElementById(e.dataset.target);
-        target.classList.toggle('is-active');
-      });
-    });
-  }
 });
