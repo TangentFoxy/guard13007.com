@@ -8,6 +8,11 @@ class KSPCraftsSearchWidget extends Widget
         -- style: "display: inline-block;"
     }, ->
       div class: "field has-addons", ->
+        div class: "control", ->
+          a href: @url_for("ksp_crafts_index"), "View submitted crafts"
+        div class: "control", ->
+          a href: @url_for("ksp_crafts_submit"), "Submit a craft!"
+
         div class: "control is-expanded", ->
           input class: "input", type: "text", name: "name", placeholder: "Search for Craft", value: @params.name
         -- div class: "control", ->
