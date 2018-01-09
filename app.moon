@@ -34,10 +34,8 @@ class extends lapis.Application
       @title = @post.title
       return render: "posts.view"
     else
-      @html ->
-        h1 "404"
-        p "That means you followed a broken link. :/"
-      return status: 404 -- TODO write better error page
+      @title = "404"
+      return render: "404", status: 404
 
   -- Legacy redirects
   "/submit": => redirect_to: @url_for "ksp_submit_crafts"

@@ -89,7 +89,10 @@ class PostsApp extends lapis.Application
       if post
           @session.info = "Post created!"
           if post.status != Posts.statuses.draft
-            return redirect_to: @url_for "posts_view", slug: post.slug
+            if post.splat
+              return redirect_to: "/#{post.splat}"
+            else
+              return redirect_to: @url_for "posts_view", slug: post.slug
           else
             return redirect_to: @url_for "posts_edit", id: post.id
       else

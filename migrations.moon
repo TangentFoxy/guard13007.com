@@ -248,4 +248,9 @@ import create_table, types, drop_table, add_column, rename_column, rename_table 
         preview_html: markdown oldPost.text\sub 1, 500
       }
       error err unless post
+  [32]: =>
+    create_table "craft_tags", {
+      {"craft_id", types.foreign_key}
+      {"tag_id", types.foreign_key}
+    }
 }
