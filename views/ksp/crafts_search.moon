@@ -5,6 +5,7 @@ import KSPCraftsSearchWidget from require "widgets"
 class KSPCraftsSearch extends Widget
   content: =>
     widget KSPCraftsSearchWidget
+    br!
 
     if @crafts
       if  #@crafts > 0
