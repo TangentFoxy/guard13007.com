@@ -23,7 +23,8 @@ class KSPCraftsView extends Widget
     script -> raw "document.getElementById('description').innerHTML = marked('#{description}');"
 
     if Crafts.statuses.reviewed == @craft.status
-      div class: "yt-embed", -> iframe src: "https://www.youtube.com/embed/#{@craft.episode}", frameborder: 0, allowfullscreen: true
+      div class: "yt-embed", ->
+        div -> iframe src: "https://www.youtube.com/embed/#{@craft.episode}", frameborder: 0, allowfullscreen: true
 
     the_date = os.date "*t", os.time!
     if the_date.month == 4 and the_date.day == 1
