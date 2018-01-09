@@ -18,7 +18,7 @@ class KSPCraftsView extends Widget
     description = @craft.description\gsub("\\", "\\\\\\\\")\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</'+'script>")
     script -> raw "document.getElementById('description').innerHTML = marked('#{description}');"
 
-    if Crafts.statuses.reviewed == craft.status
+    if Crafts.statuses.reviewed == @craft.status
       div class: "yt-embed", -> iframe src: "https://www.youtube.com/embed/#{@craft.episode}", frameborder: 0, allowfullscreen: true
 
     the_date = os.date "*t", os.time!
@@ -41,7 +41,7 @@ class KSPCraftsView extends Widget
 
     if @session.id
       if user = Users\find id: @session.id
-        if @session.id == craft.user_id or user.admin
+        if @session.id == @craft.user_id or user.admin
           hr!
           p "TODO: Form for editing the submission."
 
