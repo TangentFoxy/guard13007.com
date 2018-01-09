@@ -20,7 +20,6 @@ class extends lapis.Application
   @include "applications.ksp_crafts"
 
   @include "users/users"
-  @include "contact"
   @include "polls"
   @include "keys"
   @include "1000cards"
