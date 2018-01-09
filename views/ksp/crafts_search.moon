@@ -27,13 +27,13 @@ class KSPCraftsSearch extends Widget
           for craft in *@crafts
             tr ->
               td craft.name
-              local name = craft.creator
+              name = craft.creator
               if craft.user_id != 0
                 if user = Users\find id: craft.user_id
                   name = user.name
               td name
               td craft.ksp_version
-              local status = Crafts.statuses\to_name craft.status
+              status = Crafts.statuses\to_name craft.status
               td class: status, status
               if Crafts.statuses.reviewed == craft.status
                 td -> ah ref: "https://youtube.com/watch?v=#{craft.episode}", target: "_blank", "Watch on YouTube"
