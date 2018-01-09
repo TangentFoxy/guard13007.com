@@ -1,17 +1,17 @@
 import Model, enum from require "lapis.db.model"
 
 class Keys extends Model
-    @timestamp: true
+  @timestamp: true
 
-    @types: enum {
-        steam: 1
-        humblebundle: 2
-        origin: 3
-        uplay: 4
-        other: 5
-    }
+  @types: enum {
+    steam: 1
+    humblebundle: 2
+    origin: 3
+    uplay: 4
+    other: 5
+  }
 
-    @statuses: enum {
-        unclaimed: 1
-        claimed: 2
-    }
+  @statuses: enum {
+    unclaimed: 1
+    claimed: 2
+  }
