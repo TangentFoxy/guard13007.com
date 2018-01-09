@@ -1,8 +1,11 @@
 import Widget from require "lapis.html"
 import Crafts, Users from require "models"
+import KSPCraftsSearchWidget from require "widgets"
 
 class KSPCraftsView extends Widget
   content: =>
+    widget KSPCraftsSearchWidget
+
     script src: "/static/js/marked.min.js"
     link rel: "stylesheet", href: "/static/highlight/styles/solarized-dark.css"
     script src: "/static/highlight/highlight.pack.js"

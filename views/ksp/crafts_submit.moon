@@ -1,7 +1,10 @@
 import Widget from require "lapis.html"
+import KSPCraftsSearchWidget from require "widgets"
 
 class KSPCraftsSubmit extends Widget
   content: =>
+    widget KSPCraftsSearchWidget
+
     link rel: "stylesheet", href: "/static/simplemde/simplemde.min.css"
     script src: "/static/simplemde/simplemde.min.js"
     link rel: "stylesheet", href: "/static/highlight/styles/solarized-dark.css"

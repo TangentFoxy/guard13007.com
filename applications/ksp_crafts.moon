@@ -22,6 +22,7 @@ class KSPCraftsApp extends lapis.Application
       return redirect_to: @url_for "ksp_crafts_index"
     else
       Paginator = Crafts\paginated "WHERE status = ? ORDER BY id ASC", Crafts.statuses[@params.tab], per_page: 19
+      -- TODO use tag if it exists, else redirect_to index
 
     @last_page = Paginator\num_pages!
     @crafts = Paginator\get_page @page
@@ -87,5 +88,21 @@ class KSPCraftsApp extends lapis.Application
         @info = "Craft submission failed: #{err}"
         return render: "ksp.crafts_submit"
   }
+
+  [search: "/search"]: =>
+    if @params.query and @params.query\len! > 0 -- legacy
+      @params.name = @params.query
+
+    if @params.name and @params.name\len! > 0
+      if @params.version and @params.version\len! > 0
+        @title = "KSP Crafts Search: #{@params.name} v#{@params.version}"
+        @crafts = Crafts\select "WHERE (name LIKE ? OR creator LIKE ? OR description LIKE ?) AND ksp_version LIKE ? ORDER BY id ASC", "%"..@params.name.."%", "%"..@params.name.."%", "%"..@params.name.."%", "%"..@params.version.."%"
+      else
+        @title = "KSP Crafts Search: #{@params.name}"
+        @crafts = Crafts\select "WHERE name LIKE ? OR creator LIKE ? OR description LIKE ? ORDER BY id ASC", "%"..@params.name.."%", "%"..@params.name.."%", "%"..@params.name.."%"
+    else
+      @title = "KSP Crafts Search"
+
+    return render: "ksp.crafts_search"
 
   "/craft": => return redirect_to: @url_for "ksp_crafts_list"

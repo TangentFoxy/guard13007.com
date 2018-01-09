@@ -1,6 +1,6 @@
 import Widget from require "lapis.html"
 import Crafts, Users from require "models"
-import Pagination from require "widgets"
+import Pagination, KSPCraftsSearchWidget from require "widgets"
 
 tabs = {
   "All", "Reviewed", "Pending", "New", "Rejected"
@@ -8,8 +8,9 @@ tabs = {
 
 class KSPCraftsIndex extends Widget
   content: =>
-    -- TODO search widget here
+    widget KSPCraftsSearchWidget
 
+    link rel: "stylesheet", href: "/static/css/ksp.css"
     div class: "tabs is-centered", ->
       ul ->
         @params.tab = "all" unless @params.tab
