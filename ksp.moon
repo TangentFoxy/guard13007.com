@@ -116,7 +116,7 @@ class extends lapis.Application
                             (d.head || d.body).appendChild(s);
                         })();"
 
-            else
+            --else
                 @session.info = "That craft does not exist."
                 return redirect_to: @url_for "ksp_craft_list"
 
