@@ -1,15 +1,34 @@
 import Widget from require "lapis.html"
-import Crafts, Users from require "models"
+import Crafts, CraftTags, Users from require "models"
 import KSPCraftsSearchWidget from require "widgets"
 
 class KSPCraftsView extends Widget
   content: =>
     widget KSPCraftsSearchWidget
 
-    script src: "/static/js/marked.min.js"
+    link rel: "stylesheet", href: "/static/simplemde/simplemde.min.css"
+    script src: "/static/simplemde/simplemde.min.js"
     link rel: "stylesheet", href: "/static/highlight/styles/solarized-dark.css"
     script src: "/static/highlight/highlight.pack.js"
+    script src: "/static/js/marked.min.js"
     script -> raw "
+      window.onload = function () { var simplemde = new SimpleMDE({
+        autosave: {
+          enabled: true,
+          uniqueId: '#{@url_for "ksp_crafts_submit"}'
+        },
+        indentWithTabs: false,
+        insertTexts: {
+          link: ['[', '](https://)']
+        },
+        parsingConfig: {
+          strikethrough: false
+        },
+        renderingConfig: {
+          singleLineBreaks: false,
+          codeSyntaxHighlighting: true
+        }
+      }); }
       marked.setOptions({
         highlight: function(code) { return hljs.highlightAuto(code).value; },
         sanitize: true,
@@ -17,7 +36,7 @@ class KSPCraftsView extends Widget
       });
       hljs.initHighlightingOnLoad();
     "
-    div id: "description"
+    div id: "description", class: "content"
     description = @craft.description\gsub("\\", "\\\\\\\\")\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</'+'script>")
     script -> raw "document.getElementById('description').innerHTML = marked('#{description}');"
 
@@ -47,11 +66,74 @@ class KSPCraftsView extends Widget
       if user = Users\find id: @session.id
         if @session.id == @craft.user_id or user.admin
           hr!
-          p "TODO: Form for editing the submission."
+          form {
+            action: @url_for "ksp_crafts_view", id: @craft.id
+            method: "POST"
+            enctype: "multipart/form-data"
+          }, ->
+            div class: "field is-grouped is-grouped-centered", ->
+              div class: "control is-expanded", ->
+                input class: "input", type: "text", name: "name", placeholder: "Craft Name"
+              div class: "control is-expanded", ->
+                input class: "input", type: "text", name: "download_link", placeholder: "Craft Link"
+              div class: "control is-expanded", ->
+                input class: "input", type: "text", name: "picture", placeholder: "Image URL"
+
+            div class: "field", ->
+              div class: "control", ->
+                textarea class: "textarea", rows: 8, name: "description", placeholder: "Description"
+              div class: "control", ->
+                textarea class: "textarea", rows: 2, cols: 60, name: "action_groups", placeholder: "Action Groups"
+
+            div class: "field is-grouped is-grouped-centered", ->
+              div class: "control is-expanded", ->
+                input class: "input", type: "text", name: "ksp_version", placeholder: "KSP Version"
+              div class: "control is-expanded", ->
+                input class: "input", type: "text", name: "mods_used", placeholder: "Mods Used"
+
+            div class: "control", ->
+              div class: "buttons is-centered", ->
+                input class: "button", type: "submit", value: "Update"
 
         if user.admin
           hr!
-          p "TODO: Form for editing as admin."
+          form {
+            action: @url_for "ksp_crafts_view", id: @craft.id
+            method: "POST"
+            enctype: "multipart/form-data"
+          }, ->
+            div class: "field is-grouped is-grouped-centered", ->
+              div class: "control is-expanded", ->
+                element "select", name: "status", ->
+                  option value: 0, "new" -- hardcoded :/
+                  for status in *Crafts.statuses
+                    if status == Crafts.statuses[@craft.status]
+                      option value: Crafts.statuses[status], selected: true, status
+                    else
+                      option value: Crafts.statuses[status], status
+              div class: "control is-expanded", ->
+                input class: "input", type: "text", name: "episode", placeholder: @craft.episode
+              div class: "control is-expanded", ->
+                input class: "input", type: "text", name: "tags", placeholder: "tags", value: CraftTags\to_string craft_id: @craft.id
+
+            div class: "field is-grouped is-grouped-centered", ->
+              div class: "control is-expanded", ->
+                input class: "input", type: "text", name: "creator", placeholder: "Creator", value: @craft.creator
+              div class: "control is-expanded", ->
+                input class: "input", type: "text", name: "user_id", value: @craft.user_id
+              div class: "control is-expanded", ->
+                input class: "input", type: "text", name: "notes", placeholder: "Notes", value: @craft.notes
+          hr!
+          form {
+            action: @url_for "ksp_crafts_view", id: @craft.id
+            method: "POST"
+            enctype: "multipart/form-data"
+            onsubmit: "return confirm('Are you sure you want to do this?');"
+          }, ->
+            text "Delete craft? "
+            input type: "checkbox", name: "delete"
+            br!
+            input type: "submit"
 
     hr!
     div id: "disqus_thread"
@@ -67,71 +149,3 @@ class KSPCraftsView extends Widget
         (d.head || d.body).appendChild(s);
       })();
     "
-
-                        --     form {
-                        --         action: @url_for "ksp_craft", id: craft.id
-                        --         method: "POST"
-                        --         enctype: "multipart/form-data"
-                        --     }, ->
-                        --         text "Craft name: "
-                        --         input type: "text", name: "craft_name", value: craft.craft_name
-                        --         br!
-                        --         p "Description:"
-                        --         textarea cols: 60, rows: 5, name: "description", craft.description
-                        --         br!
-                        --         text "Craft link: "
-                        --         input type: "text", name: "download_link", value: craft.download_link
-                        --         br!
-                        --         text "Image URL: "
-                        --         input type: "text", name: "picture", value: craft.picture
-                        --         br!
-                        --         p "Action groups:"
-                        --         textarea cols: 60, rows: 3, name: "action_groups", craft.action_groups
-                        --         br!
-                        --         text "KSP version: "
-                        --         input type: "text", name: "ksp_version", value: craft.ksp_version
-                        --         br!
-                        --         text "Mods used: "
-                        --         input type: "text", name: "mods_used", value: craft.mods_used
-                        --         br!
-                        --         input type: "submit"
-                        --
-                        -- if user.admin
-                        --     hr!
-                        --     form {
-                        --         action: @url_for "ksp_craft", id: craft.id
-                        --         method: "POST"
-                        --         enctype: "multipart/form-data"
-                        --     }, ->
-                        --         text "Status: "
-                        --         element "select", name: "status", ->
-                        --             option value: 0, "new" -- shoddy work-around on my part...
-                        --             for status in *Crafts.statuses
-                        --                 if status == Crafts.statuses[craft.status]
-                        --                     option value: Crafts.statuses[status], selected: true, status
-                        --                 else
-                        --                     option value: Crafts.statuses[status], status
-                        --         text " Episode: "
-                        --         input type: "text", name: "episode", placeholder: craft.episode
-                        --         text " Notes: "
-                        --         input type: "text", name: "notes", value: craft.notes
-                        --         br!
-                        --         text "Creator name: "
-                        --         input type: "text", name: "creator_name", value: craft.creator_name
-                        --         br!
-                        --         text "User ID: "
-                        --         input type: "number", name: "user_id", value: craft.user_id
-                        --         br!
-                        --         input type: "submit"
-                        --
-                        --     hr!
-                        --     form {
-                        --         action: @url_for "ksp_craft", id: craft.id
-                        --         method: "POST"
-                        --         enctype: "multipart/form-data"
-                        --         onsubmit: "return confirm('Are you sure you want to do this?');"
-                        --     }, ->
-                        --         text "Delete craft? "
-                        --         input type: "checkbox", name: "delete"
-                        --         br!
-                        --         input type: "submit"

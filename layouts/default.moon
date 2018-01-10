@@ -36,7 +36,6 @@ class extends html.Widget
               span!
           div id: "navbar", class: "navbar-menu", ->
             div class: "navbar-start", ->
-              -- TODO update hrefs to point towards @url_for sources
               a class: "navbar-item", href: "/faq", "FAQ"
               a class: "navbar-item", href: "/games", "My Games"
               -- div class: "navbar-item has-dropdown is-hoverable", ->
@@ -73,20 +72,21 @@ class extends html.Widget
               --         li -> a href: "/posts", "All Posts"
               --         li -> a href: "/blog/art", "Art"
               --         li -> a href: "/blog/reviews", "Reviews"
-              div class: "navbar-item has-dropdown is-hoverable", ->
-                p class: "navbar-link is-unselectable", "Code"
-                div class: "navbar-dropdown", ->
-                  div class: "navbar-item menu", ->
-                    ul class: "menu-list", ->
-                      li -> a href: "/code", "All Code"
-                      li ->
-                        a href: "/code/software", "Software"
-                        ul ->
-                          li -> a href: "/code/software/support", "Support"
-                      li -> a href: "/code/libraries", "Libraries"
-                      li -> a href: "/code/tutorials", "Tutorials"
-                      li -> a href: "/code/portfolio", "Portfolio"
-                      li -> a href: "/code/resume", "Resume"
+              --TODO Code
+              -- div class: "navbar-item has-dropdown is-hoverable", ->
+              --   p class: "navbar-link is-unselectable", "Code"
+              --   div class: "navbar-dropdown", ->
+              --     div class: "navbar-item menu", ->
+              --       ul class: "menu-list", ->
+              --         li -> a href: "/code", "All Code"
+              --         li ->
+              --           a href: "/code/software", "Software"
+              --           ul ->
+              --             li -> a href: "/code/software/support", "Support"
+              --         li -> a href: "/code/libraries", "Libraries"
+              --         li -> a href: "/code/tutorials", "Tutorials"
+              --         li -> a href: "/code/portfolio", "Portfolio"
+              --         li -> a href: "/code/resume", "Resume"
               div class: "navbar-item has-dropdown is-hoverable", ->
                 p class: "navbar-link is-unselectable", "Contact"
                 div class: "navbar-dropdown", ->
