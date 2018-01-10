@@ -12,7 +12,7 @@ class KSPCraftsApp extends lapis.Application
   -- TODO this will be defined on a different app or as a page
   -- [index: ""]: => return redirect_to: @url_for "ksp_crafts_list"
 
-  [index: "/crafts(/:tab[a-zA-Z%-])(/:page[%d])"]: =>
+  [index: "/crafts(/:tab)(/:page[%d])"]: =>
     @page = tonumber(@params.page) or 1
 
     local Paginator
