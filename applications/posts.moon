@@ -74,10 +74,10 @@ class PostsApp extends lapis.Application
       else
         fields.preview_text = @params.text\sub 1, 500
 
-      if fields.status == Posts.statuses.published
+      if @params.published_at and @params.published_at\len! > 0
+        feilds.published_at = @params.published_at
+      elseif fields.status == Posts.statuses.published
         fields.published_at = gdate.now!
-      elseif fields.status == Posts.statuses.scheduled and @params.published_at and @params.published_at\len! > 0
-        fields.published_at = @params.published_at
       else
         fields.status = Posts.statuses.draft
         fields.published_at = gdate.none
@@ -134,11 +134,9 @@ class PostsApp extends lapis.Application
       if @params.splat and @params.splat\len! > 0
         fields.splat = @params.splat
 
-      -- draft -> scheduled?
-      if @post.status == Posts.statuses.draft and fields.status == Posts.statuses.scheduled and @params.published_at and @params.published_at\len! > 0
+      if @params.published_at and @params.published_at\len! > 0
         fields.published_at = @params.published_at
-      -- draft -> published / scheduled -> published
-      if (fields.status == Posts.statuses.published) and (not @post.status == Posts.statuses.published)
+      elseif fields.status == Posts.statuses.published and (not @post.status == Posts.statuses.published)
         fields.published_at = gdate.now!
 
       _, err = @post\update fields
