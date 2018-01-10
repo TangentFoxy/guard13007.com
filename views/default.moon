@@ -13,7 +13,7 @@ class extends html.Widget
 
                     ga('create', 'UA-82645104-1', 'auto'); ga('send', 'pageview');"
                 link rel: "stylesheet", href:  "/static/css/pure-min.css"
-                link rel: "stylesheet", href:  "/static/css/site.css"
+                link rel: "stylesheet", href:  "/static/css/oldsite.css"
             body ->
                 noscript "This website requies JavaScript for many of its pages."
                 a name: "top"

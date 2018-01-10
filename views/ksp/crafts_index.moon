@@ -13,12 +13,23 @@ class KSPCraftsIndex extends Widget
     link rel: "stylesheet", href: "/static/css/ksp.css"
     div class: "tabs is-centered", ->
       ul ->
+        real_tab = false
         @params.tab = "all" unless @params.tab
         for tab in *tabs
           if @params.tab == tab\lower!
             li class: "is-active", -> a tab
+              real_tab = true
           else
             li -> a href: @url_for("ksp_crafts_index", tab: tab\lower!), tab
+        unless real_tab
+          li class: "is-active", -> a "##{@params.tab}"
+        li ->
+          input style: "width: 50%; border: none;", type: "text", id: "tag", placeholder: "list by tag"
+          input style: "border: none;", type: "submit", onclick: "location.href = '#{@url_for "ksp_crafts_index"}' + document.getElementById('tag').value;", value: "⏎"
+
+      if #@crafts < 1
+        p "There are no crafts matching that criteria."
+        return
 
     widget Pagination
 

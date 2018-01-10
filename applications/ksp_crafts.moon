@@ -1,6 +1,6 @@
 lapis = require "lapis"
 
-import Crafts, Users from require "models"
+import Crafts, Tags, Users from require "models"
 import respond_to from require "lapis.application"
 
 class KSPCraftsApp extends lapis.Application
@@ -18,11 +18,14 @@ class KSPCraftsApp extends lapis.Application
       Paginator = Crafts\paginated "ORDER BY id ASC", per_page: 19
     elseif @params.tab == "pending"
       Paginator = Crafts\paginated "WHERE status IN (?, ?, ?, ?, ?) ORDER BY id ASC", Crafts.statuses.priority, Crafts.statuses.imported, Crafts.statuses.pending, Crafts.statuses.delayed, Crafts.statuses.old, per_page: 19
-    elseif not Crafts.statuses[@params.tab]
-      return redirect_to: @url_for "ksp_crafts_index"
-    else
+    elseif Crafts.statuses[@params.tab]
       Paginator = Crafts\paginated "WHERE status = ? ORDER BY id ASC", Crafts.statuses[@params.tab], per_page: 19
-      -- TODO use tag if it exists, else redirect_to index
+    else
+      if tag = Tags\find name: @params.tab
+        Paginator = Crafts\paginated "WHERE id IN (SELECT craft_id FROM craft_tags WHERE tag_id = ?) ORDER BY id ASC", tag.id, per_page: 19
+      else
+        @session.info = "That tag does not exist."
+        return redirect_to: @url_for "ksp_crafts_index"
 
     @last_page = Paginator\num_pages!
     @crafts = Paginator\get_page @page

@@ -10,16 +10,18 @@ class extends html.Widget
           title "#{@title} - Guard13007.com"
         else
           title "Guard13007.com"
+        meta name: "viewport", content: "width=device-width, initial-scale=1"
         script -> raw "
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
           })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+          ga('create', 'UA-82645104-1', 'auto'); ga('send', 'pageview');
+        "
 
-          ga('create', 'UA-82645104-1', 'auto'); ga('send', 'pageview');"
         link rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css", integrity: "sha256-v5YlJGWVLS5hQ+o48fBzCKHEP2vMNsku57x3CosYykc=", crossorigin: "anonymous"
-        meta name: "viewport", content: "width=device-width, initial-scale=1"
         script src: "/static/js/burgers.js"
+        link rel: "stylesheet", href: "/static/css/site.css"
       body ->
         -- noscript "This website requies JavaScript for many of its pages."
         -- TODO make a better warning for JavaScript (perhaps in the footer)
