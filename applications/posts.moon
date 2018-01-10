@@ -38,7 +38,7 @@ class PostsApp extends lapis.Application
     unless is_admin @ return redirect_to: @url_for "posts_index"
 
     @page = tonumber(@params.page) or 1
-    Paginator = Posts\paginated "ORDER BY updated_at DESC", per_page: 50
+    Paginator = Posts\paginated "ORDER BY updated_at DESC", per_page: 12
 
     @last_page = Paginator\num_pages!
     @posts = Paginator\get_page @page

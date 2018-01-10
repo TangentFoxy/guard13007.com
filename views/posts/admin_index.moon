@@ -6,11 +6,12 @@ class PostIndex extends Widget
   content: =>
     widget Pagination
 
+    br!
     element "table", class: "table is-bordered is-striped is-narrow is-fullwidth", ->
       thead ->
         tr ->
           th "ID"
-          th "Title"
+          th style: "width: 20%; word-wrap: break-word;", "Title"
           th "Status"
           th "Type"
           th "Updated"
@@ -20,7 +21,7 @@ class PostIndex extends Widget
       tfoot ->
         tr ->
           th "ID"
-          th "Title"
+          th style: "width: 20%; word-wrap: break-word;", "Title"
           th "Status"
           th "Type"
           th "Updated"
@@ -31,7 +32,7 @@ class PostIndex extends Widget
         for post in *@posts
           tr ->
             td post.id
-            td post.title
+            td style: "width: 20%; word-wrap: break-word;", post.title
             td Posts.statuses\to_name post.status
             td Posts.types\to_name post.type
             td post.updated_at
@@ -47,5 +48,6 @@ class PostIndex extends Widget
 
     div class: "container has-text-centered", ->
       a class: "button", href: @url_for("posts_new"), "New Post"
+    br!
 
     widget Pagination

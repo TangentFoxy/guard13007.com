@@ -38,30 +38,30 @@ class KSPCraftsIndex extends Widget
       element "table", class: "table is-bordered is-striped is-narrow is-fullwidth", ->
         thead ->
           tr ->
-            th "Craft"
-            th "Creator"
-            th "Status"
+            th style: "width: 20%; word-wrap: break-word;", "Craft"
+            th style: "width: 20%; word-wrap: break-word;", "Creator"
+            th style: "width: 10%;", "Status"
             th "Notes"
         tfoot ->
           tr ->
-            th "Craft"
-            th "Creator"
+            th style: "width: 20%; word-wrap: break-word;", "Craft"
+            th style: "width: 20%; word-wrap: break-word;", "Creator"
             th "Status"
             th "Notes"
         tbody ->
           the_date = os.date "*t", os.time!
           for craft in *@crafts
             tr ->
-              td -> a href: @url_for("ksp_crafts_view", id: craft.id), craft.name
+              td style: "width: 20%; word-wrap: break-word;", -> a href: @url_for("ksp_crafts_view", id: craft.id), craft.name
               name = craft.creator
               if the_date.month == 4 and the_date.day == 1
                 name = "John"
               elseif craft.user_id != 0
                 if user = Users\find id: craft.user_id
                   name = user.name
-              td name
+              td style: "width: 20%; word-wrap: break-word;", name
               status = Crafts.statuses\to_name craft.status
-              td class: status, status
+              td style: "width: 10%;", class: status, status
               if Crafts.statuses.reviewed == craft.status
                 td -> a href: "https://youtube.com/watch?v=#{craft.episode}", target: "_blank", "Watch on YouTube"
               else
