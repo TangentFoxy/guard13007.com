@@ -7,6 +7,8 @@ execute = (cmd) ->
   handle\close!
   return result
 
+execute = os.execute
+
 class GithookApp extends lapis.Application
   [githook: "/githook"]: =>
     result = "#{execute "git pull origin"}\n"
