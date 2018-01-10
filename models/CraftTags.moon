@@ -8,4 +8,4 @@ class CraftTags extends Model
     for tag in *tags
       tag = tag.name
 
-    return tags\concat " "
+    return table.concat tags, " "
