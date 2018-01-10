@@ -75,7 +75,7 @@ class PostsApp extends lapis.Application
         fields.preview_text = @params.text\sub 1, 500
 
       if @params.published_at and @params.published_at\len! > 0
-        feilds.published_at = @params.published_at
+        fields.published_at = @params.published_at
       elseif fields.status == Posts.statuses.published
         fields.published_at = gdate.now!
       else
