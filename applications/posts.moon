@@ -23,7 +23,7 @@ class PostsApp extends lapis.Application
     @title = "Sitewide Posts & Pages"
     @previous_label = "Most recent"
     @next_label = "Oldest"
-    @page_arguments = {}
+    -- @page_arguments = {}
     return render: "posts.index"
 
   [view: "/:slug"]: =>
@@ -47,7 +47,7 @@ class PostsApp extends lapis.Application
       return redirect_to: @url_for "posts_admin_index", page: @last_page
 
     @title = "Admin Posts Index"
-    @page_arguments = {}
+    -- @page_arguments = {}
     return render: "posts.admin_index"
 
   [new: "/new"]: respond_to {

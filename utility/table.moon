@@ -10,7 +10,8 @@ invert = (tab) ->
 shallow_copy = (...) ->
   tabs = {...}
   new = {}
-  for _, tab in ipairs tabs
+  for n = 1, select('#', ...)
+    tab = select n, ...
     if "table" == type tab
       for k,v in pairs tab
         new[k] = v
