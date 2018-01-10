@@ -1,14 +1,14 @@
 lapis = require "lapis"
 config = require("lapis.config").get!
 
--- execute = (cmd) ->
---   handle = io.popen cmd
---   result = handle\read "*a"
---   handle\close!
---   return result
+execute2 = (cmd) ->
+  handle = io.popen cmd
+  result = handle\read "*a"
+  handle\close!
+  return result
 
 execute = (cmd) ->
-  return os.execute "sudo -Hu www-data #{cmd} >> /srv/guard13007.com/logs/updates.log 2>&1"
+  return execute2 "sudo -Hu www-data #{cmd} >> /srv/guard13007.com/logs/updates.log 2>&1"
 
 read = ->
   handle, err = io.open "/srv/guard13007.com/logs/updates.log", "r"
