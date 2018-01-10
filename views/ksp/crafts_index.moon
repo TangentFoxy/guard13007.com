@@ -32,7 +32,7 @@ class KSPCraftsIndex extends Widget
       p "There are no crafts matching that criteria."
 
     else
-      widget Pagination
+      widget Pagination, tab: @params.tab
       br!
 
       element "table", class: "table is-bordered is-striped is-narrow is-fullwidth", ->
@@ -67,4 +67,4 @@ class KSPCraftsIndex extends Widget
               else
                 td craft.notes
 
-      widget Pagination
+      widget Pagination, tab: @params.tab
