@@ -7,18 +7,26 @@ execute = (cmd) ->
   handle\close!
   return result
 
-execute = os.execute
+execute = (cmd) ->
+  return os.execute "sudo -Hu www-data #{cmd} >> logs/update.log 2>&1"
+
+read = ->
+  handle = io.open "logs/update.log", "r"
+  result = handle\read "*a"
+  handle\close!
+  return result
 
 class GithookApp extends lapis.Application
   [githook: "/githook"]: =>
-    result = "#{execute "sudo git pull origin"}\n"
-    result ..= "#{execute "sudo moonc ."}\n"
-    result ..= "#{execute "sudo lapis migrate #{config._name} --trace"}\n"
-    result ..= "#{execute "sudo lapis build #{config._name} --trace"}\n"
-    result ..= "#{execute "sudo chown -R www-data:www-data ./"}"
+    result = "#{execute "git pull origin"}\n"
+    result ..= "#{execute "moonc ."}\n"
+    result ..= "#{execute "lapis migrate #{config._name} --trace"}\n"
+    result ..= "#{execute "lapis build #{config._name} --trace"}\n"
+    -- result ..= "#{execute "chown -R www-data:www-data ./"}"
     return {
       json: {
         status: "unknown",
-        message: result
+        :result,
+        log: read!
       }
     }
