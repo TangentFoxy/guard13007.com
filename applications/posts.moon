@@ -136,7 +136,7 @@ class PostsApp extends lapis.Application
 
       if @params.published_at and @params.published_at\len! > 0
         fields.published_at = @params.published_at
-      elseif fields.status == Posts.statuses.published and (not @post.status == Posts.statuses.published)
+      elseif fields.status == Posts.statuses.published and @post.status != Posts.statuses.published
         fields.published_at = gdate.now!
 
       _, err = @post\update fields
