@@ -34,7 +34,7 @@ class KSPCraftsApp extends lapis.Application
       return redirect_to: @url_for "ksp_crafts_index", tab: @params.tab, page: @last_page
 
     @title = "Submitted Craft"
-    @page_arguments = @params.tab
+    @page_arguments = tab: @params.tab
     return render: "ksp.crafts_index"
 
   [view: "/craft/:id[%d]"]: respond_to {
