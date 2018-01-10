@@ -1,7 +1,9 @@
 lapis = require "lapis"
 
-import Crafts, Tags, Users from require "models"
+import Crafts, Tags, CraftTags, Users from require "models"
 import respond_to from require "lapis.application"
+import split from require "utility.string"
+import invert from require "utility.table"
 
 class KSPCraftsApp extends lapis.Application
   @path: "/gaming/ksp"
@@ -90,7 +92,23 @@ class KSPCraftsApp extends lapis.Application
                 if @params.user_id and @params.user_id\len! > 0 and @params.user_id != craft.user_id
                   fields.user_id = tonumber @params.user_id
 
-                -- TODO here, handle tags
+                -- handle tags
+                oldTags = CraftTags\hash craft_id: craft.id
+                newTags = invert split @params.tags
+                addedTags, removedTags = {}, {}
+                for tag in pairs newTags
+                  unless oldTags[tag]
+                    addedTags[tag] = true
+                for tag in pairs oldTags
+                  unless newTags[tag]
+                    removedTags[tag] = true
+                for name in pairs addedTags
+                  tag = Tags\find(:name) or Tags\create(:name)
+                  CraftTags\create tag_id: tag.id, craft_id: craft.id
+                for name in pairs removedTags
+                  craftTag = CraftTags\find craft_id: craft.id, tag_id: (Tags\find(:name)).id
+                  craftTag\delete!
+                -- lack of error checking :/
 
                 if @params.delete
                   if craft\delete!

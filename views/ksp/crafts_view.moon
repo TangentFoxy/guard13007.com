@@ -11,31 +11,8 @@ class KSPCraftsView extends Widget
     link rel: "stylesheet", href: "/static/highlight/styles/solarized-dark.css"
     script src: "/static/highlight/highlight.pack.js"
     script src: "/static/js/marked.min.js"
-    script -> raw "
-      window.onload = function () { var simplemde = new SimpleMDE({
-        autosave: {
-          enabled: true,
-          uniqueId: '#{@url_for "ksp_crafts_submit"}'
-        },
-        indentWithTabs: false,
-        insertTexts: {
-          link: ['[', '](https://)']
-        },
-        parsingConfig: {
-          strikethrough: false
-        },
-        renderingConfig: {
-          singleLineBreaks: false,
-          codeSyntaxHighlighting: true
-        }
-      }); }
-      marked.setOptions({
-        highlight: function(code) { return hljs.highlightAuto(code).value; },
-        sanitize: true,
-        smartypants: true
-      });
-      hljs.initHighlightingOnLoad();
-    "
+    script -> raw "uniqueID = 'craft_#{@craft.id}';"
+    script src: "/static/js/ksp/crafts_view.js"
     div id: "description", class: "content"
     description = @craft.description\gsub("\\", "\\\\\\\\")\gsub("'", "\\'")\gsub("\n", "\\n")\gsub("\r", "")\gsub("</script>", "</'+'script>")
     script -> raw "document.getElementById('description').innerHTML = marked('#{description}');"
@@ -81,9 +58,9 @@ class KSPCraftsView extends Widget
 
             div class: "field", ->
               div class: "control", ->
-                textarea class: "textarea", rows: 8, name: "description", placeholder: "Description", value: @craft.description
+                textarea class: "textarea", rows: 8, name: "description", placeholder: "Description", @craft.description
               div class: "control", ->
-                textarea class: "textarea", rows: 2, cols: 60, name: "action_groups", placeholder: "Action Groups", value: @craft.action_groups
+                textarea class: "textarea", rows: 2, cols: 60, name: "action_groups", placeholder: "Action Groups", @craft.action_groups
 
             div class: "field is-grouped is-grouped-centered", ->
               div class: "control is-expanded", ->
@@ -104,13 +81,14 @@ class KSPCraftsView extends Widget
           }, ->
             div class: "field is-grouped is-grouped-centered", ->
               div class: "control is-expanded", ->
-                element "select", name: "status", ->
-                  option value: 0, "new" -- hardcoded :/
-                  for status in *Crafts.statuses
-                    if status == Crafts.statuses[@craft.status]
-                      option value: Crafts.statuses[status], selected: true, status
-                    else
-                      option value: Crafts.statuses[status], status
+                div class: "select", ->
+                  element "select", name: "status", ->
+                    option value: 0, "new" -- hardcoded :/
+                    for status in *Crafts.statuses
+                      if status == Crafts.statuses[@craft.status]
+                        option value: Crafts.statuses[status], selected: true, status
+                      else
+                        option value: Crafts.statuses[status], status
               div class: "control is-expanded", ->
                 input class: "input", type: "text", name: "episode", placeholder: @craft.episode
               div class: "control is-expanded", ->
