@@ -97,22 +97,23 @@ class KSPCraftsApp extends lapis.Application
                   fields.user_id = tonumber @params.user_id
 
                 -- handle tags
-                oldTags = CraftTags\hash craft_id: craft.id
-                newTags = invert split @params.tags
-                addedTags, removedTags = {}, {}
-                for tag in pairs newTags
-                  unless oldTags[tag]
-                    addedTags[tag] = true
-                for tag in pairs oldTags
-                  unless newTags[tag]
-                    removedTags[tag] = true
-                for name in pairs addedTags
-                  tag = Tags\find(:name) or Tags\create(:name)
-                  CraftTags\create tag_id: tag.id, craft_id: craft.id
-                for name in pairs removedTags
-                  craftTag = CraftTags\find craft_id: craft.id, tag_id: (Tags\find(:name)).id
-                  craftTag\delete!
-                -- lack of error checking :/
+                if @params.tags
+                  oldTags = CraftTags\hash craft_id: craft.id
+                  newTags = invert split @params.tags
+                  addedTags, removedTags = {}, {}
+                  for tag in pairs newTags
+                    unless oldTags[tag]
+                      addedTags[tag] = true
+                  for tag in pairs oldTags
+                    unless newTags[tag]
+                      removedTags[tag] = true
+                  for name in pairs addedTags
+                    tag = Tags\find(:name) or Tags\create(:name)
+                    CraftTags\create tag_id: tag.id, craft_id: craft.id
+                  for name in pairs removedTags
+                    craftTag = CraftTags\find craft_id: craft.id, tag_id: (Tags\find(:name)).id
+                    craftTag\delete!
+                  -- lack of error checking :/
 
                 if @params.delete
                   if craft\delete!
