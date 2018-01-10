@@ -1,4 +1,5 @@
 import Widget from require "lapis.html"
+import shallow_copy from require "utility.table"
 
 class Pagination extends Widget
   content: (tab) =>
