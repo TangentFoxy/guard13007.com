@@ -16,4 +16,4 @@ class extends Widget
             text "I also just started a blog on here for random rambly bits. You can see it "
             a href: @url_for("posts_index"), "here"
             text "!"
-        p "Test successful."
+        -- p "Test successful."
