@@ -73,23 +73,23 @@ class KSPCraftsView extends Widget
           }, ->
             div class: "field is-grouped is-grouped-centered", ->
               div class: "control is-expanded", ->
-                input class: "input", type: "text", name: "name", placeholder: "Craft Name"
+                input class: "input", type: "text", name: "name", placeholder: "Craft Name", value: @craft.name
               div class: "control is-expanded", ->
-                input class: "input", type: "text", name: "download_link", placeholder: "Craft Link"
+                input class: "input", type: "text", name: "download_link", placeholder: "Craft Link", value: @craft.download_link
               div class: "control is-expanded", ->
-                input class: "input", type: "text", name: "picture", placeholder: "Image URL"
+                input class: "input", type: "text", name: "picture", placeholder: "Image URL", value: @craft.picture
 
             div class: "field", ->
               div class: "control", ->
-                textarea class: "textarea", rows: 8, name: "description", placeholder: "Description"
+                textarea class: "textarea", rows: 8, name: "description", placeholder: "Description", value: @craft.description
               div class: "control", ->
-                textarea class: "textarea", rows: 2, cols: 60, name: "action_groups", placeholder: "Action Groups"
+                textarea class: "textarea", rows: 2, cols: 60, name: "action_groups", placeholder: "Action Groups", value: @craft.action_groups
 
             div class: "field is-grouped is-grouped-centered", ->
               div class: "control is-expanded", ->
-                input class: "input", type: "text", name: "ksp_version", placeholder: "KSP Version"
+                input class: "input", type: "text", name: "ksp_version", placeholder: "KSP Version", value: @craft.ksp_version
               div class: "control is-expanded", ->
-                input class: "input", type: "text", name: "mods_used", placeholder: "Mods Used"
+                input class: "input", type: "text", name: "mods_used", placeholder: "Mods Used", value: @craft.mods_used
 
             div class: "control", ->
               div class: "buttons is-centered", ->
