@@ -24,9 +24,9 @@ class KSPCraftsIndex extends Widget
         unless real_tab
           li class: "is-active", -> a "##{@params.tab}"
         li ->
-          form ->
+          form onsubmit: "location.href = '#{@url_for "ksp_crafts_index"}/' + document.getElementById('tag').value;", ->
             input style: "width: 50%; border: none;", type: "text", id: "tag", placeholder: "list by tag"
-            input style: "border: none;", type: "submit", onclick: "location.href = '#{@url_for "ksp_crafts_index"}/' + document.getElementById('tag').value;", value: "⏎"
+            input style: "border: none;", type: "submit", value: "⏎"
 
     if #@crafts < 1
       p "There are no crafts matching that criteria."
