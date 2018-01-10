@@ -1,20 +1,23 @@
 lapis = require "lapis"
 config = require("lapis.config").get!
 
-execute = (cmd) ->
-  handle = io.popen cmd
-  result = handle\read "*a"
-  handle\close!
-  return result
+-- execute = (cmd) ->
+--   handle = io.popen cmd
+--   result = handle\read "*a"
+--   handle\close!
+--   return result
 
 execute = (cmd) ->
-  return os.execute "sudo -Hu www-data #{cmd} >> logs/update.log 2>&1"
+  return os.execute "sudo -Hu www-data #{cmd} >> ./logs/updates.log 2>&1"
 
 read = ->
-  handle = io.open "logs/update.log", "r"
-  result = handle\read "*a"
-  handle\close!
-  return result
+  handle, err = io.open "./logs/updates.log", "r"
+  if handle
+    result = handle\read "*a"
+    handle\close!
+    return result
+  else
+    return err
 
 class GithookApp extends lapis.Application
   [githook: "/githook"]: =>
