@@ -8,10 +8,10 @@ config = require("lapis.config").get!
 --   return result
 
 execute = (cmd) ->
-  return os.execute "sudo -Hu www-data #{cmd} >> ./logs/updates.log 2>&1"
+  return os.execute "sudo -Hu www-data #{cmd} >> /srv/guard13007.com/logs/updates.log 2>&1"
 
 read = ->
-  handle, err = io.open "./logs/updates.log", "r"
+  handle, err = io.open "/srv/guard13007.com/logs/updates.log", "r"
   if handle
     result = handle\read "*a"
     handle\close!
