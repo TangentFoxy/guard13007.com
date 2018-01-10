@@ -101,6 +101,10 @@ class KSPCraftsView extends Widget
                 input class: "input", type: "text", name: "user_id", value: @craft.user_id
               div class: "control is-expanded", ->
                 input class: "input", type: "text", name: "notes", placeholder: "Notes", value: @craft.notes
+
+            div class: "control", ->
+              input class: "button", type: "submit", value: "Update"
+
           hr!
           form {
             action: @url_for "ksp_crafts_view", id: @craft.id
