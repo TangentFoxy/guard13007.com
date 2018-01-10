@@ -11,10 +11,11 @@ execute = os.execute
 
 class GithookApp extends lapis.Application
   [githook: "/githook"]: =>
-    result = "#{execute "git pull origin"}\n"
-    result ..= "#{execute "moonc ."}\n"
-    result ..= "#{execute "lapis migrate #{config._name} --trace"}\n"
-    result ..= "#{execute "lapis build #{config._name} --trace"}\n"
+    result = "#{execute "sudo git pull origin"}\n"
+    result ..= "#{execute "sudo moonc ."}\n"
+    result ..= "#{execute "sudo lapis migrate #{config._name} --trace"}\n"
+    result ..= "#{execute "sudo lapis build #{config._name} --trace"}\n"
+    result ..= "#{execute "sudo chown -R www-data:www-data ./"}"
     return {
       json: {
         status: "unknown",
