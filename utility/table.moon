@@ -1,4 +1,4 @@
-invert: (tab) ->
+invert = (tab) ->
   new = {}
   for k,v in pairs tab
     new[v] = k
