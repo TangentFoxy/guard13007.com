@@ -24,8 +24,9 @@ class KSPCraftsApp extends lapis.Application
       if tag = Tags\find name: @params.tab
         Paginator = Crafts\paginated "WHERE id IN (SELECT craft_id FROM craft_tags WHERE tag_id = ?) ORDER BY id ASC", tag.id, per_page: 19
       else
-        @session.info = "That tag does not exist."
-        return redirect_to: @url_for "ksp_crafts_index"
+        Paginator = Crafts\paginated "WHERE false"
+        -- @session.info = "That tag does not exist."
+        -- return redirect_to: @url_for "ksp_crafts_index"
 
     @last_page = Paginator\num_pages!
     @crafts = Paginator\get_page @page

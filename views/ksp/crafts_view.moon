@@ -6,7 +6,6 @@ class KSPCraftsView extends Widget
   content: =>
     widget KSPCraftsSearchWidget
 
-    link rel: "stylesheet", href: "/static/css/ksp.css" -- NOTE currently not needed
     script src: "/static/js/marked.min.js"
     link rel: "stylesheet", href: "/static/highlight/styles/solarized-dark.css"
     script src: "/static/highlight/highlight.pack.js"

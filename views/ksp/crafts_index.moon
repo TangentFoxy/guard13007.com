@@ -32,6 +32,7 @@ class KSPCraftsIndex extends Widget
 
     else
       widget Pagination
+      br!
 
       element "table", class: "table is-bordered is-striped is-narrow is-fullwidth", ->
         thead ->
