@@ -46,6 +46,8 @@ sudo make install
 sudo luarocks install lapis
 sudo luarocks install moonscript
 sudo luarocks install bcrypt
+sudo luarocks install luacrypto   # not sure where this is in use / if this is currently in use
+sudo luarocks install markdown
 
 # cleanup
 cd ..

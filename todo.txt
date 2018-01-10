@@ -1,0 +1,19 @@
+TODO
+- setting of custom published_at needed
+  (need to possibly find better way of combining
+   this tool and scheduled?)
+- set up scheduled status
+- set up types ?
+
+- Need to write logic to tie tags to posts / posts to tags
+- If I decide to implement categories,
+  those need to be implemented just like tags
+  (the only exception being that only one
+   category is allowed per post)
+
+Note to self:
+ Tags / Categories w no Posts should never be shown.
+
+- Need to have local fallback for SimpleMDE to get its icons.
+- Should use CDNs for content where available.
+- Want to have local fallback for all content. (?)

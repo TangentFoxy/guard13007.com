@@ -1,6 +1,0 @@
-[submodule "githook"]
-	path = githook
-	url = https://github.com/lazuscripts/githook.git
-[submodule "users"]
-	path = users
-	url = https://github.com/lazuscripts/users.git
