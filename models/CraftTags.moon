@@ -2,6 +2,8 @@ import Model from require "lapis.db.model"
 import Tags from require "models"
 
 class CraftTags extends Model
+  @primary_key: "craft_id"
+
   hash: (tab) =>
     tags = Tags\select "WHERE id IN (SELECT tag_id FROM craft_tags WHERE craft_id = ?)", tab.craft_id
     result = {}
