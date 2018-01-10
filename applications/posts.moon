@@ -145,7 +145,7 @@ class PostsApp extends lapis.Application
       else
         @info = "Failed to update post. #{err}"
 
-      @title = "#{@post.title} (Editing)"
+      @title = "#{@post.title} (Editing) #{fields.published_at}"
       return render: "posts.edit"
   }
 
