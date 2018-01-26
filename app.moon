@@ -32,7 +32,7 @@ class extends lapis.Application
   [posts_splat: "/*"]: =>
     if @post = Posts\find splat: @params.splat
       @title = @post.title
-      return render: "posts.view"
+      return render: "posts.view", content_type: "text/html; charset=utf-8"
     else
       @title = "404"
       return render: "404", status: 404
