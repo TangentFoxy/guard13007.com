@@ -70,6 +70,7 @@ echo "[Unit]
 Description=guard13007.com server
 
 [Service]
+User=www-data
 Type=forking
 WorkingDirectory=$(pwd)
 ExecStart=$(which lapis) server production

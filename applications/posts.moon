@@ -162,3 +162,5 @@ class PostsApp extends lapis.Application
       @session.info = "A post with ID #{@params.id} does not exist. (Perhaps it was already deleted?)"
 
     return redirect_to: @url_for "posts_admin_index"
+
+  "s/new": => return redirect_to: "posts_new", status: 302
