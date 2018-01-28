@@ -149,7 +149,7 @@ echo "server {
   listen 443 ssl;
   server_name $domain;
   location / {
-    proxy_pass http://$domain:9450;
+    proxy_pass http://127.0.0.1:9450;
   }
 }" > ./fursimile-proxy.conf
 openssl dhparam -out /srv/dhparams.pem 2048
