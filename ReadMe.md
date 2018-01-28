@@ -1,5 +1,11 @@
 ## Installation
 
+Dependencies:
+
+- Lapis (duh)
+- MoonScript
+- OpenResty user needs a bash shell (ch -s /bin/bash user)
+
 From the shell:
 
 ```bash
@@ -15,7 +21,7 @@ git remote add -f githook https://github.com/lazuscripts/githook.git
 git subtree add --prefix githook githook master --squash
 ```
 
-From your main application class: `@include "githook"` (or wherever you put it)
+From your main application class: `@include "githook.init"` (or wherever you put it)
 
 ### Updating
 
@@ -40,8 +46,7 @@ time it is visited.
   (to prevent updates triggering when pushing unrelated branches)
 - `githook_secret "secret"` the secret string used on GitHub
 
-Assumes you are using MoonScript. Will attempt to checkout, pull, update
-submodules if needed, compile all code, then run migrations, and finally update
-the running server without interruption.
+Will attempt to checkout, pull, update submodules if needed, compile all code,
+then run migrations, and finally update the running server without interruption.
 
 Returns a log along with exit codes on success or failure.

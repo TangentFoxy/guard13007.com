@@ -37,7 +37,7 @@ run_update = (branch) ->
   insert log, execute "git pull origin"
   insert log, execute "git submodule init"
   insert log, execute "git submodule update"
-  insert log, execute "moonc ." -- TODO needs to try any directory EXCEPT *_temp/
+  insert log, execute "for file in $(find . -type f -name \"*.moon\" 2> /dev/null); do moonc \"$file\"; done"
   insert log, execute "lapis migrate #{config._name}"
   insert log, execute "lapis build #{config._name}"
 
