@@ -1,3 +1,7 @@
 logs/
 nginx.conf.compiled
 *.lua
+
+secret.moon
+fursimile.service
+fursimile-proxy.conf

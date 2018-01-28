@@ -1,7 +1,7 @@
 lapis = require "lapis"
 
 class extends lapis.Application
-  @include "githook"
+  @include "githook.init"
 
   "/": =>
     "Welcome to Lapis #{require "lapis.version"}!"
