@@ -3,67 +3,101 @@ config = require("lapis.config").get!
 
 import respond_to, json_params from require "lapis.application"
 import hmac_sha1 from require "lapis.util.encoding"
+import insert from table
 
 const_compare = (string1, string2) ->
-    local fail, dummy
+  local fail, dummy
 
-    for i = 1, 100
-        if string1\sub(i,i) ~= string2\sub(i,i)
-            fail = true
-        else
-            dummy = true -- making execution time equal
+  for i = 1, 100
+    if string1\sub(i,i) ~= string2\sub(i,i)
+      fail = true
+    else
+      dummy = true -- attempting to make execution time equal
 
-    return not fail
+  return not fail
 
 hex_dump = (str) ->
-    len = string.len str
-    hex = ""
+  len = string.len str
+  hex = ""
 
-    for i = 1, len
-        hex ..= string.format( "%02x", string.byte( str, i ) )
+  for i = 1, len
+    hex ..= string.format( "%02x", string.byte( str, i ) )
 
-    return hex
+  return hex
+
+execute = (cmd) ->
+  handle = io.popen "#{cmd}\necho $?"
+  result = handle\read "*a"
+  handle\close!
+  return result
+
+run_update = (branch) ->
+  log = {}
+  insert log, execute "git checkout #{branch}"
+  insert log, execute "git pull origin"
+  insert log, execute "git submodule init"
+  insert log, execute "git submodule update"
+  insert log, execute "moonc ." -- TODO needs to try any directory EXCEPT *_temp/
+  insert log, execute "lapis migrate #{config._name}"
+  insert log, execute "lapis build #{config._name}"
+
+  exit_codes = {}
+  failure = false
+  full_log = ""
+  for result in *log
+    last_line = result\find "[^%c]*$"
+
+    full_log ..= result\sub 1, last_line
+
+    exit_code = tonumber result\sub last_line
+    failure = true if exit_code != 0
+    insert exit_codes, exit_code
+
+  if failure
+    return status: 500, json: {
+      status: "failure"
+      message: "a subprocess returned a non-zero exit code"
+      log: full_log
+      :exit_codes
+    }
+  else
+    return status: 200, json: {
+      status: "success"
+      message: "server updated to latest version of '#{branch}'"
+      log: full_log
+      :exit_codes
+    }
 
 class extends lapis.Application
-    [githook: "/githook"]: respond_to {
-        GET: =>
-            return status: 405, "Method Not Allowed"
+  [githook: "/githook"]: respond_to {
+    GET: =>
+      return status: 405, "Method Not Allowed"
 
-        POST: json_params =>
-            unless config.githook
-                return status: 401, "Unauthorized"
-
-            local branch
-            if type(config.githook) == "string"
-                branch = config.githook
-            else
-                branch = "master"
-
-            if config.githook_secret
-                ngx.req.read_body!
-                body = ngx.req.get_body_data!
-                if body
-                    unless const_compare ("sha1=" .. hex_dump hmac_sha1(config.githook_secret, body)), @req.headers["X-Hub-Signature"]
-                        return { json: { status: "invalid request" } }, status: 400 --Bad Request
-                else
-                    return { json: { status: "invalid request", message: "no body sent in request" } }, status: 400 --Bad Request
-
-            elseif @params.ref == nil -- fallback to old version for apps that aren't updated to proper verification!
-                return { json: { status: "invalid request" } }, status: 400 --Bad Request
-
-            if @params.ref == "refs/heads/#{branch}"
-                os.execute "echo \"Updating server...\" >> logs/updates.log"
-                result = 0 == os.execute "git checkout #{branch} >> logs/updates.log"
-                result and= 0 == os.execute "git pull origin >> logs/updates.log"
-                result and= 0 == os.execute "git submodule init >> logs/updates.log"
-                result and= 0 == os.execute "git submodule update >> logs/updates.log"
-                result and= 0 == os.execute "moonc . 2>> logs/updates.log"
-                result and= 0 == os.execute "lapis migrate #{config._name} >> logs/updates.log"
-                result and= 0 == os.execute "lapis build #{config._name} >> logs/updates.log"
-                if result
-                    return { json: { status: "successful", message: "server updated to latest version" } }
-                else
-                    return { json: { status: "failure", message: "check logs/updates.log"} }, status: 500 --Internal Server Error
-            else
-                return { json: { status: "successful", message: "ignored push (looking for #{branch})" } }
+    POST: json_params =>
+      branch = "master" or config.githook_branch
+      if config.githook_secret
+        ngx.req.read_body!
+        if body = ngx.req.get_body_data!
+          authorized = const_compare "sha1=#{hex_dump hmac_sha1 config.githook_secret, body}", @req.headers["X-Hub-Signature"]
+          unless authorized
+            return status: 401, "Unauthorized"
+          if @params.ref == "refs/heads/#{branch}"
+            return run_update branch
+          elseif @params.ref == nil
+            return status: 400, json: {
+              status: "invalid request"
+              message: "'ref' not defined in request body"
+            }
+          else
+            return status: 200, json: {
+              status: "success"
+              message: "ignored push (looking for updates to '#{branch}')"
+            }
+        else
+          return status: 400, json: {
+            status: "invalid request"
+            message: "no request body"
+          }
+      else
+        return run_update branch
     }
