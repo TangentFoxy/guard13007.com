@@ -49,7 +49,7 @@ run_update = (branch) ->
 
     full_log ..= result\sub 1, last_line
 
-    exit_code = tonumber result\sub(last_line)\gsub "\n", ""
+    exit_code = tonumber result\sub(last_line)\gsub("\n", "")
     failure = true if exit_code != 0
     insert exit_codes, exit_code
 
