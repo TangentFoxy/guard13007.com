@@ -58,9 +58,7 @@ run_update = (branch) ->
       if output\find "Failed to parse" -- so we search for an error
         exit_code = 1
       else
-        exit_code = 9001 -- temporary
-
-    full_log ..= "\n#{exit_code}\n--- ---\n" -- temporary
+        exit_code = 0 -- and I don't think there are other types of errors...
 
     failure = true if exit_code != 0
     insert exit_codes, exit_code
