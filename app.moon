@@ -38,9 +38,9 @@ class extends lapis.Application
       @title = @post.title
       return render: "posts.view", content_type: "text/html; charset=utf-8"
     else
-      return @default_route(@)
-      -- @title = "404"
-      -- return render: "404", status: 404
+      -- return @default_route(@)
+      @title = "404 - Not Found"
+      return render: "404", status: 404
 
   -- Legacy redirects
   "/submit": => redirect_to: @url_for "ksp_submit_crafts"
