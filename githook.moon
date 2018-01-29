@@ -25,8 +25,12 @@ hex_dump = (str) ->
 
   return hex
 
-execute = (cmd) ->
-  handle = io.popen "#{cmd}\necho $?"
+execute = (cmd, capture_exit_code=true) ->
+  local handle
+  if capture_exit_code
+    handle = io.popen "#{cmd}\necho $?"
+  else
+    handle = io.popen cmd
   result = handle\read "*a"
   handle\close!
   return result
@@ -37,8 +41,8 @@ run_update = (branch) ->
   insert log, execute "git pull origin 2> /dev/stdout"
   insert log, execute "git submodule init 2> /dev/stdout"
   insert log, execute "git submodule update 2> /dev/stdout"
-  -- this works as a script in bash, but does not return an exit code AT ALL here
-  insert log, execute "code=0\nfor file in $(find . -type f -name \"*.moon\"); do moonc \"$file\" 2> /dev/stdout\ntmp=$?\nif [ ! $tmp -eq 0 ]; then code=$tmp\nfi; done\nexit $code"
+  -- captures its own exit code at the end
+  insert log, execute "code=0\nfor file in $(find . -type f -name \"*.moon\"); do moonc \"$file\" 2> /dev/stdout\ntmp=$?\nif [ ! $tmp -eq 0 ]; then code=$tmp\nfi; done\necho $code", false
   insert log, execute "lapis migrate #{config._name} 2> /dev/stdout"
   insert log, execute "lapis build #{config._name} 2> /dev/stdout"
 
@@ -52,11 +56,13 @@ run_update = (branch) ->
     output = result\sub 1, exit_start - 1
     full_log ..= output
 
+    -- this sequence should not be needed, I am leaving it temporarily
     if exit_code == nil -- this happens for the moonc calls
       if output\find "Failed to parse" -- so we search for an error
         exit_code = 1
       else
         exit_code = 0 -- and I don't think there are other types of errors...
+        insert exit_codes, 9001 -- means a NIL exit code happened somehow
 
     failure = true if exit_code != 0
     insert exit_codes, exit_code
