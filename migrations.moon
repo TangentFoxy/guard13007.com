@@ -115,4 +115,24 @@ import create_table, create_index, types, add_column, rename_column from require
       {"image_id", types.foreign_key}
       {"tag_id", types.foreign_key}
     }
+
+  [3]: =>
+    create_table "errors", {
+      {"id", types.integer primary_key: true}
+      {"text", types.text unique: true}
+      {"status", types.integer default: 1} -- enum
+      {"count", types.integer default: 1} -- count times this error has occurred
+
+      {"created_at", types.time}
+      {"updated_at", types.time}
+    }
+
+    create_table "states", {
+      {"id", types.integer primary_key: true}
+      {"type", types.varchar unique: true} -- e621, other sites, ...
+      {"value", types.text}                -- JSON, format depends on type
+
+      {"created_at", types.time}
+      {"updated_at", types.time}
+    }
 }
