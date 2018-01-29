@@ -57,6 +57,10 @@ run_update = (branch) ->
     if exit_code == nil -- this happens for the moonc calls
       if output\find "Failed to parse" -- so we search for an error
         exit_code = 1
+      else
+        exit_code = 9001 -- temporary
+
+    full_log ..= "\n#{exit_code}\n--- ---\n" -- temporary
 
     failure = true if exit_code != 0
     insert exit_codes, exit_code
