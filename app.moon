@@ -19,7 +19,7 @@ class extends lapis.Application
     return render: "404", status: 404 -- status should not be needed ?
 
   @include "applications.posts"
-  @include "applications.githook"
+  @include "applications.githook.init"
   @include "applications.redirects"
   @include "applications.ksp_crafts"
 
