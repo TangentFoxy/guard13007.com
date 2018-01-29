@@ -50,8 +50,6 @@ run_update = (branch) ->
     exit_code = tonumber result\sub(exit_start, exit_end)\sub 1, -2
 
     output = result\sub 1, exit_start - 1
-    if "\n" == output\sub -1
-      output = output\sub 1, -2
     full_log ..= output
 
     if exit_code == nil -- this happens for the moonc calls
