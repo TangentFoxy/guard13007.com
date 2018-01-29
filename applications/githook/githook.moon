@@ -33,24 +33,31 @@ execute = (cmd) ->
 
 run_update = (branch) ->
   log = {}
-  insert log, execute "git checkout #{branch}"
-  insert log, execute "git pull origin"
-  insert log, execute "git submodule init"
-  insert log, execute "git submodule update"
-  insert log, execute "for file in $(find . -type f -name \"*.moon\" 2> /dev/null); do moonc \"$file\"; done"
-  insert log, execute "lapis migrate #{config._name}"
-  insert log, execute "lapis build #{config._name}"
+  insert log, execute "git checkout #{branch} 2> /dev/stdout"
+  insert log, execute "git pull origin 2> /dev/stdout"
+  insert log, execute "git submodule init 2> /dev/stdout"
+  insert log, execute "git submodule update 2> /dev/stdout"
+  -- this works as a script in bash, but does not return an exit code AT ALL here
+  insert log, execute "code=0\nfor file in $(find . -type f -name \"*.moon\"); do moonc \"$file\" 2> /dev/stdout\ntmp=$?\nif [ ! $tmp -eq 0 ]; then code=$tmp\nfi; done\nexit $code"
+  insert log, execute "lapis migrate #{config._name} 2> /dev/stdout"
+  insert log, execute "lapis build #{config._name} 2> /dev/stdout"
 
   exit_codes = {}
   failure = false
   full_log = ""
   for result in *log
-    last_line = result\find "[^%c]*$"
+    exit_start, exit_end = result\find "(%d*)[%c]$"
+    exit_code = tonumber result\sub(exit_start, exit_end)\sub 1, -2
 
-    full_log ..= result\sub 1, last_line
+    output = result\sub 1, exit_start - 1
+    if "\n" == output\sub -1
+      output = output\sub 1, -2
+    full_log ..= output
 
-    exit_code = result\sub(last_line)\gsub "\n", ""
-    exit_code = tonumber exit_code
+    if exit_code == nil -- this happens for the moonc calls
+      if output\find "Failed to parse" -- so we search for an error
+        exit_code = 1
+
     failure = true if exit_code != 0
     insert exit_codes, exit_code
 
