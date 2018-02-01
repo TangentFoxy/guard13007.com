@@ -1,7 +1,7 @@
-path = (...)\gsub "%.", "/"
+path = (...)\gsub("%.", "/")\sub 1, -2
 
 if "init" == (...)\sub -4
-  path = (...)\sub 1, -5
+  path = path\sub 1, -5
   unless path
     path = "."
 
