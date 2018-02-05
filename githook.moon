@@ -82,6 +82,12 @@ run_update = (branch) ->
       :exit_codes
     }
 
+ignored = ->
+  return status: 200, json: {
+    status: "success"
+    message: "ignored push (looking for updates to '#{branch}')"
+  }
+
 class extends lapis.Application
   [githook: "/githook"]: respond_to {
     GET: =>
@@ -89,6 +95,7 @@ class extends lapis.Application
 
     POST: json_params =>
       branch = "master" or config.githook_branch
+      -- TODO rewrite to compare against branch regardless of auth
       if config.githook_secret
         ngx.req.read_body!
         if body = ngx.req.get_body_data!
@@ -103,15 +110,15 @@ class extends lapis.Application
               message: "'ref' not defined in request body"
             }
           else
-            return status: 200, json: {
-              status: "success"
-              message: "ignored push (looking for updates to '#{branch}')"
-            }
+            return ignored!
         else
           return status: 400, json: {
             status: "invalid request"
             message: "no request body"
           }
       else
-        return run_update branch
+        if @params.ref == "refs/heads/#{branch}"
+          return run_update branch
+        else
+          return ignored!
     }
