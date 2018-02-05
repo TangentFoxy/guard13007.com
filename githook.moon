@@ -95,7 +95,6 @@ class extends lapis.Application
 
     POST: json_params =>
       branch = "master" or config.githook_branch
-      -- TODO rewrite to compare against branch regardless of auth
       if config.githook_secret
         ngx.req.read_body!
         if body = ngx.req.get_body_data!
