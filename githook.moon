@@ -94,7 +94,7 @@ class extends lapis.Application
       return status: 405, "Method Not Allowed"
 
     POST: json_params =>
-      branch = "master" or config.githook_branch
+      branch = config.githook_branch or "master"
       if config.githook_secret
         ngx.req.read_body!
         if body = ngx.req.get_body_data!
