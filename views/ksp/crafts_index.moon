@@ -2,11 +2,11 @@ import Widget from require "lapis.html"
 import Crafts, Users from require "models"
 import Pagination, KSPCraftsSearchWidget from require "widgets"
 
-tabs = {
-  "All", "Reviewed", "Pending", "New", "Rejected"
-}
-
 class KSPCraftsIndex extends Widget
+  tabs: {
+    "All", "Reviewed", "Pending", "New", "Rejected"
+  }
+
   content: =>
     widget KSPCraftsSearchWidget
 
@@ -15,7 +15,7 @@ class KSPCraftsIndex extends Widget
       ul ->
         real_tab = false
         @params.tab = "all" unless @params.tab
-        for tab in *tabs
+        for tab in *KSPCraftsIndex.tabs
           if @params.tab == tab\lower!
             li class: "is-active", -> a tab
             real_tab = true

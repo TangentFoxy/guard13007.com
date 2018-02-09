@@ -7,7 +7,7 @@ invert = (tab) ->
 
 -- returns a shallow copy of table(s)
 --  will ignore non-table input
-shallow_copy = (...) ->
+shallow_merge = (...) ->
   tabs = {...}
   new = {}
   for n = 1, select('#', ...)
@@ -19,5 +19,5 @@ shallow_copy = (...) ->
 
 {
   :invert
-  :shallow_copy
+  :shallow_merge
 }
