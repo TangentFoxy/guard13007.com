@@ -109,7 +109,7 @@ class extends lapis.Application
               message: "'ref' not defined in request body"
             }
           else
-            return ignored!
+            return ignored branch
         else
           return status: 400, json: {
             status: "invalid request"
@@ -119,5 +119,5 @@ class extends lapis.Application
         if @params.ref == "refs/heads/#{branch}"
           return run_update branch
         else
-          return ignored!
+          return ignored branch
     }
