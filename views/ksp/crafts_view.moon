@@ -67,6 +67,8 @@ class KSPCraftsView extends Widget
                 input class: "input", type: "text", name: "ksp_version", placeholder: "KSP Version", value: @craft.ksp_version
               div class: "control is-expanded", ->
                 input class: "input", type: "text", name: "mods_used", placeholder: "Mods Used", value: @craft.mods_used
+              div class: "control is-expanded", ->
+                input class: "input", type: "text", name: "tags", placeholder: "space-separated tags go here", value: CraftTags\to_string craft_id: @craft.id
 
             div class: "control", ->
               div class: "buttons is-centered", ->
