@@ -3,6 +3,7 @@ lapis = require "lapis"
 import Posts from require "models"
 import default from require "layouts"
 import is_admin from require "utility.auth"
+import respond_to from require "lapis.application"
 
 class extends lapis.Application
   @before_filter =>

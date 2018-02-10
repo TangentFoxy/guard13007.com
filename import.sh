@@ -43,11 +43,12 @@ cd luarocks-$LVER
 make build
 sudo make install
 # some rocks
+sudo luarocks install luacrypto   # a dependency of lapis that doesn't install itself for some reason
 sudo luarocks install lapis
 sudo luarocks install moonscript
 sudo luarocks install bcrypt
-sudo luarocks install luacrypto   # not sure where this is in use / if this is currently in use
 sudo luarocks install markdown
+sudo luarocks install lapis-console
 
 # cleanup
 cd ..
