@@ -24,7 +24,7 @@ class KSPCraftsApp extends lapis.Application
     if #@tags < 1 and @last_page > 0
       return redirect_to: @url_for "ksp_crafts_tags", page: @last_page
 
-    @title = "Craft Tags"
+    @title = "Submitted Craft - Tags"
     return render: "ksp.crafts_tags"
 
   [index: "/crafts(/:tab)(/:page[%d])"]: =>
