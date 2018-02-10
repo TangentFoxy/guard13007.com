@@ -1,5 +1,6 @@
 import Widget from require "lapis.html"
 import Pagination, KSPCraftsSearchWidget from require "widgets"
+import ceil from math
 
 KSPCraftsIndex = require "views.ksp.crafts_index"
 
