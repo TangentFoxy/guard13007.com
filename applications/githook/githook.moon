@@ -82,7 +82,7 @@ run_update = (branch) ->
       :exit_codes
     }
 
-ignored = ->
+ignored = (branch) ->
   return status: 200, json: {
     status: "success"
     message: "ignored push (looking for updates to '#{branch}')"
