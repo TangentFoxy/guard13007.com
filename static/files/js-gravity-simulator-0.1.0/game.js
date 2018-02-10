@@ -134,7 +134,7 @@ function collisionCheck(i,j)
 	var d=Math.sqrt(Dx*Dx+Dy*Dy);
 	if (d < objects[i].rad+objects[j].rad)
 	{
-		if (!objects[i].collides) 
+		if (!objects[i].collides)
 		{
 			console.log("Ignored collision between "+i+" and "+j+".");
 			return;
