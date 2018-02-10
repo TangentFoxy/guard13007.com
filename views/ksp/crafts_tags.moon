@@ -20,29 +20,14 @@ class KSPCraftsTags extends Widget
     widget Pagination
     br!
 
-    element "table", class: "table is-bordered is-striped is-narrow is-fullwidth", ->
-      tbody ->
-        for i=1, #@tags, 5
-          tr ->
-            td ->
-              if tag = @tags[i]
+    div class: "columns", ->
+      forth = ceil #@tags / 4
+      for c=1, 3
+        div class: "column", ->
+          for i=c*forth, (c+1)*forth
+            if tag = @tags[i]
+              p ->
                 a href: @url_for("ksp_crafts_index", tab: tag.name), "##{tag.name}"
-                text " #{tag.count}"
-            td ->
-              if tag = @tags[i+1]
-                a href: @url_for("ksp_crafts_index", tab: tag.name), "##{tag.name}"
-                text " #{tag.count}"
-            td ->
-              if tag = @tags[i+2]
-                a href: @url_for("ksp_crafts_index", tab: tag.name), "##{tag.name}"
-                text " #{tag.count}"
-            td ->
-              if tag = @tags[i+3]
-                a href: @url_for("ksp_crafts_index", tab: tag.name), "##{tag.name}"
-                text " #{tag.count}"
-            td ->
-              if tag = @tags[i+4]
-                a href: @url_for("ksp_crafts_index", tab: tag.name), "##{tag.name}"
-                text " #{tag.count}"
+                text " (#{tag.count})"
 
     widget Pagination
