@@ -14,10 +14,10 @@ class KSPCraftsApp extends lapis.Application
   -- TODO this will be defined on a different app or as a page
   -- [index: ""]: => return redirect_to: @url_for "ksp_crafts_index"
 
-  [tags: "/tags(/:page[%d])"]: =>
+  [tags: "/crafts/tags(/:page[%d])"]: =>
     @page = tonumber(@params.page) or 1
 
-    per_page = 4*2 -- NOTE very temporary for testing -- 4*13
+    per_page = 4*13
     @last_page = ceil db.query("SELECT COUNT(DISTINCT tag_id) FROM craft_tags")[1].count / per_page
     @tags = db.query "SELECT tags.*, COUNT(tag_id) AS count FROM tags INNER JOIN craft_tags ON tags.id = craft_tags.tag_id GROUP BY tags.id ORDER BY count DESC, name ASC LIMIT #{per_page} OFFSET #{db.escape_literal per_page * (@page - 1)}"
 
