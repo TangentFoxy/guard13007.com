@@ -116,6 +116,8 @@ class KSPCraftsApp extends lapis.Application
                   craftTag = CraftTags\find craft_id: craft.id, tag_id: (Tags\find(:name)).id
                   craftTag\delete!
                 -- lack of error checking :/
+                @session.info = "Craft updated."
+                return redirect_to: @url_for "ksp_crafts_view", id: @params.id
 
               if user.admin
                 -- status, episode, notes, creator, user_id
