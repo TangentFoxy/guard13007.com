@@ -21,6 +21,7 @@ class KSPCraftsIndex extends Widget
             real_tab = true
           else
             li -> a href: @url_for("ksp_crafts_index", tab: tab\lower!), tab
+        li -> a href: @url_for("ksp_crafts_tags"), "Tags"
         unless real_tab
           li class: "is-active", -> a "##{@params.tab}"
         li ->
