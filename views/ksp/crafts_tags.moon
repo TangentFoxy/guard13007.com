@@ -25,7 +25,7 @@ class KSPCraftsTags extends Widget
       forth = ceil #@tags / 4
       for c=1, 4
         div class: "column", ->
-          for i=c*forth, (c+1)*forth
+          for i=(c-1)*forth, c*forth
             if tag = @tags[i]
               p ->
                 a href: @url_for("ksp_crafts_index", tab: tag.name), "##{tag.name}"
