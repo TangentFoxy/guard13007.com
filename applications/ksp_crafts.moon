@@ -98,6 +98,25 @@ class KSPCraftsApp extends lapis.Application
               if @params.mods_used and @params.mods_used\len! > 0 and @params.mods_used != craft.mods_used
                 fields.mods_used = @params.mods_used
 
+              -- handle tags
+              if @params.tags
+                oldTags = CraftTags\hash craft_id: craft.id
+                newTags = invert split @params.tags
+                addedTags, removedTags = {}, {}
+                for tag in pairs newTags
+                  unless oldTags[tag]
+                    addedTags[tag] = true
+                for tag in pairs oldTags
+                  unless newTags[tag]
+                    removedTags[tag] = true
+                for name in pairs addedTags
+                  tag = Tags\find(:name) or Tags\create(:name)
+                  CraftTags\create tag_id: tag.id, craft_id: craft.id
+                for name in pairs removedTags
+                  craftTag = CraftTags\find craft_id: craft.id, tag_id: (Tags\find(:name)).id
+                  craftTag\delete!
+                -- lack of error checking :/
+
               if user.admin
                 -- status, episode, notes, creator, user_id
                 if @params.status and @params.status\len! > 0 and @params.status != craft.status
@@ -110,25 +129,6 @@ class KSPCraftsApp extends lapis.Application
                   fields.creator = @params.creator
                 if @params.user_id and @params.user_id\len! > 0 and @params.user_id != craft.user_id
                   fields.user_id = tonumber @params.user_id
-
-                -- handle tags
-                if @params.tags
-                  oldTags = CraftTags\hash craft_id: craft.id
-                  newTags = invert split @params.tags
-                  addedTags, removedTags = {}, {}
-                  for tag in pairs newTags
-                    unless oldTags[tag]
-                      addedTags[tag] = true
-                  for tag in pairs oldTags
-                    unless newTags[tag]
-                      removedTags[tag] = true
-                  for name in pairs addedTags
-                    tag = Tags\find(:name) or Tags\create(:name)
-                    CraftTags\create tag_id: tag.id, craft_id: craft.id
-                  for name in pairs removedTags
-                    craftTag = CraftTags\find craft_id: craft.id, tag_id: (Tags\find(:name)).id
-                    craftTag\delete!
-                  -- lack of error checking :/
 
                 if @params.delete
                   if craft\delete!
