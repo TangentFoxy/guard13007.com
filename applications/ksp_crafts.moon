@@ -14,7 +14,7 @@ class KSPCraftsApp extends lapis.Application
   -- TODO this will be defined on a different app or as a page
   -- [index: ""]: => return redirect_to: @url_for "ksp_crafts_index"
 
-  [tags: "/crafts/tags(/:page[%d])"]: =>
+  [tags: "/craft-tags(/:page[%d])"]: =>
     @page = tonumber(@params.page) or 1
 
     per_page = 4*13
