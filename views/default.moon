@@ -56,14 +56,6 @@ class extends html.Widget
                                 br!
                                 text @info
                     @content_for "inner"
-                    --script async: true, src: "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-                    --ins class: "adsbygoogle", style: "display:block;", ["data-ad-client"]: "ca-pub-9019103053166505", ["data-ad-slot"]: "4422103590", ["data-ad-format"]: "auto"
-                    --script -> raw "(adsbygoogle = window.adsbygoogle || []).push({});"
-                    --script -> raw "
-                    --    (adsbygoogle = window.adsbygoogle || []).push({
-                    --        google_ad_client: \"ca-pub-9019103053166505\",
-                    --        enable_page_level_ads: true
-                    --    });"
                 div style: "position: fixed; bottom: 0; width: 100%;", ->
                     div id: "footer", ->
                         if @session.id
