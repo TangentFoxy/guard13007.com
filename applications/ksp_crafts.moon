@@ -17,14 +17,9 @@ class KSPCraftsApp extends lapis.Application
     @page = tonumber(@params.page) or 1
 
     @last_page = db.query("SELECT COUNT(DISTINCT tag_id) FROM craft_tags")[1].count
-    @tags = db.query "SELECT tags.*, COUNT(tag_id) AS count
-      FROM tags
-      INNER JOIN craft_tags ON tags.id = craft_tags.tag_id
-      GROUP BY tags.id
-      ORDER BY count DESC, name ASC
-      LIMIT 50 OFFSET #{db.escape_literal 50 * @page}"
-    -- if #@tags < 1 and @last_page > 0
-    --   return redirect_to: @url_for "ksp_crafts_tags", page: @last_page
+    @tags = db.query "SELECT tags.*, COUNT(tag_id) AS count FROM tags INNER JOIN craft_tags ON tags.id = craft_tags.tag_id GROUP BY tags.id ORDER BY count DESC, name ASC LIMIT 50 OFFSET #{db.escape_literal 50 * @page - 1}"
+    if #@tags < 1 and @last_page > 0
+      return redirect_to: @url_for "ksp_crafts_tags", page: @last_page
 
     @title = "Craft Tags"
     return render: "ksp.crafts_tags"
