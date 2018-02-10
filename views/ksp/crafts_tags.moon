@@ -23,7 +23,7 @@ class KSPCraftsTags extends Widget
 
     div class: "columns", ->
       forth = ceil #@tags / 4
-      for c=1, 3
+      for c=1, 4
         div class: "column", ->
           for i=c*forth, (c+1)*forth
             if tag = @tags[i]
