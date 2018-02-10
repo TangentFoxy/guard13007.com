@@ -1,4 +1,5 @@
 lapis = require "lapis"
+console = require "lapis.console"
 
 import Posts from require "models"
 import default from require "layouts"
