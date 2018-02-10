@@ -1,7 +1,10 @@
 lapis = require "lapis"
+console = require "lapis.console"
 
 import Posts from require "models"
 import default from require "layouts"
+import is_admin from require "utility.auth"
+import respond_to from require "lapis.application"
 
 class extends lapis.Application
   @before_filter =>
@@ -39,6 +42,20 @@ class extends lapis.Application
       return render: "posts.view", content_type: "text/html; charset=utf-8"
     else
       @app.handle_404(@)
+
+  [console: "/console"]: respond_to {
+    before: =>
+      if is_admin(@)
+        @console = console.make env: "all"
+      else
+        @write status: 401, "401 - Unauthorized"
+
+    GET: =>
+      @console(@)
+
+    POST: =>
+      return @console(@)
+  }
 
   -- Legacy redirects
   "/submit": => redirect_to: @url_for "ksp_submit_crafts"
