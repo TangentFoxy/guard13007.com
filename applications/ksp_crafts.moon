@@ -13,7 +13,7 @@ class KSPCraftsApp extends lapis.Application
   -- TODO this will be defined on a different app or as a page
   -- [index: ""]: => return redirect_to: @url_for "ksp_crafts_index"
 
-  [tags: "/crafts/tags(/:page[%d])"]: =>
+  [tags: "/tags(/:page[%d])"]: =>
     @page = tonumber(@params.page) or 1
 
     @last_page = db.query("SELECT COUNT(DISTINCT tag_id) FROM craft_tags")[1].count
