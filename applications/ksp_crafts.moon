@@ -23,8 +23,8 @@ class KSPCraftsApp extends lapis.Application
       GROUP BY tags.id
       ORDER BY count DESC, name ASC
       LIMIT 50 OFFSET #{db.escape_literal 50 * @page}"
-    if #@tags < 1 and @last_page > 0
-      return redirect_to: @url_for "ksp_crafts_tags", page: @last_page
+    -- if #@tags < 1 and @last_page > 0
+    --   return redirect_to: @url_for "ksp_crafts_tags", page: @last_page
 
     @title = "Craft Tags"
     return render: "ksp.crafts_tags"
