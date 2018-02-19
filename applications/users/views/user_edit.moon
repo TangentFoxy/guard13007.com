@@ -35,7 +35,7 @@ class extends Widget
       element "table", ->
         tr ->
           td "Old password:"
-          td -> input type: "password", name: "oldpassword", autocomplete: "password"
+          td -> input type: "password", name: "oldpassword"
         tr ->
           td "New password:"
           td -> input type: "password", name: "password"

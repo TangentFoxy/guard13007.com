@@ -259,6 +259,7 @@ class extends lapis.Application
           @session.info = "Account deleted. You are now viewing your own account."
           @user_editing = @user
 
+        @csrf_token = csrf.generate_token(@)
         return render: locate "views.user_admin"
     }
   }
@@ -312,5 +313,6 @@ class extends lapis.Application
 
   [logout: "/logout"]: =>
     @session.id = nil
+    @session.redirect = nil
     Sessions\close(@session)
     return redirect_to: @params.redirect or @url_for "index"
