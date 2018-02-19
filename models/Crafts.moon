@@ -1,7 +1,8 @@
 import Model, enum from require "lapis.db.model"
 
-import starts from require "utility.string"
 import trim from require "lapis.util"
+import locate from require "locator"
+import starts from locate "gstring"
 
 http = require "lapis.nginx.http"
 

@@ -1,7 +1,5 @@
 html = require "lapis.html"
 
-import is_admin from require "utility.auth"
-
 class extends html.Widget
   content: =>
     html_5 class: "has-navbar-fixed-top has-navbar-fixed-bottom", ->
@@ -111,7 +109,7 @@ class extends html.Widget
             @content_for "inner"
         nav class: "navbar is-fixed-bottom is-light", ->
           div class: "navbar-brand", ->
-            if is_admin @
+            if @user and @user.admin
               div class: "navbar-item has-dropdown has-dropdown-up is-hoverable", ->
                 p class: "navbar-link is-unselectable", "Admin"
                 div class: "navbar-dropdown", ->

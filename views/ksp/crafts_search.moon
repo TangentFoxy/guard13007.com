@@ -1,6 +1,7 @@
 import Widget from require "lapis.html"
 import Users, Crafts from require "models"
-import KSPCraftsSearchWidget from require "widgets"
+import autoload from require "locator"
+import KSPCraftsSearchWidget from autoload "widgets"
 
 class KSPCraftsSearch extends Widget
   content: =>

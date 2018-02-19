@@ -2,10 +2,10 @@ lapis = require "lapis"
 
 import respond_to from require "lapis.application"
 
-Johns = require "models.Johns"
+import Johns from require "models"
 
 class extends lapis.Application
-    layout: "john"
+    layout: "john" -- NOTE this is located in views
 
     [john_submissions: "/john/submit(/:page[%d])"]: respond_to {
         GET: =>

@@ -1,6 +1,7 @@
 import Widget from require "lapis.html"
 import Crafts, Users from require "models"
-import Pagination, KSPCraftsSearchWidget from require "widgets"
+import autoload from require "locator"
+import Pagination, KSPCraftsSearchWidget from autoload "widgets"
 
 class KSPCraftsIndex extends Widget
   tabs: {

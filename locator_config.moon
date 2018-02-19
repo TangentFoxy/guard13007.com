@@ -2,14 +2,19 @@
   {
     path: "applications.githook"
   }
-  -- {
-  --   path: "applications.users"
-  --   migrations: {after: 1}
-  -- }
+  {
+    path: "applications.users"
+  }
   {
     path: "applications"
   }
   {
     path: "utility"
+  }
+
+
+
+  {
+    path: "legacy"
   }
 }

@@ -1,6 +1,6 @@
 db = require "lapis.db"
 import create_table, types, drop_table, add_column, rename_column, rename_table from require "lapis.db.schema"
-import locate, make_migrations, autoload from require "locator"
+import make_migrations, autoload from require "locator"
 import settings from autoload "utility"
 
 make_migrations {
@@ -230,9 +230,8 @@ make_migrations {
     rename_column "crafts", "creator_name", "creator"
   [31]: =>
     markdown = require "markdown"
-    import Posts from require "models"
-    OldPosts = require "legacy.OldPosts"
-    oldPosts = OldPosts\select "WHERE status = 1 OR NOT status = 1"
+    import Posts, OldPosts from require "models"
+    oldPosts = OldPosts\select "WHERE true"
 
     for oldPost in *oldPosts
       post, err = Posts\create {
@@ -254,4 +253,26 @@ make_migrations {
       {"craft_id", types.foreign_key}
       {"tag_id", types.foreign_key}
     }
+  [33]: =>
+    rename_table "users", "old_users"
+  [1519029724]: =>
+    settings["users.require-email"] = false
+    settings["users.require-unique-email"] = false
+    settings.save!
+
+    import Users, OldUsers, Crafts, Cards, CardVotes, Keys from require "models"
+    oldUsers = OldUsers\select "WHERE true"
+
+    for oldUser in *oldUsers
+      user, err = Users\create {
+        name: oldUser.name
+        digest: oldUser.digest
+        admin: oldUser.admin
+      }
+      error err unless user
+      if oldUser.id != user.id
+        for Model in *{Crafts, Cards, CardVotes, Keys}
+          models = Model\select "WHERE user_id = ?", oldUser.id
+          for item in *models
+            item\update user_id: user.id
 }

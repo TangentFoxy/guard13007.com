@@ -3,8 +3,9 @@ db = require "lapis.db"
 
 import Crafts, Tags, CraftTags, Users from require "models"
 import respond_to from require "lapis.application"
-import split from require "utility.string"
-import invert from require "utility.table"
+import locate from require "locator"
+import split from locate "gstring"
+import invert from locate "gtable"
 import ceil from math
 
 class KSPCraftsApp extends lapis.Application

@@ -3,9 +3,9 @@ lapis = require "lapis"
 import Posts from require "models"
 import respond_to from require "lapis.application"
 import slugify from require "lapis.util"
-import is_admin from require "utility.auth"
 
-gdate = require "utility.date"
+import autoload from require "locator"
+import datetime from autoload "utility"
 
 class PostsApp extends lapis.Application
   @path: "/post"
@@ -27,7 +27,7 @@ class PostsApp extends lapis.Application
 
   [view: "/:slug"]: =>
     @post = Posts\find slug: @params.slug
-    if (not @post) or (@post.status != Posts.statuses.published and not is_admin @)
+    if (not @post) or (@post.status != Posts.statuses.published and not (@user and @user.admin))
       @session.info = "That post does not exist."
       return redirect_to: @url_for "posts_index"
     else
@@ -35,7 +35,8 @@ class PostsApp extends lapis.Application
       return render: "posts.view"
 
   [admin_index: "s/admin/index(/:page[%d])"]: =>
-    unless is_admin @ return redirect_to: @url_for "posts_index"
+    unless @user and @user.admin
+      return redirect_to: @url_for "posts_index"
 
     @page = tonumber(@params.page) or 1
     Paginator = Posts\paginated "ORDER BY updated_at DESC", per_page: 12
@@ -50,7 +51,8 @@ class PostsApp extends lapis.Application
 
   [new: "/new"]: respond_to {
     before: =>
-      unless is_admin @ return redirect_to: @url_for "posts_index"
+      unless @user and @user.admin
+        return redirect_to: @url_for "posts_index"
     GET: =>
       @title = "New Post"
       return render: "posts.edit"
@@ -77,10 +79,10 @@ class PostsApp extends lapis.Application
       if @params.published_at and @params.published_at\len! > 0
         fields.published_at = @params.published_at
       elseif fields.status == Posts.statuses.published
-        fields.published_at = gdate.now!
+        fields.published_at = datetime.now!
       else
         fields.status = Posts.statuses.draft
-        fields.published_at = gdate.none
+        fields.published_at = datetime.zero
 
       if @params.splat and @params.splat\len! > 0
         fields.splat = @params.splat
@@ -102,7 +104,8 @@ class PostsApp extends lapis.Application
 
   [edit: "/edit/:id[%d]"]: respond_to {
     before: =>
-      unless is_admin @ return redirect_to: @url_for "posts_index"
+      unless @user and @user.admin
+        return redirect_to: @url_for "posts_index"
       @post = Posts\find id: @params.id
       unless @post
         @session.info = "That post does not exist."
@@ -137,7 +140,7 @@ class PostsApp extends lapis.Application
       if @params.published_at and @params.published_at\len! > 0
         fields.published_at = @params.published_at
       elseif fields.status == Posts.statuses.published and @post.status != Posts.statuses.published
-        fields.published_at = gdate.now!
+        fields.published_at = datetime.now!
 
       _, err = @post\update fields
       unless err
@@ -150,7 +153,8 @@ class PostsApp extends lapis.Application
   }
 
   [delete: "/delete/:id[%d]"]: =>
-    unless is_admin @ return redirect_to: @url_for "posts_index"
+    unless @user and @user.admin
+      return redirect_to: @url_for "posts_index"
 
     if post = Posts\find id: @params.id
       if post\delete!
