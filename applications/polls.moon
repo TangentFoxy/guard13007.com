@@ -10,7 +10,7 @@ class extends lapis.Application
   [index: ""]: =>
     @title = "Guard's Polls"
     @html ->
-      div class: "content", style: "ul {list-style-type: circle;}", ->
+      div class: "content", ->
         ul ->
           li ->
             a href: @url_for("polls_yt_videos"), "What type of videos should I make?"
@@ -27,12 +27,12 @@ class extends lapis.Application
   [yt_videos: "/youtube-videos.html"]: =>
     @title = "What type of YouTube videos should I make?"
     @poll = "https://www.strawpoll.me/embed_1/11344872"
-    render: "poll", layout: "simple"
+    render: "poll"
 
   [yt_games: "/youtube-games.html"]: =>
     @title = "What kind of gaming videos should I make?"
     @poll = "https://www.strawpoll.me/embed_1/11344938"
-    render: "poll", layout: "simple"
+    render: "poll"
 
       --<div>
   	--	<h2>Other suggestions recieved so far:</h2>
@@ -52,9 +52,9 @@ class extends lapis.Application
   [yt_ksp: "/ksp-stuff.html"]: =>
     @title = "What kind of KSP videos should I make?"
     @poll = "https://www.strawpoll.me/embed_1/11344955"
-    render: "poll", layout: "simple"
+    render: "poll"
 
   [yt_ksp_plane_reviews: "/ksp-plane-reviews-length"]: =>
     @title = "How long should Plane Reviews episodes be?"
     @poll = "https://www.strawpoll.me/embed_1/11056220"
-    render: "poll", layout: "simple"
+    render: "poll"
