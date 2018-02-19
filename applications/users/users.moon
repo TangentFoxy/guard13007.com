@@ -135,7 +135,7 @@ class extends lapis.Application
             {"name", exists: true, "You must have a username."}
             {"name", unique_user: true, "That username is taken."}
           }
-          @user\update name: trim @params.name
+          assert_error @user\update name: trim @params.name
           @session.info = "Username updated."
           return redirect_to: @url_for "user_edit"
 
@@ -150,7 +150,7 @@ class extends lapis.Application
               assert_valid @params, {
                 {"email", unique_email: true, "That email address is already tied to another account."}
               }
-          @user\update email: trim @params.email
+          assert_error @user\update email: trim @params.email
           @session.info = "Email address updated."
           return redirect_to: @url_for "user_edit"
 
@@ -167,7 +167,7 @@ class extends lapis.Application
           unless bcrypt.verify @params.oldpassword, @user.digest
             yield_error "Incorrect password."
 
-          @user\update digest: bcrypt.digest @params.password, settings["users.bcrypt-digest-rounds"]
+          assert_error @user\update digest: bcrypt.digest @params.password, settings["users.bcrypt-digest-rounds"]
           @session.info = "Password updated."
           return redirect_to: @url_for "user_edit"
 
@@ -223,7 +223,7 @@ class extends lapis.Application
             {"name", exists: true, "They must have a username."}
             {"name", unique_user: true, "That username is taken."}
           }
-          @user_editing\update name: trim @params.name
+          assert_error @user_editing\update name: trim @params.name
           @session.info = "Username updated."
           return redirect_to: @url_for "user_admin"
 
@@ -236,18 +236,18 @@ class extends lapis.Application
               assert_valid @params, {
                 {"email", unique_email: true, "That email address is already tied to another account."}
               }
-          @user_editing\update email: trim @params.email
+          assert_error @user_editing\update email: trim @params.email
           @session.info = "Email address updated."
           return redirect_to: @url_for "user_admin"
 
         if @params.password
-          @user_editing\update digest: bcrypt.digest @params.password, settings["users.bcrypt-digest-rounds"]
+          assert_error @user_editing\update digest: bcrypt.digest @params.password, settings["users.bcrypt-digest-rounds"]
           @session.info = "Password updated. (Warning: Admins editing passwords are not restricted to secure passwords, as these are intended to be TEMPORARY only!)"
           -- TODO require a password edited by an admin to be changed upon login
           return redirect_to: @url_for "user_admin"
 
         if @params.admin ~= nil
-          @user_editing\update admin: @params.admin
+          assert_error @user_editing\update admin: @params.admin
           if @params.admin
             @session.info = "#{@user_editing.name} is now an admin!"
           else
