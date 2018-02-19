@@ -19,7 +19,7 @@ validate_functions.unique_email = (input) ->
 validate_functions.max_repetitions = (input, max) ->
   tab = {}
   for i=1,#input
-    char = #input\sub i, i
+    char = input\sub i, i
     if tab[char]
       tab[char] += 1
     else
