@@ -24,12 +24,13 @@ class Users extends Model
         return "User names must not be 'admin', 'administrator', 'new', 'edit', 'create', 'login', 'logout', or 'me'."
 
     email: (value) =>
-      if settings["users.require-email"] and (not value)
-        return "Email addresses must exist."
+      if settings["users.require-email"]
+        unless value
+          return "Email addresses must exist."
 
       -- TODO figure out how to check for valid email address
 
-      if settings["users.require-unique-email"]
-        if Users\find email: value
-          return "Email addresses must be unique."
+        if settings["users.require-unique-email"]
+          if Users\find email: value
+            return "Email addresses must be unique."
   }
