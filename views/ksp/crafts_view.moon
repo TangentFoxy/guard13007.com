@@ -40,9 +40,8 @@ class KSPCraftsView extends Widget
     hr!
     p "Notes from Guard13007: #{@craft.notes}"
 
-    if @session.id
-      if user = Users\find id: @session.id
-        if @session.id == @craft.user_id or user.admin
+      if @user
+        if @user.id == @craft.user_id or @user.admin
           hr!
           form {
             action: @url_for "ksp_crafts_view", id: @craft.id
@@ -75,7 +74,7 @@ class KSPCraftsView extends Widget
               div class: "buttons is-centered", ->
                 input class: "button", type: "submit", value: "Update"
 
-        if user.admin
+        if @user.admin
           hr!
           form {
             action: @url_for "ksp_crafts_view", id: @craft.id
