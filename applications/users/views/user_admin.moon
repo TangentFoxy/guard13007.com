@@ -25,7 +25,7 @@ class extends Widget
       enctype: "multipart/form-data"
     }, ->
       text "Change username? "
-      input type: "text", name: "name", value: @user_editing.name
+      input type: "text", name: "name", value: @user_editing.name, autocomplete: "username"
       br!
       input type: "hidden", name: "id", value: @user_editing.id
       input type: "hidden", name: "csrf_token", value: @csrf_token
