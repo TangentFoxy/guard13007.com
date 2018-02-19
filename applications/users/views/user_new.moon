@@ -8,11 +8,11 @@ class extends Widget
       enctype: "multipart/form-data"
     }, ->
       p "Username: "
-      input type: "text", name: "name", id: "username"
+      input type: "text", name: "username"
       p "Email: "
       input type: "email", name: "email"
       p "Password: "
-      input type: "password", name: "password", id: "password"
+      input type: "password", name: "password"
       br!
       input type: "hidden", name: "csrf_token", value: @csrf_token
       input type: "submit"

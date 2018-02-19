@@ -59,8 +59,8 @@ class extends lapis.Application
         csrf.assert_token(@)
 
         assert_valid @params, {
-          {"name", exists: true, "You must have a username."}
-          {"name", unique_user: true, "That username is taken."}
+          {"username", exists: true, "You must have a username."}
+          {"username", unique_user: true, "That username is taken."}
           {"password", exists: true, "You must enter a password."}
           {"password", min_length: settings["users.minimum-password-length"], "Your password must be at least #{settings["users.minimum-password-length"]} characters long."}
           {"password", max_repetitions: settings["users.maximum-character-repetition"], "Your password must not have more than #{settings["users.maximum-character-repetition"]} repetitions of the same character."}
@@ -82,7 +82,7 @@ class extends lapis.Application
         digest = bcrypt.digest @params.password, settings["users.bcrypt-digest-rounds"]
 
         user = assert_error Users\create {
-          name: trim @params.name -- NOTE this might allow an empty username by using spaces to fool validation functions
+          name: trim @params.username -- NOTE this might allow an empty username by using spaces to fool validation functions
           email: trim @params.email
           digest: digest
         }
