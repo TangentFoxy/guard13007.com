@@ -122,7 +122,7 @@ class extends html.Widget
                 div class: "level-left", ->
                   div class: "level-item", ->
                     div class: "field is-grouped", ->
-                      if @session.id
+                      if @user
                         div class: "control", ->
                           a class: "button", href: @url_for("user_me"), "You"
                         div class: "control", ->
