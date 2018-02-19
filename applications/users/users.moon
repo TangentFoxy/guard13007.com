@@ -311,5 +311,6 @@ class extends lapis.Application
   }
 
   [logout: "/logout"]: =>
+    @session.id = nil
     Sessions\close(@session)
     return redirect_to: @params.redirect or @url_for "index"
