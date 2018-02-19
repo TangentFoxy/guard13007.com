@@ -3,7 +3,7 @@ console = require "lapis.console"
 
 import Posts from require "models"
 import respond_to from require "lapis.application"
-import autoload from require "locator"
+import autoload, locate, registry from require "locator"
 import default from autoload "layouts"
 import settings from autoload "utility"
 

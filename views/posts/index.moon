@@ -1,6 +1,6 @@
 import Widget from require "lapis.html"
-import Pagination from require "widgets"
-import locate from require "locator"
+import locate, autoload from require "locator"
+import Pagination from autoload "widgets"
 import pretty_date from require "datetime"
 
 class PostIndex extends Widget

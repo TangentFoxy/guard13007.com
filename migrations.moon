@@ -255,6 +255,24 @@ make_migrations {
     }
   [33]: =>
     rename_table "users", "old_users"
+  [34]: =>
+    -- this is copied from users migration 1
+    create_table "users", {
+      {"id", types.serial primary_key: true}
+      {"name", types.varchar unique: true}
+      {"email", types.text unique: true}
+      {"digest", types.text}
+      {"admin", types.boolean default: false}
+
+      {"created_at", types.time}
+      {"updated_at", types.time}
+    }
+    create_table "sessions", {
+      {"user_id", types.foreign_key}
+
+      {"created_at", types.time}
+      {"updated_at", types.time}
+    }
   [1519029724]: =>
     settings["users.require-email"] = false
     settings["users.require-unique-email"] = false

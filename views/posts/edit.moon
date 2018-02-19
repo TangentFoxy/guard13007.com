@@ -1,6 +1,6 @@
 import Widget from require "lapis.html"
-import Posts from require "models"
 import slugify from require "lapis.util"
+import Posts from require "models"
 
 class EditPost extends Widget
   content: =>

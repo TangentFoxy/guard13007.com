@@ -1,7 +1,7 @@
 import Widget from require "lapis.html"
 import time_ago_in_words from require "lapis.util"
 import locate from require "locator"
-import pretty_date from require "datetime"
+import pretty_date from locate "datetime"
 
 class ViewPost extends Widget
   content: =>
