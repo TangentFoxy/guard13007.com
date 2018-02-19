@@ -1,8 +1,9 @@
 db = require "lapis.db"
-
 import create_table, types, drop_table, add_column, rename_column, rename_table from require "lapis.db.schema"
+import locate, make_migrations, autoload from require "locator"
+import settings from autoload "utility"
 
-{
+make_migrations {
   [1]: =>
     return true
   [2]: =>
