@@ -21,14 +21,10 @@ class extends lapis.Application
   @include locate "users"
   @include locate "posts"
   @include locate "ksp_crafts"
+  @include locate "polls"
 
   @include locate "redirects"
 
-  handle_404: =>
-    @title = "404 - Not Found"
-    return render: "404", status: 404 -- status should not be needed ?
-
-  @include "polls"
   @include "keys"
   @include "1000cards"
   @include "john"
@@ -49,6 +45,10 @@ class extends lapis.Application
       return console.make(env: "all")(@)
     else
       return status: 401, "401 - Unauthorized"
+
+  handle_404: =>
+    @title = "404 - Not Found"
+    return render: "404", status: 404 -- status should not be needed ?
 
   -- Legacy redirects
   "/submit": => redirect_to: @url_for "ksp_submit_crafts"
