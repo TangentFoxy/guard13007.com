@@ -29,7 +29,8 @@ class KSPCraftsSearch extends Widget
           tbody ->
             for craft in *@crafts
               tr ->
-                td craft.name
+                td ->
+                  a href: @url_for("ksp_crafts_view", id: craft.id), craft.name
                 name = craft.creator
                 if craft.user_id != 0
                   if user = Users\find id: craft.user_id

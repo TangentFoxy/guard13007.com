@@ -167,7 +167,7 @@ class KSPCraftsApp extends lapis.Application
           user_id = @user.id
 
       if not @params.picture or @params.picture\len! < 1
-        @params.picture = "/static/img/ksp/no_image.png"
+        @params.picture = "https://guard13007.com/static/img/ksp/no_image.png"
 
       craft, err = Crafts\create {
         name: @params.name
