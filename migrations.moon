@@ -298,4 +298,13 @@ make_migrations {
     crafts = Crafts\select "WHERE picture LIKE ?", "%/static/img/ksp/no_image.png" -- NOTE might be wrong
     for craft in *crafts
       craft\update picture: "https://guard13007.com/static/img/ksp/no_image.png"
+  [1519267020]: =>
+    create_table "categories", {
+      {"id", types.serial primary_key: true}
+      {"name", types.text unique: true}
+    }
+    create_table "post_categories", {
+      {"post_id", types.foreign_key}
+      {"category_id", types.foreign_key}
+    }
 }
