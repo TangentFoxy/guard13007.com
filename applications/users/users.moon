@@ -12,6 +12,8 @@ import settings from autoload "utility"
 
 import Users, Sessions from require "models"
 
+validate_functions.not_equals = (...) ->
+  return not validate_functions.equals(...)
 validate_functions.unique_user = (input) ->
   return not Users\find name: input
 validate_functions.unique_email = (input) ->
@@ -133,6 +135,7 @@ class extends lapis.Application
             yield_error "You cannot change your username."
           assert_valid @params, {
             {"name", exists: true, "You must have a username."}
+            {"name", not_equals: @user.name, "You must enter a different username to change it."}
             {"name", unique_user: true, "That username is taken."}
           }
           assert_error @user\update name: trim @params.name
@@ -221,6 +224,7 @@ class extends lapis.Application
         if @params.name
           assert_valid @params, {
             {"name", exists: true, "They must have a username."}
+            {"name", not_equals: @user_editing.name, "You must enter a different username to change it."}
             {"name", unique_user: true, "That username is taken."}
           }
           assert_error @user_editing\update name: trim @params.name
