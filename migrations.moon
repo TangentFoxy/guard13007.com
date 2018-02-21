@@ -293,4 +293,9 @@ make_migrations {
           models = Model\select "WHERE user_id = ?", oldUser.id
           for item in *models
             item\update user_id: user.id
+  [1519264124]: =>
+    import Crafts from require "models"
+    crafts = Crafts\select "WHERE picture LIKE ?", "%/static/img/ksp/no_image.png" -- NOTE might be wrong
+    for craft in *crafts
+      craft\update picture: "https://guard13007.com/static/img/ksp/no_image.png"
 }
