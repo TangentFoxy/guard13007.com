@@ -15,7 +15,7 @@
 
 
 
-  {
+  { -- only used in migrations for models no longer in use
     path: "legacy"
   }
 }
