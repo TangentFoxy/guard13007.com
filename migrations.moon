@@ -302,6 +302,7 @@ make_migrations {
     create_table "categories", {
       {"id", types.serial primary_key: true}
       {"name", types.text unique: true}
+      {"parent_id", types.foreign_key null: true}
     }
     create_table "post_categories", {
       {"post_id", types.foreign_key}
