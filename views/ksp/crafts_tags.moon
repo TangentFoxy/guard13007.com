@@ -12,7 +12,7 @@ class KSPCraftsTags extends Widget
     div class: "tabs is-centered", ->
       ul ->
         for tab in *KSPCraftsIndex.tabs
-          li -> a href: @url_for("ksp_crafts_index", tab: tab\lower!), tab
+          li -> a href: @url_for("ksp_crafts_index", tab: tab.name\lower!), tab.name
         li class: "is-active", -> a "Tags"
         li ->
           form onsubmit: "location.href = '#{@url_for "ksp_crafts_index"}/' + document.getElementById('tag').value; return false;", ->

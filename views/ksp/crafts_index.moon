@@ -5,7 +5,11 @@ import Pagination, KSPCraftsNavWidget from autoload "widgets"
 
 class KSPCraftsIndex extends Widget
   tabs: {
-    "All", "Reviewed", "Pending", "New", "Rejected"
+    {name: "All", tip: "All crafts in the order they were submitted."}
+    {name: "Reviewed", tip: "Crafts which have been reviewed on my YouTube channel."}
+    {name: "Pending", tip: "priority: Crafts to be reviewed next.\npending: Crafts awaiting a review.\nimported: Crafts I have imported from the KerbalX hanger or emails.\ndelayed: Craft that will be skipped for now.\nold: Really old submissions."}
+    {name: "New", tip: "Crafts that I haven't even noticed have been submitted yet."}
+    {name: "Rejected", tip: "Crafts that were rejected from my review series. Periodically deleted."}
   }
 
   content: =>
@@ -17,11 +21,11 @@ class KSPCraftsIndex extends Widget
         real_tab = false
         @params.tab = "all" unless @params.tab
         for tab in *KSPCraftsIndex.tabs
-          if @params.tab == tab\lower!
-            li class: "is-active", -> a tab
+          if @params.tab == tab.name\lower!
+            li class: "is-active", -> a tab.name
             real_tab = true
           else
-            li -> a href: @url_for("ksp_crafts_index", tab: tab\lower!), tab
+            li -> a href: @url_for("ksp_crafts_index", tab: tab.name\lower!), tab.name
         li -> a href: @url_for("ksp_crafts_tags"), "Tags"
         unless real_tab
           li class: "is-active", -> a "##{@params.tab}"
