@@ -57,4 +57,5 @@ import settings from autoload "utility"
     settings["users.require-recaptcha"] = false  -- protect against bots for sign-up (default off because it requires set-up)
     -- settings["users.recaptcha-sitekey"] = nil -- provided by admin panel
     -- settings["users.recaptcha-secret"] = nil  -- provided by admin panel
+    settings.save!
 }
