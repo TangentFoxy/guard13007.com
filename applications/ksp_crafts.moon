@@ -114,8 +114,8 @@ class KSPCraftsApp extends lapis.Application
               if data and data\len! > 0 and data != craft[name]
                 fields[name] = data
         if @params.tags
-          Tags\set craft, @params.tags -- Tags uses assert_error internally
-          @session.info = "Craft tags updated."
+          if Tags\set craft, @params.tags -- uses assert_error internally, returns bool indicating if updates actually occurred
+            @session.info = "Craft tags updated."
         if next fields
           assert_error craft\update fields
           if @session.info

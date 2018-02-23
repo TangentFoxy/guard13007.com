@@ -40,6 +40,11 @@ class Tags extends Model
       tag = assert_error RelationModel\find ["#{relation_name}_id"]: item.id, tag_id: (Tags\find(:name)).id
       assert_error tag\delete!
 
+    if nil == next(addedTags) and nil == next(removedTags)
+      return false
+    else
+      return true
+
   remove: (item) =>
     relation_name = item.__class\singular_name!
     RelationModel = require("models")[item.__class.__name]
