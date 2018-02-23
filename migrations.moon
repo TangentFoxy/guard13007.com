@@ -309,6 +309,10 @@ make_migrations {
       {"post_id", types.foreign_key}
       {"category_id", types.foreign_key}
     }
+  [1519419901]: =>
+    rename_table "users", "users2"
+    rename_table "old_users", "users"
+    add_column "users", "email", types.text null: true
   -- []: =>
   --   create_table "software_projects", {
   --     {"id", types.serial primary_key: true}
