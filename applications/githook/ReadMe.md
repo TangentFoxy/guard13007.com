@@ -1,5 +1,8 @@
 ## Installation
 
+(Note: I'm going to rewrite this to explain how to use with locator, a simple
+server locator I designed for use with Lapis and these sub-applications.)
+
 Dependencies:
 
 - Lapis (duh)
@@ -21,7 +24,7 @@ git remote add -f githook https://github.com/lazuscripts/githook.git
 git subtree add --prefix githook githook master --squash
 ```
 
-From your main application class: `@include "githook.init"` (or wherever you put it)
+From your main application class: `@include "githook.githook"` (or wherever you put it)
 
 ### Updating
 

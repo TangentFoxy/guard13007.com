@@ -17,3 +17,13 @@ Note to self:
 - Need to have local fallback for SimpleMDE to get its icons.
 - Should use CDNs for content where available.
 - Want to have local fallback for all content. (?)
+
+--------------------------------------------------------------------------------
+
+- githook should save results of a request into database
+  so you can view them on-site
+- f needs a toggle for scraping
+- f needs a function that can be run in the console to find missing
+  images (use registry to save console functions into table?)
+- delete secret.moon.example once I have written scripts to automate install process
+- the nginx-proxy I am using w f is better than the one my main site is using!

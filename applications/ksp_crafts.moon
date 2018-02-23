@@ -1,11 +1,33 @@
 lapis = require "lapis"
+http = require "lapis.nginx.http"
 db = require "lapis.db"
 
-import Crafts, Tags, CraftTags, Users from require "models"
-import respond_to from require "lapis.application"
-import split from require "utility.string"
-import invert from require "utility.table"
+import Crafts, Tags, Users from require "models"
+import respond_to, capture_errors, assert_error, yield_error from require "lapis.application"
+import assert_valid, validate_functions from require "lapis.validate"
+import locate from require "locator"
+import split from locate "gstring"
+import invert from locate "gtable"
+import random from locate "calc"
 import ceil from math
+
+validate_functions.not_equals = (...) ->
+  return not validate_functions.equals(...)
+
+fix_url = (url="") ->
+  if "http://" == url\sub 1, 7
+    url = "https://#{url\sub 8}"
+  elseif "https://" != url\sub 1, 8
+    url = "https://#{url}"
+  -- this can break some sites, so I won't do it just in case...
+  -- if "www." == url\sub 9, 12
+  --   url = "https://#{url\sub 13}"
+
+  _, http_status = http.simple url
+  if http_status == 404 or http_status == 403 or http_status == 500 or http_status == 301 or http_status == 302
+    yield_error "Image URL is invalid."
+  else
+    return url
 
 class KSPCraftsApp extends lapis.Application
   @path: "/gaming/ksp"
@@ -75,136 +97,129 @@ class KSPCraftsApp extends lapis.Application
         @session.info = "That craft does not exist."
         return redirect_to: @url_for "ksp_crafts_index"
 
-    POST: =>
-      if @session.id
-        if user = Users\find id: @session.id
-          if craft = Crafts\find id: @params.id
-            fields = {}
+    POST: capture_errors {
+      on_error: =>
+        @session.info = "The following errors occurred:"
+        for err in *@errors
+          @session.info ..= " #{err}"
+        return redirect_to: @url_for("ksp_crafts_view", id: @params.id)
 
-            if user.id == craft.user_id or user.admin
-              -- name, description, download_link, picture, action_groups, ksp_version, mods_used
-              if @params.craft_name and @params.name\len! > 0 and @params.name != craft.name
-                fields.name = @params.name
-              if @params.description and @params.description\len! > 0 and @params.description != craft.description
-                fields.description = @params.description
-              if @params.download_link and @params.download_link\len! > 0 and @params.download_link != craft.download_link
-                fields.download_link = @params.download_link
-              if @params.picture and @params.picture\len! > 0 and @params.picture != craft.picture
-                fields.picture = @params.picture
-              if @params.action_groups and @params.action_groups\len! > 0 and @params.action_groups != craft.action_groups
-                fields.action_groups = @params.action_groups
-              if @params.ksp_version and @params.ksp_version\len! > 0 and @params.ksp_version != craft.ksp_version
-                fields.ksp_version = @params.ksp_version
-              if @params.mods_used and @params.mods_used\len! > 0 and @params.mods_used != craft.mods_used
-                fields.mods_used = @params.mods_used
-
-              -- handle tags
-              if @params.tags
-                oldTags = CraftTags\hash craft_id: craft.id
-                newTags = invert split @params.tags
-                addedTags, removedTags = {}, {}
-                for tag in pairs newTags
-                  unless oldTags[tag]
-                    addedTags[tag] = true
-                for tag in pairs oldTags
-                  unless newTags[tag]
-                    removedTags[tag] = true
-                for name in pairs addedTags
-                  tag = Tags\find(:name) or Tags\create(:name)
-                  CraftTags\create tag_id: tag.id, craft_id: craft.id
-                for name in pairs removedTags
-                  craftTag = CraftTags\find craft_id: craft.id, tag_id: (Tags\find(:name)).id
-                  craftTag\delete!
-                -- lack of error checking :/
-                @session.info = "Craft updated."
-                return redirect_to: @url_for "ksp_crafts_view", id: @params.id
-
-              if user.admin
-                -- status, episode, notes, creator, user_id
-                if @params.status and @params.status\len! > 0 and @params.status != craft.status
-                  fields.status = Crafts.statuses\for_db tonumber @params.status
-                if @params.episode and @params.episode\len! > 0 and @params.episode != craft.episode
-                  fields.episode = @params.episode
-                if @params.notes and @params.notes\len! > 0 and @params.notes != craft.notes
-                  fields.notes = @params.notes
-                if @params.creator and @params.creator\len! > 0 and @params.creator != craft.creator
-                  fields.creator = @params.creator
-                if @params.user_id and @params.user_id\len! > 0 and @params.user_id != craft.user_id
-                  fields.user_id = tonumber @params.user_id
-
-                if @params.delete
-                  if craft\delete!
-                    @session.info = "Craft deleted."
-                    return redirect_to: @url_for "ksp_crafts_index"
-                  else
-                    @session.info = "Error deleting craft!"
-                    return redirect_to: @url_for "ksp_crafts_view", id: @params.id
-
-            if next fields
-              craft\update fields
-              @session.info = "Craft updated."
-              return redirect_to: @url_for "ksp_crafts_view", id: @params.id
+      =>
+        unless @user
+          yield_error "You are not logged in."
+        craft = assert_error Crafts\find id: @params.id
+        unless @user.admin or @user.id == craft.user_id
+          yield_error "You do not have permission to edit this craft."
+        fields = {}
+        for name, data in pairs @params
+          switch name
+            when "id", "tags"
+              nil -- ignore
+            when "status", "episode", "notes", "creator", "user_id", "delete"
+              unless @user.admin
+                yield_error "You must be an administrator to edit a craft's #{name}."
+              switch name
+                when "status", "user_id"
+                  data = tonumber data
+                  if craft[name] != data
+                    fields[name] = data
+                when "delete"
+                  assert_error craft\delete!
+                  @session.info = "Craft deleted."
+                  return redirect_to: @url_for "ksp_crafts_index"
+                else
+                  if data and data\len! > 0 and data != craft[name]
+                    fields[name] = data
+            else
+              if data and data\len! > 0 and data != craft[name]
+                fields[name] = data
+        if @params.tags
+          if Tags\set craft, @params.tags -- uses assert_error internally, returns bool indicating if updates actually occurred
+            @session.info = "Craft tags updated."
+        if next fields
+          assert_error craft\update fields
+          if @session.info
+            @session.info ..= "\nCraft updated."
           else
-            @session.info = "That craft does not exist."
-            return redirect_to: @url_for "ksp_crafts_index"
-
-      @session.id = nil
-      @session.info = "You are not logged in."
-      return redirect_to: @url_for "ksp_crafts_view", id: @params.id
+            @session.info = "Craft updated."
+        return redirect_to: @url_for "ksp_crafts_view", id: @params.id
+    }
   }
 
   [submit: "/submit"]: respond_to {
     GET: =>
       @title = "Submit a craft to be reviewed!"
       return render: "ksp.crafts_submit"
-    POST: =>
-      status = Crafts.statuses.new
-      user_id = 0
-      if @session.id
-        if user = Users\find id: @session.id
-          if user.admin
+
+    POST: capture_errors {
+      on_error: =>
+        @session.info = "The following errors occurred:"
+        for err in *@errors
+          @session.info ..= " #{err}"
+        return redirect_to: @url_for "ksp_crafts_submit"
+
+      =>
+        status = Crafts.statuses.new
+        user_id = 0
+        if @user
+          if @user.admin
             status = Crafts.statuses.imported
           else
-            @params.creator = user.name
-            user_id = user.id
+            @params.creator = @user.name
+            user_id = @user.id
 
-      if not @params.picture or @params.picture\len! < 1
-        @params.picture = "/static/img/ksp/no_image.png"
+        if not @params.picture or @params.picture\len! < 1
+          @params.picture = "https://guard13007.com/static/img/ksp/no_image.png"
 
-      craft, err = Crafts\create {
-        name: @params.name
-        download_link: @params.download_link
-        creator: @params.creator
-        description: @params.description
-        action_groups: @params.action_groups
-        ksp_version: @params.ksp_version
-        mods_used: @params.mods_used
-        picture: @params.picture
-        user_id: user_id
-        status: status
-      }
+        @params.download_link = fix_url @params.download_link
+        @params.picture = fix_url @params.picture
 
-      if craft
+        assert_error Crafts\create {
+          name: @params.name
+          download_link: @params.download_link
+          creator: @params.creator
+          description: @params.description
+          action_groups: @params.action_groups
+          ksp_version: @params.ksp_version
+          mods_used: @params.mods_used
+          picture: @params.picture
+          user_id: user_id
+          status: status
+        }
+
         return redirect_to: @url_for "ksp_crafts_view", id: craft.id
-      else
-        @info = "Craft submission failed: #{err}"
-        return render: "ksp.crafts_submit"
+    }
   }
 
   [search: "/search"]: =>
-    if @params.query and @params.query\len! > 0 -- legacy
-      @params.name = @params.query
+    if @params.name and @params.name\len! > 0 -- legacy..again
+      @params.query = @params.name
 
-    if @params.name and @params.name\len! > 0
+    if @params.query and @params.query\len! > 0
       if @params.version and @params.version\len! > 0
-        @title = "KSP Crafts Search: #{@params.name} v#{@params.version}"
-        @crafts = Crafts\select "WHERE (name LIKE ? OR creator LIKE ? OR description LIKE ?) AND ksp_version LIKE ? ORDER BY id ASC", "%"..@params.name.."%", "%"..@params.name.."%", "%"..@params.name.."%", "%"..@params.version.."%"
+        @title = "KSP Crafts Search: #{@params.query} v#{@params.version}"
+        @crafts = Crafts\select "WHERE (name ILIKE ? OR creator ILIKE ? OR description ILIKE ?) AND ksp_version ILIKE ? ORDER BY id ASC", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.version.."%"
       else
-        @title = "KSP Crafts Search: #{@params.name}"
-        @crafts = Crafts\select "WHERE name LIKE ? OR creator LIKE ? OR description LIKE ? ORDER BY id ASC", "%"..@params.name.."%", "%"..@params.name.."%", "%"..@params.name.."%"
+        @title = "KSP Crafts Search: #{@params.query}"
+        @crafts = Crafts\select "WHERE name ILIKE ? OR creator ILIKE ? OR description ILIKE ? ORDER BY id ASC", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.query.."%"
     else
       @title = "KSP Crafts Search"
 
     return render: "ksp.crafts_search"
+
+  [random: "/random"]: =>
+    local crafts
+    if @user and @user.admin
+      -- NOT reviewed, rejected, or delayed
+      crafts = Crafts\select "WHERE status NOT IN (?, ?, ?)", Crafts.statuses.reviewed, Crafts.statuses.rejected, Crafts.statuses.delayed
+    else
+      crafts = Crafts\select "WHERE true"
+
+    if #crafts > 0
+      return redirect_to: @url_for "ksp_crafts_view", id: crafts[random 1, #crafts].id
+    elseif @user and @user.admin
+      return redirect_to: @url_for "ksp_crafts_index", tab: "pending" -- to show there are none except delayed craft
+    else
+      return redirect_to: @url_for "ksp_crafts_index", tab: "all"     -- to show there are none D:
 
   "/craft": => return redirect_to: @url_for "ksp_crafts_index"

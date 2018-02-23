@@ -2,10 +2,10 @@ lapis = require "lapis"
 http = require "lapis.nginx.http"
 
 import respond_to from require "lapis.application"
-import starts from require "utility.string"
+import locate from require "locator"
+import starts from locate "gstring"
 
-Cards = require "models.Cards"
-CardVotes = require "models.CardVotes"
+import Cards, CardVotes from require "models"
 
 class extends lapis.Application
     @path: "/cards/1000"

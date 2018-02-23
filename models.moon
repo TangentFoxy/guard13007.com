@@ -1,2 +1,2 @@
-import autoload from require "lapis.util"
-autoload "models"
+import autoload from require "locator"
+return autoload "models"

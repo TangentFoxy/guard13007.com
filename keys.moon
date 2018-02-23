@@ -2,8 +2,7 @@ lapis = require "lapis"
 
 import respond_to from require "lapis.application"
 
-Keys = require "models.Keys"
-Users = require "users.models.Users"
+import Keys, Users from require "models"
 
 class extends lapis.Application
     @path: "/keys"

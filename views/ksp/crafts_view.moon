@@ -1,10 +1,11 @@
 import Widget from require "lapis.html"
 import Crafts, CraftTags, Users from require "models"
-import KSPCraftsSearchWidget from require "widgets"
+import autoload from require "locator"
+import KSPCraftsNavWidget from autoload "widgets"
 
 class KSPCraftsView extends Widget
   content: =>
-    widget KSPCraftsSearchWidget
+    widget KSPCraftsNavWidget
 
     link rel: "stylesheet", href: "/static/simplemde/simplemde.min.css"
     script src: "/static/simplemde/simplemde.min.js"
@@ -39,85 +40,84 @@ class KSPCraftsView extends Widget
     hr!
     p "Notes from Guard13007: #{@craft.notes}"
 
-    if @session.id
-      if user = Users\find id: @session.id
-        if @session.id == @craft.user_id or user.admin
-          hr!
-          form {
-            action: @url_for "ksp_crafts_view", id: @craft.id
-            method: "POST"
-            enctype: "multipart/form-data"
-          }, ->
-            div class: "field is-grouped is-grouped-centered", ->
-              div class: "control is-expanded", ->
-                input class: "input", type: "text", name: "name", placeholder: "Craft Name", value: @craft.name
-              div class: "control is-expanded", ->
-                input class: "input", type: "text", name: "download_link", placeholder: "Craft Link", value: @craft.download_link
-              div class: "control is-expanded", ->
-                input class: "input", type: "text", name: "picture", placeholder: "Image URL", value: @craft.picture
+    if @user
+      if @user.id == @craft.user_id or @user.admin
+        hr!
+        form {
+          action: @url_for "ksp_crafts_view", id: @craft.id
+          method: "POST"
+          enctype: "multipart/form-data"
+        }, ->
+          div class: "field is-grouped is-grouped-centered", ->
+            div class: "control is-expanded", ->
+              input class: "input", type: "text", name: "name", placeholder: "Craft Name", value: @craft.name
+            div class: "control is-expanded", ->
+              input class: "input", type: "text", name: "download_link", placeholder: "Craft Link", value: @craft.download_link
+            div class: "control is-expanded", ->
+              input class: "input", type: "text", name: "picture", placeholder: "Image URL", value: @craft.picture
 
-            div class: "field", ->
-              div class: "control", ->
-                textarea class: "textarea", rows: 8, name: "description", placeholder: "Description", @craft.description
-              div class: "control", ->
-                textarea class: "textarea", rows: 2, cols: 60, name: "action_groups", placeholder: "Action Groups", @craft.action_groups
-
-            div class: "field is-grouped is-grouped-centered", ->
-              div class: "control is-expanded", ->
-                input class: "input", type: "text", name: "ksp_version", placeholder: "KSP Version", value: @craft.ksp_version
-              div class: "control is-expanded", ->
-                input class: "input", type: "text", name: "mods_used", placeholder: "Mods Used", value: @craft.mods_used
-              div class: "control is-expanded", ->
-                input class: "input", type: "text", name: "tags", placeholder: "space-separated tags go here", value: CraftTags\to_string craft_id: @craft.id
-
+          div class: "field", ->
             div class: "control", ->
-              div class: "buttons is-centered", ->
-                input class: "button", type: "submit", value: "Update"
-
-        if user.admin
-          hr!
-          form {
-            action: @url_for "ksp_crafts_view", id: @craft.id
-            method: "POST"
-            enctype: "multipart/form-data"
-          }, ->
-            div class: "field is-grouped is-grouped-centered", ->
-              div class: "control is-expanded", ->
-                div class: "select", ->
-                  element "select", name: "status", ->
-                    option value: 0, "new" -- hardcoded :/
-                    for status in *Crafts.statuses
-                      if status == Crafts.statuses[@craft.status]
-                        option value: Crafts.statuses[status], selected: true, status
-                      else
-                        option value: Crafts.statuses[status], status
-              div class: "control is-expanded", ->
-                input class: "input", type: "text", name: "episode", placeholder: @craft.episode
-              div class: "control is-expanded", ->
-                input class: "input", type: "text", name: "tags", placeholder: "tags", value: CraftTags\to_string craft_id: @craft.id
-
-            div class: "field is-grouped is-grouped-centered", ->
-              div class: "control is-expanded", ->
-                input class: "input", type: "text", name: "creator", placeholder: "Creator", value: @craft.creator
-              div class: "control is-expanded", ->
-                input class: "input", type: "text", name: "user_id", value: @craft.user_id
-              div class: "control is-expanded", ->
-                input class: "input", type: "text", name: "notes", placeholder: "Notes", value: @craft.notes
-
+              textarea class: "textarea", rows: 8, name: "description", placeholder: "Description", @craft.description
             div class: "control", ->
+              textarea class: "textarea", rows: 2, cols: 60, name: "action_groups", placeholder: "Action Groups", @craft.action_groups
+
+          div class: "field is-grouped is-grouped-centered", ->
+            div class: "control is-expanded", ->
+              input class: "input", type: "text", name: "ksp_version", placeholder: "KSP Version", value: @craft.ksp_version
+            div class: "control is-expanded", ->
+              input class: "input", type: "text", name: "mods_used", placeholder: "Mods Used", value: @craft.mods_used
+            div class: "control is-expanded", ->
+              input class: "input", type: "text", name: "tags", placeholder: "space-separated tags go here", value: CraftTags\to_string craft_id: @craft.id
+
+          div class: "control", ->
+            div class: "buttons is-centered", ->
               input class: "button", type: "submit", value: "Update"
 
-          hr!
-          form {
-            action: @url_for "ksp_crafts_view", id: @craft.id
-            method: "POST"
-            enctype: "multipart/form-data"
-            onsubmit: "return confirm('Are you sure you want to do this?');"
-          }, ->
-            text "Delete craft? "
-            input type: "checkbox", name: "delete"
-            br!
-            input type: "submit"
+      if @user.admin
+        hr!
+        form {
+          action: @url_for "ksp_crafts_view", id: @craft.id
+          method: "POST"
+          enctype: "multipart/form-data"
+        }, ->
+          div class: "field is-grouped is-grouped-centered", ->
+            div class: "control is-expanded", ->
+              div class: "select", ->
+                element "select", name: "status", ->
+                  option value: 0, "new" -- hardcoded :/
+                  for status in *Crafts.statuses
+                    if status == Crafts.statuses[@craft.status]
+                      option value: Crafts.statuses[status], selected: true, status
+                    else
+                      option value: Crafts.statuses[status], status
+            div class: "control is-expanded", ->
+              input class: "input", type: "text", name: "episode", placeholder: @craft.episode
+            div class: "control is-expanded", ->
+              input class: "input", type: "text", name: "tags", placeholder: "tags", value: CraftTags\to_string craft_id: @craft.id
+
+          div class: "field is-grouped is-grouped-centered", ->
+            div class: "control is-expanded", ->
+              input class: "input", type: "text", name: "creator", placeholder: "Creator", value: @craft.creator
+            div class: "control is-expanded", ->
+              input class: "input", type: "text", name: "user_id", value: @craft.user_id
+            div class: "control is-expanded", ->
+              input class: "input", type: "text", name: "notes", placeholder: "Notes", value: @craft.notes
+
+          div class: "control", ->
+            input class: "button", type: "submit", value: "Update"
+
+        hr!
+        form {
+          action: @url_for "ksp_crafts_view", id: @craft.id
+          method: "POST"
+          enctype: "multipart/form-data"
+          onsubmit: "return confirm('Are you sure you want to do this?');"
+        }, ->
+          text "Delete craft? "
+          input type: "checkbox", name: "delete"
+          br!
+          input type: "submit"
 
     hr!
     div id: "disqus_thread"

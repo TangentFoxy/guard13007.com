@@ -1,6 +1,6 @@
 import Widget from require "lapis.html"
 
-Keys = require "models.Keys"
+import Keys from require "models"
 
 class extends Widget
     content: =>

@@ -1,7 +1,5 @@
 html = require "lapis.html"
 
-import is_admin from require "utility.auth"
-
 class extends html.Widget
   content: =>
     html_5 class: "has-navbar-fixed-top has-navbar-fixed-bottom", ->
@@ -111,12 +109,14 @@ class extends html.Widget
             @content_for "inner"
         nav class: "navbar is-fixed-bottom is-light", ->
           div class: "navbar-brand", ->
-            if is_admin @
+            if @user and @user.admin
               div class: "navbar-item has-dropdown has-dropdown-up is-hoverable", ->
                 p class: "navbar-link is-unselectable", "Admin"
                 div class: "navbar-dropdown", ->
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
+                      li -> a href: @url_for("user_list"), "List Users"
+                      li -> a href: @url_for("user_admin"), "User Administration"
                       li -> a href: @url_for("posts_admin_index"), "All Posts"
                       li -> a href: @url_for("posts_new"), "New Post"
             div class: "navbar-item", ->
@@ -124,7 +124,7 @@ class extends html.Widget
                 div class: "level-left", ->
                   div class: "level-item", ->
                     div class: "field is-grouped", ->
-                      if @session.id
+                      if @user
                         div class: "control", ->
                           a class: "button", href: @url_for("user_me"), "You"
                         div class: "control", ->

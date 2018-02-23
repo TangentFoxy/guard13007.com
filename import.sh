@@ -45,6 +45,7 @@ sudo make install
 # some rocks
 sudo luarocks install luacrypto   # a dependency of lapis that doesn't install itself for some reason
 sudo luarocks install lapis
+sudo luarocks install cjson
 sudo luarocks install moonscript
 sudo luarocks install bcrypt
 sudo luarocks install markdown
