@@ -5,7 +5,7 @@ import insert, sort from table
 -- require, but only errors when a module errors during loading
 check_require = (path) ->
   ok, value = pcall -> require path
-  if ok or ("string" == type(value) and 1 == value\find "module '#{path}' not found")
+  if ok or ("string" == type(value) and value\find "module '#{path}' not found")
     return ok, value
   else
     error value
