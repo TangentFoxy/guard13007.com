@@ -8,7 +8,8 @@ import assert_valid, validate_functions from require "lapis.validate"
 import locate from require "locator"
 import split from locate "gstring"
 import invert from locate "gtable"
-import random from require "calc"
+-- import random from require "calc"
+import random from math -- tmp
 import ceil from math
 
 validate_functions.not_equals = (...) ->
