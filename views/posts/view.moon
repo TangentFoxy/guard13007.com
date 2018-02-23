@@ -16,9 +16,11 @@ class ViewPost extends Widget
           a class: "button", href: @url_for("posts_view", slug: @previous_post.slug), "Previous Post"
         else
           a class: "button", disabled: true, "Previous Post"
+        text " "
       if @user and @user.admin
         a class: "button", href: @url_for("posts_edit", id: @post.id), "Edit Post"
       unless @post.splat
+        text " "
         if @next_post
           a class: "button", href: @url_for("posts_view", slug: @next_post.slug), "Next Post"
         else
