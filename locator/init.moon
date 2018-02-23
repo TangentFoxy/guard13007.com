@@ -6,6 +6,7 @@ import insert, sort from table
 --  if a path is specified, it will be checked before other paths
 --  checks the project root, then each path specified in locator_config
 locate = (name, path) ->
+  local value
   print "locate ->"
   if path
     print "try '#{path}.#{name}'"
@@ -26,9 +27,9 @@ locate = (name, path) ->
     return value if ok
 
   if path
-    error "locator could not find '#{path}.#{name}'"
+    error "locator could not find '#{path}.#{name}'\nlast error: #{value}"
   else
-    error "locator could not find '#{name}'"
+    error "locator could not find '#{name}'\nlast error: #{value}"
 
 -- works like Lapis's autoload, but
 --  includes trying sub-application paths & can be called to access a value
