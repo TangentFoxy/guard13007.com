@@ -93,33 +93,32 @@ class KSPCraftsApp extends lapis.Application
         craft = assert_error Crafts\find id: @params.id
         fields = {}
         for name, data in pairs @params
-          -- switch name
-          --   when "id"
-          --     nil -- ignore
-          --   when "delete"
-          --     assert_error craft\delete!
-          --     @session.info = "Craft deleted."
-          --     return redirect_to: @url_for "ksp_crafts_index"
-          --   when "status", "episode", "notes", "creator", "user_id"
-          --     unless @user.admin
-          --       yield_error "You must be an administrator to edit a craft's #{name}."
-          --     switch name
-          --       when "status", "user_id"
-          --         data = tonumber data
-          --         if craft[name] != data
-          --           fields[name] = data
-          --       else
-          --         if data and data\len! > 0 and data != craft[name]
-          --           fields[name] = data
-          --   else
-          --     if data and data\len! > 0 and data != craft[name]
-          --       fields[name] = data
-          fields[name] = data -- why
+          switch name
+            when "id"
+              nil -- ignore
+            when "delete"
+              assert_error craft\delete!
+              @session.info = "Craft deleted."
+              return redirect_to: @url_for "ksp_crafts_index"
+            when "status", "episode", "notes", "creator", "user_id"
+              unless @user.admin
+                yield_error "You must be an administrator to edit a craft's #{name}."
+              switch name
+                when "status", "user_id"
+                  data = tonumber data
+                  if craft[name] != data
+                    fields[name] = data
+                else
+                  if data and data\len! > 0 and data != craft[name]
+                    fields[name] = data
+            else
+              if data and data\len! > 0 and data != craft[name]
+                fields[name] = data
         if @params.tags
           if Tags\set craft, @params.tags -- uses assert_error internally, returns bool indicating if updates actually occurred
             @session.info = "Craft tags updated."
         if next fields
-          assert_error craft\update fields
+          assert_error craft\update @params
           if @session.info
             @session.info ..= "\nCraft updated."
           else
