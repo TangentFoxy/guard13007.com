@@ -32,6 +32,10 @@ class PostsApp extends lapis.Application
       return redirect_to: @url_for "posts_index"
     else
       @title = @post.title
+
+      @previous_post = @post\get_previous!
+      @next_post = @post\get_next!
+
       return render: "posts.view"
 
   [admin_index: "s/admin/index(/:page[%d])"]: =>

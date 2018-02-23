@@ -11,8 +11,18 @@ class ViewPost extends Widget
       raw @post.html
     div class: "container has-text-centered", ->
       h2 class: "subtitle", "Originally published #{pretty_date @post.published_at}"
+      unless @post.splat
+        if @previous_post
+          a class: "button", href: @url_for("posts_view", slug: @previous_post.slug), "Previous Post"
+        else
+          a class: "button", disabled: true, "Previous Post"
       if @user and @user.admin
         a class: "button", href: @url_for("posts_edit", id: @post.id), "Edit Post"
+      unless @post.splat
+        if @next_post
+          a class: "button", href: @url_for("posts_view", slug: @next_post.slug), "Next Post"
+        else
+          a class: "button", disabled: true, "Next Post"
     div id: "disqus_thread"
     script -> raw "
       var disqus_config = function () {
