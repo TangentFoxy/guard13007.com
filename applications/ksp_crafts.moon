@@ -105,7 +105,8 @@ class KSPCraftsApp extends lapis.Application
                 yield_error "You must be an administrator to edit a craft's #{name}."
               switch name
                 when "status", "user_id"
-                  if craft[name] != tonumber data
+                  data = tonumber data
+                  if craft[name] != data
                     fields[name] = data
                 else
                   if data and data\len! > 0 and data != craft[name]
@@ -117,10 +118,6 @@ class KSPCraftsApp extends lapis.Application
           if Tags\set craft, @params.tags -- uses assert_error internally, returns bool indicating if updates actually occurred
             @session.info = "Craft tags updated."
         if next fields
-          err = ""
-          for k,v in pairs fields
-            err ..=", #{k}=#{v}"
-          yield_error err
           assert_error craft\update fields
           if @session.info
             @session.info ..= "\nCraft updated."
