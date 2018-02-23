@@ -7,6 +7,7 @@ class KSPCraftsView extends Widget
   content: =>
     widget KSPCraftsNavWidget
 
+    link rel: "stylesheet", href: "/static/css/ksp.css"
     link rel: "stylesheet", href: "/static/simplemde/simplemde.min.css"
     script src: "/static/simplemde/simplemde.min.js"
     link rel: "stylesheet", href: "/static/highlight/styles/solarized-dark.css"
@@ -30,13 +31,35 @@ class KSPCraftsView extends Widget
     else
       img src: @craft.picture
 
-    p ->
-      a class: "button", href: @craft.download_link, target: "_blank", "Download"
-      text " KSP Version: #{@craft.ksp_version}"
+    div class: "level", ->
+      div class: "level-left", ->
+        div class: "level-item", ->
+          a class: "button", href: @craft.download_link, target: "_blank", "Download"
+        div class: "level-item", ->
+          text " KSP Version: #{@craft.ksp_version}"
+        div class: "level-item #{Crafts.statuses[@craft.status]}", ->
+          strong "Status"
+          text ": #{Crafts.statuses[@craft.status]}"
     p "Action Groups:"
     pre style: "white-space: pre-wrap;", @craft.action_groups
     p "Mods Used:"
     pre style: "white-space: pre-wrap;", @craft.mods_used
+
+    if @previous_craft or @next_craft
+      div class: "level", ->
+        div class: "level-left", ->
+          div class: "level-item", ->
+            if @previous_craft
+              a class: "button", href: @url_for("ksp_crafts_view", id: @previous_craft.id), "Previous Craft"
+            else
+              a class: "button", disabled: true, "Previous Craft"
+        div class: "level-right", ->
+          div class: "level-item", ->
+            if @next_craft
+              a class: "button", href: @url_for("ksp_crafts_view", id: @next_craft.id), "Next Craft"
+            else
+              a class: "button", disabled: true, "Next Craft"
+
     hr!
     p "Notes from Guard13007: #{@craft.notes}"
 

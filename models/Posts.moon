@@ -25,6 +25,12 @@ class Posts extends Model
     -- "music post (other)": 11
   }
 
+  get_previous: =>
+    -- copy
+    return Posts\select("WHERE published_at < ? AND splat IS NULL ORDER BY published_at DESC LIMIT 1", @published_at)[1]
+  get_next: =>
+    return Posts\select("WHERE published_at > ? AND splat IS NULL ORDER BY published_at LIMIT 1", @published_at)[1]
+
   @constraints: {
     title: (value) =>
       if not value or value\len! < 1

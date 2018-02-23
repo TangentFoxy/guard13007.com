@@ -21,6 +21,11 @@ class Crafts extends Model
     imported: 7
   }
 
+  get_previous: =>
+    return Crafts\select("WHERE id < ? ORDER BY id DESC LIMIT 1", @id)[1]
+  get_next: =>
+    return Crafts\select("WHERE id > ? ORDER BY id LIMIT 1", @id)[1]
+
   delete: (...) =>
     Tags\remove(@)
     super(...)
@@ -43,6 +48,9 @@ class Crafts extends Model
     picture: (value) =>
       if not value or value\len! < 1
         error "An image URL must be defined."
+
+      unless "https://" == value\sub 1, 8
+        return "You must use a secure link (starting with https://)."
 
       if starts(value, "https://dropbox.com") or starts(value, "https://www.dropbox.com")
         return "Dropbox cannot be used to host images."
