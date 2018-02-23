@@ -47,14 +47,18 @@ class KSPCraftsView extends Widget
 
     if @previous_craft or @next_craft
       div class: "level", ->
-        if @previous_craft
-          div class: "level-left", ->
-            div class: "level-item", ->
+        div class: "level-left", ->
+          div class: "level-item", ->
+            if @previous_craft
               a class: "button", href: @url_for("ksp_crafts_view", id: @previous_craft.id), "Previous Craft"
-        if @next_craft
-          div class: "level-right", ->
-            div class: "level-item", ->
+            else
+              a class: "button", disabled: true, "Previous Craft"
+        div class: "level-right", ->
+          div class: "level-item", ->
+            if @next_craft
               a class: "button", href: @url_for("ksp_crafts_view", id: @next_craft.id), "Next Craft"
+            else
+              a class: "button", disabled: true, "Next Craft"
 
     hr!
     p "Notes from Guard13007: #{@craft.notes}"
