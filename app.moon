@@ -52,7 +52,7 @@ class extends lapis.Application
 
   [links: "/links"]: =>
     @title = "Links 2 Stuff"
-    return layout: bare, render: "true"
+    return layout: bare, render: true
 
   -- Legacy redirects
   "/submit": => redirect_to: @url_for "ksp_submit_crafts"
