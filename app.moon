@@ -17,13 +17,13 @@ class extends lapis.Application
 
   layout: default
 
-  @include locate "githook"
-  @include locate "users"
-  @include locate "posts"
+  -- @include locate "githook"
+  -- @include locate "users"
+  -- @include locate "posts"
   -- @include locate "ksp_crafts"
-  @include locate "polls"
-
-  @include locate "redirects"
+  -- @include locate "polls"
+  --
+  -- @include locate "redirects"
 
   @include "keys"
   @include "1000cards"
