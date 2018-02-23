@@ -1,4 +1,5 @@
 html = require "lapis.html"
+config = require("lapis.config").get!
 
 class extends html.Widget
   content: =>
@@ -24,7 +25,10 @@ class extends html.Widget
         -- noscript "This website requies JavaScript for many of its pages."
         -- TODO make a better warning for JavaScript (perhaps in the footer)
         -- TODO make as little as possible required JavaScript (I think only craft submission pages truly need it)
-        nav class: "navbar is-fixed-top is-dark", ->
+        color = "dark"
+        if config._name == "development"
+          color = "danger"
+        nav class: "navbar is-fixed-top is-#{color}", ->
           div class: "navbar-brand", ->
             a class: "navbar-item", href: @url_for("index"), ->
               img src: "/static/img/logo.png"
