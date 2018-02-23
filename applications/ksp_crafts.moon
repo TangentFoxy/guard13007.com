@@ -1,4 +1,5 @@
 lapis = require "lapis"
+http = require "lapis.nginx.http"
 db = require "lapis.db"
 
 import Crafts, Tags, Users from require "models"
@@ -11,6 +12,21 @@ import ceil from math
 
 validate_functions.not_equals = (...) ->
   return not validate_functions.equals(...)
+
+fix_url = (url="") ->
+  if "http://" == url\sub 1, 7
+    url = "https://#{url\sub 8}"
+  elseif "https://" != url\sub 1, 8
+    url = "https://#{url}"
+  -- this can break some sites, so I won't do it just in case...
+  -- if "www." == url\sub 9, 12
+  --   url = "https://#{url\sub 13}"
+
+  _, http_status = http.simple url
+  if http_status == 404 or http_status == 403 or http_status == 500 or http_status == 301 or http_status == 302
+    yield_error "Image URL is invalid."
+  else
+    return url
 
 class KSPCraftsApp extends lapis.Application
   @path: "/gaming/ksp"
@@ -133,38 +149,45 @@ class KSPCraftsApp extends lapis.Application
     GET: =>
       @title = "Submit a craft to be reviewed!"
       return render: "ksp.crafts_submit"
-    POST: =>
-      status = Crafts.statuses.new
-      user_id = 0
-      if @user
-        if @user.admin
-          status = Crafts.statuses.imported
-        else
-          @params.creator = @user.name
-          user_id = @user.id
 
-      -- TODO replace this with asserts and error capturing
-      if not @params.picture or @params.picture\len! < 1
-        @params.picture = "https://guard13007.com/static/img/ksp/no_image.png"
+    POST: capture_errors {
+      on_error: =>
+        @session.info = "The following errors occurred:"
+        for err in *@errors
+          @session.info ..= " #{err}"
+        return redirect_to: @url_for "ksp_crafts_submit"
 
-      craft, err = Crafts\create {
-        name: @params.name
-        download_link: @params.download_link
-        creator: @params.creator
-        description: @params.description
-        action_groups: @params.action_groups
-        ksp_version: @params.ksp_version
-        mods_used: @params.mods_used
-        picture: @params.picture
-        user_id: user_id
-        status: status
-      }
+      =>
+        status = Crafts.statuses.new
+        user_id = 0
+        if @user
+          if @user.admin
+            status = Crafts.statuses.imported
+          else
+            @params.creator = @user.name
+            user_id = @user.id
 
-      if craft
+        if not @params.picture or @params.picture\len! < 1
+          @params.picture = "https://guard13007.com/static/img/ksp/no_image.png"
+
+        @params.download_link = fix_url @params.download_link
+        @params.picture = fix_url @params.picture
+
+        assert_error Crafts\create {
+          name: @params.name
+          download_link: @params.download_link
+          creator: @params.creator
+          description: @params.description
+          action_groups: @params.action_groups
+          ksp_version: @params.ksp_version
+          mods_used: @params.mods_used
+          picture: @params.picture
+          user_id: user_id
+          status: status
+        }
+
         return redirect_to: @url_for "ksp_crafts_view", id: craft.id
-      else
-        @info = "Craft submission failed: #{err}"
-        return render: "ksp.crafts_submit"
+    }
   }
 
   [search: "/search"]: =>

@@ -41,27 +41,19 @@ class Crafts extends Model
         return "Craft link is invalid."
 
     picture: (value) =>
-      -- TODO rewrite how this is verified
-      -- this whole verification thing doesn't validate non protocol'd values,
-      --  also I attempt to correct the value here, which is impossible to actually do here
-      if value\len! > 0
-        if value\sub(1, 7) == "http://"
-          value = "https://#{value\sub 8}"
-        elseif value\sub(1, 8) != "https://"
-          value = "https://#{value}"
+      if not value or value\len! < 1
+        error "An image URL must be defined."
 
-        if starts(value, "https://dropbox.com") or starts(value, "https://www.dropbox.com")
-          return "Dropbox cannot be used to host images."
-        if starts(value, "https://youtube.com") or starts(value, "https://www.youtube.com")
-          return "YouTube cannot be used to host images.."
-        if starts(value, "https://imgur.com/a/") or starts(value, "https://imgur.com/gallery/")
-          return "Use the direct link to an image on Imgur, not an album."
-        if starts(value, "https://images.akamai.steamusercontent.com")
-          return "Steam's user images are not securely served, so I cannot accept them."
-        --if starts(value, "https://imgur.com/")
-          -- TODO fix with a PNG, JPG, or GIF extension and i.imgur.com
+      if starts(value, "https://dropbox.com") or starts(value, "https://www.dropbox.com")
+        return "Dropbox cannot be used to host images."
+      if starts(value, "https://youtube.com") or starts(value, "https://www.youtube.com")
+        return "YouTube cannot be used to host images.."
+      if starts(value, "https://imgur.com/a/") or starts(value, "https://imgur.com/gallery/")
+        return "Use the direct link to an image on Imgur, not an album or gallery."
+      if starts(value, "https://images.akamai.steamusercontent.com")
+        return "Steam's user images are not securely served, so I do not accept them."
 
-        _, http_status = http.simple value
-        if (http_status == 404) or (http_status == 403) or (http_status == 500) or (http_status == 301) or (http_status == 302)
-          return "Image URL is invalid."
+      _, http_status = http.simple value
+      if http_status == 404 or http_status == 403 or http_status == 500 or http_status == 301 or http_status == 302
+        return "Image URL is invalid."
   }
