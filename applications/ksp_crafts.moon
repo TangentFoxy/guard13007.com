@@ -117,7 +117,10 @@ class KSPCraftsApp extends lapis.Application
           if Tags\set craft, @params.tags -- uses assert_error internally, returns bool indicating if updates actually occurred
             @session.info = "Craft tags updated."
         if next fields
-          yield_error table.concat fields, ", "
+          err = ""
+          for k,v in pairs fields
+            err ..=", #{k}=#{v}"
+          yield_error err
           assert_error craft\update fields
           if @session.info
             @session.info ..= "\nCraft updated."
