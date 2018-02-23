@@ -294,10 +294,11 @@ make_migrations {
           for item in *models
             item\update user_id: user.id
   [1519264124]: =>
-    import Crafts from require "models"
-    crafts = Crafts\select "WHERE picture LIKE ?", "%/static/img/ksp/no_image.png" -- NOTE might be wrong
-    for craft in *crafts
-      craft\update picture: "https://guard13007.com/static/img/ksp/no_image.png"
+    -- import Crafts from require "models"
+    -- crafts = Crafts\select "WHERE picture LIKE ?", "%/static/img/ksp/no_image.png" -- NOTE might be wrong
+    -- for craft in *crafts
+    --   craft\update picture: "https://guard13007.com/static/img/ksp/no_image.png"
+    return true -- this migration can't run outside of the browser :/
   [1519267020]: =>
     create_table "categories", {
       {"id", types.serial primary_key: true}
@@ -308,4 +309,29 @@ make_migrations {
       {"post_id", types.foreign_key}
       {"category_id", types.foreign_key}
     }
+  -- []: =>
+  --   create_table "software_projects", {
+  --     {"id", types.serial primary_key: true}
+  --     {"title", types.varchar unique: true}
+  --     {"tagline", types.text}
+  --     {"external_url", types.text null: true}
+  --     {"primary_language", types.varchar null: true}
+  --     {"description", types.text}
+  --     {"private", types.boolean default: true}
+  --     {"completeness", types.varchar default: "Prototype"}
+  --     {"code_quality", types.integer default: 0} -- enum
+  --     {"type", types.integer default: 0}         -- enum
+  --
+  --     {"created_at", types.time}
+  --     {"updated_at", types.time}
+  --   }
+  --   create_table "programming_languages", {
+  --     {"id", types.serial primary_key: true}
+  --     {"name", types.varchar unique: true}
+  --   }
+  --   create_table "project_languages", {
+  --     {"project_id", types.foreign_key}
+  --     {"language_id", types.foreign_key}
+  --   }
+  -- TODO make a migration searching for CraftTags instances pointing to deleted Crafts and deletes them
 }
