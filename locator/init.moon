@@ -17,20 +17,20 @@ locate = (name, path) ->
   print "locate ->"
   if path
     print "  try '#{path}.#{name}'"
-    ok, value = pcall -> check_require "#{path}.#{name}"
+    ok, value = check_require "#{path}.#{name}"
     return value if ok
 
   print "  try '#{name}'"
-  ok, value = pcall -> check_require name
+  ok, value = check_require name
   return value if ok
 
   for item in *config
     if path
       print "  try '#{item.path}.#{path}.#{name}'"
-      ok, value = pcall -> check_require "#{item.path}.#{path}.#{name}"
+      ok, value = check_require "#{item.path}.#{path}.#{name}"
     else
       print "  try '#{item.path}.#{name}'"
-      ok, value = pcall -> check_require "#{item.path}.#{name}"
+      ok, value = check_require "#{item.path}.#{name}"
     return value if ok
 
   if path
@@ -54,7 +54,7 @@ autoload = (path, tab={}) ->
 --  (legacy) see example config for how to specify to not include early migrations
 make_migrations = (app_migrations={}) ->
   for item in *config
-    ok, migrations = pcall -> check_require "#{item.path}.migrations"
+    ok, migrations = check_require "#{item.path}.migrations"
     if ok
       sorted = {}
       for m in pairs migrations
@@ -86,7 +86,7 @@ registry = setmetatable {}, {
       insert registered_functions, config[name]
 
     for item in *config
-      ok, register = pcall -> check_require "#{item.path}.locator_config"
+      ok, register = check_require "#{item.path}.locator_config"
       if ok and register[name]
         insert registered_functions, register[name]
 
