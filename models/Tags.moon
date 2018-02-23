@@ -12,13 +12,15 @@ class Tags extends Model
     -- if "table" == type relation_id
     --   relation_id = relation_id.id
     -- tags = @select "WHERE id IN (SELECT tag_id FROM tag_relations WHERE relation_id = ?) ORDER BY name ASC", relation_id
-    tags = assert_error @select "WHERE id IN (SELECT tag_id FROM #{item\singular_name!}_tags WHERE #{item\singular_name!}_id = ?) ORDER BY name ASC", item.id
+    relation_name = item.__class\singular_name!
+    tags = assert_error @select "WHERE id IN (SELECT tag_id FROM #{relation_name}_tags WHERE #{relation_name}_id = ?) ORDER BY name ASC", item.id
     result = {}
     for tag in *tags
       insert result, tag.name
     return result
 
   set: (item, tag_str) =>
+    relation_name = item.__class\singular_name!
     RelationModel = require("models")[item.__class.__name]
     oldTags = invert @get item
     newTags = invert split tag_str
@@ -33,14 +35,15 @@ class Tags extends Model
 
     for name in pairs addedTags
       tag = assert_error Tags\find(:name) or Tags\create(:name)
-      assert_error RelationModel\create tag_id: tag.id, ["#{item\singular_name!}_id"]: item.id
+      assert_error RelationModel\create tag_id: tag.id, ["#{relation_name}_id"]: item.id
     for name in pairs removedTags
-      tag = assert_error RelationModel\find ["#{item\singular_name!}_id"]: item.id, tag_id: (Tags\find(:name)).id
+      tag = assert_error RelationModel\find ["#{relation_name}_id"]: item.id, tag_id: (Tags\find(:name)).id
       assert_error tag\delete!
 
   remove: (item) =>
+    relation_name = item.__class\singular_name!
     RelationModel = require("models")[item.__class.__name]
-    for tag in *(assert_error RelationModel\select "WHERE #{item\singular_name!}_id = ?", item.id)
+    for tag in *(assert_error RelationModel\select "WHERE #{relation_name}_id = ?", item.id)
       assert_error tag\delete!
 
   __tostring: (item) =>
