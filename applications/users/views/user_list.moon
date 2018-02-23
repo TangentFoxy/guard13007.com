@@ -3,10 +3,26 @@ import Widget from require "lapis.html"
 class extends Widget
   content: =>
     p "#{#@users} users."
-    -- TODO rewrite as table
-    ul ->
-      for user in *@users
-        if user.admin
-          li "(admin) #{user.name} (#{user.id}) #{user.email}"
-        else
-          li "#{user.name} (#{user.id}) #{user.email}"
+    element "table", ->
+      thead ->
+        tr ->
+          th "ID"
+          th "Username"
+          th "Email Address"
+          th "Admin"
+      tbody ->
+        for user in *@users
+          tr ->
+            td user.id
+            td user.name
+            td user.email
+            if user.admin
+              td "✔"
+            else
+              td! -- "❌"
+      tfoot ->
+        tr ->
+          th "ID"
+          th "Username"
+          th "Email Address"
+          th "Admin"
