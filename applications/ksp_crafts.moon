@@ -197,10 +197,10 @@ class KSPCraftsApp extends lapis.Application
     if @params.query and @params.query\len! > 0
       if @params.version and @params.version\len! > 0
         @title = "KSP Crafts Search: #{@params.query} v#{@params.version}"
-        @crafts = Crafts\select "WHERE (name LIKE ? OR creator LIKE ? OR description LIKE ?) AND ksp_version LIKE ? ORDER BY id ASC", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.version.."%"
+        @crafts = Crafts\select "WHERE (name ILIKE ? OR creator ILIKE ? OR description ILIKE ?) AND ksp_version ILIKE ? ORDER BY id ASC", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.version.."%"
       else
         @title = "KSP Crafts Search: #{@params.query}"
-        @crafts = Crafts\select "WHERE name LIKE ? OR creator LIKE ? OR description LIKE ? ORDER BY id ASC", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.query.."%"
+        @crafts = Crafts\select "WHERE name ILIKE ? OR creator ILIKE ? OR description ILIKE ? ORDER BY id ASC", "%"..@params.query.."%", "%"..@params.query.."%", "%"..@params.query.."%"
     else
       @title = "KSP Crafts Search"
 
