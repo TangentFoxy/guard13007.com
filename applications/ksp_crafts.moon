@@ -8,6 +8,7 @@ import assert_valid, validate_functions from require "lapis.validate"
 import locate from require "locator"
 import split from locate "gstring"
 import invert from locate "gtable"
+import random from require "calc"
 import ceil from math
 
 validate_functions.not_equals = (...) ->
@@ -205,5 +206,20 @@ class KSPCraftsApp extends lapis.Application
       @title = "KSP Crafts Search"
 
     return render: "ksp.crafts_search"
+
+  [random: "/random"]: =>
+    local crafts
+    if @user and @user.admin
+      -- NOT reviewed, rejected, or delayed
+      crafts = Crafts\select "WHERE status NOT IN (?, ?, ?)", Crafts.statuses.reviewed, Crafts.statuses.rejected, Crafts.statuses.delayed
+    else
+      crafts = Crafts\select "WHERE true"
+
+    if #crafts > 0
+      return redirect_to: @url_for "ksp_crafts_view", id: crafts[random 1, #crafts].id
+    elseif @user and @user.admin
+      return redirect_to: @url_for "ksp_crafts_index", tab: "pending" -- to show there are none except delayed craft
+    else
+      return redirect_to: @url_for "ksp_crafts_index", tab: "all"     -- to show there are none D:
 
   "/craft": => return redirect_to: @url_for "ksp_crafts_index"

@@ -11,6 +11,8 @@ class KSPCraftsNavWidget extends Widget
           a class: "button", href: @url_for("ksp_crafts_index"), "View submitted crafts"
         div class: "control", ->
           a class: "button", href: @url_for("ksp_crafts_submit"), "Submit a craft!"
+        div class: "control", ->
+          a class: "button", href: @url_for("ksp_crafts_random"), "Random craft"
 
         div class: "control is-expanded", ->
           -- TODO rename to query instead of name like it was
