@@ -2,6 +2,7 @@ import Model from require "lapis.db.model"
 
 -- import TagRelations from require "models"
 import assert_error from require "lapis.application"
+import singularize from require "lapis.util"
 import locate from require "locator"
 import split from locate "gstring"
 import invert from locate "gtable"
@@ -21,7 +22,7 @@ class Tags extends Model
 
   set: (item, tag_str) =>
     relation_name = item.__class\singular_name!
-    RelationModel = require("models")[item.__class.__name]
+    RelationModel = require("models")["#{singularize item.__class.__name}Tags"]
     oldTags = invert @get item
     newTags = invert split tag_str
     addedTags, removedTags = {}, {}
@@ -47,7 +48,7 @@ class Tags extends Model
 
   remove: (item) =>
     relation_name = item.__class\singular_name!
-    RelationModel = require("models")[item.__class.__name]
+    RelationModel = require("models")["#{singularize item.__class.__name}Tags"]
     for tag in *(assert_error RelationModel\select "WHERE #{relation_name}_id = ?", item.id)
       assert_error tag\delete!
 
