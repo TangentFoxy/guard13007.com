@@ -1,5 +1,6 @@
 import Model, enum from require "lapis.db.model"
 
+import Tags from require "models"
 import trim from require "lapis.util"
 import locate from require "locator"
 import starts from locate "gstring"
@@ -20,6 +21,10 @@ class Crafts extends Model
     imported: 7
   }
 
+  delete: (...) =>
+    Tags\remove(@)
+    super(...)
+
   @constraints: {
     name: (value) =>
       if not value or value\len! < 1
@@ -36,6 +41,9 @@ class Crafts extends Model
         return "Craft link is invalid."
 
     picture: (value) =>
+      -- TODO rewrite how this is verified
+      -- this whole verification thing doesn't validate non protocol'd values,
+      --  also I attempt to correct the value here, which is impossible to actually do here
       if value\len! > 0
         if value\sub(1, 7) == "http://"
           value = "https://#{value\sub 8}"

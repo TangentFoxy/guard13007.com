@@ -1,6 +1,6 @@
 import Widget from require "lapis.html"
 
-class KSPCraftsSearchWidget extends Widget
+class KSPCraftsNavWidget extends Widget
   content: =>
     form {
         action: @url_for "ksp_crafts_search"
@@ -14,7 +14,7 @@ class KSPCraftsSearchWidget extends Widget
 
         div class: "control is-expanded", ->
           -- TODO rename to query instead of name like it was
-          input class: "input", type: "text", name: "name", placeholder: "Search for Craft", value: @params.name
+          input class: "input", type: "text", name: "query", placeholder: "Search for Craft", value: @params.query
         -- div class: "control", ->
         --   input class: "input", type: "text", name: "tags", placeholder: "Tags"
         div class: "control", ->

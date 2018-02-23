@@ -1,7 +1,7 @@
 import Widget from require "lapis.html"
 import Crafts, Users from require "models"
 import autoload from require "locator"
-import Pagination, KSPCraftsSearchWidget from autoload "widgets"
+import Pagination, KSPCraftsNavWidget from autoload "widgets"
 
 class KSPCraftsIndex extends Widget
   tabs: {
@@ -9,7 +9,7 @@ class KSPCraftsIndex extends Widget
   }
 
   content: =>
-    widget KSPCraftsSearchWidget
+    widget KSPCraftsNavWidget
 
     link rel: "stylesheet", href: "/static/css/ksp.css"
     div class: "tabs is-centered", ->

@@ -1,10 +1,10 @@
 import Widget from require "lapis.html"
 import autoload from require "locator"
-import KSPCraftsSearchWidget from autoload "widgets"
+import KSPCraftsNavWidget from autoload "widgets"
 
 class KSPCraftsSubmit extends Widget
   content: =>
-    widget KSPCraftsSearchWidget
+    widget KSPCraftsNavWidget
 
     link rel: "stylesheet", href: "/static/simplemde/simplemde.min.css"
     script src: "/static/simplemde/simplemde.min.js"
