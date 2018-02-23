@@ -1,5 +1,8 @@
 import Widget from require "lapis.html"
 
+import autoload from require "locator"
+import settings from autoload "utility"
+
 class extends Widget
   content: =>
     form {
@@ -14,5 +17,10 @@ class extends Widget
       p "Password: "
       input type: "password", name: "password"
       br!
+      if settings["users.require-recaptcha"]
+        div class: "g-recaptcha" "data-sitekey": settings["users.recaptcha-sitekey"]
       input type: "hidden", name: "csrf_token", value: @csrf_token
       input type: "submit"
+
+    if settings["users.require-recaptcha"]
+      script src: "https://www.google.com/recaptcha/api.js"

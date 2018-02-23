@@ -52,4 +52,9 @@ import settings from autoload "utility"
     drop_index "users", "email" -- replacing because it was a unique index
     db.query "ALTER TABLE users DROP CONSTRAINT users_email_key"
     create_index "users", "email"
+
+  [1519416945]: =>
+    settings["users.require-recaptcha"] = false  -- protect against bots for sign-up (default off because it requires set-up)
+    -- settings["users.recaptcha-sitekey"] = nil -- provided by admin panel
+    -- settings["users.recaptcha-secret"] = nil  -- provided by admin panel
 }

@@ -1,9 +1,11 @@
 lapis = require "lapis"
+http = require "lapis.nginx.http"
 csrf = require "lapis.csrf"
 config = require("lapis.config").get!
 
 bcrypt = require "bcrypt"
 
+import decode from require "cjson"
 import respond_to, capture_errors, assert_error, yield_error from require "lapis.application"
 import assert_valid, validate_functions from require "lapis.validate"
 import trim from require "lapis.util"
@@ -59,6 +61,14 @@ class extends lapis.Application
 
       =>
         csrf.assert_token(@)
+
+        if settings["users.require-recaptcha"]
+          body = http.simple "https://www.google.com/recaptcha/api/siteverify", {
+            secret: settings["users.recaptcha-secret"]
+            response: @params["g-recaptcha-response"]
+          }
+          unless decode(body).success
+            yield_error "You failed to complete the reCAPTCHA challenge."
 
         assert_valid @params, {
           {"name", exists: true, "You must have a username."}
