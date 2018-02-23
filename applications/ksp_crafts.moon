@@ -111,10 +111,15 @@ class KSPCraftsApp extends lapis.Application
         unless @user.admin or @user.id == craft.user_id
           yield_error "You do not have permission to edit this craft."
         fields = {}
+        set_field = (name, data) ->
+          if data and data\len! > 0 and data != craft[name]
+            fields[name] = data
         for name, data in pairs @params
           switch name
             when "id", "tags"
               nil -- ignore
+            when "download_link", "picture"
+              set_field name, fix_url data
             when "status", "episode", "notes", "creator", "user_id", "delete"
               unless @user.admin
                 yield_error "You must be an administrator to edit a craft's #{name}."
@@ -128,11 +133,9 @@ class KSPCraftsApp extends lapis.Application
                   @session.info = "Craft deleted."
                   return redirect_to: @url_for "ksp_crafts_index"
                 else
-                  if data and data\len! > 0 and data != craft[name]
-                    fields[name] = data
+                  set_field name, data
             else
-              if data and data\len! > 0 and data != craft[name]
-                fields[name] = data
+              set_field name, data
         if @params.tags
           if Tags\set craft, @params.tags -- uses assert_error internally, returns bool indicating if updates actually occurred
             @session.info = "Craft tags updated."

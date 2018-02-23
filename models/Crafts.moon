@@ -44,6 +44,9 @@ class Crafts extends Model
       if not value or value\len! < 1
         error "An image URL must be defined."
 
+      if "https://" == value\sub 1, 8
+        return "You must use a secure link (starting with https://)."
+
       if starts(value, "https://dropbox.com") or starts(value, "https://www.dropbox.com")
         return "Dropbox cannot be used to host images."
       if starts(value, "https://youtube.com") or starts(value, "https://www.youtube.com")
