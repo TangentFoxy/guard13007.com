@@ -4,7 +4,7 @@ console = require "lapis.console"
 import Posts from require "models"
 import respond_to from require "lapis.application"
 import autoload, locate, registry from require "locator"
-import default from autoload "layouts"
+import bare, default from autoload "layouts"
 import settings from autoload "utility"
 
 class extends lapis.Application
@@ -49,6 +49,10 @@ class extends lapis.Application
   handle_404: =>
     @title = "404 - Not Found"
     return render: "404", status: 404 -- status should not be needed ?
+
+  [links: "/links"]: =>
+    @title = "Links 2 Stuff"
+    return layout: bare, render: "true"
 
   -- Legacy redirects
   "/submit": => redirect_to: @url_for "ksp_submit_crafts"

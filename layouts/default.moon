@@ -1,7 +1,7 @@
-html = require "lapis.html"
+import Widget from require "lapis.html"
 config = require("lapis.config").get!
 
-class extends html.Widget
+class extends Widget
   content: =>
     html_5 class: "has-navbar-fixed-top has-navbar-fixed-bottom", ->
       head ->
