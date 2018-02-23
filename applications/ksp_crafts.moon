@@ -207,7 +207,7 @@ class KSPCraftsApp extends lapis.Application
 
     return render: "ksp.crafts_search"
 
-  [random: "/random"]: =>
+  [random: "/crafts/random"]: =>
     local crafts
     if @user and @user.admin
       -- NOT reviewed, rejected, or delayed
