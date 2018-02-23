@@ -181,7 +181,7 @@ class KSPCraftsApp extends lapis.Application
         @params.download_link = fix_url @params.download_link
         @params.picture = fix_url @params.picture
 
-        assert_error Crafts\create {
+        craft = assert_error Crafts\create {
           name: @params.name
           download_link: @params.download_link
           creator: @params.creator
