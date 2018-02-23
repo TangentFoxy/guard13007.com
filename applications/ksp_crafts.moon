@@ -93,7 +93,6 @@ class KSPCraftsApp extends lapis.Application
         craft = assert_error Crafts\find id: @params.id
         fields = {}
         for name, data in pairs @params
-          yield_error name
           switch name
             when "id"
               nil -- ignore
@@ -114,6 +113,7 @@ class KSPCraftsApp extends lapis.Application
                     fields[name] = data
             else
               if data and data\len! > 0 and data != craft[name]
+                yield_error data
                 fields[name] = data
         if @params.tags
           if Tags\set craft, @params.tags -- uses assert_error internally, returns bool indicating if updates actually occurred
