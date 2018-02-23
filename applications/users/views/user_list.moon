@@ -7,22 +7,22 @@ class extends Widget
       thead ->
         tr ->
           th "ID"
+          th "Admin"
           th "Username"
           th "Email Address"
-          th "Admin"
       tbody ->
         for user in *@users
           tr ->
             td user.id
-            td user.name
-            td user.email
             if user.admin
               td "✔"
             else
               td! -- "❌"
+            td user.name
+            td user.email
       tfoot ->
         tr ->
           th "ID"
+          th "Admin"
           th "Username"
           th "Email Address"
-          th "Admin"
