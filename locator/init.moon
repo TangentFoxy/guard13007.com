@@ -1,35 +1,42 @@
-config = require "locator_config"
+config = require "locator_config" -- TODO combine w values from Lapis's config, those overwriting these (this will be a legacy option)
 
 import insert, sort from table
 
--- locates and returns a module, or errors
+-- require, but only errors when a module errors during loading
+check_require = (path) ->
+  ok, value = pcall -> require path
+  if ok or ("string" == type(value) and 1 == value\find "module '#{path}' not found")
+    return ok, value
+  else
+    error value
+
+-- locates and returns a module
 --  if a path is specified, it will be checked before other paths
 --  checks the project root, then each path specified in locator_config
 locate = (name, path) ->
-  local value
   print "locate ->"
   if path
-    print "try '#{path}.#{name}'"
-    ok, value = pcall -> require "#{path}.#{name}"
+    print "  try '#{path}.#{name}'"
+    ok, value = pcall -> check_require "#{path}.#{name}"
     return value if ok
 
-  print "try '#{name}'"
-  ok, value = pcall -> require name
+  print "  try '#{name}'"
+  ok, value = pcall -> check_require name
   return value if ok
 
   for item in *config
     if path
-      print "try '#{item.path}.#{path}.#{name}'"
-      ok, value = pcall -> require "#{item.path}.#{path}.#{name}"
+      print "  try '#{item.path}.#{path}.#{name}'"
+      ok, value = pcall -> check_require "#{item.path}.#{path}.#{name}"
     else
-      print "try '#{item.path}.#{name}'"
-      ok, value = pcall -> require "#{item.path}.#{name}"
+      print "  try '#{item.path}.#{name}'"
+      ok, value = pcall -> check_require "#{item.path}.#{name}"
     return value if ok
 
   if path
-    error "locator could not find '#{path}.#{name}'\nlast error: #{value}"
+    error "locator could not find '#{path}.#{name}'"
   else
-    error "locator could not find '#{name}'\nlast error: #{value}"
+    error "locator could not find '#{name}'"
 
 -- works like Lapis's autoload, but
 --  includes trying sub-application paths & can be called to access a value
@@ -47,7 +54,7 @@ autoload = (path, tab={}) ->
 --  (legacy) see example config for how to specify to not include early migrations
 make_migrations = (app_migrations={}) ->
   for item in *config
-    ok, migrations = pcall -> require "#{item.path}.migrations"
+    ok, migrations = pcall -> check_require "#{item.path}.migrations"
     if ok
       sorted = {}
       for m in pairs migrations
@@ -79,7 +86,7 @@ registry = setmetatable {}, {
       insert registered_functions, config[name]
 
     for item in *config
-      ok, register = pcall -> require "#{item.path}.locator_config"
+      ok, register = pcall -> check_require "#{item.path}.locator_config"
       if ok and register[name]
         insert registered_functions, register[name]
 
