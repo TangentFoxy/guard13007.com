@@ -85,7 +85,7 @@ class KSPCraftsApp extends lapis.Application
         @session.info = "The following errors occurred:"
         for err in *@errors
           @session.info ..= " #{err}"
-        return redirect_to: @url_for("ksp_crafts_view", id: craft.id)
+        return redirect_to: @url_for("ksp_crafts_view", id: @params.id)
 
       =>
         unless @user
