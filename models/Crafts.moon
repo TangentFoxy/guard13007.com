@@ -21,6 +21,11 @@ class Crafts extends Model
     imported: 7
   }
 
+  get_previous: =>
+    return Crafts\select("WHERE id < ? ORDER BY id DESC LIMIT 1", @id)[1]
+  get_next: =>
+    return Crafts\select("WHERE id > ? ORDER BY id LIMIT 1", @id)[1]
+
   delete: (...) =>
     Tags\remove(@)
     super(...)

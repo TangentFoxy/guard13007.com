@@ -91,6 +91,10 @@ class KSPCraftsApp extends lapis.Application
           @title = "#{@craft.name} by #{name}"
         else
           @title = @craft.name
+
+        @previous_craft = @craft\get_previous!
+        @next_craft = @craft\get_next!
+
         return render: "ksp.crafts_view"
 
       else
