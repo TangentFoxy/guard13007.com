@@ -94,7 +94,7 @@ class KSPCraftsApp extends lapis.Application
         fields = {}
         for name, data in pairs @params
           switch name
-            when "id"
+            when "id", "tags"
               nil -- ignore
             when "delete"
               assert_error craft\delete!
@@ -113,7 +113,6 @@ class KSPCraftsApp extends lapis.Application
                     fields[name] = data
             else
               if data and data\len! > 0 and data != craft[name]
-                yield_error data
                 fields[name] = data
         if @params.tags
           if Tags\set craft, @params.tags -- uses assert_error internally, returns bool indicating if updates actually occurred
