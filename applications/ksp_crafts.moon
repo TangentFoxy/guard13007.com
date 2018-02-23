@@ -125,7 +125,7 @@ class KSPCraftsApp extends lapis.Application
             @session.info ..= "\nCraft updated."
           else
             @session.info = "Craft updated."
-          return redirect_to: @url_for "ksp_crafts_view", id: @params.id
+        return redirect_to: @url_for "ksp_crafts_view", id: @params.id
     }
   }
 
