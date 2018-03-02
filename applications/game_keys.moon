@@ -51,7 +51,7 @@ class extends lapis.Application
 
   [list: "/list"]: =>
     @title = "Game Keys"
-    @keys = GameKeys\select "WHERE status = ? ORDER BY game ASC", GameKeys.statuses.unclaimed
+    @keys = GameKeys\select "WHERE status = ? ORDER BY item ASC", GameKeys.statuses.unclaimed
     return render: "game_keys.list"
 
   [edit: "/list/edit"]: respond_to {
@@ -63,7 +63,7 @@ class extends lapis.Application
         @write redirect_to: @url_for "index"
 
     GET: =>
-      @keys = Keys\select "* ORDER BY status ASC, game ASC"
+      @keys = Keys\select "* ORDER BY status ASC, item ASC"
       @title = "Edit Game Keys"
       return render: "game_keys.edit"
 
