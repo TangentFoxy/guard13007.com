@@ -55,8 +55,5 @@ class extends lapis.Application
     return layout: bare, render: true
 
   -- Legacy redirects
-  "/submit": => redirect_to: @url_for "ksp_submit_crafts"
-
-  [named: "/ksp/*"]: =>
-    @write "WHY?"
-    return redirect_to: "/gaming/ksp/#{@params.splat}", status: 302 -- not functioning :/
+  [ksp_redirect: "/ksp/*"]: => redirect_to: "/gaming/ksp/#{@params.splat}", status: 302
+  "/submit": => redirect_to: @url_for "ksp_crafts_submit"
