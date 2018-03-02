@@ -13,7 +13,7 @@ class Posts extends Model
     undefined: 0 -- views/posts.edit relies on the string value
     "game page (mine)": 1
     "blog post": 2
-    "game-specific videos page (other)": 3
+    "game-specific videos page (other's)": 3
     "playlist page (mine)": 4
     "software library page (mine)": 5
     "tutorial post/page (mine)": 6
