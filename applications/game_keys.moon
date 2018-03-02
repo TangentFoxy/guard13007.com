@@ -96,7 +96,7 @@ class extends lapis.Application
             recipient: @params.recipient
           }
 
-        @info = "Key updated."
-        return render: "game_keys.edit"
+        @session.info = "Key updated."
+        return redirect_to: @url_for "game_keys_edit"
     }
   }
