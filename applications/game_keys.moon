@@ -34,11 +34,8 @@ class extends lapis.Application
           {"item", exists: true, "You must enter the game/bundle/whatever this key is for."}
           {"key", exists: true, "You must enter the key/URL/whatever that unlocks whatever its for. o.o"}
           {"type", exists: true, "You must select a key type."}
-          -- {"type", within: GameKeys.types, "Invalid key type."}
+          {"type", within: GameKeys.types, "Invalid key type."}
         }
-
-        -- if true
-        --   return json: { params: @params }
 
         assert_error GameKeys\create {
           user_id: @user.id
