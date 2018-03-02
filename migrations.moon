@@ -1,9 +1,6 @@
 db = require "lapis.db"
 import create_table, types, add_column, rename_column, create_index, drop_index from require "lapis.db.schema"
 
-import autoload from require "locator"
-import settings from autoload "utility"
-
 {
   [1]: =>
     create_table "users", {
@@ -35,6 +32,9 @@ import settings from autoload "utility"
     create_index "sessions", "id", unique: true
 
   [1518968812]: =>
+    import autoload from require "locator"
+    import settings from autoload "utility"
+
     settings["users.allow-sign-up"] = true
     settings["users.allow-name-change"] = true
     settings["users.admin-only-mode"] = false
@@ -52,4 +52,15 @@ import settings from autoload "utility"
     drop_index "users", "email" -- replacing because it was a unique index
     db.query "ALTER TABLE users DROP CONSTRAINT users_email_key"
     create_index "users", "email"
+
+  [1519416945]: =>
+    import autoload from require "locator"
+    import settings from autoload "utility"
+
+    settings["users.require-recaptcha"] = false  -- protect against bots for sign-up (default off because it requires set-up)
+    -- settings["users.recaptcha-sitekey"] = nil -- provided by admin panel
+    -- settings["users.recaptcha-secret"] = nil  -- provided by admin panel
+    settings.save!
+
+  -- NOTE may need to run a migration to allow null emails ?
 }

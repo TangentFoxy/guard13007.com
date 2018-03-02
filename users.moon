@@ -1,9 +1,11 @@
 lapis = require "lapis"
+http = require "lapis.nginx.http"
 csrf = require "lapis.csrf"
 config = require("lapis.config").get!
 
 bcrypt = require "bcrypt"
 
+import decode from require "cjson"
 import respond_to, capture_errors, assert_error, yield_error from require "lapis.application"
 import assert_valid, validate_functions from require "lapis.validate"
 import trim from require "lapis.util"
@@ -12,6 +14,8 @@ import settings from autoload "utility"
 
 import Users, Sessions from require "models"
 
+validate_functions.not_equals = (...) ->
+  return not validate_functions.equals(...)
 validate_functions.unique_user = (input) ->
   return not Users\find name: input
 validate_functions.unique_email = (input) ->
@@ -19,7 +23,7 @@ validate_functions.unique_email = (input) ->
 validate_functions.max_repetitions = (input, max) ->
   tab = {}
   for i=1,#input
-    char = #input\sub i, i
+    char = input\sub i, i
     if tab[char]
       tab[char] += 1
     else
@@ -57,6 +61,14 @@ class extends lapis.Application
 
       =>
         csrf.assert_token(@)
+
+        if settings["users.require-recaptcha"]
+          body = http.simple "https://www.google.com/recaptcha/api/siteverify", {
+            secret: settings["users.recaptcha-secret"]
+            response: @params["g-recaptcha-response"]
+          }
+          unless decode(body).success
+            yield_error "You failed to complete the reCAPTCHA challenge."
 
         assert_valid @params, {
           {"name", exists: true, "You must have a username."}
@@ -133,9 +145,10 @@ class extends lapis.Application
             yield_error "You cannot change your username."
           assert_valid @params, {
             {"name", exists: true, "You must have a username."}
+            {"name", not_equals: @user.name, "You must enter a different username to change it."}
             {"name", unique_user: true, "That username is taken."}
           }
-          @user\update name: trim @params.name
+          assert_error @user\update name: trim @params.name
           @session.info = "Username updated."
           return redirect_to: @url_for "user_edit"
 
@@ -150,7 +163,7 @@ class extends lapis.Application
               assert_valid @params, {
                 {"email", unique_email: true, "That email address is already tied to another account."}
               }
-          @user\update email: trim @params.email
+          assert_error @user\update email: trim @params.email
           @session.info = "Email address updated."
           return redirect_to: @url_for "user_edit"
 
@@ -167,7 +180,7 @@ class extends lapis.Application
           unless bcrypt.verify @params.oldpassword, @user.digest
             yield_error "Incorrect password."
 
-          @user\update digest: bcrypt.digest @params.password, settings["users.bcrypt-digest-rounds"]
+          assert_error @user\update digest: bcrypt.digest @params.password, settings["users.bcrypt-digest-rounds"]
           @session.info = "Password updated."
           return redirect_to: @url_for "user_edit"
 
@@ -221,9 +234,10 @@ class extends lapis.Application
         if @params.name
           assert_valid @params, {
             {"name", exists: true, "They must have a username."}
+            {"name", not_equals: @user_editing.name, "You must enter a different username to change it."}
             {"name", unique_user: true, "That username is taken."}
           }
-          @user_editing\update name: trim @params.name
+          assert_error @user_editing\update name: trim @params.name
           @session.info = "Username updated."
           return redirect_to: @url_for "user_admin"
 
@@ -236,18 +250,18 @@ class extends lapis.Application
               assert_valid @params, {
                 {"email", unique_email: true, "That email address is already tied to another account."}
               }
-          @user_editing\update email: trim @params.email
+          assert_error @user_editing\update email: trim @params.email
           @session.info = "Email address updated."
           return redirect_to: @url_for "user_admin"
 
         if @params.password
-          @user_editing\update digest: bcrypt.digest @params.password, settings["users.bcrypt-digest-rounds"]
+          assert_error @user_editing\update digest: bcrypt.digest @params.password, settings["users.bcrypt-digest-rounds"]
           @session.info = "Password updated. (Warning: Admins editing passwords are not restricted to secure passwords, as these are intended to be TEMPORARY only!)"
           -- TODO require a password edited by an admin to be changed upon login
           return redirect_to: @url_for "user_admin"
 
         if @params.admin ~= nil
-          @user_editing\update admin: @params.admin
+          assert_error @user_editing\update admin: @params.admin
           if @params.admin
             @session.info = "#{@user_editing.name} is now an admin!"
           else
@@ -259,6 +273,7 @@ class extends lapis.Application
           @session.info = "Account deleted. You are now viewing your own account."
           @user_editing = @user
 
+        @csrf_token = csrf.generate_token(@)
         return render: locate "views.user_admin"
     }
   }
@@ -311,5 +326,7 @@ class extends lapis.Application
   }
 
   [logout: "/logout"]: =>
+    @session.id = nil
+    @session.redirect = nil
     Sessions\close(@session)
     return redirect_to: @params.redirect or @url_for "index"

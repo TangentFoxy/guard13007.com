@@ -8,7 +8,7 @@ class extends Widget
       enctype: "multipart/form-data"
     }, ->
       text "Username: "
-      input type: "text", name: "name"
+      input type: "text", name: "name", autocomplete: "username"
       br!
       text "Password: "
       input type: "password", name: "password"
