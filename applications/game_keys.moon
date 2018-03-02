@@ -36,7 +36,8 @@ class extends lapis.Application
           -- {"type", within: GameKeys.types, "Invalid key type."}
         }
 
-        @write json: { params: @params }
+        if true
+          return json: { params: @params }
 
         assert_error GameKeys\create {
           user_id: @user.id
