@@ -44,7 +44,7 @@ class extends lapis.Application
           user_id: @user.id
           item: @params.item
           key: @params.key
-          type: GameKeys.types.for_db(@params.type)
+          type: GameKeys.types\for_db(@params.type)
           status: GameKeys.statuses.unclaimed
         }
 
@@ -93,7 +93,7 @@ class extends lapis.Application
           assert_error key\update {
             item: @params.item
             key: @params.key
-            type: GameKeys.types.for_db(@params.type)
+            type: GameKeys.types\for_db(@params.type)
             status: @params.status
             recipient: @params.recipient
           }
