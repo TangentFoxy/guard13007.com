@@ -29,12 +29,11 @@ class extends lapis.Application
         return render: "game_keys.add"
 
       =>
-        @params.type = tonumber @params.type
         assert_valid @params, {
           {"item", exists: true, "You must enter the game/bundle/whatever this key is for."}
           {"key", exists: true, "You must enter the key/URL/whatever that unlocks whatever its for. o.o"}
           {"type", exists: true, "You must select a key type."}
-          -- {"type", within: GameKeys.types, "Invalid key type."}
+          {"type", within: GameKeys.types, "Invalid key type."}
         }
 
         assert_error GameKeys\create {
@@ -80,18 +79,17 @@ class extends lapis.Application
         if @params.delete
           assert_error key\delete!
         else
-          @params.type = tonumber @params.type
           assert_valid @params, {
             {"item", exists: true, "You must enter the game/bundle/whatever this key is for."}
             {"key", exists: true, "You must enter the key/URL/whatever that unlocks whatever its for. o.o"}
             {"type", exists: true, "You must select a key type."}
-            -- {"type", within: GameKeys.types, "Invalid key type."}
+            {"type", within: GameKeys.types, "Invalid key type."}
           }
 
           assert_error key\update {
             item: @params.item
             key: @params.key
-            type: @params.type
+            type: GameKeys.types.for_db(@params.type)
             status: @params.status
             recipient: @params.recipient
           }
