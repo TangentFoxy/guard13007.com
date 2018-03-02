@@ -313,6 +313,11 @@ make_migrations {
     rename_table "users", "users2"
     rename_table "old_users", "users"
     add_column "users", "email", types.text null: true
+  [1520001591]: =>
+    rename_table "keys", "game_keys"
+    rename_column "game_keys", "game", "item"
+    rename_column "game_keys", "data", "key"
+
   -- []: =>
   --   create_table "software_projects", {
   --     {"id", types.serial primary_key: true}

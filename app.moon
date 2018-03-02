@@ -21,11 +21,11 @@ class extends lapis.Application
   @include locate "users"
   @include locate "posts"
   @include locate "ksp_crafts"
+  @include locate "game_keys"
   @include locate "polls"
 
   @include locate "redirects"
 
-  @include "keys"
   @include "1000cards"
   @include "john"
   @include "greyout"
