@@ -70,3 +70,6 @@ class KSPCraftsSubmit extends Widget
       div class: "control", ->
         div class: "buttons is-centered", ->
           input class: "button", type: "submit", value: "Submit Craft"
+
+      unless @user
+        script src: "https://www.google.com/recaptcha/api.js"
