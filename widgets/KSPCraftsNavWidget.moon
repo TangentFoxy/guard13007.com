@@ -15,7 +15,6 @@ class KSPCraftsNavWidget extends Widget
           a class: "button", href: @url_for("ksp_crafts_random"), "Random craft"
 
         div class: "control is-expanded", ->
-          -- TODO rename to query instead of name like it was
           input class: "input", type: "text", name: "query", placeholder: "Search for Craft", value: @params.query
         -- div class: "control", ->
         --   input class: "input", type: "text", name: "tags", placeholder: "Tags"

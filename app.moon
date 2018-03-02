@@ -21,11 +21,11 @@ class extends lapis.Application
   @include locate "users"
   @include locate "posts"
   @include locate "ksp_crafts"
+  @include locate "game_keys"
   @include locate "polls"
 
   @include locate "redirects"
 
-  @include "keys"
   @include "1000cards"
   @include "john"
   @include "greyout"
@@ -55,5 +55,6 @@ class extends lapis.Application
     return layout: bare, render: true
 
   -- Legacy redirects
-  "/submit": => redirect_to: @url_for "ksp_submit_crafts"
-  "/ksp/*": => redirect_to: "/gaming/ksp/#{@params.splat}", status: 302 -- not functioning :/
+  [ksp_redirect: "/ksp/*"]: => redirect_to: "/gaming/ksp/#{@params.splat}", status: 302
+
+  "/submit": => redirect_to: @url_for "ksp_crafts_submit"

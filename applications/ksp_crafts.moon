@@ -47,7 +47,7 @@ class KSPCraftsApp extends lapis.Application
       return redirect_to: @url_for "ksp_crafts_tags", page: @last_page
 
     @title = "Submitted Craft - Tags"
-    return render: "ksp.crafts_tags"
+    return render: "ksp_crafts.tags"
 
   [index: "/crafts(/:tab)(/:page[%d])"]: =>
     if a = tonumber @params.tab
@@ -75,7 +75,7 @@ class KSPCraftsApp extends lapis.Application
 
     @title = "Submitted Craft"
     @page_arguments = tab: @params.tab
-    return render: "ksp.crafts_index"
+    return render: "ksp_crafts.index"
 
   [view: "/craft/:id[%d]"]: respond_to {
     GET: =>
@@ -95,7 +95,7 @@ class KSPCraftsApp extends lapis.Application
         @previous_craft = @craft\get_previous!
         @next_craft = @craft\get_next!
 
-        return render: "ksp.crafts_view"
+        return render: "ksp_crafts.view"
 
       else
         @session.info = "That craft does not exist."
@@ -156,7 +156,7 @@ class KSPCraftsApp extends lapis.Application
   [submit: "/submit"]: respond_to {
     GET: =>
       @title = "Submit a craft to be reviewed!"
-      return render: "ksp.crafts_submit"
+      return render: "ksp_crafts.submit"
 
     POST: capture_errors {
       on_error: =>
@@ -212,7 +212,7 @@ class KSPCraftsApp extends lapis.Application
     else
       @title = "KSP Crafts Search"
 
-    return render: "ksp.crafts_search"
+    return render: "ksp_crafts.search"
 
   [random: "/crafts/random"]: =>
     local crafts
