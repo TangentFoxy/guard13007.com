@@ -3,7 +3,7 @@ import autoload from require "locator"
 import Pagination, KSPCraftsNavWidget from autoload "widgets"
 import ceil from math
 
-KSPCraftsIndex = require "views.ksp.crafts_index"
+KSPCraftsIndex = require "views.ksp_crafts.index"
 
 class KSPCraftsTags extends Widget
   content: =>
