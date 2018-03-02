@@ -1,0 +1,85 @@
+<!-- HI, this is an HTML comment. -->
+<html>
+<head>
+    <style>
+        * {
+            color: red;
+            /* The "*" means "EVERYTHING" */
+        }
+        ul>li { /* ul > li means any "li" under (the ">") a "ul" */
+            color: blue;
+
+            /* the ">" can be used with any tag, id, or class, and multiple can be used
+             (example: .classname > div means a div under the class called classname) */
+        }
+        #whatever { /* "#" followed by text means an ID, which applies to exactly ONE element */
+            background: black;
+            /* remember, the tag can have #anyName */
+        }
+        .class {
+            color: green;
+            /* this is a class, "." and a name means a class, the same way as an ID starts with a hashtag
+               unlike IDs, classes can apply to multiple element on the page */
+        }
+        .class {
+            background: pink;
+        } /* you aren't limited to only one use of a selector (this is different from other languages)
+             so you can have a .class { something } here and another .class { something: else; } elsewhere */
+        * {
+            font-weight: bold;
+        }
+        .class > ol > li {
+            /* here's an example of using the ">" along with tags and a class, notice how it only selects
+               the list items of any ordered list under a "class" element */
+            color: white;
+            /* remember: in CSS, we SELECT elements, usually multiple at a time! this block will apply to ANY list itmes of any ordered lists under anything with the "class" class! */
+        }
+        div > .andanother {
+            /* another example of how you can combine the selectors. This would grab anything with the "andanother" class that is UNDER a "div", and ONLY those */
+        }
+        * > hr {
+            /* example useless selector, "hr" tags will be under another element, so saying "*>hr" (or "any hr under any element") is the same thing as "hr" (any hr) */
+        }
+        .class #ida {
+            /* another silly selector. There can only be ONE #ida ID, so also specifying the "class" class is redundant. */
+        }
+    </style>
+
+    <!-- Want to use a CSS file? Make sure it's in the same folder as this file, then uncomment the next
+         comment make sure the "FILENAME" has been changed to the name of your CSS file. -->
+    <!--<link href="FILENAME.css" rel="stylesheet"></link>-->
+    <!-- Note how it has 2 attributes, "href" and "rel". Rel specifies a relation, in this case,
+         that it's a stylesheet. The "href" is like an <a></a>'s href, where is the file? Also note
+         how it's empty, just a tag and some attributes, like an "hr". -->
+</head>
+<body>
+    <ol>
+        <li id="whatever">#1</li> <!-- The "id="whatever"" is an ATTRIBUTE,
+         which is essentially here's more info about this element. In this case,
+         the li has an ID set to "whatever" so that CSS can select this specific element. -->
+        <li>rgwegf</li>
+        <li>rgwegf</li>
+        <li class="class andanother anynamehere">I'm number 2!
+            <ol>
+                <li>sublist</li>
+                <!-- These lines are a little weird, but I'm trying to show how you can
+                     have lists inside lists. Also, notice the class attribute has a bunch of words
+                     separated by spaces? This is how an element can have multiple classes. -->
+            </ol>
+        </li>
+        <li class="class">rgwegf</li>
+        <li class="class">rgwegf</li>
+        <li>rgwegf</li>
+        <li>rgwegf</li>
+        <li>rgwegf</li>
+    </ol>
+    <hr />
+    <ul>
+        <li class="class">guhuhju</li>
+
+        <li>rgwegf</li>
+        <li>rgwegf</li>
+    </ul>
+
+</body>
+</html>

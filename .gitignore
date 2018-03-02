@@ -1,0 +1,8 @@
+*.lua
+logs/
+*_temp/
+nginx.conf.compiled
+guard13007com.service
+dev.guard13007com.service
+dhparams.pem
+secret.moon

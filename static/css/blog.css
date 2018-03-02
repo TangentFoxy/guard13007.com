@@ -1,0 +1,29 @@
+h2 {
+    margin-top: -5px;
+    font-size: 1.8em;
+}
+
+.post-preview > h3 {
+    text-align: center;
+    margin-top: -14px;
+    font-size: 1em;
+}
+
+h2 > a {
+    text-decoration: none;
+}
+
+h3 > a {
+    text-decoration: none;
+}
+
+.post-preview {
+    margin: auto;
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px solid #235;
+}
+
+.post-preview > h1 {
+    font-size: 1.6em;
+}

@@ -1,0 +1,12 @@
+<html>
+<head>
+<title>SSH keygen</title>
+</head>
+<body style='font-family: "Lucida Console", Monaco, monospace;'>
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"<br />
+eval "$(ssh-agent -s)"<br />
+ssh-add ~/.ssh/id_rsa<br />
+# now copy-paste contents of ~/.ssh/id_rsa.pub where they are needed<br /><br />
+<a href="https://gist.github.com/Guard13007/8c4891d5f608824e59d1570f798ba3e3">source..sorta</a>
+</body>
+</html>

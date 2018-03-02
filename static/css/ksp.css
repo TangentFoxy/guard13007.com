@@ -1,0 +1,22 @@
+.new {
+  background: white !important;
+}
+.pending {
+  background: lightblue !important;
+}
+.reviewed {
+  background: lightgreen !important;
+}
+.rejected {
+  background: #FAA !important;
+}
+.delayed, .old {
+  background: lightgrey !important;
+}
+.priority {
+  background: #11aadd !important;
+  color: white !important;
+}
+.imported {
+  background: #ffff66 !important;
+}

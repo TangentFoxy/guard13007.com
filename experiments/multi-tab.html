@@ -1,0 +1,69 @@
+<html>
+<head>
+  <title>Multi-YouTube</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    html, body, iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    div {
+      float: left;
+      width: 50%;
+      height: 50%;
+      position: relative;
+    }
+    span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 13;
+      opacity: 0.4;
+    }
+  </style>
+  <script>
+    function setVideoFrame(id, video_id) {
+        document.getElementById("f" + id).src = "https://www.youtube.com/embed/" + video_id;
+    }
+    function set(id) {
+      var input = document.getElementById("t" + id).elements[0].value;
+      input = input.substring(input.lastIndexOf("/") + 1);
+      setVideoFrame(id, input);
+      return false;
+    }
+    window.onload = function() {
+      var data = localStorage.getItem("video_ids");
+      if (data) {
+        data = JSON.parse(data);
+        for (var i = 0; i < data.length; i++) {
+          setVideoFrame(i, data[i]);
+        }
+    } else {
+      setVideoFrame(0, "DNnvoBkh1_8");
+      setVideoFrame(1, "0gSStqheYhQ");
+      setVideoFrame(2, "Ak52pzPRfuo");
+      setVideoFrame(3, "ZZ6O4BkwFcM");
+    }
+    }
+    window.onbeforeunload = function() {
+      var data = [];
+      for (var i = 0; i < 4; i++) {
+        var tmp = document.getElementById("f" + i).src;
+        data[i] = tmp.substring(tmp.lastIndexOf("/") + 1);
+      }
+      localStorage.setItem("video_ids", JSON.stringify(data));
+      return nil;
+    }
+  </script>
+</head>
+<body>
+  <div><iframe id="f0"></iframe><span><form id="t0"><input type="text"><button onclick="return set(0)">S</button></form></span></div>
+  <div><iframe id="f1"></iframe><span><form id="t1"><input type="text"><button onclick="return set(1)">S</button></form></span></div>
+  <div><iframe id="f2"></iframe><span><form id="t2"><input type="text"><button onclick="return set(2)">S</button></form></span></div>
+  <div><iframe id="f3"></iframe><span><form id="t3"><input type="text"><button onclick="return set(3)">S</button></form></span></div>
+</body>
+</html>

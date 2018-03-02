@@ -1,0 +1,504 @@
+<html><head>
+<title>Pico-8 cheat sheet</title>
+<style>
+body {
+	font: 15px 'Open Sans', sans-serif;
+}
+#doc, #doc ul {
+	list-style: none;
+	padding-left: 0;
+}
+#doc h3, #doc h4 {
+	margin: 0;
+	font-weight: 700;
+	font-size: 100%;
+	color: #458;
+	border-left: 2px solid #f9f9f9;
+	padding-left: 4px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	cursor: pointer;
+}
+#doc h4 {
+	border-left: none;
+	padding: 0;
+}
+#doc h3:hover, #doc h4:hover {
+	border-left-color: #f3f3f3;
+	background: #f3f3f3;
+}
+#doc div, #doc ul {
+	padding-left: 20px;
+	border-left: 2px solid #f3f3f3;
+}
+#doc .colors > span {
+	display: inline-block;
+	width: 16px;
+	text-indent: -9999px;
+	box-shadow: 0 0 1px rgba(0, 0, 0.25);
+}
+</style>
+</head><body>
+This is a function "cheat sheet" for <a href="http://www.lexaloffle.com/pico-8.php" target="_blank">Pico-8</a>.<br>
+Cheat sheet is by <a href="http://twitter.com/yellowafterlife">YellowAfterlife</a> and is largely based on the <a href="http://www.lexaloffle.com/pico-8.php?page=manual">program's manual</a> (with edits where found appropriate).<br>
+Last updated July 22, 2015 (for program version 0.1.1).<br>
+Discuss <a href="http://www.lexaloffle.com/bbs/?tid=1906">on the forums</a>.<br>
+<br>
+Click on sections to expand/collapse them.<br>
+Quick display controls: <a href="#" onclick="opt_none()">Categories</a>
+&middot; <a href="#" onclick="opt_list()">Functions</a>
+&middot; <a href="#" onclick="opt_all()">Everything</a>
+<ul id="doc">
+	<li><h3>Callbacks</h3><ul>
+		There are 3 special functions that, if defined by the user, are called during program execution:<br>
+		_update(): Is called once per update at 30fps.<br>
+		_draw(): Is called once per visible frame.<br>
+		_init(): Called once at the program startup.<br>
+		Callback _draw() is normally called at 30fps, but if it can not complete in time, pico-8 will attempt to run at 15ps and call _update() twice per visible frame to compensate.
+	</ul></li>
+	<li><h3>System</h3><ul>
+		<li><h3>load(filename)</h3><ul>
+			Loads the cartridge from the given path.<br>
+			If no extension is present, ".p8" is assumed.
+		</ul></li>
+		<li><h3>save(filename)</h3><ul>
+			Saves the cartridge to a file.<br>
+			If no extension is present, ".p8" is assumed.<br>
+			If extension is ".png", cartridge will be saved in the special PNG-based format.<br>
+			To generate a preview image saved with the cart, run the program first and press F7 to grab a screenshot.<br>
+			The first two lines of the program starting with '--' are drawn to the cart's label.
+		</ul></li>
+		<li><h3>folder()</h3><ul>
+			Opens the carts' folder in the host operating system.
+		</ul></li>
+		<li><h3>files()</h3><ul>
+			Lists all pico-8 (*.p8*) files in the current folder.
+		</ul></li>
+		<li><h3>run()</h3><ul>
+			Runs the program from the start.<br>
+			Can be called from the program to reset it.
+		</ul></li>
+		<li><h3>resume()</h3><ul>
+			Resumes running the existing cart state.
+		</ul></li>
+		<li><h3>reboot()</h3><ul>
+			Reboots the machine (watch out for unsaved changes!)
+		</ul></li>
+		<li><h3>stat(x)</h3><ul>
+			If x is 0, returns the current memory usage (0..256)
+			If x is 1, returns the CPU usage through the last frame (where 1.0 means 100% usage at 30fps)
+		</ul></li>
+		<li><h3>info()</h3><ul>
+			Prints out some information about the cartridge - code size, tokens, and compressed size.
+		</ul></li>
+		<li><h3>flip()</h3><ul>
+			Flips the back buffer to the screen and waits for the next frame (on 30fps).<br>
+			If you are using _draw(), this is called automatically for you.<br>
+			If flip is not called before the end of frame and _draw() callback is not in progress, the current contents of back buffer will be copied to the screen.
+		</ul></li>
+		<li><h3>time()</h3><ul>
+			Returns seconds since boot. Can be used as random seed.
+		</ul></li>
+	</ul></li>
+	<li><h3>Graphics</h3><ul>
+		<li><h3>(color reference)</h3><div class="colors">
+			The following color indexes are supported and can be passed into functions where the "color" argument is present:
+			<br>
+			<tt>00</tt>
+			<span style="background: #000000">(#000000)</span>
+			black<br>
+			<tt>01</tt>
+			<span style="background: #1D2B53">(#1D2B53)</span>
+			dark blue<br>
+			<tt>02</tt>
+			<span style="background: #7E2553">(#7E2553)</span>
+			dark purple<br>
+			<tt>03</tt>
+			<span style="background: #008751">(#008751)</span>
+			dark green<br>
+			<tt>04</tt>
+			<span style="background: #AB5236">(#AB5236)</span>
+			brown<br>
+			<tt>05</tt>
+			<span style="background: #5F574F">(#5F574F)</span>
+			dark_gray<br>
+			<tt>06</tt>
+			<span style="background: #C2C3C7">(#C2C3C7)</span>
+			light_gray<br>
+			<tt>07</tt>
+			<span style="background: #FFF1E8">(#FFF1E8)</span>
+			white<br>
+			<tt>08</tt>
+			<span style="background: #FF004D">(#FF004D)</span>
+			red<br>
+			<tt>09</tt>
+			<span style="background: #FFA300">(#FFA300)</span>
+			orange<br>
+			<tt>10</tt>
+			<span style="background: #FFFF27">(#FFFF27)</span>
+			yellow<br>
+			<tt>11</tt>
+			<span style="background: #00E756">(#00E756)</span>
+			green<br>
+			<tt>12</tt>
+			<span style="background: #29ADFF">(#29ADFF)</span>
+			blue<br>
+			<tt>13</tt>
+			<span style="background: #83769C">(#83769C)</span>
+			indigo<br>
+			<tt>14</tt>
+			<span style="background: #FF77A8">(#FF77A8)</span>
+			pink<br>
+			<tt>15</tt>
+			<span style="background: #FFCCAA">(#FFCCAA)</span>
+			peach
+		</div></li>
+		<li><h3>clip(x, y, width, height)</h3><div>
+			Sets the screen's clipping region in pixels.<br>
+			Call clip() with no arguments to reset.
+		</div></li>
+		<li><h3>pget(x, y)</h3><div>
+			Gets the color of a pixel at the given screen coordinates.
+		</div></li>
+		<li><h3>pset(x, y, [color])</h3><div>
+			Sets the color of a pixel at the given screen coordinates.<br>
+			If color is not specified, the current color is used.
+		</div></li>
+		<li><h3>sget(x, y)</h3><div>
+			Gets the color of a spritesheet pixel at the given coordinates.
+		</div></li>
+		<li><h3>sset(x, y, [color])</h3><div>
+			Sets the color of a spritesheet pixel at the given coordinates.<br>
+			If color is not specified, the current color is used.
+		</div></li>
+		<li><h3>fget(sprite, [flag_index])</h3><div>
+			Returns the value of sprite's flag.<br>
+			flag_index is 0..7.<br>
+			Initial flag states are set in the sprite editor using the line of little colorful buttons.<br>
+			The meaning of sprite flags is up to the user, or can be used to indicate which group/layer of sprites should be drawn by mapdraw(...).<br>
+			If index is omitted, all flags are retrieved as bits.
+		</div></li>
+		<li><h3>fset(sprite, flag_index, value)</h3><div>
+			Sets the value of sprite's flag.<br>
+			The value is boolean true/false.
+		</div></li>
+		<li><h3>fset(sprite, flag_bits)</h3><div>
+			Sets the value of sprite's flags.<br>
+			The value is a combination of bits, e.g. 1+2+8 for first, second, and fourth flags.
+		</div></li>
+		<li><h3>print(text, [x, y, [color]])</h3><div>
+			Prints a string.<br>
+			If only str is supplied, and the cursor reaches the end of the screen, a carriage return and vertical scroll is automatically applied. (terminal-like behaviour)
+		</div></li>
+		<li><h3>cursor(x, y)</h3><div>
+			Sets the cursor position and carriage return margin.
+		</div></li>
+		<li><h3>color(col)</h3><div>
+			Set the default color to be used by the drawing functions.
+		</div></li>
+		<li><h3>cls()</h3><div>
+			Clears the screen.
+		</div></li>
+		<li><h3>camera([x, y])</h3><div>
+			Sets the screen offset for all subsequent drawing operations.<br>
+			Call camera() without arguments to reset to default (0, 0).
+		</div></li>
+		<li><h3>circ(x, y, radius, [color])</h3><div>
+			Draws a circle at the given coordinates.
+		</div></li>
+		<li><h3>circfill(x, y, radius, [color])</h3><div>
+			Draws a filled circle at the given coordinates.
+		</div></li>
+		<li><h3>line(x1, y1, x2, y2, [color])</h3><div>
+			Draws a line between the given coordinates.
+		</div></li>
+		<li><h3>rect(x1, y1, x2, y2, [color])</h3><div>
+			Draws a rectangle between the given coordinates.
+		</div></li>
+		<li><h3>rectfill(x1, y1, x2, y2, [color])</h3><div>
+			Draws a filled rectangle between the given coordinates.
+		</div></li>
+		<li><h3>pal([color_from, color_to, [palette]])</h3><div>
+			Replaces all instances of color_from by color_to in the subsequent draw calls.<br>
+			Call pal() without arguments to reset to system defaults.<br>
+			If specified, palette determines the palette to switch colors in:<br>
+			0: draw palette (default) - colors are remapped on draw (for example, to re-color sprites)<br>
+			1: screen palette - colors are remapped on display (for example, to achive fading or global color transitions).
+		</div></li>
+		<li><h3>palt([color, visible])</h3><div>
+			Changes whether a particular color should be drawn (affects spr, sspr, map).<br>
+			For example, palt(8, false) will disable drawing of red pixels.<br>
+			Calling this function with no arguments will reset state to default, where all colors but black (#0) are drawn.
+		</div></li>
+		<li><h3>spr(sprite, x, y, [columns, rows, [flip]])</h3><div>
+			Draws a sprite at the given coordinates.<br>
+			If set, columns-rows indicate the size of sprite in tiles - for example, to draw a 16x16 sprite you would use 2,2.<br>
+			If flip is set to "true", the sprite is flipped horizontally.<br>
+			Color #0 is treated as transparent.
+		</div></li>
+		<li><h3>sspr(left, top, width, height, x, y, [dw, dh, [flip]])</h3><div>
+			Draws a part of the sprite sheet.<br>
+			dw,dh determine the scaling of image and are considered as set to width,height by default.<br>
+			If flip is set to "true", the image is flipped horizontally.<br>
+			Color #0 is treated as transparent.
+		</div></li>
+		<li><h3>map(column, row, x, y, [columns, rows, [layers]])</h3><div>
+			Draws a section of the map at the given coordinates.<br>
+			If "layers" is specified, only the cells with the given bit flags present are drawn.<br>
+			If columns/rows (size) are not specified, a single cell is drawn.<br>
+			Sprite #0 is treated as an empty cell.
+		</div></li>
+	</ul></li>
+	<li><h3>Collections</h3><ul>
+		<li><h3>{ }</h3><div>
+			Will create a new (empty) collection, e.g.<br>
+			<code>co = {}</code><br>
+			You can also specify a list of initial contents:<br>
+			<code>co = {1,2,3}</code>
+		</div></li>
+		<li><h3>add(collection, value)</h3><div>
+			Adds a value to the given collection.
+		</div></li>
+		<li><h3>del(collection, value)</h3><div>
+			Removes the first occurrence of the value from the given collection.
+		</div></li>
+		<li><h3>count(collection)</h3><div>
+			Returns the number of the items in the given collection.
+		</div></li>
+		<li><h3>foreach(collection, func)</h3><div>
+			Calls the given function with each of collection's values. For example,<br>
+			<code>function show(value)<br>
+			&nbsp;print(value)<br>
+			end<br>
+			co = {1,2,3}<br>
+			foreach(co, show)</code>
+		</div></li>
+		<li><h3>all(collection)</h3><div>
+			Returns a Lua iterator to pick through all of the values in the given collection. For example,<br>
+			<code>co = {1,2,3}<br>
+			for item in all(co) do<br>
+			&nbsp;print(item)<br>
+			end</code>
+		</div></li>
+	</ul></li>
+	<li><h3>Strings</h3><ul>
+		<li><h3>#string</h3><div>
+			Returns string length. For example,<br>
+			<code>s = "hello"<br>print(#s)</code><br>
+			will display "5"
+		</div></li>
+		<li><h3>string .. value</h3><div>
+			Concatenates (adds) strings with other strings or values.<br>
+			Non-string values (e.g. numbers) are converted to strings automatically.<br>
+			For example,<br>
+			<code>pts = 100<br>print("score: " .. pts)</code><br>
+			will display "score: 100"
+		</div></li>
+		<li><h3>sub(string, start, [end])</h3><div>
+			Returns a part of string between two given positions (inclusive).<br>
+			Positions start at 1. If "end" is not specified, it's assumed to be string length.<br>
+			<code>print(sub("abcd", 2, 3))</code> will display "bc".<br>
+			<code>print(sub("abcd", 2))</code> will display "bcd".
+		</div></li>
+	</ul></li>
+	<li><h3>Input</h3><ul>
+		<li><h3>btn([index, [player]])</h3><div>
+			Returns whether the given button is currently held.<br>
+			Button indexes are as following:<br>
+			0: Left<br>
+			1: Right<br>
+			2: Up<br>
+			3: Down<br>
+			4: A-button<br>
+			5: B-button<br>
+			"player" is 0 for P1 and 1 for P2.<br>
+			If no parameters are supplied, returns an integer containing all button states as bits.
+		</div></li>
+		<li><h3>btnp([index, [player]])</h3><div>
+			Same as btn() but returns if the given button was pressed since the last frame. Also returns true once per every 4 frames after a button was held for more than 12 frames.<br>
+			Intended for things like grid-based movement or UI item selection.
+		</div></li>
+	</ul></li>
+	<li><h3>Audio</h3><ul>
+		<li><h3>sfx(sound, [channel, [offset]])</h3><div>
+			Plays the given sound on the given channel (0..3).<br>
+			If sound is -1, current sound on the channel is stopped.<br>
+			If sound is -2, looping is disabled for the sound on the channel.<br>
+			If channel is -1 (default), a channel that is not in currently in use will be picked automatically.<br>
+			If no sounds are playing, ensure that you gave the music an appropriate channel mask, such as 1+2 for first two channels (default of 15 causes it to take all the channels).
+		</div></li>
+		<li><h3>music([pattern, [fade, [channel_mask]]])</h3><div>
+			Plays the music starting from the given pattern (0..63).<br>
+			If pattern is -1, music is stopped.<br>
+			fade determines fade-in time (default: 0).<br>
+			channel_mask is a bit mask specifying the channels that the music will play on. Defaults to all channels (1+2+4+8).
+		</div></li>
+	</ul></li>
+	<li><h3>Map</h3><ul>
+		<li><h3>mget(column, row)</h3><div>
+			Returns the map value (sprite index) at the given position.
+		</div></li>
+		<li><h3>mset(column, row, value)</h3><div>
+			Changes the map value (sprite index) at the given position.
+		</div></li>
+	</ul></li>
+	<li><h3>Memory</h3><ul>
+		<li><h3>(memory layout)</h3><div>
+			0x0000 Graphics section<br>
+			0x1000 Shared graphics/map2 section<br>
+			0x2000 Map section<br>
+			0x3000 gfx_props (?)<br>
+			0x3100 Music<br>
+			0x3200 Sound effects<br>
+			0x4300 User-defined data<br>
+			0x5f00 Draw state and cart data<br>
+			<span><h4>0x5f2c Video mode</h4><div>
+				Video mode is a combination of flags.<br>
+				Default value is 0, corresponding to 128x128 resolution.<br>
+				Available flags are as following:<br>
+				1	Half the vertical resolution<br>
+				2	Half the horizontal resolution<br>
+				4	Display a mirrored copy instead of stretching<br>
+				For example, mode 3 gets you a 64x64 pixel screen, which can be more beneficial than doing the upscaling by yourself.
+			</div></span>
+			0x6000 Screen data (8k)<br>
+			Color format (graphics and screen sections) is 2 pixels per byte; low bits are the "left" pixel of the two.<br>
+			Map format is one byte per cell (sprite index).
+		</div></li>
+		<li><h3>peek(address)</h3><div>
+			Reads a single byte from the address in the base RAM.<br>
+			Valid addresses are 0x0..0x7fff (32767).
+		</div></li>
+		<li><h3>poke(address, byte)</h3><div>
+			Writes a single byte to the specified address in the base RAM.
+		</div></li>
+		<li><h3>memcpy(dest_addr, source_addr, length)</h3><div>
+			Copies the given amount of bytes from source_addr to dest_addr.<br>
+			Memory sections can be overlapping.
+		</div></li>
+		<li><h3>reload(dest_addr, source_addr, length)</h3><div>
+			Same as memcpy, but copies from the cart' ROM.<br>
+			If source_addr is >= 0x4300, this will read code as ASCII.
+		</div></li>
+		<li><h3>cstore([dest_addr, source_addr, length])</h3><div>
+			Same as memcpy, but copies from the base RAM to cart' ROM.<br>
+			Call with no arguments is equivalent to cstore(0, 0, 0x4300).<br>
+			Can be used for writing tools that construct carts or visualize the state of the map/spritesheet using the map or graphics editor.<br>
+			If dest_addr is >= 0x4300, this can be used to overwrite the program source.
+		</div></li>
+		<li><h3>memset(dest_addr, value, length)</h3><div>
+			Sets a number of bytes to the given value.<br>
+			Is sufficiently fast 
+		</div></li>
+	</ul></li>
+	<li><h3>Math</h3><ul>
+		<li><h3>flr(x)</h3><div>
+			Returns the closest integer below x,<br>
+			flr(1.3) is 1<br>
+			flr(-1.3) is -2<br>
+		</div></li>
+		<li><h3>abs(x)</h3><div>
+			Returns the absolute value of x - that is, making it positive if it isn't already.<br>
+			abs(3.2) is 3.2<br>
+			abs(-3.2) is 3.2<br>
+		</div></li>
+		<li><h3>sign(x)</h3><div>
+			Returns the "sign" (-1, 0, or +1) of x.<br>
+			sgn(1.7) is 1<br>
+			sgn(-1.7) is -1<br>
+			sgn(0) is 0<br>
+		</div></li>
+		<li><h3>sqrt(x)</h3><div>
+			Returns a square root of x.<br>
+			Note: As of 0.1.1, sqrt(0) will crash the runtime, so you should make a wrapper function.
+		</div></li>
+		<li><h3>max(x, y)</h3><div>
+			Returns the larger of two values.
+		</div></li>
+		<li><h3>min(x, y)</h3><div>
+			Returns the smaller of two values.
+		</div></li>
+		<li><h3>mid(x, y, z)</h3><div>
+			Returns the middle of three values.
+		</div></li>
+		<li><h3>cos(x)</h3><div>
+			Returns a cosine of x, where 1.0 is a full circle<br>
+			(cos(0) == 1, cos(0.25) == 0, cos(0.5) == -1)
+		</div></li>
+		<li><h3>sin(x)</h3><div>
+			Returns a sine of x, where 1.0 is a full circle<br>
+			(sin(0) == 0, sin(0.25) == -1, sin(0.75) == 1)
+		</div></li>
+		<li><h3>atan2(x, y)</h3><div>
+			Converts a (x, y) offset to an angle.<br>
+			Same as with cos/sin, angles returned are anticlockwise and in 0..1 range.
+		</div></li>
+		<li><h3>rnd(x)</h3><div>
+			Returns a number between 0 (inclusive) and x (exclusive).<br>
+			For an random integer, use flr(rnd(x)).
+		</div></li>
+		<li><h3>srand(x)</h3><div>
+			Sets the seed for the random number generator.
+		</div></li>
+		<li><h3>band(x, y)</h3><div>
+			Bitwise "and".
+		</div></li>
+		<li><h3>bor(x, y)</h3><div>
+			Bitwise "or".
+		</div></li>
+		<li><h3>bxor(x, y)</h3><div>
+			Bitwise "xor".
+		</div></li>
+		<li><h3>bnot(x)</h3><div>
+			Bitwise "not".
+		</div></li>
+		<li><h3>shl(x, y)</h3><div>
+			Bitwise left shift.
+		</div></li>
+		<li><h3>shr(x, y)</h3><div>
+			Bitwise right shift.
+		</div></li>
+	</ul></li>
+</ul>
+<script>
+var doc = document.getElementById("doc");
+var links = [];
+for (var searchIter = 0; searchIter < 2; searchIter++) {
+	var found;
+	switch (searchIter) {
+	case 0: found = doc.getElementsByTagName("h3"); break;
+	case 1: found = doc.getElementsByTagName("h4"); break;
+	}
+	for (var li = 0; li < found.length; li++) links.push(found[li]);
+}
+function h3bind(h3) {
+	var snip = h3.parentNode.children[1];
+	h3.snip = snip;
+	h3.doc_hide = function() { snip.style.display = "none"; }
+	h3.doc_show = function() { snip.style.display = ""; }
+	h3.onclick = function(_) {
+		if (snip.style.display == "") {
+			snip.style.display = "none";
+		} else {
+			snip.style.display = "";
+		}
+	};
+}
+for (var li = 0; li < links.length; li++) h3bind(links[li]);
+function opt_none() {
+	for (var li = 0; li < links.length; li++) links[li].doc_hide();
+}
+function opt_list() {
+	for (var li = 0; li < links.length; li++) {
+		var h3 = links[li];
+		if (h3.parentNode.parentNode != doc) {
+			h3.doc_hide();
+		} else h3.doc_show();
+	}
+}
+function opt_all() {
+	for (var li = 0; li < links.length; li++) links[li].doc_show();
+}
+opt_list();
+</script>
+</body></html>
