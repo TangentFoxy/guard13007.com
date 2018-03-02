@@ -29,6 +29,7 @@ class extends lapis.Application
         return render: "game_keys.add"
 
       =>
+        @params.type = tonumber @params.type
         assert_valid @params, {
           {"item", exists: true, "You must enter the game/bundle/whatever this key is for."}
           {"key", exists: true, "You must enter the key/URL/whatever that unlocks whatever its for. o.o"}
@@ -79,6 +80,7 @@ class extends lapis.Application
         if @params.delete
           assert_error key\delete!
         else
+          @params.type = tonumber @params.type
           assert_valid @params, {
             {"item", exists: true, "You must enter the game/bundle/whatever this key is for."}
             {"key", exists: true, "You must enter the key/URL/whatever that unlocks whatever its for. o.o"}
