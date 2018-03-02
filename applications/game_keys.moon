@@ -64,7 +64,7 @@ class extends lapis.Application
         @write redirect_to: @url_for "index"
 
     GET: =>
-      @keys = Keys\select "* ORDER BY status ASC, item ASC"
+      @keys = GameKeys\select "* ORDER BY status ASC, item ASC"
       @title = "Edit Game Keys"
       return render: "game_keys.edit"
 
