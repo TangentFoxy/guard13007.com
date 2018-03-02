@@ -3,8 +3,8 @@ lapis = require "lapis"
 import respond_to, capture_errors, assert_error from require "lapis.application"
 import assert_valid, validate_functions from require "lapis.validate"
 
-validate_functions.within = (input, tab) ->
-  return tab[input] != nil
+-- validate_functions.within = (input, tab) ->
+--   return tab[input] != nil
 
 import GameKeys from require "models"
 
@@ -34,7 +34,7 @@ class extends lapis.Application
           {"item", exists: true, "You must enter the game/bundle/whatever this key is for."}
           {"key", exists: true, "You must enter the key/URL/whatever that unlocks whatever its for. o.o"}
           {"type", exists: true, "You must select a key type."}
-          {"type", within: GameKeys.types, "Invalid key type."}
+          -- {"type", within: GameKeys.types, "Invalid key type."}
         }
 
         assert_error GameKeys\create {

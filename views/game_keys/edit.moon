@@ -20,7 +20,7 @@ class extends Widget
       for key in *@keys
         tr ->
           form {
-            action: @url_for "gamekeys_list_edit"
+            action: @url_for "game_keys_edit"
             method: "POST"
             enctype: "multipart/form-data"
           }, ->

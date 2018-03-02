@@ -15,5 +15,5 @@ class extends Widget
         th "Type"
       for key in *@keys
         tr ->
-          td key.game
+          td key.item
           td GameKeys.types[key.type]
