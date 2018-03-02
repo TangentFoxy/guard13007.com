@@ -3,6 +3,7 @@ http = require "lapis.nginx.http"
 db = require "lapis.db"
 
 import Crafts, Tags, Users from require "models"
+import decode from require "cjson"
 import respond_to, capture_errors, assert_error, yield_error from require "lapis.application"
 import assert_valid, validate_functions from require "lapis.validate"
 import locate from require "locator"
@@ -174,6 +175,13 @@ class KSPCraftsApp extends lapis.Application
           else
             @params.creator = @user.name
             user_id = @user.id
+        else
+          body = http.simple "https://www.google.com/recaptcha/api/siteverify", {
+            secret: settings["users.recaptcha-secret"]
+            response: @params["g-recaptcha-response"]
+          }
+          unless decode(body).success
+            yield_error "You failed to complete the reCAPTCHA challenge."
 
         if not @params.picture or @params.picture\len! < 1
           @params.picture = "https://guard13007.com/static/img/ksp/no_image.png"

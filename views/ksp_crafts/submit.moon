@@ -1,6 +1,7 @@
 import Widget from require "lapis.html"
 import autoload from require "locator"
 import KSPCraftsNavWidget from autoload "widgets"
+import settings from autoload "utility"
 
 class KSPCraftsSubmit extends Widget
   content: =>
@@ -60,6 +61,11 @@ class KSPCraftsSubmit extends Widget
           input class: "input", type: "text", name: "mods_used", placeholder: "Mods Used"
         div class: "control is-expanded", ->
           input class: "input", type: "text", name: "picture", placeholder: "Image URL"
+
+      unless @user
+        div class: "level", ->
+          div class: "level-item", ->
+            div class: "g-recaptcha", "data-sitekey": settings["users.recaptcha-sitekey"]
 
       div class: "control", ->
         div class: "buttons is-centered", ->
