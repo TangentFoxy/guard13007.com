@@ -1,1 +1,3 @@
 *.lua
+!pull.lua
+!add.lua
