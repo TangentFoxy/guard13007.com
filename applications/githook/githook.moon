@@ -39,7 +39,7 @@ run_update = (branch) ->
     {"git submodule init 2> /dev/stdout"}
     {"git submodule update 2> /dev/stdout"}
     {"code=0\nfor file in $(find . -type f -name \"*.moon\"); do moonc \"$file\" 2> /dev/stdout\ntmp=$?\nif [ ! $tmp -eq 0 ]; then code=$tmp\nfi; done\necho $code", false}
-    {"lapis migrate #{config._name} 2>1 | sed -r \"s/\\x18\\[([0-9]{1,3}((;[0-9]{1,3})*)?)?[m|K]//g\""}
+    {"lapis migrate #{config._name} 2> /dev/stdout"}
     {"lapis build #{config._name} 2> /dev/stdout"}
   }
     code, output = execute unpack cmd
