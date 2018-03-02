@@ -132,7 +132,7 @@ class extends Widget
                         div class: "control", ->
                           a class: "button", href: @url_for("user_me"), "You"
                         div class: "control", ->
-                          a class: "button", href: @url_for("user_logout"), "Log Out"
+                          a class: "button", href: @url_for("user_logout", nil, redirect: @url_for(@route_name, @params)), "Log Out"
                       else
                         div class: "control", ->
                           a class: "button", href: @url_for("user_login"), "Log In"
