@@ -4,8 +4,8 @@ import sub, len from string
 -- splits string by newline into array of strings
 lines = (str) ->
   tab = {}
-  for list in str\gmatch "[^\n]+"
-    insert tab, list
+  for line in str\gmatch "[^\n]+"
+    insert tab, line
   return tab
 
 -- splits string by spaces into a table of strings
