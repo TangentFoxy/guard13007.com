@@ -13,7 +13,7 @@ class PostIndex extends Widget
         div ->
           iframe id: "video", src: "https://www.youtube.com/embed/#{video.id}", frameborder: 0, allowfullscreen: true
       pre id: "description", video.description
-      br!
+      -- br!
 
     else
       h1 class: "title has-text-centered", "Videos"
@@ -25,8 +25,17 @@ class PostIndex extends Widget
         div class: "column", ->
           for i=(c-1)*forth+1, c*forth
             if video = @videos[i]
+              br!
               div class: "image is16by9", ->
                 a onclick: "javascript:v('#{video.id\gsub "'", "\\'"}', '#{video.title\gsub "'", "\\'"}', '#{video.description\gsub("\n", "\\n")\gsub "'", "\\'"}')", ->
-                  img src: video.thumbnail, style: "height:auto;"
+                  img src: video.thumbnail
+              -- if video.clean
+              --   div class: "image is16by9", ->
+              --     a onclick: "javascript:v('#{video.id\gsub "'", "\\'"}', '#{video.title\gsub "'", "\\'"}', '#{video.description\gsub("\n", "\\n")\gsub "'", "\\'"}')", ->
+              --       img src: video.thumbnail
+              -- else
+              --   div class: "image is16by9", style: "overflow:hidden;", ->
+              --     a onclick: "javascript:v('#{video.id\gsub "'", "\\'"}', '#{video.title\gsub "'", "\\'"}', '#{video.description\gsub("\n", "\\n")\gsub "'", "\\'"}')", ->
+              --       img src: video.thumbnail, style: "margin-top:-9.32%;"
 
     script src: "/static/js/videos/index.js"

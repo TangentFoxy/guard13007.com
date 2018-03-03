@@ -2,10 +2,10 @@
 if(!String.linkify) {
 	String.prototype.linkify = function() {
 		// http://, https://, ftp://
-		var urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
+		let urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
 		// www. sans http:// or https://
-		var pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-		var emailAddressPattern = /\w+@[a-zA-Z_]+?(?:\.[a-zA-Z]{2,6})+/gim;
+		let pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+		let emailAddressPattern = /\w+@[a-zA-Z_]+?(?:\.[a-zA-Z]{2,6})+/gim;
 		return this
 			.replace(urlPattern, '<a href="$&">$&</a>')
 			.replace(pseudoUrlPattern, '$1<a href="https://$2">$2</a>')
@@ -21,6 +21,16 @@ window.onload = function() {
   description = document.getElementById("description");
 
   description.innerHTML = description.innerHTML.linkify();
+
+  images = document.getElementsByTagName("img");
+  for (i in images) {
+    let image = images[i];
+    if (Math.abs(image.width/image.height - 1.33) < 0.01) {
+      // wrong resolution
+      image.parentElement.parentElement.setAttribute("style", "overflow:hidden;");
+      image.setAttribute("style", "margin-top:-9.32%;margin-bottom:-9.32%;");
+    }
+  }
 }
 
 function v(id, titleText, descriptionText) {
