@@ -25,7 +25,7 @@ class PostIndex extends Widget
           for i=(c-1)*forth+1, c*forth
             if video = @videos[i]
               div class: "image is16by9", ->
-                a onclick: "v('#{video.id\gsub "'", "\\'"}', '#{video.title\gsub "'", "\\'"}', '#{video.description\gsub "'", "\\'"}')", ->
+                a onclick: raw("v('#{video.id\gsub "'", "\\'"}', '#{video.title\gsub "'", "\\'"}', '#{video.description\gsub "'", "\\'"}')"), ->
                   img src: video.thumbnail, style: "height:auto;"
 
     script src: "/static/js/videos/index.js"
