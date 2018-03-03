@@ -40,13 +40,16 @@ uploads = (pageToken, maxResults) ->
   videos = {}
   for activity in *data.items
     if activity.snippet.type == "upload"
-      insert videos, Videos\create {
-        id: activity.contentDetails.upload.videoId
-        title: activity.snippet.title
-        description: activity.snippet.description
-        thumbnail: get_thumbnail activity.snippet
-        published_at: time_for_db activity.snippet.publishedAt
-      }
+      video = Videos\find id: activity.contentDetails.upload.videoId
+      unless video
+        video = Videos\create {
+          id: activity.contentDetails.upload.videoId
+          title: activity.snippet.title
+          description: activity.snippet.description
+          thumbnail: get_thumbnail activity.snippet
+          published_at: time_for_db activity.snippet.publishedAt
+        }
+      insert videos, video
 
   -- if we were using the last stored pageToken, save next pageToken
   if pageToken == settings["youtube.next_uploads_pageToken"] and data.nextPageToken
@@ -63,14 +66,17 @@ playlists = (pageToken, maxResults) ->
   data = decode body
 
   playlists = {}
-  for playlist in *data.items
-    insert playlists, Playlists\create {
-      id: playlist.id
-      title: playlist.snippet.title
-      description: playlist.snippet.description
-      thumbnail: get_thumbnail playlist.snippet
-      published_at: time_for_db playlist.snippet.publishedAt
-    }
+  for item in *data.items
+    playlist = Playlists\find id: item.id
+    unless playlist
+      playlist = Playlists\create {
+        id: item.id
+        title: item.snippet.title
+        description: item.snippet.description
+        thumbnail: get_thumbnail item.snippet
+        published_at: time_for_db item.snippet.publishedAt
+      }
+    insert playlists, playlist
 
   -- if we were using the last stored pageToken, save next pageToken
   if pageToken == settings["youtube.next_playlists_pageToken"] and data.nextPageToken
@@ -97,6 +103,7 @@ playlist_videos = (playlistId, pageToken, maxResults) ->
         published_at: time_for_db item.contentDetails.videoPublishedAt
       }
     insert videos, video
+
     PlaylistVideos\create {
       playlist_id: playlistId
       video_id: video.id
