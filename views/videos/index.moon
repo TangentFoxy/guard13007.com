@@ -7,14 +7,16 @@ import ceil from math
 
 class PostIndex extends Widget
   content: =>
-    link rel: "stylesheet", href: "/static/css/videos.css"
-
     if video = remove @videos, 1
+      h1 id: "title", class: "title has-text-centered", video.title
       div class: "yt-embed", ->
         div ->
-          iframe src: "https://www.youtube.com/embed/#{video.id}", frameborder: 0, allowfullscreen: true
-      h2 class: "subtitle has-text-centered", video.title
-      pre video.description -- TODO this needs to auto-link URLs
+          iframe id: "video", src: "https://www.youtube.com/embed/#{video.id}", frameborder: 0, allowfullscreen: true
+      pre id: "description", video.description
+
+    else
+      h1 class: "title has-text-centered", "Videos"
+      p "There are no videos yet."
 
     div class: "columns", ->
       forth = ceil #@videos / 4
@@ -22,7 +24,8 @@ class PostIndex extends Widget
         div class: "column", ->
           for i=(c-1)*forth+1, c*forth
             if video = @videos[i]
-              div class: "thumbnail", ->
-                -- TODO this is where JavaScript should be to trigger sending this to the player above
-                a onclick: "alert('tmp')", ->
-                  img src: video.thumbnail
+              div class: "image is16by9", ->
+                a onclick: "v('#{video.id\gsub "'", "\\'"}', '#{video.title\gsub "'", "\\'"}', '#{video.description\gsub "'", "\\'"}')", ->
+                  img src: video.thumbnail, style: "height:auto;"
+
+    script src: "/static/js/videos/index.js"
