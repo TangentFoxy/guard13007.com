@@ -20,7 +20,7 @@ window.onload = function() {
   video = document.getElementById("video");
   description = document.getElementById("description");
 
-  description.innerHTML = description.innerHTML.linkify();
+  description.innerHTML = description.innerHTML.linkify().replace(/(?:\r\n|\r|\n)/g, '<br />');
 
   images = document.getElementsByTagName("img");
   for (i in images) {
@@ -36,5 +36,5 @@ window.onload = function() {
 function v(id, titleText, descriptionText) {
   video.src = "https://www.youtube.com/embed/" + id;
   title.innerHTML = titleText;
-  description.innerHTML = descriptionText.linkify();
+  description.innerHTML = descriptionText.linkify().replace(/(?:\r\n|\r|\n)/g, '<br />');
 }

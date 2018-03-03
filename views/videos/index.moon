@@ -12,8 +12,7 @@ class PostIndex extends Widget
       div class: "yt-embed", ->
         div ->
           iframe id: "video", src: "https://www.youtube.com/embed/#{video.id}", frameborder: 0, allowfullscreen: true
-      pre id: "description", video.description
-      -- br!
+      div id: "description", video.description
 
     else
       h1 class: "title has-text-centered", "Videos"
