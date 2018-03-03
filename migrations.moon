@@ -317,6 +317,33 @@ make_migrations {
     rename_table "keys", "game_keys"
     rename_column "game_keys", "game", "item"
     rename_column "game_keys", "data", "key"
+  [1520079100]: =>
+    create_table "videos", {
+      {"id", types.varchar primary_key: true} -- YouTube video ID
+      {"title", types.text}
+      {"description", types.text}
+      {"thumbnail", types.varchar}
+
+      {"published_at", types.time} -- needs to be converted from YouTube
+      {"created_at", types.time}
+      {"updated_at", types.time}
+    }
+    create_table "playlists", {
+      {"id", types.varchar primary_key: true} -- YouTube playlist ID
+      {"title", types.text}
+      {"description", types.text}
+      {"thumbnail", types.varchar}
+      {"reverse_order", types.boolean default: false}
+
+      {"published_at", types.time} -- needs to be converted from YouTube
+      {"created_at", types.time}
+      {"updated_at", types.time}
+    }
+    create_table "playlist_videos", {
+      {"playlist_id", types.varchar}
+      {"video_id", types.varchar}
+      {"published_at", types.time} -- needs to be converted from YouTube
+    }
 
   -- []: =>
   --   create_table "software_projects", {
