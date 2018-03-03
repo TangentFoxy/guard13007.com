@@ -7,5 +7,6 @@ class extends lapis.Application
   @name: "videos_"
 
   [index: ""]: =>
+    @title = "Videos"
     @videos = Videos\select "* ORDER BY published_at DESC" -- TODO paginated
     return render: "videos.index"
