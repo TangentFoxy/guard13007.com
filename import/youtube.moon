@@ -20,7 +20,7 @@ channel_query = {
 
 time_for_db = (str) ->
   year, month, day, hour, min, sec = str\match "(%d%d%d%d)-(%d%d)-(%d%d)T(%d%d):(%d%d):(%d%d)"
-  return date "!%Y-%m%d %X", time :year, :month, :day, :hour, :min, :sec
+  return date "!%Y-%m-%d %X", time :year, :month, :day, :hour, :min, :sec
 
 get_thumbnail = (snippet) ->
   if snippet.thumbnails.maxres
