@@ -37,4 +37,6 @@ function v(id, titleText, descriptionText) {
   video.src = "https://www.youtube.com/embed/" + id;
   title.innerHTML = titleText;
   description.innerHTML = descriptionText.linkify().replace(/(?:\r\n|\r|\n)/g, '<br />');
+
+	window.scrollTo(0, 0); // go to top
 }
