@@ -20,6 +20,7 @@ class extends lapis.Application
   @include locate "githook"
   @include locate "users"
   @include locate "posts"
+  @include locate "videos"
   @include locate "ksp_crafts"
   @include locate "game_keys"
   @include locate "polls"

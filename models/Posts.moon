@@ -15,7 +15,7 @@ class Posts extends Model
     "blog post": 2
     "game-specific videos page (other's)": 3
     "playlist page (mine)": 4
-    "software library page (mine)": 5
+    "software page (mine)": 5
     "tutorial post/page (mine)": 6
     "stand-alone page": 7
     -- "video post (mine)": 2
