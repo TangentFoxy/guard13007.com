@@ -8,13 +8,12 @@ import ceil from math
 class PostIndex extends Widget
   content: =>
     if video = remove @videos, 1
-      div class: "level", ->
-        div class: "level-item", ->
-          div class: "is-16by9", ->
-            iframe src: "https://www.youtube.com/embed/#{video.id}", frameborder: 0, allowfullscreen: true
-          div -> -- NOTE temporary, very shitty
-            h2 video.title
-            p video.description
+      div class: "yt-embed", ->
+        div ->
+          iframe src: "https://www.youtube.com/embed/#{video.id}", frameborder: 0, allowfullscreen: true
+      div class: "content", -> -- NOTE temporary, very shitty
+        h2 video.title
+        p video.description
 
     div class: "columns", ->
       forth = ceil #@videos / 4
