@@ -240,7 +240,7 @@ class KSPCraftsApp extends lapis.Application
 
   [stats: "/craft-stats"]: =>
     @craft_counts = {
-      all: Crafts\count!
+      all: Crafts\count "*"
       -- reviewed: Crafts\count "status = ?", Crafts.statuses.reviewed
       pending: Crafts\count "status IN (?, ?, ?, ?, ?)", Crafts.statuses.priority, Crafts.statuses.imported, Crafts.statuses.pending, Crafts.statuses.delayed, Crafts.statuses.old
     }
