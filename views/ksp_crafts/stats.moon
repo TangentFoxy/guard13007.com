@@ -26,6 +26,8 @@ class KSPCraftsStats extends Widget
       else
         progress class: "progress", value: count, title: count, max: @craft_counts.all
 
+    hr!
+
     p "Tagged Craft"
     progress class: "progress", value: @tag_counts.craft_with_tags, max: @craft_counts.all
     p "There are #{@tag_counts.tags} tags."
