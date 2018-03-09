@@ -242,6 +242,7 @@ class KSPCraftsApp extends lapis.Application
     @craft_counts = {
       all: Crafts\count!
       -- to_be_reviewed: Crafts\count "status IN (?, ?, ?, ?, ?)", Crafts.statuses.priority, Crafts.statuses.imported, Crafts.statuses.pending, Crafts.statuses.delayed, Crafts.statuses.old
+      new: Crafts\count "status = ?", Crafts.statuses.new
     }
     for i, name in ipairs Crafts.statuses
       @craft_counts[name] = Crafts\count "status = ?", i
