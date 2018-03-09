@@ -50,7 +50,7 @@ class extends lapis.Application
     }
   }
 
-  [list: "/list"]: =>
+  [list: "(/list)"]: =>
     @title = "Game Keys"
     @keys = GameKeys\select "WHERE status = ? ORDER BY item ASC", GameKeys.statuses.unclaimed
     return render: "game_keys.list"
