@@ -38,19 +38,6 @@ class KSPCraftsApp extends lapis.Application
   -- TODO this will be defined on a different app or as a page
   -- [index: ""]: => return redirect_to: @url_for "ksp_crafts_index"
 
-  [tags: "/craft-tags(/:page[%d])"]: =>
-    @page = tonumber(@params.page) or 1
-
-    per_page = 4*13
-    @last_page = ceil db.query("SELECT COUNT(DISTINCT tag_id) FROM craft_tags")[1].count / per_page
-    @tags = db.query "SELECT tags.*, COUNT(tag_id) AS count FROM tags INNER JOIN craft_tags ON tags.id = craft_tags.tag_id GROUP BY tags.id ORDER BY count DESC, name ASC LIMIT #{per_page} OFFSET #{db.escape_literal per_page * (@page - 1)}"
-
-    if #@tags < 1 and @last_page > 0
-      return redirect_to: @url_for "ksp_crafts_tags", page: @last_page
-
-    @title = "Submitted Craft - Tags"
-    return render: "ksp_crafts.tags"
-
   [index: "/crafts(/:tab)(/:page[%d])"]: =>
     if a = tonumber @params.tab
       @params.tab = nil
@@ -78,6 +65,19 @@ class KSPCraftsApp extends lapis.Application
     @title = "Submitted Craft"
     @page_arguments = tab: @params.tab
     return render: "ksp_crafts.index"
+
+  [tags: "/craft-tags(/:page[%d])"]: =>
+    @page = tonumber(@params.page) or 1
+
+    per_page = 4*13
+    @last_page = ceil db.query("SELECT COUNT(DISTINCT tag_id) FROM craft_tags")[1].count / per_page
+    @tags = db.query "SELECT tags.*, COUNT(tag_id) AS count FROM tags INNER JOIN craft_tags ON tags.id = craft_tags.tag_id GROUP BY tags.id ORDER BY count DESC, name ASC LIMIT #{per_page} OFFSET #{db.escape_literal per_page * (@page - 1)}"
+
+    if #@tags < 1 and @last_page > 0
+      return redirect_to: @url_for "ksp_crafts_tags", page: @last_page
+
+    @title = "Submitted Craft - Tags"
+    return render: "ksp_crafts.tags"
 
   [view: "/craft/:id[%d]"]: respond_to {
     GET: =>
@@ -237,5 +237,21 @@ class KSPCraftsApp extends lapis.Application
       return redirect_to: @url_for "ksp_crafts_index", tab: "pending" -- to show there are none except delayed craft
     else
       return redirect_to: @url_for "ksp_crafts_index", tab: "all"     -- to show there are none D:
+
+  [stats: "/craft-stats"]: =>
+    @craft_counts = {
+      all: Crafts\count!
+      -- reviewed: Crafts\count "WHERE status = ?", Crafts.statuses.reviewed
+      pending: Crafts\count "WHERE status IN (?, ?, ?, ?, ?)", Crafts.statuses.priority, Crafts.statuses.imported, Crafts.statuses.pending, Crafts.statuses.delayed, Crafts.statuses.old
+    }
+    for i, name in ipairs Crafts.statuses
+      @craft_counts[name] = Crafts\count "WHERE status = ?", i
+
+    @tag_counts = {
+      craft_with_tags: db.query("SELECT COUNT(DISTINCT craft_id) FROM craft_tags")[1].count
+      tags: db.query("SELECT COUNT(DISTINCT tag_id) FROM craft_tags")[1].count
+    }
+
+    return render: "ksp_crafts.stats"
 
   "/craft": => return redirect_to: @url_for "ksp_crafts_index"
