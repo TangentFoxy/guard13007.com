@@ -50,7 +50,7 @@ class extends lapis.Application
     }
   }
 
-  [list: "/list"]: =>
+  [list: "(/list)"]: =>
     @title = "Game Keys"
     @keys = GameKeys\select "WHERE status = ? ORDER BY item ASC", GameKeys.statuses.unclaimed
     return render: "game_keys.list"
@@ -99,7 +99,4 @@ class extends lapis.Application
         @session.info = "Key updated."
         return redirect_to: @url_for "game_keys_edit"
     }
-
-    [redirect: ""]: =>
-      return status: 301, redirect_to: @url_for "game_keys_list"
   }
