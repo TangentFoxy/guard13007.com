@@ -17,6 +17,8 @@ class KSPCraftsStats extends Widget
     sort order
 
     remove order, 1
+    p "There are #{@craft_counts.all} craft."
+
     for name in *order
       count = @craft_counts[name]
       p "#{name\sub(1, 1)\upper!}#{name\sub(2)\gsub "_", " "} Craft"
@@ -29,5 +31,5 @@ class KSPCraftsStats extends Widget
     hr!
 
     p "Tagged Craft"
-    progress class: "progress", value: @tag_counts.craft_with_tags, max: @craft_counts.all
+    progress class: "progress", value: @tag_counts.craft_with_tags, title: @tag_counts.craft_with_tags, max: @craft_counts.all
     p "There are #{@tag_counts.tags} tags."
