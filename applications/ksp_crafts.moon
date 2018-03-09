@@ -241,11 +241,11 @@ class KSPCraftsApp extends lapis.Application
   [stats: "/craft-stats"]: =>
     @craft_counts = {
       all: Crafts\count!
-      -- reviewed: Crafts\count "WHERE status = ?", Crafts.statuses.reviewed
-      pending: Crafts\count "WHERE status IN (?, ?, ?, ?, ?)", Crafts.statuses.priority, Crafts.statuses.imported, Crafts.statuses.pending, Crafts.statuses.delayed, Crafts.statuses.old
+      -- reviewed: Crafts\count "status = ?", Crafts.statuses.reviewed
+      pending: Crafts\count "status IN (?, ?, ?, ?, ?)", Crafts.statuses.priority, Crafts.statuses.imported, Crafts.statuses.pending, Crafts.statuses.delayed, Crafts.statuses.old
     }
     for i, name in ipairs Crafts.statuses
-      @craft_counts[name] = Crafts\count "WHERE status = ?", i
+      @craft_counts[name] = Crafts\count "status = ?", i
 
     @tag_counts = {
       craft_with_tags: db.query("SELECT COUNT(DISTINCT craft_id) FROM craft_tags")[1].count
