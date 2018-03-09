@@ -1,14 +1,20 @@
 import Widget from require "lapis.html"
+import insert, sort from table
 
 class KSPCraftsStats extends Widget
   content: =>
-    for name, count in pairs @craft_counts
-      p name
-      progress class: "progress", value: count, max: @craft_counts.all
+    order = {}
+    for name in pairs @craft_counts
+      insert order, name
+    sort order
+
+    for name in *order
+      count = @craft_counts[name]
+      p "#{name\sub(1, 1)\upper!}#{name\sub(2)\gsub "_", " "} Craft"
+      progress class: "progress", value: count, title: count, max: @craft_counts.all
 
     hr!
 
-    p "Craft with Tags"
+    p "Tagged Craft"
     progress class: "progress", value: @tag_counts.craft_with_tags, max: @craft_counts.all
-    p "Number of Tags"
-    progress class: "progress", value: @tag_counts.tags, max: @tag_counts.tags
+    p "There are #{@tag_counts.tags} tags."
