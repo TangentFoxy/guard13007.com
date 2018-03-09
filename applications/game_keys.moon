@@ -99,4 +99,7 @@ class extends lapis.Application
         @session.info = "Key updated."
         return redirect_to: @url_for "game_keys_edit"
     }
+
+    "": =>
+      return status: 301, redirect_to: @url_for "game_keys_list"
   }
