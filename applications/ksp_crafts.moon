@@ -241,8 +241,7 @@ class KSPCraftsApp extends lapis.Application
   [stats: "/craft-stats"]: =>
     @craft_counts = {
       all: Crafts\count!
-      -- reviewed: Crafts\count "status = ?", Crafts.statuses.reviewed
-      to_be_reviewed: Crafts\count "status IN (?, ?, ?, ?, ?)", Crafts.statuses.priority, Crafts.statuses.imported, Crafts.statuses.pending, Crafts.statuses.delayed, Crafts.statuses.old
+      -- to_be_reviewed: Crafts\count "status IN (?, ?, ?, ?, ?)", Crafts.statuses.priority, Crafts.statuses.imported, Crafts.statuses.pending, Crafts.statuses.delayed, Crafts.statuses.old
     }
     for i, name in ipairs Crafts.statuses
       @craft_counts[name] = Crafts\count "status = ?", i
@@ -252,6 +251,7 @@ class KSPCraftsApp extends lapis.Application
       tags: db.query("SELECT COUNT(DISTINCT tag_id) FROM craft_tags")[1].count
     }
 
+    @title = "Craft Stats"
     return render: "ksp_crafts.stats"
 
   "/craft": => return redirect_to: @url_for "ksp_crafts_index"
