@@ -100,6 +100,6 @@ class extends lapis.Application
         return redirect_to: @url_for "game_keys_edit"
     }
 
-    "": =>
+    [redirect: ""]: =>
       return status: 301, redirect_to: @url_for "game_keys_list"
   }
