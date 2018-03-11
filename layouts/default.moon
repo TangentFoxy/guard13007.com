@@ -1,6 +1,9 @@
 import Widget from require "lapis.html"
 config = require("lapis.config").get!
 
+import autoload from require "locator"
+import settings from autoload "utility"
+
 class extends Widget
   content: =>
     html_5 class: "has-navbar-fixed-top has-navbar-fixed-bottom", ->
