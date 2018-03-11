@@ -45,9 +45,9 @@ class KSPCraftsSearch extends Widget
                   td craft.notes
       else
         if @params.version and @params.version\len! > 0
-          p "There were no results for '#{@params.name}' (v#{@params.version})"
+          p "There were no results for '#{@params.query}' (v#{@params.version})"
         else
-          p "There were no results for '#{@params.name}'"
+          p "There were no results for '#{@params.query}'"
 
     else
       p "Please enter a search term (and optionally a version of KSP)."
