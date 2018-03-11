@@ -260,6 +260,7 @@ class KSPCraftsApp extends lapis.Application
       @session.info = "You are not logged in."
       return redirect_to: @url_for "ksp_crafts_index"
 
+    @title = "Your Craft Submissions"
     @crafts = Crafts\select "WHERE user_id = ? ORDER BY id ASC", @user.id
     return render: "ksp_crafts.mine"
 
