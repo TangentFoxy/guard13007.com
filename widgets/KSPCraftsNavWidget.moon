@@ -16,8 +16,6 @@ class KSPCraftsNavWidget extends Widget
 
         div class: "control is-expanded", ->
           input class: "input", type: "text", name: "query", placeholder: "Search for Craft", value: @params.query
-        -- div class: "control", ->
-        --   input class: "input", type: "text", name: "tags", placeholder: "Tags"
         div class: "control", ->
           input class: "input", type: "text", name: "version", placeholder: "KSP version?", value: @params.version
         div class: "control", ->
