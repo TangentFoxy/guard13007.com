@@ -257,6 +257,7 @@ make_migrations {
     rename_table "users", "old_users"
   [34]: =>
     -- this is copied from users migration 1
+    -- NOTE I should've just require'd and executed it...
     create_table "users", {
       {"id", types.serial primary_key: true}
       {"name", types.varchar unique: true}
@@ -344,6 +345,8 @@ make_migrations {
       {"video_id", types.varchar}
       {"published_at", types.time} -- needs to be converted from YouTube
     }
+  [1520764545]: =>
+    settings.set "guard13007.google-analytics-key", nil
 
   -- []: =>
   --   create_table "software_projects", {
