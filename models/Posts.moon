@@ -26,10 +26,11 @@ class Posts extends Model
   }
 
   get_previous: =>
-    -- copy
-    return Posts\select("WHERE published_at < ? AND status = ? AND splat IS NULL ORDER BY published_at DESC LIMIT 1", @published_at)[1], Posts.statuses.published
+    posts = Posts\select "WHERE published_at < ? AND status = ? AND splat IS NULL ORDER BY published_at DESC LIMIT 1", @published_at, Posts.statuses.published
+    return posts[1]
   get_next: =>
-    return Posts\select("WHERE published_at > ? AND status = ? AND splat IS NULL ORDER BY published_at LIMIT 1", @published_at)[1], Posts.statuses.published
+    posts = Posts\select "WHERE published_at > ? AND status = ? AND splat IS NULL ORDER BY published_at LIMIT 1", @published_at, Posts.statuses.published
+    return posts[1]
 
   @constraints: {
     title: (value) =>
