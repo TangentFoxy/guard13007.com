@@ -24,12 +24,9 @@ class extends lapis.Application
   @include locate "ksp_crafts"
   @include locate "game_keys"
   @include locate "polls"
+  @include "1000cards" -- TODO rewrite and replace
 
   @include locate "redirects"
-
-  @include "1000cards"
-  @include "john"
-  @include "greyout"
 
   [index: "/"]: =>
     return render: true

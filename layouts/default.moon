@@ -123,8 +123,9 @@ class extends Widget
                 div class: "navbar-dropdown", ->
                   div class: "navbar-item menu", ->
                     ul class: "menu-list", ->
-                      li -> a href: @url_for("user_list"), "List Users"
+                      li -> a href: @url_for("console"), "Console"
                       li -> a href: @url_for("user_admin"), "User Administration"
+                      li -> a href: @url_for("user_list"), "List Users"
                       li -> a href: @url_for("posts_admin_index"), "All Posts"
                       li -> a href: @url_for("posts_new"), "New Post"
             div class: "navbar-item", ->
