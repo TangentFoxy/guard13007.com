@@ -57,9 +57,9 @@ class extends Widget
                       li ->
                         a href: "/gaming", disabled: true, "Gaming"
                         ul ->
-                          -- li -> a href: "/gaming/ksp", disabled: true, "Kerbal Space Program"
+                          -- li -> a href: "/gaming/ksp", "Kerbal Space Program"
                           li ->
-                            a href: "/gaming/ksp", "Kerbal Space Program"
+                            a href: "/gaming/ksp", disabled: true, "Kerbal Space Program"
                             div class: "navbar-item menu", ->
                               ul class: "menu-list", ->
                                 li -> a href: "/gaming/ksp/crafts", "View submitted craft"
