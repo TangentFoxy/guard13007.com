@@ -347,6 +347,12 @@ make_migrations {
     }
   [1520764545]: =>
     settings.set "guard13007.google-analytics-key", nil
+  [1521001848]: =>
+    create_table "twitter_tokens", {
+      {"user_id", types.foreign_key primary_key: true}
+      {"access_token", types.varchar unique: true}
+      {"access_token_secret", types.varchar unique: true}
+    }
 
   -- []: =>
   --   create_table "software_projects", {

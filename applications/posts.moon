@@ -3,6 +3,7 @@ lapis = require "lapis"
 import Posts from require "models"
 import respond_to from require "lapis.application"
 import slugify from require "lapis.util"
+import advertise_post from require "export.twitter"
 
 import autoload from require "locator"
 import datetime from autoload "utility"
@@ -56,7 +57,7 @@ class PostsApp extends lapis.Application
   [new: "/new"]: respond_to {
     before: =>
       unless @user and @user.admin
-        return redirect_to: @url_for "posts_index"
+        @write redirect_to: @url_for "posts_index"
     GET: =>
       @title = "New Post"
       return render: "posts.edit"
@@ -94,6 +95,8 @@ class PostsApp extends lapis.Application
       post, err = Posts\create fields
       if post
           @session.info = "Post created!"
+          if post.status == Posts.statuses.published
+            advertise_post @user.id, post
           if post.status != Posts.statuses.draft
             if post.splat
               return redirect_to: "/#{post.splat}"
@@ -109,11 +112,11 @@ class PostsApp extends lapis.Application
   [edit: "/edit/:id[%d]"]: respond_to {
     before: =>
       unless @user and @user.admin
-        return redirect_to: @url_for "posts_index"
+        @write redirect_to: @url_for "posts_index"
       @post = Posts\find id: @params.id
       unless @post
         @session.info = "That post does not exist."
-        return redirect_to: @url_for "posts_index"
+        @write redirect_to: @url_for "posts_index"
     GET: =>
       @title = "#{@post.title} (Editing)"
       return render: "posts.edit"
@@ -141,14 +144,17 @@ class PostsApp extends lapis.Application
       if @params.splat and @params.splat\len! > 0
         fields.splat = @params.splat
 
+      newly_published = false
       if @params.published_at and @params.published_at\len! > 0
         fields.published_at = @params.published_at
       elseif fields.status == Posts.statuses.published and @post.status != Posts.statuses.published
+        newly_published = true
         fields.published_at = datetime.now!
 
       _, err = @post\update fields
       unless err
         @info = "Post updated."
+        advertise_post @user.id, @post if newly_published
       else
         @info = "Failed to update post. #{err}"
 
