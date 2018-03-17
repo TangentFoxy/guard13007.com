@@ -4,7 +4,6 @@
     remote: {
       name: "githook"
       fetch: "https://github.com/lazuscripts/githook"
-      push: "git@github.com:lazuscripts/githook.git"
     }
   }
   {
@@ -13,7 +12,6 @@
     remote: {
       name: "users"
       fetch: "https://github.com/lazuscripts/users"
-      push: "git@github.com:lazuscripts/users.git"
     }
   }
   {
@@ -24,7 +22,6 @@
     remote: {
       name: "utility"
       fetch: "https://github.com/lazuscripts/utility"
-      push: "git@github.com:lazuscripts/utility.git"
     }
   }
 
@@ -35,7 +32,6 @@
     remote: {
       name: "locator"
       fetch: "https://github.com/lazuscripts/locator"
-      push: "git@github.com:lazuscripts/locator.git"
     }
   }
   { -- only used in migrations for models no longer in use
