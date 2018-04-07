@@ -29,9 +29,9 @@ class extends Widget
                 else
                   option value: e, event
         div class: "control", ->
-          div class: "input", type: "number", step: "0.001", name: "amount", placeholder: "amount", value: @params.amount
+          input class: "input", type: "number", step: "0.001", name: "amount", placeholder: "amount", value: @params.amount
         div class: "control", ->
-          div class: "input", type: "number", step: "0.01", name: "cost", placeholder: "cost", value: @params.cost
+          input class: "input", type: "number", step: "0.01", name: "cost", placeholder: "cost", value: @params.cost
         div class: "control", ->
           input class: "input", type: "date", name: "date", placeholder: "mm/dd/yyyy", value: @params.date or os.date "!%m/%d/%Y", os.time!
         div class: "control", ->
