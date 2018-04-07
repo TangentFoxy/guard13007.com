@@ -353,6 +353,15 @@ make_migrations {
       {"access_token", types.varchar unique: true}
       {"access_token_secret", types.varchar unique: true}
     }
+  [1523169652]: =>
+    create_table "motorcycle_events", {
+      {"user_id", types.foreign_key primary_key: true}
+      {"odometer", types.numeric}
+      {"event", types.integer}
+      {"amount", types.numeric null: true}
+      {"cost", types.real}
+      {"date", types.time}
+    }
 
   -- []: =>
   --   create_table "software_projects", {

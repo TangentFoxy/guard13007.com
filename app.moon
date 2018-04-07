@@ -24,6 +24,7 @@ class extends lapis.Application
   @include locate "ksp_crafts"
   @include locate "game_keys"
   @include locate "polls"
+  @include locate "motorcycle"
   @include "1000cards" -- TODO rewrite and replace
 
   @include locate "redirects"
