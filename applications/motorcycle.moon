@@ -34,7 +34,7 @@ class extends lapis.Application
         assert_error MotorcycleEvents\create {
           user_id: @user.id
           odometer: @params.odometer
-          event: MotorcycleEvents\for_db(@params.event)
+          event: MotorcycleEvents.events\for_db(@params.event)
           amount: @params.amount
           cost: @params.cost
           date: for_db time(:year, :month, :day)
