@@ -5,7 +5,7 @@ import assert_error from require "lapis.application"
 import assert_valid, validate_functions from require "lapis.validate"
 import locate from require "locator"
 import for_db from locate "datetime"
-import date, time from os
+import time from os
 
 import MotorcycleEvents from require "models"
 
@@ -37,7 +37,7 @@ class extends lapis.Application
           event: MotorcycleEvents\for_db(@params.event)
           amount: @params.amount
           cost: @params.cost
-          date: date "!%Y-%m-%d %X", time(:year, :month, :day)
+          date: for_db time(:year, :month, :day)
         }
 
         @session.info = "Event added!"
