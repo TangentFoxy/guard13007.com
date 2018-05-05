@@ -6,7 +6,7 @@ config {"production", "development"}, ->
   secret session_secret
   postgres ->
     host "127.0.0.1"
-    user "postgres"
+    user "guard13007com"
     password sql_password
 
 config "production", ->
