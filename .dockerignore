@@ -1,0 +1,11 @@
+# existing files
+Dockerfile
+ReadMe.md
+
+# if you compile MoonScript here
+*.lua
+
+# if you ever run the server from here
+logs/
+*_temp/
+nginx.conf.compiled
