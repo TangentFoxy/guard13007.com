@@ -4,7 +4,6 @@ LABEL maintainer = "Tangent <paul.liverman.iii@gmail.com>"
 
 EXPOSE 8080
 WORKDIR /app
-ENTRYPOINT ["sh", "-c", "lapis migrate production && lapis server production"]
 
 RUN apt-get update
 RUN apt-get upgrade -y
@@ -24,5 +23,6 @@ RUN apt-get autoremove -y
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY . .
-
 RUN moonc .
+
+ENTRYPOINT ["sh", "-c", "lapis migrate production && lapis server production"]
