@@ -25,7 +25,4 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY . .
 
-ONBUILD COPY . .
-ONBUILD RUN moonc .
-# ONBUILD RUN luarocks remove moonscript
-# ONBUILD RUN find . -type f -name '*.moon' -delete
+RUN moonc .
