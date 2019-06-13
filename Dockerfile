@@ -15,7 +15,7 @@ RUN apt-get install libssl-dev git -y
 RUN luarocks install lapis
 RUN luarocks install lapis-console
 RUN luarocks install moonscript
-RUN luarocks install cjson
+RUN luarocks install lua-cjson
 RUN luarocks install bcrypt
 RUN luarocks install markdown # might not be needed?
 
