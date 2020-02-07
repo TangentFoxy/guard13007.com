@@ -23,6 +23,7 @@ RUN luarocks install markdown # might not be needed?
 RUN apt-get autoremove -y
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY . .
+# actually build stuff!
 RUN luarocks install moonscript
+COPY . .
 RUN moonc .
