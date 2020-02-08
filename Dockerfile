@@ -5,7 +5,6 @@ LABEL maintainer = "Tangent/Rose <tangentfoxy@gmail.com>"
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install libssl-dev git -y
-# RUN sudo apt-get install wget curl lua5.1 liblua5.1-0-dev zip unzip libreadline-dev libncurses5-dev libpcre3-dev openssl libssl-dev perl make build-essential nginx -y
 
 RUN luarocks install lapis
 RUN luarocks install luacrypto # no idea why this is still required, it should not be
