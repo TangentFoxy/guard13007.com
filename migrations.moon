@@ -279,7 +279,7 @@ make_migrations {
     settings["users.require-unique-email"] = false
     settings.save!
 
-    import Users, OldUsers, Crafts, Cards, CardVotes, Keys from require "models"
+    import Users, OldUsers, Crafts, Cards, CardVotes, GameKeys from require "models"
     oldUsers = OldUsers\select "WHERE true"
 
     for oldUser in *oldUsers
@@ -290,7 +290,7 @@ make_migrations {
       }
       error err unless user
       if oldUser.id != user.id
-        for Model in *{Crafts, Cards, CardVotes, Keys}
+        for Model in *{Crafts, Cards, CardVotes, GameKeys}
           models = Model\select "WHERE user_id = ?", oldUser.id
           for item in *models
             item\update user_id: user.id
