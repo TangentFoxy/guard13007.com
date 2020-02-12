@@ -19,7 +19,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 80
 WORKDIR /app
-ENTRYPOINT ["sh", "-c", "sleep 5 && lapis migrate production --trace && lapis server production --trace"]
+ENTRYPOINT ["sh", "-c", "sleep 5 && lapis migrate production && lapis server production"]
 
 # actually build stuff!
 RUN luarocks install moonscript
