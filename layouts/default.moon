@@ -57,17 +57,9 @@ class extends Widget
                     ul class: "menu-list", ->
                       li -> a href: "/videos", "All Videos"
                       -- li -> a href: "/playlists", "Playlists"
-                      li ->
-                        a href: "/gaming", disabled: true, "Gaming"
-                        ul ->
-                          -- li -> a href: "/gaming/ksp", "Kerbal Space Program"
-                          li ->
-                            a href: "/gaming/ksp", disabled: true, "Kerbal Space Program"
-                            div class: "navbar-item menu", ->
-                              ul class: "menu-list", ->
-                                li -> a href: "/gaming/ksp/crafts", "View submitted craft"
-                                li -> a href: "/gaming/ksp/submit", "Submit a craft"
-                          -- li -> a href: "/gaming/starmade", "StarMade"
+                      li -> a href: "/gaming/ksp/crafts", "View submitted craft"
+                      li -> a href: "/gaming/ksp/submit", "Submit a craft"
+                      -- li -> a href: "/gaming/starmade", "StarMade"
               a class: "navbar-item", href: "/posts", "Blog"
               -- div class: "navbar-item has-dropdown is-hoverable", ->
               --   p class: "navbar-link is-unselectable", "Blog"
@@ -128,23 +120,13 @@ class extends Widget
                       li -> a href: @url_for("posts_admin_index"), "All Posts"
                       li -> a href: @url_for("posts_new"), "New Post"
             div class: "navbar-item", ->
-              div class: "level", ->
-                div class: "level-left", ->
-                  div class: "level-item", ->
-                    div class: "field is-grouped", ->
-                      if @user
-                        div class: "control", ->
-                          a class: "button", href: @url_for("user_me"), "You"
-                        div class: "control", ->
-                          a class: "button", href: @url_for("user_logout", nil, redirect: @url_for(@route_name, @params)), "Log Out"
-                      else
-                        div class: "control", ->
-                          a class: "button", href: @url_for("user_login"), "Log In"
-                        div class: "control", ->
-                          a class: "button", href: @url_for("user_new"), "New User"
-                  div class: "level-item", ->
-                    text "This website is open source on"
-                    raw "&nbsp;"
-                    -- TODO modify to use icon ?
-                    a href: "https://github.com/Guard13007/guard13007.com", "GitHub"
-                    text "."
+              if @user
+                div class: "control", ->
+                  a class: "button", href: @url_for("user_me"), "You"
+                div class: "control", ->
+                  a class: "button", href: @url_for("user_logout", nil, redirect: @url_for(@route_name, @params)), "Log Out"
+              else
+                div class: "control", ->
+                  a class: "button", href: @url_for("user_login"), "Log In"
+                div class: "control", ->
+                  a class: "button", href: @url_for("user_new"), "New User"
