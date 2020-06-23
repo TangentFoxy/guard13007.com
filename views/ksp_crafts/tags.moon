@@ -1,6 +1,5 @@
 import Widget from require "lapis.html"
-import autoload from require "locator"
-import Pagination, KSPCraftsNavWidget from autoload "widgets"
+import Pagination, KSPCraftsNavWidget from require "widgets"
 import ceil from math
 
 KSPCraftsIndex = require "views.ksp_crafts.index"

@@ -7,11 +7,11 @@ RUN apt-get upgrade -y
 RUN apt-get install libssl-dev git -y
 
 RUN luarocks install lapis
-RUN luarocks install luacrypto # no idea why this is still required, it should not be
+RUN luarocks install luacrypto # legacy requirement (lapis)
 RUN luarocks install bcrypt
 RUN luarocks install lapis-console
 RUN luarocks install lua-cjson
-RUN luarocks install markdown # might not be needed?
+RUN luarocks install markdown # legacy requirement (migration 31)
 
 # clean up
 RUN apt-get autoremove -y

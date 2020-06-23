@@ -4,8 +4,7 @@ import Posts from require "models"
 import respond_to from require "lapis.application"
 import slugify from require "lapis.util"
 
-import autoload from require "locator"
-import datetime from autoload "utility"
+import datetime from require "utility"
 
 class PostsApp extends lapis.Application
   @path: "/post"

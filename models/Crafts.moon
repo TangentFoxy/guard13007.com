@@ -2,8 +2,7 @@ import Model, enum from require "lapis.db.model"
 
 import Tags from require "models"
 import trim from require "lapis.util"
-import locate from require "locator"
-import starts from locate "gstring"
+import starts from require "utility.gstring"
 
 http = require "lapis.nginx.http"
 

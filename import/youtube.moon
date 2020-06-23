@@ -3,9 +3,8 @@ http = require "lapis.nginx.http"
 import decode from require "cjson"
 import Videos, Playlists, PlaylistVideos from require "models"
 import encode_query_string from require "lapis.util"
-import locate, autoload from require "locator"
-import settings from autoload "utility"
-import shallow_copy from locate "gtable"
+import settings from require "utility"
+import shallow_copy from require "utility.gtable"
 import insert from table
 import date, time from os
 

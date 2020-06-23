@@ -6,11 +6,10 @@ import Crafts, Tags, Users from require "models"
 import decode from require "cjson"
 import respond_to, capture_errors, assert_error, yield_error from require "lapis.application"
 import assert_valid, validate_functions from require "lapis.validate"
-import locate, autoload from require "locator"
-import split from locate "gstring"
-import invert from locate "gtable"
-import random from locate "calc"
-import settings from autoload "utility"
+import split from require "utility.gstring"
+import invert from require "utility.gtable"
+import random from require "utility.calc"
+import settings from require "utility"
 import ceil from math
 
 validate_functions.not_equals = (...) ->

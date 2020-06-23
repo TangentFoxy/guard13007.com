@@ -28,6 +28,5 @@ invert = (tab) ->
 {
   :append
   :shallow_copy
-  shallow_merge: shallow_copy -- TODO deprecate
   :invert
 }

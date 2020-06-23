@@ -5,7 +5,7 @@ class extends lapis.Application
   @name: "polls_"
 
   [index: ""]: =>
-    @title = "Guard's Polls"
+    @title = "Tangent's Polls"
     @html ->
       div class: "content", ->
         ul ->

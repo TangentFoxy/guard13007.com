@@ -2,8 +2,7 @@ lapis = require "lapis"
 http = require "lapis.nginx.http"
 
 import respond_to from require "lapis.application"
-import locate from require "locator"
-import starts from locate "gstring"
+import starts from require "utility.gstring"
 
 import Cards, CardVotes from require "models"
 
