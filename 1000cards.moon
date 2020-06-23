@@ -6,7 +6,7 @@ import starts from require "utility.gstring"
 
 import Cards, CardVotes from require "models"
 
-class extends lapis.Application
+class CardsApp extends lapis.Application
     @path: "/cards/1000"
     @name: "cards_1000_"
 
