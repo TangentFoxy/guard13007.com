@@ -304,6 +304,15 @@ import settings from autoload "utility"
     create_index "users", "email", unique: true
 
     create_index "sessions", "id", unique: true
+  [1518948992]: =>
+    create_table "settings", {
+      {"name", types.varchar primary_key: true, unique: true}
+      {"value", types.text null: true}
+
+      {"created_at", types.time}
+      {"updated_at", types.time}
+    }
+    create_index "settings", "name", unique: true
   [1518968812]: =>
     settings["users.allow-sign-up"] = true
     settings["users.allow-name-change"] = true
