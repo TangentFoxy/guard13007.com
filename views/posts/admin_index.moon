@@ -1,7 +1,6 @@
 import Widget from require "lapis.html"
 import Posts from require "models"
-import autoload from require "locator"
-import Pagination from autoload "widgets"
+import Pagination from require "widgets"
 
 class PostIndex extends Widget
   content: =>

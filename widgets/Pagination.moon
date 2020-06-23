@@ -1,6 +1,5 @@
 import Widget from require "lapis.html"
-import locate from require "locator"
-import shallow_copy from locate "gtable"
+import shallow_copy from require "utility.gtable"
 
 class Pagination extends Widget
   content: =>

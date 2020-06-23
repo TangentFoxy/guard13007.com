@@ -3,9 +3,8 @@ import Model from require "lapis.db.model"
 -- import TagRelations from require "models"
 import assert_error from require "lapis.application"
 import singularize from require "lapis.util"
-import locate from require "locator"
-import split from locate "gstring"
-import invert from locate "gtable"
+import split from require "utility.gstring"
+import invert from require "utility.gtable"
 import insert, concat from table
 
 class Tags extends Model

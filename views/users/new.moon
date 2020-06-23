@@ -1,7 +1,6 @@
 import Widget from require "lapis.html"
 
-import autoload from require "locator"
-import settings from autoload "utility"
+import settings from require "utility"
 
 class extends Widget
   content: =>

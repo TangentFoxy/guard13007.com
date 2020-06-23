@@ -3,30 +3,28 @@ console = require "lapis.console"
 
 import Posts from require "models"
 import respond_to from require "lapis.application"
-import autoload, locate, registry from require "locator"
-import bare, default from autoload "layouts"
-import settings from autoload "utility"
+import bare, default from require "layouts"
+import settings from require "utility"
 
-class extends lapis.Application
+class MainApp extends lapis.Application
   @before_filter =>
     settings.load!
-    registry.before_filter(@)
+    @user = Sessions\get(@session)
     if @session.info
       @info = @session.info
       @session.info = nil
 
   layout: default
 
-  @include locate "githook"
-  @include locate "users"
-  @include locate "posts"
-  @include locate "videos"
-  @include locate "ksp_crafts"
-  @include locate "game_keys"
-  @include locate "polls"
-  @include "1000cards" -- TODO rewrite and replace
+  @include "applications.users"
+  @include "applications.posts"
+  @include "applications.videos"
+  @include "applications.ksp_crafts"
+  @include "applications.game_keys"
+  @include "applications.polls"
+  @include "applications.redirects"
 
-  @include locate "redirects"
+  @include "1000cards" -- TODO rewrite and replace
 
   [index: "/"]: =>
     return render: true
@@ -52,7 +50,6 @@ class extends lapis.Application
     @title = "Links 2 Stuff"
     return layout: bare, render: true
 
-  -- Legacy redirects
+  -- legacy redirects
   [ksp_redirect: "/ksp/*"]: => redirect_to: "/gaming/ksp/#{@params.splat}", status: 302
-
   "/submit": => redirect_to: @url_for "ksp_crafts_submit"

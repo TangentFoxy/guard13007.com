@@ -1,7 +1,6 @@
 import Widget from require "lapis.html"
 import Crafts, CraftTags, Users from require "models"
-import autoload from require "locator"
-import KSPCraftsNavWidget from autoload "widgets"
+import KSPCraftsNavWidget from require "widgets"
 
 class KSPCraftsView extends Widget
   content: =>
@@ -61,7 +60,7 @@ class KSPCraftsView extends Widget
               a class: "button", disabled: true, "Next Craft"
 
     hr!
-    p "Notes from Guard13007: #{@craft.notes}"
+    p "Notes from Tangent: #{@craft.notes}"
 
     if @user
       if @user.id == @craft.user_id or @user.admin

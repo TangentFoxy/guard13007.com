@@ -1,7 +1,6 @@
 import Widget from require "lapis.html"
-import autoload from require "locator"
-import KSPCraftsNavWidget from autoload "widgets"
-import settings from autoload "utility"
+import KSPCraftsNavWidget from require "widgets"
+import settings from require "utility"
 
 class KSPCraftsSubmit extends Widget
   content: =>

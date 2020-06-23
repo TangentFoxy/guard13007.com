@@ -1,7 +1,6 @@
 import Model from require "lapis.db.model"
 
-import autoload from require "locator"
-import settings from autoload "utility"
+import settings from require "utility"
 
 class Users extends Model
   @timestamp: true

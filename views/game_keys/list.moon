@@ -1,8 +1,7 @@
 import Widget from require "lapis.html"
 
 import GameKeys from require "models"
-import autoload from require "locator"
-import GameKeysMenu from autoload "widgets"
+import GameKeysMenu from require "widgets"
 
 class extends Widget
   content: =>

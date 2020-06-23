@@ -9,8 +9,7 @@ import decode from require "cjson"
 import respond_to, capture_errors, assert_error, yield_error from require "lapis.application"
 import assert_valid, validate_functions from require "lapis.validate"
 import trim from require "lapis.util"
-import locate, autoload from require "locator"
-import settings from autoload "utility"
+import settings from require "utility"
 
 import Users, Sessions from require "models"
 
@@ -50,7 +49,7 @@ class extends lapis.Application
 
       @csrf_token = csrf.generate_token(@)
 
-      return render: locate "views.user_new"
+      return render: "users.new"
 
     POST: capture_errors {
       on_error: =>
@@ -79,7 +78,7 @@ class extends lapis.Application
         }
 
         if settings["users.password-check-fn"]
-          fn = locate settings["users.password-check-fn"]
+          fn = loadstring settings["users.password-check-fn"]
           assert_error fn(@params.password)
 
         if settings["users.require-email"]
@@ -118,7 +117,7 @@ class extends lapis.Application
       @session.info = "You are not logged in."
       return redirect_to: @url_for "user_login", nil, redirect: @url_for "user_me"
 
-    return render: locate "views.user_me"
+    return render: "users.me"
 
   [edit: "/edit"]: respond_to {
     before: =>
@@ -128,7 +127,7 @@ class extends lapis.Application
 
     GET: =>
       @csrf_token = csrf.generate_token(@)
-      return render: locate "views.user_edit"
+      return render: "users.edit"
 
     POST: capture_errors {
       on_error: =>
@@ -174,7 +173,7 @@ class extends lapis.Application
             {"password", max_repetitions: settings["users.maximum-character-repetition"], "Your password must not have more than #{settings["users.maximum-character-repetition"]} repetitions of the same character."}
           }
           if settings["users.password-check-fn"]
-            fn = locate settings["users.password-check-fn"]
+            fn = loadstring settings["users.password-check-fn"]
             assert_error fn(@params.password)
 
           unless bcrypt.verify @params.oldpassword, @user.digest
@@ -191,7 +190,7 @@ class extends lapis.Application
           return redirect_to: @url_for "index"
 
         @csrf_token = csrf.generate_token(@)
-        return render: locate "views.user_edit"
+        return render: "users.edit"
     }
   }
 
@@ -208,7 +207,7 @@ class extends lapis.Application
     GET: =>
       @csrf_token = csrf.generate_token(@)
       @user_editing = @user
-      return render: locate "views.user_admin"
+      return render: "users.admin"
 
     POST: capture_errors {
       on_error: =>
@@ -274,7 +273,7 @@ class extends lapis.Application
           @user_editing = @user
 
         @csrf_token = csrf.generate_token(@)
-        return render: locate "views.user_admin"
+        return render: "users.admin"
     }
   }
 
@@ -288,7 +287,7 @@ class extends lapis.Application
       return redirect_to: @url_for "index"
 
     @users = Users\select "WHERE true ORDER BY name ASC"
-    return render: locate "views.user_list"
+    return render: "users.list"
 
   [login: "/login"]: respond_to {
     before: =>
@@ -298,7 +297,7 @@ class extends lapis.Application
 
     GET: =>
       @csrf_token = csrf.generate_token(@)
-      return render: locate "views.user_login"
+      return render: "users.login"
 
     POST: capture_errors {
       on_error: =>

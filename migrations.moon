@@ -1,10 +1,29 @@
 db = require "lapis.db"
-import create_table, types, drop_table, add_column, rename_column, rename_table from require "lapis.db.schema"
-import make_migrations, autoload from require "locator"
+import
+  create_table, drop_table, types, create_index,
+  drop_index, add_column, rename_column, rename_table from require "lapis.db.schema"
+
+import autoload from require "lapis.util"
 import settings from autoload "utility"
 
-make_migrations {
+{
   [1]: =>
+    create_table "users", {
+      {"id", types.serial primary_key: true}
+      {"name", types.varchar unique: true}
+      {"email", types.text unique: true}
+      {"digest", types.text}
+      {"admin", types.boolean default: false}
+
+      {"created_at", types.time}
+      {"updated_at", types.time}
+    }
+    create_table "sessions", {
+      {"user_id", types.foreign_key}
+
+      {"created_at", types.time}
+      {"updated_at", types.time}
+    }
     return true
   [2]: =>
     create_table "planes", {
@@ -230,7 +249,8 @@ make_migrations {
     rename_column "crafts", "creator_name", "creator"
   [31]: =>
     markdown = require "markdown"
-    import Posts, OldPosts from require "models"
+    import Posts from require "models"
+    import OldPosts from autoload "legacy.models"
     oldPosts = OldPosts\select "WHERE true"
 
     for oldPost in *oldPosts
@@ -274,12 +294,41 @@ make_migrations {
       {"created_at", types.time}
       {"updated_at", types.time}
     }
+  [1518430372]: =>
+    add_column "sessions", "id", types.serial primary_key: true
+    rename_column "sessions", "created_at", "opened_at"
+    rename_column "sessions", "updated_at", "closed_at"
+
+    create_index "users", "id", unique: true
+    create_index "users", "name", unique: true
+    create_index "users", "email", unique: true
+
+    create_index "sessions", "id", unique: true
+  [1518968812]: =>
+    settings["users.allow-sign-up"] = true
+    settings["users.allow-name-change"] = true
+    settings["users.admin-only-mode"] = false
+    settings["users.require-email"] = true
+    settings["users.require-unique-email"] = true
+    settings["users.allow-email-change"] = true
+    settings["users.session-timeout"] = 60 * 60 * 24 -- default is one day
+
+    settings["users.minimum-password-length"] = 12
+    settings["users.maximum-character-repetition"] = 6
+    settings["users.bcrypt-digest-rounds"] = 12
+    -- settings["users.password-check-fn"] = nil -- should return true if passes, falsy and error message if fails
+    settings.save!
+
+    drop_index "users", "email" -- replacing because it was a unique index
+    db.query "ALTER TABLE users DROP CONSTRAINT users_email_key"
+    create_index "users", "email"
   [1519029724]: =>
     settings["users.require-email"] = false
     settings["users.require-unique-email"] = false
     settings.save!
 
-    import Users, OldUsers, Crafts, Cards, CardVotes, GameKeys from require "models"
+    import Users, Crafts, Cards, CardVotes, GameKeys from require "models"
+    import OldUsers from autoload "legacy.models"
     oldUsers = OldUsers\select "WHERE true"
 
     for oldUser in *oldUsers
@@ -310,10 +359,35 @@ make_migrations {
       {"post_id", types.foreign_key}
       {"category_id", types.foreign_key}
     }
+  [1519416945]: =>
+    settings["users.require-recaptcha"] = false  -- protect against bots for sign-up (default off because it requires set-up)
+    -- settings["users.recaptcha-sitekey"] = nil -- provided by admin panel
+    -- settings["users.recaptcha-secret"] = nil  -- provided by admin panel
+    settings.save!
+
+    -- NOTE may need to run a migration to allow null emails ?
   [1519419901]: =>
     rename_table "users", "users2"
     rename_table "old_users", "users"
     add_column "users", "email", types.text null: true
+  [1519992142]: =>
+    create_table "githook_logs", {
+      {"id", types.serial primary_key: true}
+      {"success", types.boolean default: true}
+      {"exit_codes", types.text null: true}
+      {"log", types.text null: true}
+
+      {"created_at", types.time}
+      {"updated_at", types.time}
+    }
+    create_index "githook_logs", "id", unique: true
+    create_index "githook_logs", "success"
+    settings["githook.save_logs"] = true
+    settings["githook.save_on_success"] = true
+    settings["githook.allow_get"] = true
+    settings["githook.run_without_auth"] = false
+    -- settings["githook.branch"] = "master"
+    settings.save!
   [1520001591]: =>
     rename_table "keys", "game_keys"
     rename_column "game_keys", "game", "item"

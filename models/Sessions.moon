@@ -1,9 +1,8 @@
 import Model from require "lapis.db.model"
 import Users from require "models"
 
-import locate, autoload from require "locator"
-import to_seconds, for_db from locate "datetime"
-import settings from autoload "utility"
+import to_seconds, for_db from require "utility.datetime"
+import settings from require "utility"
 import time from os
 
 class Sessions extends Model
