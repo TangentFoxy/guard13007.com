@@ -1,6 +1,6 @@
 import Model, enum from require "lapis.db.model"
 
-class GameKeys extends Model
+class Keys extends Model
   @timestamp: true
 
   @types: enum {

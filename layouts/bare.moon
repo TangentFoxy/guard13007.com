@@ -8,9 +8,10 @@ class extends Widget
     html_5 ->
       head ->
         if @title
-          title "#{@title} - Guard13007.com"
+          title "#{@title}, #{settings['site.title']}"
         else
-          title "Guard13007.com"
+          title settings['site.title']
+
         if key = settings["guard13007.google-analytics-key"]
           script -> raw "
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

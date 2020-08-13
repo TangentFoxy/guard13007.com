@@ -20,7 +20,7 @@ class MainApp extends lapis.Application
   @include "applications.posts"
   @include "applications.videos"
   @include "applications.ksp_crafts"
-  @include "applications.game_keys"
+  @include "applications.keys"
   @include "applications.polls"
   @include "applications.redirects"
 

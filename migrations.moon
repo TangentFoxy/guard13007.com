@@ -336,7 +336,7 @@ import settings from autoload "utility"
     settings["users.require-unique-email"] = false
     settings.save!
 
-    import Users, Crafts, Cards, CardVotes, GameKeys from require "models"
+    import Users, Crafts, Cards, CardVotes, Keys from require "models"
     import OldUsers from autoload "legacy.models"
     oldUsers = OldUsers\select "WHERE true"
 
@@ -348,7 +348,7 @@ import settings from autoload "utility"
       }
       error err unless user
       if oldUser.id != user.id
-        for Model in *{Crafts, Cards, CardVotes, GameKeys}
+        for Model in *{Crafts, Cards, CardVotes, Keys}
           models = Model\select "WHERE user_id = ?", oldUser.id
           for item in *models
             item\update user_id: user.id
@@ -430,6 +430,9 @@ import settings from autoload "utility"
     }
   [1520764545]: =>
     settings.set "guard13007.google-analytics-key", nil
+
+  [1597322640]: =>
+    rename_table "game_keys", "keys"
 
   -- []: =>
   --   create_table "software_projects", {
