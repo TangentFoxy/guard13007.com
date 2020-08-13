@@ -15,7 +15,7 @@ class extends Widget
         meta name: "viewport", content: "width=device-width, initial-scale=1"
         link rel: "stylesheet", href: "/static/css/site.css"
 
-        if key = settings["guard13007.google-analytics-key"]
+        if key = settings["site.google-analytics-key"]
           script -> raw "
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
