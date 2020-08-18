@@ -3,18 +3,17 @@ import shallow_copy from require "utility.gtable"
 
 class Pagination extends Widget
   content: =>
-    nav class: "pagination is-centered", ->
-      ul class: "pagination-list", ->
-        if @page > 2
-          li -> a class: "pagination-link", href: @url_for(@route_name, shallow_copy @page_arguments, page: 1), 1
-        if @page > 3
-          li -> span class: "pagination-ellipsis", "…"
-        if @page > 1
-          li -> a class: "pagination-link", href: @url_for(@route_name, shallow_copy @page_arguments, page: @page - 1), @page - 1
-        li -> a class: "pagination-link is-current", @page
-        if @page < @last_page
-          li -> a class: "pagination-link", href: @url_for(@route_name, shallow_copy @page_arguments, page: @page + 1), @page + 1
-        if @page < @last_page - 2
-          li -> span class: "pagination-ellipsis", "…"
-        if @page < @last_page - 1
-          li -> a class: "pagination-link", href: @url_for(@route_name, shallow_copy @page_arguments, page: @last_page), @last_page
+    element "table", ->
+      if @page > 2
+        td -> a href: @url_for(@route_name, shallow_copy @page_arguments, page: 1), 1
+      if @page > 3
+        td -> span "…"
+      if @page > 1
+        td -> a href: @url_for(@route_name, shallow_copy @page_arguments, page: @page - 1), @page - 1
+      td -> a @page
+      if @page < @last_page
+        td -> a href: @url_for(@route_name, shallow_copy @page_arguments, page: @page + 1), @page + 1
+      if @page < @last_page - 2
+        td -> span "…"
+      if @page < @last_page - 1
+        td -> a href: @url_for(@route_name, shallow_copy @page_arguments, page: @last_page), @last_page

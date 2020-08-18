@@ -65,7 +65,7 @@ class KSPCraftsApp extends lapis.Application
     @page_arguments = tab: @params.tab
     return render: "ksp_crafts.index"
 
-  [tags: "/craft-tags(/:page[%d])"]: =>
+  [tags_index: "/craft-tags(/:page[%d])"]: =>
     @page = tonumber(@params.page) or 1
 
     per_page = 4*13
@@ -76,7 +76,7 @@ class KSPCraftsApp extends lapis.Application
       return redirect_to: @url_for "ksp_crafts_tags", page: @last_page
 
     @title = "Submitted Craft - Tags"
-    return render: "ksp_crafts.tags"
+    return render: "ksp_crafts.tags_index"
 
   [view: "/craft/:id[%d]"]: respond_to {
     GET: =>

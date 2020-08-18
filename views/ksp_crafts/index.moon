@@ -4,55 +4,54 @@ import Pagination, KSPCraftsNavWidget from require "widgets"
 
 class KSPCraftsIndex extends Widget
   tabs: {
-    {name: "All", tip: "All crafts in the order they were submitted."}
-    {name: "Reviewed", tip: "Crafts which have been reviewed on my YouTube channel."}
-    {name: "Pending", tip: "priority: Crafts to be reviewed next.\npending: Crafts awaiting a review.\nimported: Crafts I have imported from the KerbalX hanger or emails.\ndelayed: Craft that will be skipped for now.\nold: Really old submissions."}
-    {name: "New", tip: "Crafts that I haven't even noticed have been submitted yet."}
-    {name: "Rejected", tip: "Crafts that were rejected from my review series. Periodically deleted."}
+    { name: "All", tip: "All crafts" }
+    { name: "Reviewed", tip: "Reviewed on YouTube" }
+    { name: "Pending", tip: "Priority, pending, imported, delayed, old" }
+    { name: "New", tip: "Just submitted" }
+    { name: "Rejected", tip: "Rejected crafts, periodically deleted" }
   }
 
   content: =>
     widget KSPCraftsNavWidget
 
     link rel: "stylesheet", href: "/static/css/ksp.css"
-    div class: "tabs is-centered", ->
-      ul ->
-        real_tab = false
+    element "table", ->
+      tr ->
+        real_tab = false -- used to give a "menu item" for sorting via a tag
         @params.tab = "all" unless @params.tab
         for tab in *KSPCraftsIndex.tabs
           if @params.tab == tab.name\lower!
-            li class: "is-active", -> a tab.name
+            td tab.name
             real_tab = true
           else
-            li -> a href: @url_for("ksp_crafts_index", tab: tab.name\lower!), tab.name
-        li -> a href: @url_for("ksp_crafts_tags"), "Tags"
+            td -> a href: @url_for("ksp_crafts_index", tab: tab.name\lower!), tab.name
+        td -> a href: @url_for("ksp_crafts_tags_index"), "Tags"
         unless real_tab
-          li class: "is-active", -> a "##{@params.tab}"
-        li ->
+          td -> a "##{@params.tab}"
+        td ->
           form onsubmit: "location.href = '#{@url_for "ksp_crafts_index"}/' + document.getElementById('tag').value; return false;", ->
             input style: "width: 50%; border: none;", type: "text", id: "tag", placeholder: "list by tag"
             input style: "border: none;", type: "submit", value: "⏎"
 
     if #@crafts < 1
-      p "There are no crafts matching that criteria."
+      p "No crafts here. :("
 
     else
       widget Pagination
-      br!
 
-      element "table", class: "table is-bordered is-striped is-narrow is-fullwidth", ->
+      element "table", ->
         thead ->
           tr ->
             th style: "width: 20%; word-wrap: break-word;", "Craft"
             th style: "width: 20%; word-wrap: break-word;", "Creator"
             th style: "width: 10%;", "Status"
-            th "Notes"
+            th "YouTube Link / Notes"
         tfoot ->
           tr ->
             th style: "width: 20%; word-wrap: break-word;", "Craft"
             th style: "width: 20%; word-wrap: break-word;", "Creator"
             th "Status"
-            th "Notes"
+            th "YouTube Link / Notes"
         tbody ->
           the_date = os.date "*t", os.time!
           for craft in *@crafts
