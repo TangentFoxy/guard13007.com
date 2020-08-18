@@ -2,6 +2,10 @@ ul > a {
   margin: 0.5em;
 }
 
+table {
+  width: 100%;
+}
+
 .yt-embed {
   width: 75%;
   margin: auto;
