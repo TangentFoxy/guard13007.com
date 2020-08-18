@@ -1,12 +1,12 @@
 lapis = require "lapis"
 console = require "lapis.console"
 
-import Posts from require "models"
+import Sessions, Posts from require "models"
 import respond_to from require "lapis.application"
 import bare, default from require "layouts"
 import settings from require "utility"
 
-class MainApp extends lapis.Application
+class App extends lapis.Application
   @before_filter =>
     settings.load!
     @user = Sessions\get(@session)

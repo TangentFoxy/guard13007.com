@@ -77,12 +77,12 @@ import settings from autoload "utility"
       {"episode", types.varchar default: "Cztk_cYxFSI"}   -- video ID, internal use (default is Ep.50)
       {"rejection_reason", types.text default: ""}
       {"picture", types.text default: "https://guard13007.com/static/img/ksp_craft_no_picture.gif"} -- this is stupid
-      --NOTE this is how imgur embeds work (I think) <blockquote class="imgur-embed-pub" lang="en" data-id="gw22T2m"><a href="//imgur.com/gw22T2m">Some of us black people are fighting for our community from within.</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 
       {"created_at", types.time}
       {"updated_at", types.time}
     }
   [5]: =>
+    drop_table "users" -- added 1597756738
     create_table "users", {
       {"id", types.serial primary_key: true}
       {"name", types.varchar unique: true}
@@ -248,7 +248,7 @@ import settings from autoload "utility"
     rename_column "crafts", "craft_name", "name"
     rename_column "crafts", "creator_name", "creator"
   [31]: =>
-    markdown = require "markdown"
+    markdown = require "markdown" -- LEGACY requirement
     import Posts from require "models"
     import OldPosts from autoload "legacy.models"
     oldPosts = OldPosts\select "WHERE true"
@@ -288,6 +288,7 @@ import settings from autoload "utility"
       {"created_at", types.time}
       {"updated_at", types.time}
     }
+    drop_table "sessions" -- added 1597756738
     create_table "sessions", {
       {"user_id", types.foreign_key}
 
@@ -379,6 +380,9 @@ import settings from autoload "utility"
     rename_table "users", "users2"
     rename_table "old_users", "users"
     add_column "users", "email", types.text null: true
+
+    add_column "users", "created_at", types.time -- added 1597756738
+    add_column "users", "updated_at", types.time -- added 1597756738
   [1519992142]: =>
     create_table "githook_logs", {
       {"id", types.serial primary_key: true}
@@ -433,6 +437,12 @@ import settings from autoload "utility"
 
   [1597322640]: =>
     rename_table "game_keys", "keys"
+
+  [1597758454]: =>
+    add_column "craft_tags", "id", types.serial primary_key: true
+    add_column "post_tags", "id", types.serial primary_key: true
+    add_column "playlist_videos", "id", types.serial primary_key: true
+    add_column "card_votes", "id", types.serial primary_key: true
 
   -- []: =>
   --   create_table "software_projects", {

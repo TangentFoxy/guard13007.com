@@ -45,10 +45,10 @@ class Tags extends Model
     else
       return true
 
-  remove: (item) =>
-    relation_name = item.__class\singular_name!
+  remove_item: (item) =>
+    item_class = item.__class\singular_name!
     RelationModel = require("models")["#{singularize item.__class.__name}Tags"]
-    for tag in *(assert_error RelationModel\select "WHERE #{relation_name}_id = ?", item.id)
+    for tag in *(assert_error RelationModel\select "WHERE #{item_class}_id = ?", item.id)
       assert_error tag\delete!
 
   __tostring: (item) =>

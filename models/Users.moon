@@ -5,6 +5,11 @@ import settings from require "utility"
 class Users extends Model
   @timestamp: true
 
+  @relations: {
+    { "crafts", has_many: "Crafts" }
+    { "keys", has_many: "Keys" }
+  }
+
   @constraints: {
     name: (value) =>
       if not value
@@ -29,7 +34,8 @@ class Users extends Model
 
       -- TODO figure out how to check for valid email address
 
-        if settings["users.require-unique-email"]
-          if Users\find email: value
-            return "Email addresses must be unique."
+        -- cannot require unique emails without verification!!
+        -- if settings["users.require-unique-email"]
+        --   if Users\find email: value
+        --     return "Email addresses must be unique."
   }

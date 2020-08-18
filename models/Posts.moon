@@ -40,5 +40,5 @@ class Posts extends Model
         return "A post with that title has already been created."
     slug: (value) =>
       if Posts\find slug: value
-        return "A post with too similar a title has already been created."
+        return "A post with too similar a title has already been created (conflicting slug values)."
     }

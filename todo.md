@@ -1,10 +1,10 @@
 - [x] privacy notes: Google analytics (not needed since it has been removed)
 - [x] rename guard13007.google-analytics-key => site.google-analytics-key
-- [ ] settings: site.title
+- [ ] settings: site.title, remove githook.*
 - [ ] relearn the settings system and document it
 - [ ] set up CSS
 - [ ] check that log in, log out, and new user all respect redirect
-- [ ] check that everything that respects redirect is SAFE (only support local redirects)
+- [ ] SECURITY: check that everything that respects redirect is SAFE (only support local redirects)
 - [ ] contains TODOs: layouts/default, models/CraftTags,
 - [ ] Make all JavaScript requiring functionality fallback to non-JavaScript equivalents
 - [ ] review import/youtube.moon (probably need a redo, once I get a scheduler in place)
@@ -26,3 +26,10 @@
 - [ ] paginate keys
 - [ ] note that data corruption in the tags system is possible due to the lack of unique primary keys and
       Lapis' Model update system, however, I should be going over these manually in the future
+- [ ] post_categories doesn't have a primary key
+- [ ] Delete indexes on githook_logs and the table itself
+- [ ] Create id indexes on all tables
+- [ ] Remove johns?
+- [ ] explicit length requirements are needed on all text fields!
+- [ ] Start deleting old/dead sessions
+- [ ] "Image URL invalid" when not using an image...

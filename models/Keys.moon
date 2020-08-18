@@ -15,3 +15,7 @@ class Keys extends Model
     unclaimed: 1
     claimed: 2
   }
+
+  @relations: {
+    { "user", belongs_to: "Users" }
+  }

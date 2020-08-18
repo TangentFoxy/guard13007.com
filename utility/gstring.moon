@@ -27,7 +27,7 @@ comma_split = (str) ->
   return tab
 
 -- bool: does str1 start with str2
-starts = (str1, str2) ->
+starts_with = (str1, str2) ->
   return str2 == sub str1, 1, len str2
 
 -- takes space-separated string and puts it in alphabetical order
@@ -53,7 +53,11 @@ remove_duplicates = (str) ->
   :lines
   :split
   :comma_split
-  :starts
+  :starts_with
   :alphabetize
   :remove_duplicates
+
+  starts: (...) ->
+    -- TODO log deprecated call
+    return starts_with(...)
 }
