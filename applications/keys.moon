@@ -6,9 +6,9 @@ import assert_valid, validate_functions from require "lapis.validate"
 import Keys from require "models"
 
 key_validations = {
-  {"item", exists: true, "You must enter what this key is for."}
-  {"key", exists: true, "You must enter a key, URL, or instructions for redeeming this key."}
-  {"type", exists: true, "You must select a key type."}
+  { "item", exists: true, "You must enter what this key is for." }
+  { "key", exists: true, "You must enter a key, URL, or instructions for redeeming this key." }
+  { "type", exists: true, "You must select a key type." }
 }
 
 class extends lapis.Application

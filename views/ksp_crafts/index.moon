@@ -53,7 +53,7 @@ class KSPCraftsIndex extends Widget
             th "Status"
             th "YouTube Link / Notes"
         tbody ->
-          the_date = os.date "*t", os.time!
+          the_date = os.date "!*t", os.time!
           for craft in *@crafts
             tr ->
               td style: "width: 20%; word-wrap: break-word;", -> a href: @url_for("ksp_crafts_view", id: craft.id), craft.name

@@ -82,7 +82,7 @@ class KSPCraftsApp extends lapis.Application
     GET: =>
       if @craft = Crafts\find id: @params.id
         name = @craft.creator
-        the_date = os.date "*t", os.time!
+        the_date = os.date "!*t", os.time!
         if the_date.month == 4 and the_date.day == 1
           name = "John"
         elseif @craft.user_id != 0

@@ -1,1 +1,1 @@
-[An older website.](https://guard13007.com/)
+[An old website](https://guard13007.com/).

@@ -2,7 +2,7 @@
 - [x] rename guard13007.google-analytics-key => site.google-analytics-key
 - [ ] settings: site.title, remove githook.*
 - [ ] relearn the settings system and document it
-- [ ] set up CSS
+- [ ] set up CSS (partially done)
 - [ ] check that log in, log out, and new user all respect redirect
 - [ ] SECURITY: check that everything that respects redirect is SAFE (only support local redirects)
 - [ ] contains TODOs: layouts/default, models/CraftTags,
