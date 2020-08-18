@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  guard13007com:
+    image: guard13007/guard13007com:testing
+    environment:
+      - SESSION_SECRET=secret
+      - DB_HOST=postgres
+      - DB_NAME=${DB_NAME:-guard13007com}
+      - DB_USER=${DB_USER:-guard13007com}
+      - DB_PASS=${DB_PASS:-password}
+    depends_on:
+      - postgres
+    ports:
+      - '8000:80'
+
+  postgres:
+    image: postgres:12.1-alpine
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_NAME:-guard13007com}
+      - POSTGRES_USER=${DB_USER:-guard13007com}
+      - POSTGRES_PASSWORD=${DB_PASS:-password}
