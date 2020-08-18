@@ -1,7 +1,7 @@
 - [x] privacy notes: Google analytics (not needed since it has been removed)
 - [x] rename guard13007.google-analytics-key => site.google-analytics-key
 - [ ] settings: site.title, remove githook.*
-- [ ] relearn the settings system and document it
+- [x] relearn the settings system and document it (fuck it)
 - [ ] set up CSS (partially done)
 - [ ] check that log in, log out, and new user all respect redirect
 - [ ] SECURITY: check that everything that respects redirect is SAFE (only support local redirects)
@@ -13,8 +13,8 @@
 - [ ] try to better log internal errors
 - [ ] Remove the requirement for an image on submissions, merge existing submission images into craft descriptions
 - [ ] allow using Imgur galleries on craft submissions?
-- [ ] models/CraftTags lacks a true primary key, this should be fixed (the db needs a bit of rewriting to fix this)
-- [ ] models/PlaylistVideos lacks a true primary key
+- [x] models/CraftTags lacks a true primary key, this should be fixed (the db needs a bit of rewriting to fix this)
+- [x] models/PlaylistVideos lacks a true primary key
 - [x] rename models/GameKeys and its system to Keys
 - [ ] models/Posts has a super convoluted types system, get rid of it, replace with tags perhaps
 - [ ] Make an admin panel for changing settings
@@ -26,10 +26,10 @@
 - [ ] paginate keys
 - [ ] note that data corruption in the tags system is possible due to the lack of unique primary keys and
       Lapis' Model update system, however, I should be going over these manually in the future
-- [ ] post_categories doesn't have a primary key
+- [x] post_categories doesn't have a primary key
 - [ ] Delete indexes on githook_logs and the table itself
 - [ ] Create id indexes on all tables
-- [ ] Remove johns?
+- [ ] Remove johns table?
 - [ ] explicit length requirements are needed on all text fields!
 - [ ] Start deleting old/dead sessions
-- [ ] "Image URL invalid" when not using an image...
+- [ ] BUG "Image URL invalid" when not using an image... (probably an error in retrieving a craft's link)

@@ -444,6 +444,9 @@ import settings from autoload "utility"
     add_column "playlist_videos", "id", types.serial primary_key: true
     add_column "card_votes", "id", types.serial primary_key: true
 
+  [1597764326]: =>
+    add_column "post_categories", "id", types.serial primary_key: true
+
   -- []: =>
   --   create_table "software_projects", {
   --     {"id", types.serial primary_key: true}
