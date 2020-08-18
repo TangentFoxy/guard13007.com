@@ -7,7 +7,7 @@ class extends Widget
   content: =>
     widget KeysMenu
 
-    element "table" ->
+    element "table", ->
       tr ->
         th "Item"
         th "Type"

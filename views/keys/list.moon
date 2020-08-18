@@ -8,7 +8,7 @@ class extends Widget
     widget KeysMenu
 
     p "Keys on this list will either be given out to someone in an upcomming video, or given out to someone requesting them from me. Contact me on Discord if you want a key on this list."
-    element "table" ->
+    element "table", ->
       tr ->
         th "Item"
         th "Type"
